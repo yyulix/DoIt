@@ -14,13 +14,15 @@ class RegistrationController: UIViewController {
         configureInterface()
     }
     
-    private lazy var usernameInputView = InputField(labelImage: UIImage(systemName: "person"), placeholderText: "Enter username")
-    private lazy var envelopeInputView = InputField(labelImage: UIImage(systemName: "envelope"), placeholderText: "Enter e-mail")
-    private lazy var passwordInputView = InputField(labelImage: UIImage(systemName: "lock"), placeholderText: "Enter password", isSecureTextField: true)
-    private lazy var retypePasswordInputView = InputField(labelImage: UIImage(systemName: "lock"), placeholderText: "Reenter password", isSecureTextField: true)
-    private lazy var registerButton = CustomRoundedButton(title: "Register")
-    private lazy var signInButton = AttributedCustomButton(firstPart: "Already have an account?", secondPart: " Sign in")
-    private lazy var header_ = Header(title: "Registration")
+    private lazy var usernameInputView = InputField(labelImage: UIImage(systemName: "person"), placeholderText: NSLocalizedString("RegistrationController.usernameInputView", comment: ""))
+    private lazy var envelopeInputView = InputField(labelImage: UIImage(systemName: "envelope"), placeholderText: NSLocalizedString("RegistrationController.envelopeInputView", comment: ""))
+    private lazy var passwordInputView = InputField(labelImage: UIImage(systemName: "lock"), placeholderText: NSLocalizedString("RegistrationController.passwordInputView", comment: ""), isSecureTextField: true)
+    private lazy var retypePasswordInputView = InputField(labelImage: UIImage(systemName: "lock"), placeholderText: NSLocalizedString("RegistrationController.retypePasswordInputView", comment: ""), isSecureTextField: true)
+    private lazy var registerButton = CustomRoundedButton(title: NSLocalizedString("RegistrationController.registerButton", comment: ""))
+
+//    private lazy var registerButton = CustomRoundedButton(title: NSLocalizedString("a", comment: ""))
+    private lazy var signInButton = AttributedCustomButton(firstPart: NSLocalizedString("RegistrationController.signInButton.firstPart", comment: ""), secondPart: NSLocalizedString("RegistrationController.signInButton.secondPart", comment: ""))
+    private lazy var header_ = Header(title: NSLocalizedString("RegistrationController.header", comment: ""))
 
     func configureInterface() {
         view.backgroundColor = .white
@@ -38,4 +40,10 @@ class RegistrationController: UIViewController {
    
     }
     
+}
+
+extension String {
+    func localized() {
+        
+    }
 }

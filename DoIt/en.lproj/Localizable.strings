@@ -1,0 +1,16 @@
+/* 
+  Localizable.strings
+  DoIt
+
+  Created by Yulia on 26.10.2021.
+  
+*/
+
+"RegistrationController.usernameInputView" = "Enter username";
+"RegistrationController.envelopeInputView" = "Enter e-mail";
+"RegistrationController.passwordInputView" = "Enter password";
+"RegistrationController.retypePasswordInputView" = "Reenter password";
+"RegistrationController.registerButton" = "Register";
+"RegistrationController.signInButton.firstPart" = "Already have an account?";
+"RegistrationController.signInButton.secondPart" = " Sign in";
+"RegistrationController.header" = "Registration";
