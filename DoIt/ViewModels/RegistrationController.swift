@@ -14,10 +14,10 @@ class RegistrationController: UIViewController {
         configureInterface()
     }
     
-    private lazy var usernameInputView = InputField(labelImage: UIImage(systemName: "person"), placeholderText: NSLocalizedString("RegistrationController.usernameInputView", comment: ""))
-    private lazy var envelopeInputView = InputField(labelImage: UIImage(systemName: "envelope"), placeholderText: NSLocalizedString("RegistrationController.envelopeInputView", comment: ""))
-    private lazy var passwordInputView = InputField(labelImage: UIImage(systemName: "lock"), placeholderText: NSLocalizedString("RegistrationController.passwordInputView", comment: ""), isSecureTextField: true)
-    private lazy var retypePasswordInputView = InputField(labelImage: UIImage(systemName: "lock"), placeholderText: NSLocalizedString("RegistrationController.retypePasswordInputView", comment: ""), isSecureTextField: true)
+    private lazy var usernameInputView = InputField(labelImage: UIImage.AuthIcons.personIcon, placeholderText: NSLocalizedString("RegistrationController.usernameInputView", comment: ""))
+    private lazy var envelopeInputView = InputField(labelImage: UIImage.AuthIcons.envelopeIcon, placeholderText: NSLocalizedString("RegistrationController.envelopeInputView", comment: ""))
+    private lazy var passwordInputView = InputField(labelImage: UIImage.AuthIcons.lockIcon, placeholderText: NSLocalizedString("RegistrationController.passwordInputView", comment: ""), isSecureTextField: true)
+    private lazy var retypePasswordInputView = InputField(labelImage: UIImage.AuthIcons.lockIcon, placeholderText: NSLocalizedString("RegistrationController.retypePasswordInputView", comment: ""), isSecureTextField: true)
     private lazy var registerButton = CustomRoundedButton(title: NSLocalizedString("RegistrationController.registerButton", comment: ""))
 
 //    private lazy var registerButton = CustomRoundedButton(title: NSLocalizedString("a", comment: ""))
