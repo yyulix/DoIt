@@ -23,6 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         if ((window? = UIWindow(windowScene: scene)) != nil) {
             window?.rootViewController = RegistrationController()
+            window?.rootViewController = CustomNavigationController(rootViewController: RegistrationController())
             window?.makeKeyAndVisible()
         } else {
             Logger.log("Invalid window")

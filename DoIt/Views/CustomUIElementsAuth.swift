@@ -9,7 +9,11 @@ import UIKit
 
 final class InputField: UIView, UITextFieldDelegate {
 
+    // MARK: - Public Properties
+    
     public lazy var textField = UITextField()
+    
+    // MARK: - Private Properties
     
     private struct UIConstants {
         static let height = 50.0
@@ -25,12 +29,11 @@ final class InputField: UIView, UITextFieldDelegate {
         static let space = 8.0
         
         static let dividerWidth = 1.0
-        
-        static let customColor = UIColor.systemTeal
     }
     
+    // MARK: - Initializers
+    
     init(labelImage: UIImage? = nil, keyboardType: UIKeyboardType = .default, placeholderText: String) {
-
         super.init(frame: .zero)
         
         heightAnchor.constraint(equalToConstant: UIConstants.height).isActive = true
@@ -39,14 +42,15 @@ final class InputField: UIView, UITextFieldDelegate {
         addSubview(icon)
         
         icon.image = labelImage
-        icon.tintColor = UIConstants.customColor
+        icon.tintColor = UIColor.accentColor
         icon.translatesAutoresizingMaskIntoConstraints = false
         icon.widthAnchor.constraint(equalToConstant: UIConstants.iconWidth).isActive = true
         icon.heightAnchor.constraint(equalToConstant: UIConstants.iconHeight).isActive = true
         icon.leftAnchor.constraint(equalTo: leftAnchor, constant: UIConstants.paddingLeft).isActive = true
         icon.bottomAnchor.constraint(equalTo: bottomAnchor, constant: UIConstants.paddingBottom).isActive = true
         
-        let textField = UITextField()
+        textField = UITextField()
+        textField.autocorrectionType = .no
         addSubview(textField)
 
         textField.placeholder = placeholderText
@@ -58,7 +62,7 @@ final class InputField: UIView, UITextFieldDelegate {
         textField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: UIConstants.paddingBottom).isActive = true
                 
         let dividerView = UIView()
-        dividerView.backgroundColor = UIConstants.customColor
+        dividerView.backgroundColor = UIColor.accentColor
         addSubview(dividerView)
         dividerView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -72,16 +76,29 @@ final class InputField: UIView, UITextFieldDelegate {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Public methods
+    
+    // MARK: - Private methods
+
+    public func seccc() {
+        textField.isSecureTextEntry = true
+    }
 }
 
 final class CustomRoundedButton: UIView {
     
+    // MARK: - Public Properties
+    
+    // MARK: - Private Properties
+    
     private struct UIConstants {
         static let height = 50.0
         static let width = 200.0
-        static let customColor = UIColor.systemTeal
     }
 
+    // MARK: - Initializers
+    
     init(title: String, target: Any? = nil, action: Selector? = nil) {
         
         super.init(frame: .zero)
@@ -109,14 +126,24 @@ final class CustomRoundedButton: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Public methods
+    
+    // MARK: - Private methods
+    
 }
 
 final class AttributedCustomButton: UIButton {
     
+    // MARK: - Public Properties
+    
+    // MARK: - Private Properties
+    
     private struct UIConstants {
         static let fontSize = 16.0
-        static let customColor = UIColor.systemTeal
     }
+    
+    // MARK: - Initializers
     
     init(firstPart: String, secondPart: String) {
         super.init(frame: .zero)
@@ -132,7 +159,7 @@ final class AttributedCustomButton: UIButton {
             string: secondPart,
             attributes: [
                 NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: UIConstants.fontSize),
-                NSAttributedString.Key.foregroundColor: UIConstants.customColor
+                NSAttributedString.Key.foregroundColor: UIColor.accentColor
             ]
         ))
 
@@ -143,21 +170,30 @@ final class AttributedCustomButton: UIButton {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Public methods
+    
+    // MARK: - Private methods
 }
 
 final class Header: UIView {
+    
+    // MARK: - Public Properties
+    
+    // MARK: - Private Properties
     
     private struct UIConstants {
         static let height = 80.0
         static let paddingBottom = -8.0
         static let paddingLeft = 28.0
-        static let customColor = UIColor.systemTeal
     }
+    
+    // MARK: - Initializers
     
     init(title: String) {
         super.init(frame: .zero)
         heightAnchor.constraint(equalToConstant: UIConstants.height).isActive = true
-        backgroundColor = UIConstants.customColor
+        backgroundColor = UIColor.accentColor
         
         let label = UILabel()
         addSubview(label)
@@ -174,4 +210,9 @@ final class Header: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Public methods
+    
+    // MARK: - Private methods
+    
 }
