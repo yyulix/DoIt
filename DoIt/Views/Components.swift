@@ -122,15 +122,6 @@ final class Header: UIView {
         super.init(frame: .zero)
         self.heightAnchor.constraint(equalToConstant: 80).isActive = true
         self.backgroundColor = .systemTeal
-
-        let imageView = UIImageView()
-        self.addSubview(imageView)
-        
-        imageView.image = UIImage(systemName: "arrow.left")
-        imageView.tintColor = .white
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 28).isActive = true
-        imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -8).isActive = true
         
         let label = UILabel()
         self.addSubview(label)
@@ -139,7 +130,7 @@ final class Header: UIView {
 
         label.text = title
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: 8).isActive = true
+        label.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 28).isActive = true
         label.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -8).isActive = true
 
     }

@@ -41,9 +41,3 @@ class RegistrationController: UIViewController {
     }
     
 }
-
-extension String {
-    func localized() {
-        
-    }
-}
