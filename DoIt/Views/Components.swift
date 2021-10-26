@@ -9,22 +9,42 @@ import UIKit
 
 final class InputField: UIView, UITextFieldDelegate {
 
-    init(labelImage: UIImage? = nil, keyboardType: UIKeyboardType = .default, placeholderText: String, isSecureTextField: Bool = false) {
+    public lazy var textField = UITextField()
+    
+    private struct UIConstants {
+        static let height = 50.0
+        static let width = 200.0
+        
+        static let iconWidth = 20.0
+        static let iconHeight = 20.0
+        
+        static let paddingLeft = 28.0
+        static let paddingRight = -28.0
+        static let paddingBottom = -8.0
+        
+        static let space = 8.0
+        
+        static let dividerWidth = 1.0
+        
+        static let customColor = UIColor.systemTeal
+    }
+    
+    init(labelImage: UIImage? = nil, keyboardType: UIKeyboardType = .default, placeholderText: String) {
 
         super.init(frame: .zero)
         
-        heightAnchor.constraint(equalToConstant: 50).isActive = true
+        heightAnchor.constraint(equalToConstant: UIConstants.height).isActive = true
         
         let icon = UIImageView()
         addSubview(icon)
         
         icon.image = labelImage
-        icon.tintColor = .systemTeal
+        icon.tintColor = UIConstants.customColor
         icon.translatesAutoresizingMaskIntoConstraints = false
-        icon.widthAnchor.constraint(equalToConstant: 20).isActive = true
-        icon.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        icon.leftAnchor.constraint(equalTo: leftAnchor, constant: 28).isActive = true
-        icon.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8).isActive = true
+        icon.widthAnchor.constraint(equalToConstant: UIConstants.iconWidth).isActive = true
+        icon.heightAnchor.constraint(equalToConstant: UIConstants.iconHeight).isActive = true
+        icon.leftAnchor.constraint(equalTo: leftAnchor, constant: UIConstants.paddingLeft).isActive = true
+        icon.bottomAnchor.constraint(equalTo: bottomAnchor, constant: UIConstants.paddingBottom).isActive = true
         
         let textField = UITextField()
         addSubview(textField)
@@ -33,21 +53,19 @@ final class InputField: UIView, UITextFieldDelegate {
         textField.textColor = .black
         textField.translatesAutoresizingMaskIntoConstraints = false
 
-        textField.leftAnchor.constraint(equalTo: icon.rightAnchor, constant: 8).isActive = true
-        textField.rightAnchor.constraint(equalTo: rightAnchor, constant: -28).isActive = true
-        textField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8).isActive = true
-        
-        textField.isSecureTextEntry = isSecureTextField
-        
+        textField.leftAnchor.constraint(equalTo: icon.rightAnchor, constant: UIConstants.space).isActive = true
+        textField.rightAnchor.constraint(equalTo: rightAnchor, constant: UIConstants.paddingRight).isActive = true
+        textField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: UIConstants.paddingBottom).isActive = true
+                
         let dividerView = UIView()
-        dividerView.backgroundColor = .systemTeal
+        dividerView.backgroundColor = UIConstants.customColor
         addSubview(dividerView)
         dividerView.translatesAutoresizingMaskIntoConstraints = false
         
-        dividerView.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        dividerView.leftAnchor.constraint(equalTo: leftAnchor, constant: 28).isActive = true
-        dividerView.rightAnchor.constraint(equalTo: rightAnchor, constant: -28).isActive = true
-        dividerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0).isActive = true
+        dividerView.heightAnchor.constraint(equalToConstant: UIConstants.dividerWidth).isActive = true
+        dividerView.leftAnchor.constraint(equalTo: leftAnchor, constant: UIConstants.paddingLeft).isActive = true
+        dividerView.rightAnchor.constraint(equalTo: rightAnchor, constant: UIConstants.paddingRight).isActive = true
+        dividerView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
 
     }
     
@@ -57,20 +75,26 @@ final class InputField: UIView, UITextFieldDelegate {
 }
 
 final class CustomRoundedButton: UIView {
+    
+    private struct UIConstants {
+        static let height = 50.0
+        static let width = 200.0
+        static let customColor = UIColor.systemTeal
+    }
 
     init(title: String, target: Any? = nil, action: Selector? = nil) {
         
         super.init(frame: .zero)
         
-        heightAnchor.constraint(equalToConstant: 50).isActive = true
+        heightAnchor.constraint(equalToConstant: UIConstants.height).isActive = true
         
         let button = UIButton(type: .system)
         if let target = target, let action = action {
             button.addTarget(target, action: action, for: .touchUpInside)
         }
 
-        button.layer.cornerRadius = 25;
-        button.backgroundColor = .systemTeal
+        button.layer.cornerRadius = UIConstants.height / 2;
+        button.backgroundColor = UIColor.systemTeal
         button.setTitle(title, for: .normal)
         button.tintColor = .white
 
@@ -78,7 +102,7 @@ final class CustomRoundedButton: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         button.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        button.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        button.widthAnchor.constraint(equalToConstant: UIConstants.width).isActive = true
         button.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
     }
     
@@ -89,21 +113,26 @@ final class CustomRoundedButton: UIView {
 
 final class AttributedCustomButton: UIButton {
     
+    private struct UIConstants {
+        static let fontSize = 16.0
+        static let customColor = UIColor.systemTeal
+    }
+    
     init(firstPart: String, secondPart: String) {
         super.init(frame: .zero)
         
         let attributedTitle = NSMutableAttributedString(
             string: firstPart,
             attributes: [
-                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: UIConstants.fontSize),
                 NSAttributedString.Key.foregroundColor: UIColor.black
             ]
         )
         attributedTitle.append(NSAttributedString(
             string: secondPart,
             attributes: [
-                NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16),
-                NSAttributedString.Key.foregroundColor: UIColor.systemTeal
+                NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: UIConstants.fontSize),
+                NSAttributedString.Key.foregroundColor: UIConstants.customColor
             ]
         ))
 
@@ -118,10 +147,17 @@ final class AttributedCustomButton: UIButton {
 
 final class Header: UIView {
     
+    private struct UIConstants {
+        static let height = 80.0
+        static let paddingBottom = -8.0
+        static let paddingLeft = 28.0
+        static let customColor = UIColor.systemTeal
+    }
+    
     init(title: String) {
         super.init(frame: .zero)
-        heightAnchor.constraint(equalToConstant: 80).isActive = true
-        backgroundColor = .systemTeal
+        heightAnchor.constraint(equalToConstant: UIConstants.height).isActive = true
+        backgroundColor = UIConstants.customColor
         
         let label = UILabel()
         addSubview(label)
@@ -130,8 +166,8 @@ final class Header: UIView {
 
         label.text = title
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.leftAnchor.constraint(equalTo: leftAnchor, constant: 28).isActive = true
-        label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8).isActive = true
+        label.leftAnchor.constraint(equalTo: leftAnchor, constant: UIConstants.paddingLeft).isActive = true
+        label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: UIConstants.paddingBottom).isActive = true
 
     }
     
