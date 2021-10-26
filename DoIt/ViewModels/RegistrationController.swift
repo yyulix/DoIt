@@ -11,7 +11,7 @@ class RegistrationController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureInterface()
+        configureInputsStackView()
     }
     
     private lazy var usernameInputView = InputField(labelImage: UIImage.AuthIcons.personIcon, placeholderText: NSLocalizedString("RegistrationController.usernameInputView", comment: ""))
@@ -24,7 +24,7 @@ class RegistrationController: UIViewController {
     private lazy var signInButton = AttributedCustomButton(firstPart: NSLocalizedString("RegistrationController.signInButton.firstPart", comment: ""), secondPart: NSLocalizedString("RegistrationController.signInButton.secondPart", comment: ""))
     private lazy var header_ = Header(title: NSLocalizedString("RegistrationController.header", comment: ""))
 
-    func configureInterface() {
+    func configureInputsStackView() {
         view.backgroundColor = .white
         
         let stack = UIStackView(arrangedSubviews: [header_, usernameInputView, envelopeInputView, passwordInputView, retypePasswordInputView, registerButton, signInButton])

@@ -13,41 +13,41 @@ final class InputField: UIView, UITextFieldDelegate {
 
         super.init(frame: .zero)
         
-        self.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        heightAnchor.constraint(equalToConstant: 50).isActive = true
         
-        let imageView = UIImageView()
-        self.addSubview(imageView)
+        let icon = UIImageView()
+        addSubview(icon)
         
-        imageView.image = labelImage
-        imageView.tintColor = .systemTeal
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.widthAnchor.constraint(equalToConstant: 20).isActive = true
-        imageView.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        imageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 28).isActive = true
-        imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -8).isActive = true
+        icon.image = labelImage
+        icon.tintColor = .systemTeal
+        icon.translatesAutoresizingMaskIntoConstraints = false
+        icon.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        icon.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        icon.leftAnchor.constraint(equalTo: leftAnchor, constant: 28).isActive = true
+        icon.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8).isActive = true
         
         let textField = UITextField()
-        self.addSubview(textField)
+        addSubview(textField)
 
         textField.placeholder = placeholderText
         textField.textColor = .black
         textField.translatesAutoresizingMaskIntoConstraints = false
 
-        textField.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: 8).isActive = true
-        textField.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -28).isActive = true
-        textField.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -8).isActive = true
+        textField.leftAnchor.constraint(equalTo: icon.rightAnchor, constant: 8).isActive = true
+        textField.rightAnchor.constraint(equalTo: rightAnchor, constant: -28).isActive = true
+        textField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8).isActive = true
         
         textField.isSecureTextEntry = isSecureTextField
         
         let dividerView = UIView()
         dividerView.backgroundColor = .systemTeal
-        self.addSubview(dividerView)
+        addSubview(dividerView)
         dividerView.translatesAutoresizingMaskIntoConstraints = false
         
         dividerView.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        dividerView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 28).isActive = true
-        dividerView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -28).isActive = true
-        dividerView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0).isActive = true
+        dividerView.leftAnchor.constraint(equalTo: leftAnchor, constant: 28).isActive = true
+        dividerView.rightAnchor.constraint(equalTo: rightAnchor, constant: -28).isActive = true
+        dividerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0).isActive = true
 
     }
     
@@ -62,7 +62,7 @@ final class CustomRoundedButton: UIView {
         
         super.init(frame: .zero)
         
-        self.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         let button = UIButton(type: .system)
         if let target = target, let action = action {
@@ -74,12 +74,12 @@ final class CustomRoundedButton: UIView {
         button.setTitle(title, for: .normal)
         button.tintColor = .white
 
-        self.addSubview(button)
+        addSubview(button)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        button.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        button.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        button.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         button.widthAnchor.constraint(equalToConstant: 200).isActive = true
-        button.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
+        button.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
     }
     
     required init?(coder: NSCoder) {
@@ -107,7 +107,7 @@ final class AttributedCustomButton: UIButton {
             ]
         ))
 
-        self.setAttributedTitle(attributedTitle, for: .normal)
+        setAttributedTitle(attributedTitle, for: .normal)
     }
     
     
@@ -120,18 +120,18 @@ final class Header: UIView {
     
     init(title: String) {
         super.init(frame: .zero)
-        self.heightAnchor.constraint(equalToConstant: 80).isActive = true
-        self.backgroundColor = .systemTeal
+        heightAnchor.constraint(equalToConstant: 80).isActive = true
+        backgroundColor = .systemTeal
         
         let label = UILabel()
-        self.addSubview(label)
+        addSubview(label)
         
         label.textColor = .white
 
         label.text = title
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 28).isActive = true
-        label.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -8).isActive = true
+        label.leftAnchor.constraint(equalTo: leftAnchor, constant: 28).isActive = true
+        label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8).isActive = true
 
     }
     
