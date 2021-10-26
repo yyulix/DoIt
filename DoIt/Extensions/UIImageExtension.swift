@@ -8,7 +8,9 @@
 import UIKit
 
 extension UIImage {
-    static var personIcon: UIImage { UIImage(systemName: "person")! }
-    static var envelopeIcon: UIImage { UIImage(systemName: "envelope")! }
-    static var lockIcon: UIImage { UIImage(systemName: "lock")! }
+    struct AuthIcons {
+        static var personIcon: UIImage { UIImage(systemName: "person")! }
+        static var envelopeIcon: UIImage { UIImage(systemName: "envelope")! }
+        static var lockIcon: UIImage { UIImage(systemName: "lock")! }
+    }
 }
