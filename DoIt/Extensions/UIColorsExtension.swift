@@ -8,5 +8,7 @@
 import UIKit
 
 extension UIColor {
-    static let accentColor = UIColor.systemTeal
+    struct AppColors {
+        static let accentColor = UIColor.systemTeal
+    }
 }

@@ -12,7 +12,7 @@
 		7C6382E62728807900FED2F4 /* UIColorsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6382E52728807900FED2F4 /* UIColorsExtension.swift */; };
 		7C6382E8272883AC00FED2F4 /* Printer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6382E7272883AC00FED2F4 /* Printer.swift */; };
 		7C6382EA2728A30A00FED2F4 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6382E92728A30A00FED2F4 /* CustomNavigationController.swift */; };
-		7C6382EC2728B02B00FED2F4 /* CalculationTopbarHeightExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6382EB2728B02B00FED2F4 /* CalculationTopbarHeightExtension.swift */; };
+		7C6382F02729CCC300FED2F4 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6382EF2729CCC300FED2F4 /* StringExtension.swift */; };
 		7CAC5DCE27232C6000E2D70B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC5DCD27232C6000E2D70B /* AppDelegate.swift */; };
 		7CAC5DD027232C6000E2D70B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC5DCF27232C6000E2D70B /* SceneDelegate.swift */; };
 		7CAC5DD527232C6000E2D70B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CAC5DD327232C6000E2D70B /* Main.storyboard */; };
@@ -30,7 +30,7 @@
 		7C6382E52728807900FED2F4 /* UIColorsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorsExtension.swift; sourceTree = "<group>"; };
 		7C6382E7272883AC00FED2F4 /* Printer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Printer.swift; sourceTree = "<group>"; };
 		7C6382E92728A30A00FED2F4 /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
-		7C6382EB2728B02B00FED2F4 /* CalculationTopbarHeightExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationTopbarHeightExtension.swift; sourceTree = "<group>"; };
+		7C6382EF2729CCC300FED2F4 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		7CAC5DCA27232C6000E2D70B /* DoIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DoIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CAC5DCD27232C6000E2D70B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7CAC5DCF27232C6000E2D70B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -114,7 +114,7 @@
 				7C6382E22727884000FED2F4 /* UIImageExtension.swift */,
 				7C6382E52728807900FED2F4 /* UIColorsExtension.swift */,
 				7C6382E7272883AC00FED2F4 /* Printer.swift */,
-				7C6382EB2728B02B00FED2F4 /* CalculationTopbarHeightExtension.swift */,
+				7C6382EF2729CCC300FED2F4 /* StringExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -228,10 +228,10 @@
 				7CAC5DE4272330C500E2D70B /* RegistrationController.swift in Sources */,
 				7C6382E32727884000FED2F4 /* UIImageExtension.swift in Sources */,
 				7C6382EA2728A30A00FED2F4 /* CustomNavigationController.swift in Sources */,
+				7C6382F02729CCC300FED2F4 /* StringExtension.swift in Sources */,
 				7CAC5DD027232C6000E2D70B /* SceneDelegate.swift in Sources */,
 				7C6382E62728807900FED2F4 /* UIColorsExtension.swift in Sources */,
 				7C6382E8272883AC00FED2F4 /* Printer.swift in Sources */,
-				7C6382EC2728B02B00FED2F4 /* CalculationTopbarHeightExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,7 +401,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.just.DoIt;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vkproj.doIt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -429,7 +429,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.just.DoIt;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vkproj.doIt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

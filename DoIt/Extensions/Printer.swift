@@ -1,10 +1,10 @@
 //
 //  Printer.swift
-//  IdealVisual
+//  DoIt
 //
-//  Created by a.kurganova on 06.01.2020.
-//  Copyright © 2020 a.kurganova. All rights reserved.
 //
+//
+
 import Foundation
 
 final class Logger {
