@@ -7,35 +7,44 @@
 
 import UIKit
 
-final class SearchFriendsTableViewController: UITableViewController { // UIViewController и добавить отдельно
+final class SearchFriendsTableViewController: UIViewController {
     // MARK: - Properties
 
     struct Constants {
         static let cellHeight: CGFloat = 100
     }
-
+    
     private enum TextConstants: String {
         case titleOfNavigationBar = "Find Friend"
         case placeholderInSearchBar = "Search for a friend"
     }
     
+    private lazy var tableView: UITableView = {
+        let table = UITableView()
+        table.register(FindFriendCell.self, forCellReuseIdentifier: String(describing: FindFriendCell.self))
+        table.dataSource = self
+        table.delegate = self
+        return table
+    }()
+    
     private let searchController = CustomSearchController(placeholder: TextConstants.placeholderInSearchBar.rawValue)
-
-    //MARK: - Lifecycle
-
+    
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        configureTableView()
+        
+        configureUI()
+    }
+    
+    // MARK: - Helpers
+    
+    private func configureUI() {
+        view.addSubview(tableView)
+        
         configureNavigationController()
         configureSearchController()
-    }
-
-    // MARK: - Helpers
-
-    private func configureTableView() {
-        tableView.register(FindFriendCell.self, forCellReuseIdentifier: String(describing: FindFriendCell.self))
-        tableView.separatorStyle = .none
+        configureConstraintsForTableView()
     }
 
     private func configureNavigationController() {
@@ -43,32 +52,43 @@ final class SearchFriendsTableViewController: UITableViewController { // UIViewC
         navigationItem.title = TextConstants.titleOfNavigationBar.rawValue
         navigationItem.leftBarButtonItem = BackBarButtom()
     }
+    
+    private func configureTableView() {
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = .white
+    }
+    
+    private func configureConstraintsForTableView() {
+        tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    }
 }
 
-// MARK: - Table View Data Source
+extension SearchFriendsTableViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return SearchFriendsTableViewController.Constants.cellHeight
+    }
+}
 
-extension SearchFriendsTableViewController {
-    override func numberOfSections(in tableView: UITableView) -> Int {
+extension SearchFriendsTableViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 30
     }
-
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return SearchFriendsTableViewController.Constants.cellHeight
-    }
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: FindFriendCell.self), for: indexPath) as? FindFriendCell else {
             return .init()
         }
         return cell
     }
 }
-
-// MARK: - Search Results Update
 
 extension SearchFriendsTableViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {

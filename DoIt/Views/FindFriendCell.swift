@@ -46,31 +46,31 @@ final class FindFriendCell: UITableViewCell {
 
     private func configureUI() {
         addSubview(profileImageView)
-        createAndActivateConstraintsForImageView()
+        constraintsForImageView()
 
         addSubview(followButton)
-        createAndActivateConstraintsForFollowButton()
+        constraintsForFollowButton()
 
         addSubview(stackViewDescription)
-        createAndActivateConstraintsForStackView()
+        constraintsForStackView()
     }
 
     // MARK: - Constraints
 
-    private func createAndActivateConstraintsForImageView() {
+    private func constraintsForImageView() {
         profileImageView.topAnchor.constraint(equalTo: topAnchor, constant: Constants.offsetForPicture).isActive = true
         profileImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.defaultOffset).isActive = true
         profileImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.offsetForPicture).isActive = true
     }
 
-    private func createAndActivateConstraintsForStackView() {
+    private func constraintsForStackView() {
         stackViewDescription.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: Constants.defaultOffset).isActive = true
         stackViewDescription.topAnchor.constraint(equalTo: topAnchor, constant: Constants.defaultOffset).isActive = true
         stackViewDescription.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.defaultOffset).isActive = true
         stackViewDescription.trailingAnchor.constraint(equalTo: followButton.leadingAnchor, constant: -Constants.defaultOffset).isActive = true
     }
 
-    private func createAndActivateConstraintsForFollowButton() {
+    private func constraintsForFollowButton() {
         followButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: Constants.widthProportionallyForFollowButton).isActive = true
         followButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.offsetForFollowButtonFromRight).isActive = true
         followButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
