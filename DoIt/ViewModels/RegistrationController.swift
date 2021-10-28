@@ -11,27 +11,27 @@ class RegistrationController: UIViewController {
 
     private struct UIConstants {
         static let spacing = 12.0
-        static let paddingTop = 44.0 + (UIApplication.shared.windows.first?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0)
+        static let paddingTop = 44.0
     }
 
     // MARK: - Public Property
 
     // MARK: - Private Property
 
-    private lazy var usernameInputView = InputField(labelImage: UIImage.AuthIcons.personIcon, placeholderText: "RegistrationController.usernameInputView".localized)
-    private lazy var envelopeInputView = InputField(labelImage: UIImage.AuthIcons.envelopeIcon, placeholderText: "RegistrationController.envelopeInputView".localized)
-    private var passwordInputView : InputField {
-        lazy var passwordInput = InputField(labelImage: UIImage.AuthIcons.lockIcon, placeholderText: "RegistrationController.passwordInputView".localized)
+    private lazy var usernameInputView = InputField(labelImage: UIImage.AuthIcons.personIcon, placeholderText: registrationStrings.username.rawValue.localized)
+    private lazy var envelopeInputView = InputField(labelImage: UIImage.AuthIcons.envelopeIcon, placeholderText: registrationStrings.mailAddress.rawValue.localized)
+    private lazy var passwordInputView : InputField = {
+        lazy var passwordInput = InputField(labelImage: UIImage.AuthIcons.lockIcon, placeholderText: registrationStrings.passwordInputView.rawValue.localized)
         passwordInput.textField.isSecureTextEntry = true
         return passwordInput
-    }
-    private var retypePasswordInputView : InputField {
-        lazy var retypePasswordInput = InputField(labelImage: UIImage.AuthIcons.lockIcon, placeholderText: "RegistrationController.retypePasswordInputView".localized)
+    }()
+    private lazy var retypePasswordInputView : InputField = {
+        let retypePasswordInput = InputField(labelImage: UIImage.AuthIcons.lockIcon, placeholderText: registrationStrings.retypePasswordInput.rawValue.localized)
         retypePasswordInput.textField.isSecureTextEntry = true
         return retypePasswordInput
-    }
-    private lazy var registerButton = CustomRoundedButton(title: "RegistrationController.registerButton".localized)
-    private lazy var signInButton = AttributedCustomButton(firstPart: "RegistrationController.signInButton.firstPart".localized, secondPart: "RegistrationController.signInButton.secondPart".localized)
+    }()
+    private lazy var registerButton = CustomRoundedButton(title: registrationStrings.registerButton.rawValue.localized)
+    private lazy var signInButton = AttributedCustomButton(firstPart: registrationStrings.signInButtonFirstPart.rawValue.localized, secondPart: registrationStrings.signInButtonSecondPart.rawValue.localized)
 
     // MARK: - Public Methods
 
@@ -41,7 +41,7 @@ class RegistrationController: UIViewController {
         super.viewDidLoad()
         navigationController?.hidesBarsOnSwipe = true
         view.backgroundColor = .white
-        navigationItem.title = "RegistrationController.header".localized
+        navigationItem.title = registrationStrings.navigationTitle.rawValue.localized
         view.backgroundColor = .white
         configureInputsStackView()
     }
