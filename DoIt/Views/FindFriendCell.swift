@@ -15,7 +15,7 @@ final class FindFriendCell: UITableViewCell {
         static let defaultOffset: CGFloat = 8
         static let offsetForFollowButtonFromRight: CGFloat = 12
         static let spacingInStackView: CGFloat = -20
-        static let widthProportionallyForFollowButton: CGFloat = 0.17
+        static let widthProportionallyForFollowButton: CGFloat = 0.21
         static let distributionInStackView: UIStackView.Distribution = .fillEqually
     }
 
@@ -51,6 +51,7 @@ final class FindFriendCell: UITableViewCell {
 
         addSubview(followButton)
         constraintsForFollowButton()
+        followButton.isSelected = .random()
 
         addSubview(stackViewDescription)
         constraintsForStackView()

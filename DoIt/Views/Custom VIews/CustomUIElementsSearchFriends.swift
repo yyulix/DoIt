@@ -133,18 +133,14 @@ final class FriendShortInformationStackView: UIStackView { // TODO
 final class FollowButton: UIButton {
     struct Constants {
         static let cornerRadius: CGFloat = 8
-        static let fontSize: CGFloat = 14
+        static let fontSize: CGFloat = 15
         static let selectedBackgroundColor: UIColor = .green
-    }
-    
-    enum TextConstants: String {
-        case Add, Remove
     }
 
     override var isSelected: Bool {
         didSet {
             guard !isSelected else { backgroundColor = .AppColors.accentColor; return }
-            backgroundColor = Constants.selectedBackgroundColor
+            backgroundColor =  Constants.selectedBackgroundColor
         }
     }
 
@@ -169,13 +165,17 @@ final class FollowButton: UIButton {
     private func setup(cornerRadius: CGFloat, backgroundColor: UIColor, fontSize: CGFloat, target: Any?, action: Selector?) {
         translatesAutoresizingMaskIntoConstraints = false
 
-        setTitle(TextConstants.Add.rawValue, for: .normal)
-        setTitle(TextConstants.Remove.rawValue, for: .selected)
+        setTitle(NSLocalizedString(FindFriendsString.followButton.rawValue, comment: ""), for: .normal)
+        setTitle(NSLocalizedString(FindFriendsString.unfollowButton.rawValue, comment: ""), for: .selected)
         setTitleColor(.systemBackground, for: .normal)
 
         layer.masksToBounds = true
         layer.cornerRadius = cornerRadius
         self.backgroundColor = backgroundColor
+        
+        titleLabel?.font = .systemFont(ofSize: fontSize)
+        titleLabel?.adjustsFontSizeToFitWidth = true
+        titleLabel?.minimumScaleFactor = 0.5
 
         
         if let target = target, let action = action {

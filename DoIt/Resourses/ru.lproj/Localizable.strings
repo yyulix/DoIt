@@ -1,0 +1,12 @@
+/* 
+  Localizable.strings
+  DoIt
+
+  Created by Шестаков Никита on 28.10.2021.
+  
+*/
+
+"findFriends.header" = "Найти пользователя";
+"findFriends.followButton" = "Добавить";
+"findFriends.unfollowButton" = "Удалить";
+"findFriends.searchPlaceholder" = "Поиск пользователя";

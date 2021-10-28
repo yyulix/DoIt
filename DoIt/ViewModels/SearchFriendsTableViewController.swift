@@ -11,12 +11,7 @@ final class SearchFriendsTableViewController: UIViewController {
     // MARK: - Properties
 
     struct Constants {
-        static let cellHeight: CGFloat = 100
-    }
-    
-    private enum TextConstants: String {
-        case titleOfNavigationBar = "Find Friend"
-        case placeholderInSearchBar = "Search for a friend"
+        static let cellHeight: CGFloat = 90
     }
     
     private lazy var tableView: UITableView = {
@@ -27,7 +22,7 @@ final class SearchFriendsTableViewController: UIViewController {
         return table
     }()
     
-    private let searchController = CustomSearchController(placeholder: TextConstants.placeholderInSearchBar.rawValue)
+    private let searchController = CustomSearchController(placeholder: NSLocalizedString(FindFriendsString.searchPlaceholder.rawValue, comment: ""))
     
     // MARK: - Lifecycle
     
@@ -50,7 +45,7 @@ final class SearchFriendsTableViewController: UIViewController {
 
     private func configureNavigationController() {
         navigationController?.hidesBarsOnSwipe = true
-        navigationItem.title = TextConstants.titleOfNavigationBar.rawValue
+        navigationItem.title = NSLocalizedString(FindFriendsString.header.rawValue, comment: "")
         navigationItem.leftBarButtonItem = BackBarButtom()
     }
     
