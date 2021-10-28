@@ -16,6 +16,7 @@ final class FindFriendCell: UITableViewCell {
         static let offsetForFollowButtonFromRight: CGFloat = 12
         static let spacingInStackView: CGFloat = -20
         static let widthProportionallyForFollowButton: CGFloat = 0.17
+        static let distributionInStackView: UIStackView.Distribution = .fillEqually
     }
 
     private lazy var profileImageView = ProfileImageView(cornerRadius: (SearchFriendsTableViewController.Constants.cellHeight - Constants.offsetForPicture * 2) / 2)
@@ -26,7 +27,7 @@ final class FindFriendCell: UITableViewCell {
 
     private lazy var stackViewDescription = FriendShortInformationStackView(arrangedSubviews: [loginLabel, descriptionLabel],
                                                                             spacing: Constants.spacingInStackView,
-                                                                            distribution: .fillEqually)
+                                                                            distribution: Constants.distributionInStackView)
 
     private lazy var followButton = FollowButton()
 

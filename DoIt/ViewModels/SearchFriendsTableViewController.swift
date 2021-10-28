@@ -41,10 +41,11 @@ final class SearchFriendsTableViewController: UIViewController {
     
     private func configureUI() {
         view.addSubview(tableView)
+        configureTableView()
+        configureConstraintsForTableView()
         
         configureNavigationController()
         configureSearchController()
-        configureConstraintsForTableView()
     }
 
     private func configureNavigationController() {
