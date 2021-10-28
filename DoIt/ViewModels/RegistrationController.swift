@@ -18,20 +18,20 @@ class RegistrationController: UIViewController {
 
     // MARK: - Private Property
 
-    private lazy var usernameInputView = InputField(labelImage: UIImage.AuthIcons.personIcon, placeholderText: registrationStrings.username.rawValue.localized)
-    private lazy var envelopeInputView = InputField(labelImage: UIImage.AuthIcons.envelopeIcon, placeholderText: registrationStrings.mailAddress.rawValue.localized)
+    private lazy var usernameInputView = InputField(labelImage: UIImage.AuthIcons.personIcon, placeholderText: AuthStrings.username.rawValue.localized)
+    private lazy var envelopeInputView = InputField(labelImage: UIImage.AuthIcons.envelopeIcon, placeholderText: AuthStrings.email.rawValue.localized)
     private lazy var passwordInputView : InputField = {
-        lazy var passwordInput = InputField(labelImage: UIImage.AuthIcons.lockIcon, placeholderText: registrationStrings.passwordInputView.rawValue.localized)
+        lazy var passwordInput = InputField(labelImage: UIImage.AuthIcons.lockIcon, placeholderText: AuthStrings.password.rawValue.localized)
         passwordInput.textField.isSecureTextEntry = true
         return passwordInput
     }()
     private lazy var retypePasswordInputView : InputField = {
-        let retypePasswordInput = InputField(labelImage: UIImage.AuthIcons.lockIcon, placeholderText: registrationStrings.retypePasswordInput.rawValue.localized)
+        let retypePasswordInput = InputField(labelImage: UIImage.AuthIcons.lockIcon, placeholderText: AuthStrings.retypePassword.rawValue.localized)
         retypePasswordInput.textField.isSecureTextEntry = true
         return retypePasswordInput
     }()
-    private lazy var registerButton = CustomRoundedButton(title: registrationStrings.registerButton.rawValue.localized)
-    private lazy var signInButton = AttributedCustomButton(firstPart: registrationStrings.signInButtonFirstPart.rawValue.localized, secondPart: registrationStrings.signInButtonSecondPart.rawValue.localized)
+    private lazy var registerButton = CustomRoundedButton(title: AuthStrings.signUp.rawValue.localized)
+    private lazy var signInButton = AttributedCustomButton(firstPart: AuthStrings.alreadyRegistered.rawValue.localized, secondPart: AuthStrings.signIn.rawValue.localized)
 
     // MARK: - Public Methods
 
@@ -41,7 +41,7 @@ class RegistrationController: UIViewController {
         super.viewDidLoad()
         navigationController?.hidesBarsOnSwipe = true
         view.backgroundColor = .white
-        navigationItem.title = registrationStrings.navigationTitle.rawValue.localized
+        navigationItem.title = AuthStrings.headerSignUp.rawValue.localized
         view.backgroundColor = .white
         configureInputsStackView()
     }

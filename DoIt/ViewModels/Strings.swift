@@ -7,13 +7,16 @@
 
 import Foundation
 
-enum registrationStrings: String {
-    case username = "RegistrationController.usernameInputView"
-    case mailAddress = "RegistrationController.envelopeInputView"
-    case passwordInputView = "RegistrationController.passwordInputView"
-    case retypePasswordInput = "RegistrationController.retypePasswordInputView"
-    case registerButton = "RegistrationController.registerButton"
-    case signInButtonFirstPart = "RegistrationController.signInButton.firstPart"
-    case signInButtonSecondPart = "RegistrationController.signInButton.secondPart"
-    case navigationTitle = "RegistrationController.header"
+enum AuthStrings: String {
+    case username = "auth.username"
+    case email = "auth.email"
+    case password = "auth.password"
+    case retypePassword = "auth.retypePassword"
+    case signUp = "auth.signUp"
+    case signIn = "auth.signIn"
+    case alreadyRegistered = "auth.alreadyRegistered"
+    case notRegistered = "auth.notRegistered"
+    // screen headers
+    case headerSignIn = "auth.headerSignIn"
+    case headerSignUp = "auth.headerSignUp"
 }

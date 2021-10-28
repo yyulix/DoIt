@@ -6,11 +6,13 @@
   
 */
 
-"RegistrationController.usernameInputView" = "Enter username";
-"RegistrationController.envelopeInputView" = "Enter e-mail";
-"RegistrationController.passwordInputView" = "Enter password";
-"RegistrationController.retypePasswordInputView" = "Reenter password";
-"RegistrationController.registerButton" = "Register";
-"RegistrationController.signInButton.firstPart" = "Already have an account?";
-"RegistrationController.signInButton.secondPart" = " Sign in";
-"RegistrationController.header" = "Registration";
+"auth.username" = "Enter username";
+"auth.email" = "Enter e-mail";
+"auth.password" = "Enter password";
+"auth.retypePassword" = "Reenter password";
+"auth.signUp" = "Sign Up";
+"auth.signIn" = "Sign In";
+"auth.headerSignIn" = "Authorization";
+"auth.headerSignUp" = "Registration";
+"auth.alreadyRegistered" = "Already have an account? ";
+"auth.notRegistered" = "Don't you have an account? ";
