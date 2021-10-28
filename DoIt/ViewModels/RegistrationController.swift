@@ -31,7 +31,7 @@ class RegistrationController: UIViewController {
         return retypePasswordInput
     }()
     private lazy var registerButton = CustomRoundedButton(title: AuthStrings.signUp.rawValue.localized)
-    private lazy var signInButton = AttributedCustomButton(firstPart: AuthStrings.alreadyRegistered.rawValue.localized, secondPart: AuthStrings.signIn.rawValue.localized)
+    private lazy var signInButton = AttributedCustomButton(firstPart: AuthStrings.alreadySignedUp.rawValue.localized, secondPart: AuthStrings.signIn.rawValue.localized)
 
     // MARK: - Public Methods
 

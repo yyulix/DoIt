@@ -14,8 +14,8 @@ enum AuthStrings: String {
     case retypePassword = "auth.retypePassword"
     case signUp = "auth.signUp"
     case signIn = "auth.signIn"
-    case alreadyRegistered = "auth.alreadyRegistered"
-    case notRegistered = "auth.notRegistered"
+    case alreadySignedUp = "auth.alreadySignedUp"
+    case notSignedUp = "auth.notSignedUp"
     // screen headers
     case headerSignIn = "auth.headerSignIn"
     case headerSignUp = "auth.headerSignUp"

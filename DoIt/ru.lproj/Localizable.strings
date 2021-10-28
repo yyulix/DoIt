@@ -14,5 +14,5 @@
 "auth.signIn" = "Войти";
 "auth.headerSignIn" = "Вход";
 "auth.headerSignUp" = "Регистрация";
-"auth.alreadyRegistered" = "Уже есть аккаунт? ";
-"auth.notRegistered" = "Нет аккаунта? ";
+"auth.alreadySignedUp" = "Уже есть аккаунт? ";
+"auth.notSignedUp" = "Нет аккаунта? ";

@@ -14,5 +14,5 @@
 "auth.signIn" = "Sign In";
 "auth.headerSignIn" = "Authorization";
 "auth.headerSignUp" = "Registration";
-"auth.alreadyRegistered" = "Already have an account? ";
-"auth.notRegistered" = "Don't you have an account? ";
+"auth.alreadySignedUp" = "Already have an account? ";
+"auth.notSignedUp" = "Don't you have an account? ";
