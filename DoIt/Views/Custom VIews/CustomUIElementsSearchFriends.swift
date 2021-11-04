@@ -7,33 +7,34 @@
 
 import UIKit
 
-final class ProfileImageView: UIImageView {
-    struct Constants {
-        static let cornerRadius: CGFloat = 8
+final class ProfileCircledImageView: UIImageView {
+    override var bounds: CGRect {
+        didSet {
+            layer.cornerRadius = bounds.size.width / 2
+        }
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        setup(placeHolder: UIImage.Icons.personPlaceholderIcon, cornerRadius: Constants.cornerRadius)
+        setup(placeHolder: UIImage.Icons.personPlaceholderIcon)
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    init(placeHolder: UIImage = UIImage.Icons.personPlaceholderIcon, cornerRadius: CGFloat = Constants.cornerRadius) {
+    init(placeHolder: UIImage = UIImage.Icons.personPlaceholderIcon) {
         super.init(frame: .zero)
         
-        setup(placeHolder: placeHolder, cornerRadius: cornerRadius)
+        setup(placeHolder: placeHolder)
     }
 
-    private func setup(placeHolder: UIImage, cornerRadius: CGFloat) {
+    private func setup(placeHolder: UIImage) {
         image = placeHolder
         translatesAutoresizingMaskIntoConstraints = false
         contentMode = .scaleAspectFit
         layer.masksToBounds = true
-        layer.cornerRadius = cornerRadius
         widthAnchor.constraint(equalTo: self.heightAnchor).isActive = true
     }
 }
@@ -45,13 +46,13 @@ final class FriendShortInformationLabel: UILabel {
             isHidden = false
         }
     }
-    
+
     struct Constants {
         static let sizeOfFont: CGFloat = 16
         static let textColor: UIColor = .black
         static let numberOfLines: Int = 1
     }
-    
+
     private struct LoginDefaultSetupConstants {
         static let fontSize: CGFloat = 18
         static let textColor: UIColor = .black
@@ -63,7 +64,7 @@ final class FriendShortInformationLabel: UILabel {
         static let textColor: UIColor = .systemGray
         static let numberOfLines: Int = 0
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -108,7 +109,7 @@ final class FriendShortInformationStackView: UIStackView { // TODO
         static let distribution: Distribution = .fill
         static let aligment: Alignment = .fill
     }
-    
+
     init(arrangedSubviews: [UIView] = [], axis: NSLayoutConstraint.Axis = Constants.axis, spacing: CGFloat = Constants.spacing, distribution: Distribution = Constants.distribution, alignment: Alignment = Constants.aligment) {
         super.init(frame: .zero)
 
@@ -128,7 +129,6 @@ final class FriendShortInformationStackView: UIStackView { // TODO
         self.alignment = alignment
     }
 }
-
 
 final class FollowButton: UIButton {
     struct Constants {
@@ -189,7 +189,7 @@ final class BackBarButtom: UIBarButtonItem {
         static let width: CGFloat = 40
         static let height: CGFloat = 40
     }
-    
+
     override init() {
         super.init()
 
@@ -214,7 +214,7 @@ final class BackBarButtom: UIBarButtonItem {
     }
 }
 
-final class CustomNavigationController: UINavigationController {
+final class CustomNavigationController: UINavigationController {    
     override init(rootViewController: UIViewController) {
         super.init(rootViewController: rootViewController)
 
@@ -270,7 +270,7 @@ extension UIColor {
 
 extension UIImage {
     struct Icons {
-        static let personPlaceholderIcon = UIImage(named: "imagePlaceHolder")!
-        static let arrowBackButtonIcon = UIImage(systemName: "arrow.left")!
+        static let personPlaceholderIcon = { return UIImage(named: "imagePlaceHolder")! }()
+        static let arrowBackButtonIcon = { return UIImage(systemName: "arrow.left")! }()
     }
 }

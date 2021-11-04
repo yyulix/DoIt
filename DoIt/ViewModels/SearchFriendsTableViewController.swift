@@ -12,8 +12,9 @@ final class SearchFriendsTableViewController: UIViewController {
 
     struct Constants {
         static let cellHeight: CGFloat = 90
+        static let backgroundColor: UIColor = .white
     }
-    
+
     private lazy var tableView: UITableView = {
         let table = UITableView()
         table.register(FindFriendCell.self, forCellReuseIdentifier: String(describing: FindFriendCell.self))
@@ -21,11 +22,11 @@ final class SearchFriendsTableViewController: UIViewController {
         table.delegate = self
         return table
     }()
-    
+
     private let searchController = CustomSearchController(placeholder: NSLocalizedString(FindFriendsString.searchPlaceholder.rawValue, comment: ""))
-    
+
     // MARK: - Lifecycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,7 +34,7 @@ final class SearchFriendsTableViewController: UIViewController {
     }
     
     // MARK: - Helpers
-    
+
     private func configureUI() {
         view.addSubview(tableView)
         configureTableView()
@@ -48,13 +49,13 @@ final class SearchFriendsTableViewController: UIViewController {
         navigationItem.title = NSLocalizedString(FindFriendsString.header.rawValue, comment: "")
         navigationItem.leftBarButtonItem = BackBarButtom()
     }
-    
+
     private func configureTableView() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
-        tableView.backgroundColor = .white
+        tableView.backgroundColor = Constants.backgroundColor
     }
-    
+
     private func configureConstraintsForTableView() {
         tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true

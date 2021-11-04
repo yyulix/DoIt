@@ -19,7 +19,7 @@ final class FindFriendCell: UITableViewCell {
         static let distributionInStackView: UIStackView.Distribution = .fillEqually
     }
 
-    private lazy var profileImageView = ProfileImageView(cornerRadius: (SearchFriendsTableViewController.Constants.cellHeight - Constants.offsetForPicture * 2) / 2)
+    private lazy var profileImageView = ProfileCircledImageView()
 
     private lazy var loginLabel: FriendShortInformationLabel = FriendShortInformationLabel.getLoginInformationLabel()
 
@@ -51,7 +51,6 @@ final class FindFriendCell: UITableViewCell {
 
         addSubview(followButton)
         constraintsForFollowButton()
-        followButton.isSelected = .random()
 
         addSubview(stackViewDescription)
         constraintsForStackView()
