@@ -20,6 +20,7 @@ class AuthenticationController: UIViewController {
         return passwordInput
     }()
     private lazy var singInButton = CustomRoundedButton(title: AuthStrings.signIn.rawValue.localized)
+    private lazy var signUpButton = AttributedCustomButton(firstPart: AuthStrings.notSignedUp.rawValue.localized, secondPart: AuthStrings.signUp.rawValue.localized)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +32,7 @@ class AuthenticationController: UIViewController {
     }
     
     private func configureInputsStackView() {
-        let stack = UIStackView(arrangedSubviews: [usernameInputView, passwordInputView, singInButton])
+        let stack = UIStackView(arrangedSubviews: [usernameInputView, passwordInputView, singInButton, signUpButton])
         stack.axis = .vertical
         stack.spacing = UIConstants.spacing
         view.addSubview(stack)
