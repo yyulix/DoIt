@@ -17,14 +17,14 @@ final class ProfileCircledImageView: UIImageView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        setup(placeHolder: UIImage.AuthIcons.personIcon)
+        setup(placeHolder: UIImage.Icons.personPlaceholderIcon)
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    init(placeHolder: UIImage = UIImage.AuthIcons.personIcon) {
+    init(placeHolder: UIImage = UIImage.Icons.personPlaceholderIcon) {
         super.init(frame: .zero)
         
         setup(placeHolder: placeHolder)

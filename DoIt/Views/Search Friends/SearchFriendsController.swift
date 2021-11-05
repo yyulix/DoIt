@@ -36,6 +36,7 @@ final class SearchFriendsController: UIViewController {
     // MARK: - Helpers
 
     private func configureUI() {
+        view.backgroundColor = Constants.backgroundColor
         view.addSubview(tableView)
         configureTableView()
         configureConstraintsForTableView()
@@ -45,7 +46,6 @@ final class SearchFriendsController: UIViewController {
     }
 
     private func configureNavigationController() {
-        navigationController?.hidesBarsOnSwipe = true
         navigationItem.title = FindFriendsString.header.rawValue.localized
         navigationItem.searchController = searchController
         definesPresentationContext = true
@@ -59,10 +59,10 @@ final class SearchFriendsController: UIViewController {
     }
 
     private func configureConstraintsForTableView() {
-        tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        tableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
+        tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
 }
 
@@ -96,5 +96,15 @@ extension SearchFriendsController: UISearchResultsUpdating {
 
     private func configureSearchController() {
         searchController.searchResultsUpdater = self
+    }
+}
+
+extension SearchFriendsController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0 {
+            navigationController?.setNavigationBarHidden(true, animated: true)
+        } else {
+            navigationController?.setNavigationBarHidden(false, animated: true)
+        }
     }
 }

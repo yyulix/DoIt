@@ -11,7 +11,6 @@ class RegistrationController: UIViewController {
 
     private struct UIConstants {
         static let spacing = 12.0
-        static let paddingTop = 44.0
     }
 
     // MARK: - Public Property
@@ -54,7 +53,7 @@ class RegistrationController: UIViewController {
         stack.spacing = UIConstants.spacing
         view.addSubview(stack)
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        stack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: UIConstants.spacing).isActive = true
         stack.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         stack.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
     }
