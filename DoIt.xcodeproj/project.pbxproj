@@ -14,7 +14,7 @@
 		E4E84A3D272765EC00CD9A98 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E84A3C272765EC00CD9A98 /* SceneDelegate.swift */; };
 		E4E84A44272765F000CD9A98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4E84A43272765F000CD9A98 /* Assets.xcassets */; };
 		E4E84A47272765F000CD9A98 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4E84A45272765F000CD9A98 /* LaunchScreen.storyboard */; };
-		E4E84A53272767A000CD9A98 /* SearchFriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E84A52272767A000CD9A98 /* SearchFriendsTableViewController.swift */; };
+		E4E84A53272767A000CD9A98 /* SearchFriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E84A52272767A000CD9A98 /* SearchFriendsController.swift */; };
 		E4E84A55272767C600CD9A98 /* CustomUIElementsSearchFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E84A54272767C600CD9A98 /* CustomUIElementsSearchFriends.swift */; };
 		E4E84A572727680000CD9A98 /* FindFriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E84A562727680000CD9A98 /* FindFriendCell.swift */; };
 /* End PBXBuildFile section */
@@ -30,7 +30,7 @@
 		E4E84A43272765F000CD9A98 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E4E84A46272765F000CD9A98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E4E84A48272765F000CD9A98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E4E84A52272767A000CD9A98 /* SearchFriendsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFriendsTableViewController.swift; sourceTree = "<group>"; };
+		E4E84A52272767A000CD9A98 /* SearchFriendsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFriendsController.swift; sourceTree = "<group>"; };
 		E4E84A54272767C600CD9A98 /* CustomUIElementsSearchFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIElementsSearchFriends.swift; sourceTree = "<group>"; };
 		E4E84A562727680000CD9A98 /* FindFriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindFriendCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -107,7 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				E4106A5B272AE7DC00ACD214 /* FindFriendsStrings.swift */,
-				E4E84A52272767A000CD9A98 /* SearchFriendsTableViewController.swift */,
+				E4E84A52272767A000CD9A98 /* SearchFriendsController.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -197,7 +197,7 @@
 				E4106A5C272AE7DC00ACD214 /* FindFriendsStrings.swift in Sources */,
 				E4E84A55272767C600CD9A98 /* CustomUIElementsSearchFriends.swift in Sources */,
 				E4E84A572727680000CD9A98 /* FindFriendCell.swift in Sources */,
-				E4E84A53272767A000CD9A98 /* SearchFriendsTableViewController.swift in Sources */,
+				E4E84A53272767A000CD9A98 /* SearchFriendsController.swift in Sources */,
 				E4E84A3D272765EC00CD9A98 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

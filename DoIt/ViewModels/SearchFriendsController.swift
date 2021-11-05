@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class SearchFriendsTableViewController: UIViewController {
+final class SearchFriendsController: UIViewController {
     // MARK: - Properties
 
     struct Constants {
@@ -48,6 +48,9 @@ final class SearchFriendsTableViewController: UIViewController {
         navigationController?.hidesBarsOnSwipe = true
         navigationItem.title = NSLocalizedString(FindFriendsString.header.rawValue, comment: "")
         navigationItem.leftBarButtonItem = BackBarButtom()
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+        navigationItem.hidesSearchBarWhenScrolling = false
     }
 
     private func configureTableView() {
@@ -64,13 +67,13 @@ final class SearchFriendsTableViewController: UIViewController {
     }
 }
 
-extension SearchFriendsTableViewController: UITableViewDelegate {
+extension SearchFriendsController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return SearchFriendsTableViewController.Constants.cellHeight
+        return SearchFriendsController.Constants.cellHeight
     }
 }
 
-extension SearchFriendsTableViewController: UITableViewDataSource {
+extension SearchFriendsController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -87,15 +90,12 @@ extension SearchFriendsTableViewController: UITableViewDataSource {
     }
 }
 
-extension SearchFriendsTableViewController: UISearchResultsUpdating {
+extension SearchFriendsController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         
     }
 
     private func configureSearchController() {
         searchController.searchResultsUpdater = self
-        navigationItem.searchController = searchController
-        definesPresentationContext = true
-        navigationItem.hidesSearchBarWhenScrolling = false
     }
 }
