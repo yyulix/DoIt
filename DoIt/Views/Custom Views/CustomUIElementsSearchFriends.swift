@@ -17,14 +17,14 @@ final class ProfileCircledImageView: UIImageView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        setup(placeHolder: UIImage.Icons.personPlaceholderIcon)
+        setup(placeHolder: UIImage.AuthIcons.personIcon)
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    init(placeHolder: UIImage = UIImage.Icons.personPlaceholderIcon) {
+    init(placeHolder: UIImage = UIImage.AuthIcons.personIcon) {
         super.init(frame: .zero)
         
         setup(placeHolder: placeHolder)
@@ -165,8 +165,8 @@ final class FollowButton: UIButton {
     private func setup(cornerRadius: CGFloat, backgroundColor: UIColor, fontSize: CGFloat, target: Any?, action: Selector?) {
         translatesAutoresizingMaskIntoConstraints = false
 
-        setTitle(NSLocalizedString(FindFriendsString.followButton.rawValue, comment: ""), for: .normal)
-        setTitle(NSLocalizedString(FindFriendsString.unfollowButton.rawValue, comment: ""), for: .selected)
+        setTitle(FindFriendsString.followButton.rawValue.localized, for: .normal)
+        setTitle(FindFriendsString.unfollowButton.rawValue.localized, for: .selected)
         setTitleColor(.systemBackground, for: .normal)
 
         layer.masksToBounds = true
@@ -181,58 +181,6 @@ final class FollowButton: UIButton {
         if let target = target, let action = action {
             addTarget(target, action: action, for: .touchUpInside)
         }
-    }
-}
-
-final class BackBarButtom: UIBarButtonItem {
-    struct Constants {
-        static let width: CGFloat = 40
-        static let height: CGFloat = 40
-    }
-
-    override init() {
-        super.init()
-
-        setup(width: Constants.width, height: Constants.height)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    init(width: CGFloat = Constants.width, height: CGFloat = Constants.height) {
-        super.init()
-
-        setup(width: width, height: height)
-    }
-
-    private func setup(width: CGFloat, height: CGFloat) {
-        let backButton = UIButton()
-        backButton.frame.size = .init(width: width, height: height)
-        backButton.setImage(UIImage.Icons.arrowBackButtonIcon, for: .normal)
-        customView = backButton
-    }
-}
-
-final class CustomNavigationController: UINavigationController {    
-    override init(rootViewController: UIViewController) {
-        super.init(rootViewController: rootViewController)
-
-        setupNavigationBar()
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    private func setupNavigationBar() {
-        let navBarAppearance = UINavigationBarAppearance()
-        navBarAppearance.configureWithOpaqueBackground()
-        navBarAppearance.backgroundColor = .AppColors.accentColor
-        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-        UINavigationBar.appearance().tintColor = .white
-        UINavigationBar.appearance().standardAppearance = navBarAppearance
-        UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
     }
 }
 
@@ -259,18 +207,5 @@ final class CustomSearchController: UISearchController {
         searchBar.searchTextField.tintColor = .black
         searchBar.searchTextField.backgroundColor = .white
         searchBar.placeholder = placeholder
-    }
-}
-
-extension UIColor {
-    struct AppColors {
-        static let accentColor = UIColor.systemTeal
-    }
-}
-
-extension UIImage {
-    struct Icons {
-        static let personPlaceholderIcon = { return UIImage(named: "imagePlaceHolder")! }()
-        static let arrowBackButtonIcon = { return UIImage(systemName: "arrow.left")! }()
     }
 }

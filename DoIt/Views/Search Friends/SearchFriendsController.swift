@@ -23,7 +23,7 @@ final class SearchFriendsController: UIViewController {
         return table
     }()
 
-    private let searchController = CustomSearchController(placeholder: NSLocalizedString(FindFriendsString.searchPlaceholder.rawValue, comment: ""))
+    private let searchController = CustomSearchController(placeholder: FindFriendsString.searchPlaceholder.rawValue.localized)
 
     // MARK: - Lifecycle
 
@@ -46,8 +46,7 @@ final class SearchFriendsController: UIViewController {
 
     private func configureNavigationController() {
         navigationController?.hidesBarsOnSwipe = true
-        navigationItem.title = NSLocalizedString(FindFriendsString.header.rawValue, comment: "")
-        navigationItem.leftBarButtonItem = BackBarButtom()
+        navigationItem.title = FindFriendsString.header.rawValue.localized
         navigationItem.searchController = searchController
         definesPresentationContext = true
         navigationItem.hidesSearchBarWhenScrolling = false
