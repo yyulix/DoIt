@@ -13,4 +13,10 @@ extension UIImage {
         static var envelopeIcon: UIImage { UIImage(systemName: "envelope")! }
         static var lockIcon: UIImage { UIImage(systemName: "lock")! }
     }
+    
+    struct TaskIcons {
+        static var isDone: UIImage { UIImage(named: "isDone")! }
+        static var isNotDone: UIImage { UIImage(named: "isNotDone")! }
+        static var standartImage: UIImage { UIImage(named: "standartImage")! }
+    }
 }

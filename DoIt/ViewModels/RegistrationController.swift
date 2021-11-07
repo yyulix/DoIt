@@ -43,6 +43,7 @@ class RegistrationController: UIViewController {
         view.backgroundColor = .white
         navigationItem.title = AuthStrings.headerSignUp.rawValue.localized
         view.backgroundColor = .white
+        signInButton.addTarget(self, action: #selector(signInButtonPressed(_:)), for: .touchDown)
         configureInputsStackView()
     }
 
@@ -57,5 +58,10 @@ class RegistrationController: UIViewController {
         stack.topAnchor.constraint(equalTo: view.topAnchor, constant: UIConstants.paddingTop + UIConstants.spacing).isActive = true
         stack.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         stack.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+    }
+    
+    @objc private func signInButtonPressed(_ sender: UIButton) {
+        let myTasks = MyTasksController()
+        self.navigationController?.pushViewController(myTasks, animated: true)
     }
 }

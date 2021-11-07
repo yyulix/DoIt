@@ -10,5 +10,8 @@ import UIKit
 extension UIColor {
     struct AppColors {
         static let accentColor = UIColor.systemTeal
+        static let mainTextColor = UIColor.black
+        static let minorTextColor = UIColor.systemGray
+        static let taskDeadlineColor = UIColor.black
     }
 }

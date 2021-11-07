@@ -21,6 +21,12 @@
 		7CAC5DDA27232C6300E2D70B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CAC5DD827232C6300E2D70B /* LaunchScreen.storyboard */; };
 		7CAC5DE4272330C500E2D70B /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC5DE3272330C500E2D70B /* RegistrationController.swift */; };
 		7CAC5DE7272346CB00E2D70B /* CustomUIElementsAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC5DE6272346CB00E2D70B /* CustomUIElementsAuth.swift */; };
+		83369A40273855BD0025F3D9 /* MyTasksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83369A3F273855BD0025F3D9 /* MyTasksController.swift */; };
+		83369A42273855FA0025F3D9 /* TasksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83369A41273855FA0025F3D9 /* TasksTableViewController.swift */; };
+		83369A44273856240025F3D9 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83369A43273856240025F3D9 /* TaskTableViewCell.swift */; };
+		83369A48273856790025F3D9 /* ChapterCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83369A47273856790025F3D9 /* ChapterCollectionViewController.swift */; };
+		83369A4A273856950025F3D9 /* ChapterCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83369A49273856950025F3D9 /* ChapterCollectionCell.swift */; };
+		83369A4E273857020025F3D9 /* Structures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83369A4D273857020025F3D9 /* Structures.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +47,12 @@
 		7CAC5DDB27232C6300E2D70B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CAC5DE3272330C500E2D70B /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
 		7CAC5DE6272346CB00E2D70B /* CustomUIElementsAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIElementsAuth.swift; sourceTree = "<group>"; };
+		83369A3F273855BD0025F3D9 /* MyTasksController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTasksController.swift; sourceTree = "<group>"; };
+		83369A41273855FA0025F3D9 /* TasksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTableViewController.swift; sourceTree = "<group>"; };
+		83369A43273856240025F3D9 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
+		83369A47273856790025F3D9 /* ChapterCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterCollectionViewController.swift; sourceTree = "<group>"; };
+		83369A49273856950025F3D9 /* ChapterCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterCollectionCell.swift; sourceTree = "<group>"; };
+		83369A4D273857020025F3D9 /* Structures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structures.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +69,8 @@
 		7C6382CE2725C4EF00FED2F4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				83369A462738565B0025F3D9 /* ChapterCollectionView */,
+				83369A452738564B0025F3D9 /* TasksTableView */,
 				7CAC5DE6272346CB00E2D70B /* CustomUIElementsAuth.swift */,
 				7C6382E92728A30A00FED2F4 /* CustomNavigationController.swift */,
 			);
@@ -68,6 +82,7 @@
 			children = (
 				7C6382F1272A7DDC00FED2F4 /* Strings.swift */,
 				7CAC5DE3272330C500E2D70B /* RegistrationController.swift */,
+				83369A3F273855BD0025F3D9 /* MyTasksController.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -119,6 +134,7 @@
 				7C6382E52728807900FED2F4 /* UIColorsExtension.swift */,
 				7C6382E7272883AC00FED2F4 /* Printer.swift */,
 				7C6382EF2729CCC300FED2F4 /* StringExtension.swift */,
+				83369A4D273857020025F3D9 /* Structures.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -154,6 +170,24 @@
 				7C6382E42727885F00FED2F4 /* Extensions */,
 			);
 			path = DoIt;
+			sourceTree = "<group>";
+		};
+		83369A452738564B0025F3D9 /* TasksTableView */ = {
+			isa = PBXGroup;
+			children = (
+				83369A41273855FA0025F3D9 /* TasksTableViewController.swift */,
+				83369A43273856240025F3D9 /* TaskTableViewCell.swift */,
+			);
+			path = TasksTableView;
+			sourceTree = "<group>";
+		};
+		83369A462738565B0025F3D9 /* ChapterCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				83369A47273856790025F3D9 /* ChapterCollectionViewController.swift */,
+				83369A49273856950025F3D9 /* ChapterCollectionCell.swift */,
+			);
+			path = ChapterCollectionView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -229,15 +263,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				7CAC5DE7272346CB00E2D70B /* CustomUIElementsAuth.swift in Sources */,
+				83369A44273856240025F3D9 /* TaskTableViewCell.swift in Sources */,
+				83369A40273855BD0025F3D9 /* MyTasksController.swift in Sources */,
 				7CAC5DCE27232C6000E2D70B /* AppDelegate.swift in Sources */,
+				83369A4A273856950025F3D9 /* ChapterCollectionCell.swift in Sources */,
+				83369A48273856790025F3D9 /* ChapterCollectionViewController.swift in Sources */,
 				7C6382F2272A7DDC00FED2F4 /* Strings.swift in Sources */,
 				7CAC5DE4272330C500E2D70B /* RegistrationController.swift in Sources */,
 				7C6382E32727884000FED2F4 /* UIImageExtension.swift in Sources */,
+				83369A42273855FA0025F3D9 /* TasksTableViewController.swift in Sources */,
 				7C6382EA2728A30A00FED2F4 /* CustomNavigationController.swift in Sources */,
 				7C6382F02729CCC300FED2F4 /* StringExtension.swift in Sources */,
 				7CAC5DD027232C6000E2D70B /* SceneDelegate.swift in Sources */,
 				7C6382E62728807900FED2F4 /* UIColorsExtension.swift in Sources */,
 				7C6382E8272883AC00FED2F4 /* Printer.swift in Sources */,
+				83369A4E273857020025F3D9 /* Structures.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,7 +437,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Z6LAS4QRZV;
+				DEVELOPMENT_TEAM = 5939ANS2ZB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DoIt/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -425,7 +465,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Z6LAS4QRZV;
+				DEVELOPMENT_TEAM = 5939ANS2ZB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DoIt/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

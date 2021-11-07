@@ -20,3 +20,8 @@ enum AuthStrings: String {
     case headerSignIn = "auth.headerSignIn"
     case headerSignUp = "auth.headerSignUp"
 }
+enum TaskString: String {
+    case title = "task.title"
+    case description = "task.description"
+    case deadline = "task.deadline"
+}
