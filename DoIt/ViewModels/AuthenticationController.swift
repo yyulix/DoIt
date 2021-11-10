@@ -24,11 +24,14 @@ class AuthenticationController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.hidesBarsOnSwipe = true
         view.backgroundColor = .white
-        navigationItem.title = AuthStrings.headerSignIn.rawValue.localized
-        view.backgroundColor = .white
+        configureNavigation()
         configureInputsStackView()
+    }
+    
+    func configureNavigation() {
+        navigationController?.hidesBarsOnSwipe = true
+        navigationItem.title = AuthStrings.headerSignIn.rawValue.localized
     }
     
     private func configureInputsStackView() {
