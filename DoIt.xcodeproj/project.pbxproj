@@ -20,6 +20,7 @@
 		7CAC5DDA27232C6300E2D70B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CAC5DD827232C6300E2D70B /* LaunchScreen.storyboard */; };
 		7CAC5DE4272330C500E2D70B /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC5DE3272330C500E2D70B /* RegistrationController.swift */; };
 		7CAC5DE7272346CB00E2D70B /* CustomUIElementsAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC5DE6272346CB00E2D70B /* CustomUIElementsAuth.swift */; };
+		E442B5C0273F0B1300FE37C3 /* SearchFriendsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E442B5BF273F0B1300FE37C3 /* SearchFriendsModel.swift */; };
 		E49F2013273554A100F50258 /* SearchFriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49F2011273554A100F50258 /* SearchFriendsController.swift */; };
 		E49F2016273554BE00F50258 /* FindFriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49F2014273554BE00F50258 /* FindFriendCell.swift */; };
 		E49F2019273554C600F50258 /* CustomUIElementsSearchFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49F2018273554C600F50258 /* CustomUIElementsSearchFriends.swift */; };
@@ -43,6 +44,7 @@
 		7CAC5DDB27232C6300E2D70B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CAC5DE3272330C500E2D70B /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
 		7CAC5DE6272346CB00E2D70B /* CustomUIElementsAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIElementsAuth.swift; sourceTree = "<group>"; };
+		E442B5BF273F0B1300FE37C3 /* SearchFriendsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFriendsModel.swift; sourceTree = "<group>"; };
 		E49F2011273554A100F50258 /* SearchFriendsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchFriendsController.swift; path = "DoIt/Views/Search Friends/SearchFriendsController.swift"; sourceTree = SOURCE_ROOT; };
 		E49F2014273554BE00F50258 /* FindFriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindFriendCell.swift; sourceTree = "<group>"; };
 		E49F2018273554C600F50258 /* CustomUIElementsSearchFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIElementsSearchFriends.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 		7CAC5DCC27232C6000E2D70B /* DoIt */ = {
 			isa = PBXGroup;
 			children = (
+				E442B5BE273F093900FE37C3 /* Models */,
 				7C6382DF272777F600FED2F4 /* Localizable.strings */,
 				7C6382D32725C5BD00FED2F4 /* Application */,
 				7C6382D22725C57E00FED2F4 /* Storyboards */,
@@ -144,6 +147,14 @@
 				7C6382E42727885F00FED2F4 /* Extensions */,
 			);
 			path = DoIt;
+			sourceTree = "<group>";
+		};
+		E442B5BE273F093900FE37C3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E442B5BF273F0B1300FE37C3 /* SearchFriendsModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		E49F201A273554DD00F50258 /* Custom Views */ = {
@@ -256,6 +267,7 @@
 				7CAC5DD027232C6000E2D70B /* SceneDelegate.swift in Sources */,
 				E49F2016273554BE00F50258 /* FindFriendCell.swift in Sources */,
 				E49F2013273554A100F50258 /* SearchFriendsController.swift in Sources */,
+				E442B5C0273F0B1300FE37C3 /* SearchFriendsModel.swift in Sources */,
 				7C6382E62728807900FED2F4 /* UIColorsExtension.swift in Sources */,
 				7C6382E8272883AC00FED2F4 /* Printer.swift in Sources */,
 			);

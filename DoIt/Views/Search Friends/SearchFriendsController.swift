@@ -22,8 +22,22 @@ final class SearchFriendsController: UIViewController {
         table.delegate = self
         return table
     }()
-
-    private let searchController = CustomSearchController(placeholder: FindFriendsString.searchPlaceholder.rawValue.localized)
+    
+    private lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.placeholder = FindFriendsString.searchPlaceholder.rawValue.localized
+        searchBar.delegate = self
+        searchBar.textContentType = .nickname
+        searchBar.showsCancelButton = true
+        
+        searchBar.searchTextField.tintColor = .black
+        searchBar.searchTextField.backgroundColor = .white
+        searchBar.tintColor = .white
+        return searchBar
+    }()
+    
+    private lazy var openSearchButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(addSearchBar))
 
     // MARK: - Lifecycle
 
@@ -38,18 +52,18 @@ final class SearchFriendsController: UIViewController {
     private func configureUI() {
         view.backgroundColor = Constants.backgroundColor
         view.addSubview(tableView)
-        configureTableView()
-        configureConstraintsForTableView()
         
+        configureTableView()
+        layoutTableView()
         configureNavigationController()
-        configureSearchController()
     }
 
     private func configureNavigationController() {
+        navigationController?.hidesBarsOnSwipe = true
         navigationItem.title = FindFriendsString.header.rawValue.localized
-        navigationItem.searchController = searchController
         definesPresentationContext = true
-        navigationItem.hidesSearchBarWhenScrolling = false
+        
+        navigationItem.setRightBarButton(openSearchButton, animated: true)
     }
 
     private func configureTableView() {
@@ -58,11 +72,18 @@ final class SearchFriendsController: UIViewController {
         tableView.backgroundColor = Constants.backgroundColor
     }
 
-    private func configureConstraintsForTableView() {
+    private func layoutTableView() {
         tableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
         tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+    }
+    
+    @objc
+    private func addSearchBar() {
+        navigationItem.rightBarButtonItem = nil
+        navigationItem.titleView = searchBar
+        searchBar.setShowsCancelButton(true, animated: true)
     }
 }
 
@@ -85,17 +106,28 @@ extension SearchFriendsController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: FindFriendCell.self), for: indexPath) as? FindFriendCell else {
             return .init()
         }
+        cell.configureCell(with: SearchFriendsModel(image: nil, login: "login", summery: "Summery", isFollowed: true))
         return cell
     }
 }
 
-extension SearchFriendsController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        
+extension SearchFriendsController: UISearchBarDelegate {
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(true, animated: true)
     }
 
-    private func configureSearchController() {
-        searchController.searchResultsUpdater = self
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        searchBar.text = nil
+        searchBar.setShowsCancelButton(false, animated: true)
+        searchBar.endEditing(true)
+        
+        removeSearchBarView()
+    }
+    
+    func removeSearchBarView() {
+        navigationItem.titleView = nil
+        navigationItem.rightBarButtonItem = openSearchButton
     }
 }
 
