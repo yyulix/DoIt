@@ -20,11 +20,7 @@
 		7CAC5DDA27232C6300E2D70B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CAC5DD827232C6300E2D70B /* LaunchScreen.storyboard */; };
 		7CAC5DE4272330C500E2D70B /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC5DE3272330C500E2D70B /* RegistrationController.swift */; };
 		7CAC5DE7272346CB00E2D70B /* CustomUIElementsAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC5DE6272346CB00E2D70B /* CustomUIElementsAuth.swift */; };
-		E442B5C0273F0B1300FE37C3 /* SearchFriendsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E442B5BF273F0B1300FE37C3 /* SearchFriendsModel.swift */; };
-		E49F2013273554A100F50258 /* SearchFriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49F2011273554A100F50258 /* SearchFriendsController.swift */; };
-		E49F2016273554BE00F50258 /* FindFriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49F2014273554BE00F50258 /* FindFriendCell.swift */; };
-		E49F2019273554C600F50258 /* CustomUIElementsSearchFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49F2018273554C600F50258 /* CustomUIElementsSearchFriends.swift */; };
-		E49F201D2735591800F50258 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E49F201B2735591800F50258 /* Main.storyboard */; };
+		E032E8FA272C1B5D0051B371 /* AuthenticationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E032E8F9272C1B5D0051B371 /* AuthenticationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,11 +40,7 @@
 		7CAC5DDB27232C6300E2D70B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CAC5DE3272330C500E2D70B /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
 		7CAC5DE6272346CB00E2D70B /* CustomUIElementsAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIElementsAuth.swift; sourceTree = "<group>"; };
-		E442B5BF273F0B1300FE37C3 /* SearchFriendsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFriendsModel.swift; sourceTree = "<group>"; };
-		E49F2011273554A100F50258 /* SearchFriendsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchFriendsController.swift; path = "DoIt/Views/Search Friends/SearchFriendsController.swift"; sourceTree = SOURCE_ROOT; };
-		E49F2014273554BE00F50258 /* FindFriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindFriendCell.swift; sourceTree = "<group>"; };
-		E49F2018273554C600F50258 /* CustomUIElementsSearchFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIElementsSearchFriends.swift; sourceTree = "<group>"; };
-		E49F201C2735591800F50258 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E032E8F9272C1B5D0051B371 /* AuthenticationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +67,9 @@
 		7C6382CF2725C4F700FED2F4 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				7C6382F1272A7DDC00FED2F4 /* Strings.swift */,
+				7CAC5DE3272330C500E2D70B /* RegistrationController.swift */,
+				E032E8F9272C1B5D0051B371 /* AuthenticationController.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -265,9 +260,7 @@
 				7C6382EA2728A30A00FED2F4 /* CustomNavigationController.swift in Sources */,
 				7C6382F02729CCC300FED2F4 /* StringExtension.swift in Sources */,
 				7CAC5DD027232C6000E2D70B /* SceneDelegate.swift in Sources */,
-				E49F2016273554BE00F50258 /* FindFriendCell.swift in Sources */,
-				E49F2013273554A100F50258 /* SearchFriendsController.swift in Sources */,
-				E442B5C0273F0B1300FE37C3 /* SearchFriendsModel.swift in Sources */,
+				E032E8FA272C1B5D0051B371 /* AuthenticationController.swift in Sources */,
 				7C6382E62728807900FED2F4 /* UIColorsExtension.swift in Sources */,
 				7C6382E8272883AC00FED2F4 /* Printer.swift in Sources */,
 			);
