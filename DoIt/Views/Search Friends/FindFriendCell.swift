@@ -32,6 +32,9 @@ final class FindFriendCell: UITableViewCell {
         static let followButtonUnselectedColor: UIColor = .AppColors.accentColor
         static let followButtonSizeOfFont: CGFloat = 15
         static let followButtonMinimumScaleFactor: CGFloat = 0.5
+        
+        static let followButtonAnimationDuration: CGFloat = 0.2
+        static let followButtonAnimationScale: CGFloat = 0.9
     }
 
     private lazy var profileImageView: UIImageView = {
@@ -85,6 +88,7 @@ final class FindFriendCell: UITableViewCell {
         
         button.layer.masksToBounds = true
         button.layer.cornerRadius = Constants.defaultCornerRadius
+        button.addTarget(self, action: #selector(didTapFollowButton), for: .touchUpInside)
         return button
     }()
 
@@ -119,6 +123,9 @@ final class FindFriendCell: UITableViewCell {
     }
 
     private func configureUI() {
+        selectionStyle = .none
+        contentView.isUserInteractionEnabled = false
+        
         addSubview(profileImageView)
         addSubview(followButton)
         addSubview(informationStackView)
@@ -126,6 +133,18 @@ final class FindFriendCell: UITableViewCell {
         layoutImageView()
         layoutFollowButton()
         layoutStackView()
+    }
+    
+    @objc
+    private func didTapFollowButton() {
+        UIView.animate(withDuration: Constants.followButtonAnimationDuration, delay: 0, options: .curveEaseInOut) {
+            self.configureFollowButton(isFollowed: !self.followButton.isSelected)
+            self.followButton.transform = CGAffineTransform(scaleX: Constants.followButtonAnimationScale, y: Constants.followButtonAnimationScale)
+        } completion: { _ in
+            UIView.animate(withDuration: Constants.followButtonAnimationDuration) {
+                self.followButton.transform = CGAffineTransform.identity
+            }
+        }
     }
 
     // MARK: - Constraints

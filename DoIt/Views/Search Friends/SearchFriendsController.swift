@@ -13,6 +13,11 @@ final class SearchFriendsController: UIViewController {
     struct Constants {
         static let cellHeight: CGFloat = 90
         static let backgroundColor: UIColor = .white
+        static let durationSearchBar: CGFloat = 0.2
+        static let typeOfAnimation: UIView.AnimationOptions = .curveLinear
+        static let visibleOpacity: CGFloat = 1
+        static let transparentValue: Float = 0
+        static let opaqueValue: Float = 1
     }
 
     private lazy var tableView: UITableView = {
@@ -20,6 +25,10 @@ final class SearchFriendsController: UIViewController {
         table.register(FindFriendCell.self, forCellReuseIdentifier: String(describing: FindFriendCell.self))
         table.dataSource = self
         table.delegate = self
+        
+        table.translatesAutoresizingMaskIntoConstraints = false
+        table.separatorStyle = .none
+        table.backgroundColor = Constants.backgroundColor
         return table
     }()
     
@@ -29,7 +38,7 @@ final class SearchFriendsController: UIViewController {
         searchBar.placeholder = FindFriendsString.searchPlaceholder.rawValue.localized
         searchBar.delegate = self
         searchBar.textContentType = .nickname
-        searchBar.showsCancelButton = true
+        searchBar.showsCancelButton = false
         
         searchBar.searchTextField.tintColor = .black
         searchBar.searchTextField.backgroundColor = .white
@@ -37,39 +46,45 @@ final class SearchFriendsController: UIViewController {
         return searchBar
     }()
     
-    private lazy var openSearchButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(addSearchBar))
+    private lazy var openSearchButton: UIBarButtonItem = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
+        button.addTarget(self, action: #selector(addSearchBarView), for: .touchUpInside)
+        return UIBarButtonItem(customView: button)
+    }()
+    
+    private lazy var titleView: UILabel = {
+        let label = UILabel()
+        label.text = FindFriendsString.header.rawValue.localized
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
+        return label
+    }()
 
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         configureUI()
     }
-    
-    // MARK: - Helpers
 
+    // MARK: - Helpers
+    
     private func configureUI() {
         view.backgroundColor = Constants.backgroundColor
         view.addSubview(tableView)
-        
-        configureTableView()
+
         layoutTableView()
         configureNavigationController()
     }
 
     private func configureNavigationController() {
-        navigationController?.hidesBarsOnSwipe = true
         navigationItem.title = FindFriendsString.header.rawValue.localized
         definesPresentationContext = true
         
+        navigationItem.titleView = titleView
         navigationItem.setRightBarButton(openSearchButton, animated: true)
-    }
-
-    private func configureTableView() {
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.separatorStyle = .none
-        tableView.backgroundColor = Constants.backgroundColor
     }
 
     private func layoutTableView() {
@@ -78,12 +93,43 @@ final class SearchFriendsController: UIViewController {
         tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
-    
+}
+
+extension SearchFriendsController {
     @objc
-    private func addSearchBar() {
-        navigationItem.rightBarButtonItem = nil
-        navigationItem.titleView = searchBar
-        searchBar.setShowsCancelButton(true, animated: true)
+    private func addSearchBarView() {
+        UIView.animate(withDuration: Constants.durationSearchBar, delay: 0, options: Constants.typeOfAnimation) {
+            self.navigationController?.navigationBar.tintColor = .clear
+            self.navigationItem.titleView?.layer.opacity = Constants.transparentValue
+        } completion: { _ in
+            self.navigationItem.setHidesBackButton(true, animated: false)
+            self.navigationItem.rightBarButtonItem = nil
+            self.navigationItem.titleView = self.searchBar
+            self.navigationItem.titleView?.layer.opacity = Constants.transparentValue
+            UIView.animate(withDuration: Constants.durationSearchBar, delay: 0, options: Constants.typeOfAnimation) {
+                self.navigationItem.titleView?.layer.opacity = Constants.opaqueValue
+            } completion: { _ in
+                self.searchBar.setShowsCancelButton(true, animated: true)
+                self.searchBar.becomeFirstResponder()
+            }
+        }
+    }
+
+    func removeSearchBarView() {
+        searchBar.setShowsCancelButton(false, animated: true)
+        UIView.animate(withDuration: Constants.durationSearchBar, delay: 0, options: Constants.typeOfAnimation) {
+            self.navigationItem.titleView?.layer.opacity = Constants.transparentValue
+        } completion: { _ in
+            self.navigationItem.setHidesBackButton(false, animated: false)
+            self.navigationItem.titleView = self.titleView
+            self.navigationItem.rightBarButtonItem = self.openSearchButton
+            UIView.animate(withDuration: Constants.durationSearchBar, delay: 0, options: Constants.typeOfAnimation) {
+                self.navigationController?.navigationBar.tintColor = .systemBackground
+                self.navigationItem.titleView?.layer.opacity = Constants.opaqueValue
+            } completion: { _ in
+                
+            }
+        }
     }
 }
 
@@ -106,28 +152,22 @@ extension SearchFriendsController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: FindFriendCell.self), for: indexPath) as? FindFriendCell else {
             return .init()
         }
-        cell.configureCell(with: SearchFriendsModel(image: nil, login: "login", summery: "Summery", isFollowed: true))
+        cell.configureCell(with: SearchFriendsModel(image: nil, login: nil, summery: nil, isFollowed: nil))
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
     }
 }
 
 extension SearchFriendsController: UISearchBarDelegate {
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchBar.setShowsCancelButton(true, animated: true)
-    }
-
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         searchBar.text = nil
-        searchBar.setShowsCancelButton(false, animated: true)
         searchBar.endEditing(true)
         
         removeSearchBarView()
-    }
-    
-    func removeSearchBarView() {
-        navigationItem.titleView = nil
-        navigationItem.rightBarButtonItem = openSearchButton
     }
 }
 
