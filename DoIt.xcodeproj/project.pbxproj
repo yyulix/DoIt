@@ -23,6 +23,7 @@
 		7CAC5DE7272346CB00E2D70B /* CustomUIElementsAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC5DE6272346CB00E2D70B /* CustomUIElementsAuth.swift */; };
 		7CBBC3962744535000446586 /* Services in Resources */ = {isa = PBXBuildFile; fileRef = 7CBBC3952744535000446586 /* Services */; };
 		7CC8A350272C95DD00BEC453 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7CC8A34F272C95DD00BEC453 /* GoogleService-Info.plist */; };
+		7CF61030274455A400F081CA /* AuthenticationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF6102F274455A400F081CA /* AuthenticationController.swift */; };
 		E0F0A59AFB84FC1BF71312E9 /* Pods_DoIt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EC3EBB945B3D7C2BC8D858D /* Pods_DoIt.framework */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +50,7 @@
 		7CAC5DE6272346CB00E2D70B /* CustomUIElementsAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIElementsAuth.swift; sourceTree = "<group>"; };
 		7CBBC3952744535000446586 /* Services */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Services; sourceTree = "<group>"; };
 		7CC8A34F272C95DD00BEC453 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7CF6102F274455A400F081CA /* AuthenticationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 		7C6382CF2725C4F700FED2F4 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				7CF6102F274455A400F081CA /* AuthenticationController.swift */,
 				7C6382F1272A7DDC00FED2F4 /* Strings.swift */,
 				7CAC5DE3272330C500E2D70B /* RegistrationController.swift */,
 			);
@@ -312,6 +315,7 @@
 				7C6382EA2728A30A00FED2F4 /* CustomNavigationController.swift in Sources */,
 				7C6382F02729CCC300FED2F4 /* StringExtension.swift in Sources */,
 				7CAC5DD027232C6000E2D70B /* SceneDelegate.swift in Sources */,
+				7CF61030274455A400F081CA /* AuthenticationController.swift in Sources */,
 				7C6382E62728807900FED2F4 /* UIColorsExtension.swift in Sources */,
 				7C6382E8272883AC00FED2F4 /* Printer.swift in Sources */,
 			);
