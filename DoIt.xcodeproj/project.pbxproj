@@ -21,10 +21,15 @@
 		7CAC5DDA27232C6300E2D70B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CAC5DD827232C6300E2D70B /* LaunchScreen.storyboard */; };
 		7CAC5DE4272330C500E2D70B /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC5DE3272330C500E2D70B /* RegistrationController.swift */; };
 		7CAC5DE7272346CB00E2D70B /* CustomUIElementsAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC5DE6272346CB00E2D70B /* CustomUIElementsAuth.swift */; };
-		E032E8FA272C1B5D0051B371 /* AuthenticationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E032E8F9272C1B5D0051B371 /* AuthenticationController.swift */; };
+		7CBBC3962744535000446586 /* Services in Resources */ = {isa = PBXBuildFile; fileRef = 7CBBC3952744535000446586 /* Services */; };
+		7CC8A350272C95DD00BEC453 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7CC8A34F272C95DD00BEC453 /* GoogleService-Info.plist */; };
+		E0F0A59AFB84FC1BF71312E9 /* Pods_DoIt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EC3EBB945B3D7C2BC8D858D /* Pods_DoIt.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0EC3EBB945B3D7C2BC8D858D /* Pods_DoIt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DoIt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A1386AF90DCB3D72BF15325 /* Pods-DoIt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DoIt.debug.xcconfig"; path = "Target Support Files/Pods-DoIt/Pods-DoIt.debug.xcconfig"; sourceTree = "<group>"; };
+		7976696545C05F8EE9D09319 /* Pods-DoIt.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DoIt.release.xcconfig"; path = "Target Support Files/Pods-DoIt/Pods-DoIt.release.xcconfig"; sourceTree = "<group>"; };
 		7C5DE36E272AD0E30051C54B /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7C6382DE272777F600FED2F4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7C6382E02727789100FED2F4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -42,7 +47,8 @@
 		7CAC5DDB27232C6300E2D70B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CAC5DE3272330C500E2D70B /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
 		7CAC5DE6272346CB00E2D70B /* CustomUIElementsAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIElementsAuth.swift; sourceTree = "<group>"; };
-		E032E8F9272C1B5D0051B371 /* AuthenticationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationController.swift; sourceTree = "<group>"; };
+		7CBBC3952744535000446586 /* Services */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Services; sourceTree = "<group>"; };
+		7CC8A34F272C95DD00BEC453 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E0F0A59AFB84FC1BF71312E9 /* Pods_DoIt.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,7 +77,6 @@
 			children = (
 				7C6382F1272A7DDC00FED2F4 /* Strings.swift */,
 				7CAC5DE3272330C500E2D70B /* RegistrationController.swift */,
-				E032E8F9272C1B5D0051B371 /* AuthenticationController.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -129,8 +135,11 @@
 		7CAC5DC127232C6000E2D70B = {
 			isa = PBXGroup;
 			children = (
+				7CC8A34F272C95DD00BEC453 /* GoogleService-Info.plist */,
 				7CAC5DCC27232C6000E2D70B /* DoIt */,
 				7CAC5DCB27232C6000E2D70B /* Products */,
+				B766E86225DE8DD29BE57590 /* Pods */,
+				D70973AED3BA8BEA70B60CEE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -145,6 +154,7 @@
 		7CAC5DCC27232C6000E2D70B /* DoIt */ = {
 			isa = PBXGroup;
 			children = (
+				7CBBC3952744535000446586 /* Services */,
 				7C6382DF272777F600FED2F4 /* Localizable.strings */,
 				7C6382D52725C5E800FED2F4 /* Models */,
 				7C6382D42725C5D800FED2F4 /* Vendors */,
@@ -159,6 +169,23 @@
 			path = DoIt;
 			sourceTree = "<group>";
 		};
+		B766E86225DE8DD29BE57590 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5A1386AF90DCB3D72BF15325 /* Pods-DoIt.debug.xcconfig */,
+				7976696545C05F8EE9D09319 /* Pods-DoIt.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		D70973AED3BA8BEA70B60CEE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0EC3EBB945B3D7C2BC8D858D /* Pods_DoIt.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -166,9 +193,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7CAC5DDE27232C6300E2D70B /* Build configuration list for PBXNativeTarget "DoIt" */;
 			buildPhases = (
+				26E5834C6D9F5AB2A476FA54 /* [CP] Check Pods Manifest.lock */,
 				7CAC5DC627232C6000E2D70B /* Sources */,
 				7CAC5DC727232C6000E2D70B /* Frameworks */,
 				7CAC5DC827232C6000E2D70B /* Resources */,
+				86AC30C02403A8EA4D6A063B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -217,14 +246,58 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7CBBC3962744535000446586 /* Services in Resources */,
 				7CAC5DDA27232C6300E2D70B /* LaunchScreen.storyboard in Resources */,
 				7C6382DD272777F600FED2F4 /* Localizable.strings in Resources */,
+				7CC8A350272C95DD00BEC453 /* GoogleService-Info.plist in Resources */,
 				7CAC5DD727232C6300E2D70B /* Assets.xcassets in Resources */,
 				7CAC5DD527232C6000E2D70B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		26E5834C6D9F5AB2A476FA54 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DoIt-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		86AC30C02403A8EA4D6A063B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DoIt/Pods-DoIt-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DoIt/Pods-DoIt-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DoIt/Pods-DoIt-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7CAC5DC627232C6000E2D70B /* Sources */ = {
@@ -239,7 +312,6 @@
 				7C6382EA2728A30A00FED2F4 /* CustomNavigationController.swift in Sources */,
 				7C6382F02729CCC300FED2F4 /* StringExtension.swift in Sources */,
 				7CAC5DD027232C6000E2D70B /* SceneDelegate.swift in Sources */,
-				E032E8FA272C1B5D0051B371 /* AuthenticationController.swift in Sources */,
 				7C6382E62728807900FED2F4 /* UIColorsExtension.swift in Sources */,
 				7C6382E8272883AC00FED2F4 /* Printer.swift in Sources */,
 			);
@@ -396,6 +468,7 @@
 		};
 		7CAC5DDF27232C6300E2D70B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5A1386AF90DCB3D72BF15325 /* Pods-DoIt.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -424,6 +497,7 @@
 		};
 		7CAC5DE027232C6300E2D70B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7976696545C05F8EE9D09319 /* Pods-DoIt.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
