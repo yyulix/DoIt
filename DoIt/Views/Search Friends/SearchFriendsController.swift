@@ -12,7 +12,6 @@ final class SearchFriendsController: UIViewController {
 
     struct Constants {
         static let cellHeight: CGFloat = 90
-        static let backgroundColor: UIColor = .white
         static let durationSearchBar: CGFloat = 0.2
         static let typeOfAnimation: UIView.AnimationOptions = .curveEaseInOut
         static let opacityValueToAnimate: CGFloat = 0.1
@@ -26,7 +25,6 @@ final class SearchFriendsController: UIViewController {
         
         table.translatesAutoresizingMaskIntoConstraints = false
         table.separatorStyle = .none
-        table.backgroundColor = Constants.backgroundColor
         return table
     }()
     
@@ -74,7 +72,7 @@ final class SearchFriendsController: UIViewController {
     // MARK: - Helpers
     
     private func configureUI() {
-        view.backgroundColor = Constants.backgroundColor
+        view.backgroundColor = .systemBackground
 
         configureNavigationController()
         layoutTableView()
@@ -167,7 +165,7 @@ extension SearchFriendsController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: FindFriendCell.self), for: indexPath) as? FindFriendCell else {
             return .init()
         }
-        cell.configureCell(with: SearchFriendsModel(image: nil, login: nil, summery: nil, isFollowed: false))
+        cell.configureCell(with: SearchFriendsModel(image: UIImage(named: "Image"), login: "login", summery: "About me", isFollowed: false))
         return cell
     }
     

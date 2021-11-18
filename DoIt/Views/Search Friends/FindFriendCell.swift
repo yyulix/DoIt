@@ -46,7 +46,6 @@ final class FindFriendCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: Constants.loginLabelSizeOfFont)
-        label.textColor = .black
         return label
     }()
 
@@ -55,7 +54,7 @@ final class FindFriendCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: Constants.summeryLabelSizeOfFont)
         label.numberOfLines = 0
-        label.textColor = .systemGray
+        label.textColor = .secondaryLabel
         return label
     }()
     
