@@ -19,7 +19,7 @@ final class SearchFriendsController: UIViewController {
 
     private lazy var tableView: UITableView = {
         let table = UITableView()
-        table.register(FindFriendCell.self, forCellReuseIdentifier: String(describing: FindFriendCell.self))
+        table.register(SearchFriendsCell.self, forCellReuseIdentifier: String(describing: SearchFriendsCell.self))
         table.dataSource = self
         table.delegate = self
         
@@ -162,7 +162,7 @@ extension SearchFriendsController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: FindFriendCell.self), for: indexPath) as? FindFriendCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SearchFriendsCell.self), for: indexPath) as? SearchFriendsCell else {
             return .init()
         }
         cell.configureCell(with: SearchFriendsModel(image: UIImage(named: "Image"), login: "login", summery: "About me", isFollowed: false))

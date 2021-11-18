@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class FindFriendCell: UITableViewCell {
+final class SearchFriendsCell: UITableViewCell {
     // MARK: - Private Properties
 
     private struct Constants {
