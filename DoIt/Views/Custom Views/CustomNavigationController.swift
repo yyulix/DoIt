@@ -23,8 +23,8 @@ final class CustomNavigationController: UINavigationController {
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithOpaqueBackground()
         navBarAppearance.backgroundColor = .systemTeal
-        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-        UINavigationBar.appearance().tintColor = .white
+        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.AppColors.navigationTextColor]
+        UINavigationBar.appearance().tintColor = .AppColors.navigationTextColor
         UINavigationBar.appearance().standardAppearance = navBarAppearance
         UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
     }

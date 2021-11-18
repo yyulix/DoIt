@@ -12,5 +12,5 @@ struct SearchFriendsModel {
     let image: UIImage?
     let login: String?
     let summery: String?
-    let isFollowed: Bool?
+    let isFollowed: Bool
 }

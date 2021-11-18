@@ -20,10 +20,8 @@ final class FindFriendCell: UITableViewCell {
         static let defaultCornerRadius: CGFloat = 8
         
         static let loginLabelSizeOfFont: CGFloat = 18
-        static let loginLabelNumberOfLines: Int = 1
         
         static let summeryLabelSizeOfFont: CGFloat = 14
-        static let summeryLabelNumberOfLines: Int = 0
         
         static let stackViewSpacing: CGFloat = -20
         static let stackViewDistribution: UIStackView.Distribution = .fillEqually
@@ -49,18 +47,17 @@ final class FindFriendCell: UITableViewCell {
 
     private lazy var loginLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = true
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: Constants.loginLabelSizeOfFont)
-        label.numberOfLines = Constants.loginLabelNumberOfLines
         label.textColor = .black
         return label
     }()
 
     private lazy var summeryLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = true
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: Constants.summeryLabelSizeOfFont)
-        label.numberOfLines = Constants.summeryLabelNumberOfLines
+        label.numberOfLines = 0
         label.textColor = .systemGray
         return label
     }()
@@ -80,7 +77,6 @@ final class FindFriendCell: UITableViewCell {
         
         button.setTitle(FindFriendsString.followButton.rawValue.localized, for: .normal)
         button.setTitle(FindFriendsString.unfollowButton.rawValue.localized, for: .selected)
-        button.setTitleColor(.systemBackground, for: .normal)
         
         button.titleLabel?.font = .systemFont(ofSize: Constants.followButtonSizeOfFont)
         button.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -106,10 +102,10 @@ final class FindFriendCell: UITableViewCell {
 
     // MARK: - Helpers
     func configureCell(with model: SearchFriendsModel) {
-        profileImageView.image = model.image ?? UIImage.Icons.personPlaceholderIcon
+        profileImageView.image = model.image ?? UIImage.SearchFriendsIcons.personPlaceholderIcon
         loginLabel.text = model.login
         configureSummeryLabel(text: model.summery)
-        configureFollowButton(isFollowed: model.isFollowed ?? false)
+        configureFollowButton(isFollowed: model.isFollowed)
     }
     
     private func configureSummeryLabel(text: String?) {

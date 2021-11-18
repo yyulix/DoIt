@@ -91,7 +91,6 @@ final class InputField: UIView, UITextFieldDelegate {
 }
 
 final class CustomRoundedButton: UIView {
-
     private struct UIConstants {
         static let height = 50.0
         static let width = 200.0

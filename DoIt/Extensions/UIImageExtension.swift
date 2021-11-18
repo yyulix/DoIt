@@ -14,7 +14,7 @@ extension UIImage {
         static var lockIcon: UIImage { UIImage(systemName: "lock")! }
     }
     
-    struct Icons {
+    struct SearchFriendsIcons {
         static var personPlaceholderIcon: UIImage { UIImage(named: "imagePlaceHolder")! }
     }
 }

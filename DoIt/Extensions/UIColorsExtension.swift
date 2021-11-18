@@ -10,5 +10,6 @@ import UIKit
 extension UIColor {
     struct AppColors {
         static let accentColor = UIColor.systemTeal
+        static let navigationTextColor = UIColor.white
     }
 }

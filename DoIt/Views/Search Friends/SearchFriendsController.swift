@@ -14,10 +14,8 @@ final class SearchFriendsController: UIViewController {
         static let cellHeight: CGFloat = 90
         static let backgroundColor: UIColor = .white
         static let durationSearchBar: CGFloat = 0.2
-        static let typeOfAnimation: UIView.AnimationOptions = .curveLinear
-        static let visibleOpacity: CGFloat = 1
-        static let transparentValue: Float = 0
-        static let opaqueValue: Float = 1
+        static let typeOfAnimation: UIView.AnimationOptions = .curveEaseInOut
+        static let opacityValueToAnimate: CGFloat = 0.1
     }
 
     private lazy var tableView: UITableView = {
@@ -39,17 +37,21 @@ final class SearchFriendsController: UIViewController {
         searchBar.delegate = self
         searchBar.textContentType = .nickname
         searchBar.showsCancelButton = false
+        searchBar.tintColor = .AppColors.navigationTextColor
         
+        searchBar.searchTextField.leftView?.tintColor = .gray
         searchBar.searchTextField.tintColor = .black
-        searchBar.searchTextField.backgroundColor = .white
-        searchBar.tintColor = .white
+        searchBar.searchTextField.textColor = .black
+        searchBar.searchTextField.backgroundColor = .AppColors.navigationTextColor
         return searchBar
     }()
     
     private lazy var openSearchButton: UIBarButtonItem = {
         let button = UIButton(type: .custom)
+        button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
         button.addTarget(self, action: #selector(addSearchBarView), for: .touchUpInside)
+        button.tintColor = .AppColors.navigationTextColor
         return UIBarButtonItem(customView: button)
     }()
     
@@ -57,7 +59,7 @@ final class SearchFriendsController: UIViewController {
         let label = UILabel()
         label.text = FindFriendsString.header.rawValue.localized
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .white
+        label.textColor = .AppColors.navigationTextColor
         return label
     }()
 
@@ -73,10 +75,9 @@ final class SearchFriendsController: UIViewController {
     
     private func configureUI() {
         view.backgroundColor = Constants.backgroundColor
-        view.addSubview(tableView)
 
-        layoutTableView()
         configureNavigationController()
+        layoutTableView()
     }
 
     private func configureNavigationController() {
@@ -88,6 +89,7 @@ final class SearchFriendsController: UIViewController {
     }
 
     private func layoutTableView() {
+        view.addSubview(tableView)
         tableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
         tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
@@ -98,38 +100,51 @@ final class SearchFriendsController: UIViewController {
 extension SearchFriendsController {
     @objc
     private func addSearchBarView() {
+        let alphaColor: UIColor = .AppColors.navigationTextColor.withAlphaComponent(Constants.opacityValueToAnimate)
+        
         UIView.animate(withDuration: Constants.durationSearchBar, delay: 0, options: Constants.typeOfAnimation) {
-            self.navigationController?.navigationBar.tintColor = .clear
-            self.navigationItem.titleView?.layer.opacity = Constants.transparentValue
+            self.navigationController?.navigationBar.tintColor = alphaColor
+            self.navigationItem.titleView?.layer.opacity = Float(Constants.opacityValueToAnimate)
+            self.navigationItem.rightBarButtonItem?.customView?.tintColor = alphaColor
         } completion: { _ in
-            self.navigationItem.setHidesBackButton(true, animated: false)
-            self.navigationItem.rightBarButtonItem = nil
-            self.navigationItem.titleView = self.searchBar
-            self.navigationItem.titleView?.layer.opacity = Constants.transparentValue
-            UIView.animate(withDuration: Constants.durationSearchBar, delay: 0, options: Constants.typeOfAnimation) {
-                self.navigationItem.titleView?.layer.opacity = Constants.opaqueValue
-            } completion: { _ in
+            self.configureNavigationControllerAnimation(withSearchBar: true) { _ in
                 self.searchBar.setShowsCancelButton(true, animated: true)
                 self.searchBar.becomeFirstResponder()
             }
         }
     }
-
+    
     func removeSearchBarView() {
         searchBar.setShowsCancelButton(false, animated: true)
+        
         UIView.animate(withDuration: Constants.durationSearchBar, delay: 0, options: Constants.typeOfAnimation) {
-            self.navigationItem.titleView?.layer.opacity = Constants.transparentValue
+            self.navigationItem.titleView?.layer.opacity = Float(Constants.opacityValueToAnimate)
         } completion: { _ in
-            self.navigationItem.setHidesBackButton(false, animated: false)
-            self.navigationItem.titleView = self.titleView
-            self.navigationItem.rightBarButtonItem = self.openSearchButton
-            UIView.animate(withDuration: Constants.durationSearchBar, delay: 0, options: Constants.typeOfAnimation) {
-                self.navigationController?.navigationBar.tintColor = .systemBackground
-                self.navigationItem.titleView?.layer.opacity = Constants.opaqueValue
-            } completion: { _ in
-                
-            }
+            self.configureNavigationControllerAnimation(withSearchBar: false)
         }
+    }
+    
+    func configureNavigationControllerAnimation(withSearchBar: Bool, completion: ((Bool) -> ())? = nil) {
+        let alphaColor: UIColor = .AppColors.navigationTextColor.withAlphaComponent(Constants.opacityValueToAnimate)
+
+        navigationItem.setHidesBackButton(withSearchBar, animated: false)
+        navigationItem.rightBarButtonItem = withSearchBar ? nil : openSearchButton
+        navigationItem.titleView = withSearchBar ? self.searchBar : titleView
+        navigationItem.titleView?.layer.opacity = Float(Constants.opacityValueToAnimate)
+
+        UIView.animate(withDuration: 0, animations: {
+            self.navigationController?.navigationBar.tintColor = alphaColor
+        }, completion: { _ in
+            self.setDefaultNavigationControllerAnimation(completion: completion)
+        })
+    }
+    
+    func setDefaultNavigationControllerAnimation(completion: ((Bool) -> ())? = nil) {
+        UIView.animate(withDuration: Constants.durationSearchBar, delay: 0, options: Constants.typeOfAnimation, animations: {
+            self.navigationItem.rightBarButtonItem?.customView?.tintColor = .AppColors.navigationTextColor
+            self.navigationItem.titleView?.layer.opacity = 1
+            self.navigationController?.navigationBar.tintColor = .AppColors.navigationTextColor
+        }, completion: completion)
     }
 }
 
@@ -152,7 +167,7 @@ extension SearchFriendsController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: FindFriendCell.self), for: indexPath) as? FindFriendCell else {
             return .init()
         }
-        cell.configureCell(with: SearchFriendsModel(image: nil, login: nil, summery: nil, isFollowed: nil))
+        cell.configureCell(with: SearchFriendsModel(image: nil, login: nil, summery: nil, isFollowed: false))
         return cell
     }
     
