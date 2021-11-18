@@ -165,7 +165,7 @@ extension SearchFriendsController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SearchFriendsCell.self), for: indexPath) as? SearchFriendsCell else {
             return .init()
         }
-        cell.configureCell(with: SearchFriendsModel(image: UIImage(named: "Image"), login: "login", summery: "About me", isFollowed: false))
+        cell.configureCell(with: SearchFriendsModel(image: nil, login: nil, summery: nil, isFollowed: false))
         return cell
     }
     
