@@ -11,5 +11,6 @@ extension UIColor {
     struct AppColors {
         static let accentColor = UIColor.systemTeal
         static let navigationTextColor = UIColor.white
+        static let grey = UIColor.init(white: 200 / 255, alpha: 1)
     }
 }

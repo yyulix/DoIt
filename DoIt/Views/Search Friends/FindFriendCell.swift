@@ -17,17 +17,14 @@ final class FindFriendCell: UITableViewCell {
         static let offsetFollowButtonFromRight: CGFloat = 12
         static let multiplierWidthFollowButton: CGFloat = 0.21
         
-        static let defaultCornerRadius: CGFloat = 8
+        static let defaultCornerRadius: CGFloat = 12
         
         static let loginLabelSizeOfFont: CGFloat = 18
         
         static let summeryLabelSizeOfFont: CGFloat = 14
         
         static let stackViewSpacing: CGFloat = -20
-        static let stackViewDistribution: UIStackView.Distribution = .fillEqually
-        
-        static let followButtonSelectedColor: UIColor = .green
-        static let followButtonUnselectedColor: UIColor = .AppColors.accentColor
+
         static let followButtonSizeOfFont: CGFloat = 15
         static let followButtonMinimumScaleFactor: CGFloat = 0.5
         
@@ -67,21 +64,22 @@ final class FindFriendCell: UITableViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = Constants.stackViewSpacing
-        stackView.distribution = Constants.stackViewDistribution
+        stackView.distribution = .fillEqually
         return stackView
     }()
 
     private lazy var followButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        
+
         button.setTitle(FindFriendsString.followButton.rawValue.localized, for: .normal)
         button.setTitle(FindFriendsString.unfollowButton.rawValue.localized, for: .selected)
-        
+        button.setTitleColor(.AppColors.navigationTextColor, for: .normal)
+
         button.titleLabel?.font = .systemFont(ofSize: Constants.followButtonSizeOfFont)
         button.titleLabel?.adjustsFontSizeToFitWidth = true
         button.titleLabel?.minimumScaleFactor = Constants.followButtonMinimumScaleFactor
-        
+
         button.layer.masksToBounds = true
         button.layer.cornerRadius = Constants.defaultCornerRadius
         button.addTarget(self, action: #selector(didTapFollowButton), for: .touchUpInside)
@@ -115,7 +113,7 @@ final class FindFriendCell: UITableViewCell {
     
     private func configureFollowButton(isFollowed: Bool) {
         followButton.isSelected = isFollowed
-        followButton.backgroundColor = isFollowed ? Constants.followButtonSelectedColor : Constants.followButtonUnselectedColor
+        followButton.backgroundColor = isFollowed ? .AppColors.grey : .AppColors.accentColor
     }
 
     private func configureUI() {
