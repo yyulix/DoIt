@@ -16,3 +16,14 @@
 "auth.headerSignUp" = "Регистрация";
 "auth.alreadySignedUp" = "Уже есть аккаунт? ";
 "auth.notSignedUp" = "Нет аккаунта? ";
+
+"auth.signInSuccellful" = "Вход выполнен успешно";
+"auth.signInUnuccellful" = "Вход не выполнен";
+"auth.signUpSuccellful" =  "Регистрация выполнена успешно";
+"auth.signUpUnuccellful" =  "Регистрация не выполнена";
+
+"auth.welcome" = "Добро пожаловать!";
+"auth.accept" = "OK";
+"auth.invitation" = "Начать";
+
+"auth.passwordMismatched" = "Введенные пароли не совпадают";

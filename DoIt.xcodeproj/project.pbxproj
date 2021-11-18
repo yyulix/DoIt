@@ -21,9 +21,12 @@
 		7CAC5DDA27232C6300E2D70B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CAC5DD827232C6300E2D70B /* LaunchScreen.storyboard */; };
 		7CAC5DE4272330C500E2D70B /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC5DE3272330C500E2D70B /* RegistrationController.swift */; };
 		7CAC5DE7272346CB00E2D70B /* CustomUIElementsAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC5DE6272346CB00E2D70B /* CustomUIElementsAuth.swift */; };
-		7CBBC3962744535000446586 /* Services in Resources */ = {isa = PBXBuildFile; fileRef = 7CBBC3952744535000446586 /* Services */; };
 		7CC8A350272C95DD00BEC453 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7CC8A34F272C95DD00BEC453 /* GoogleService-Info.plist */; };
+		7CE65B5E27459C1C00F45D57 /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE65B5D27459C1C00F45D57 /* AuthError.swift */; };
+		7CE65B6027459C5300F45D57 /* AuthResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE65B5F27459C5300F45D57 /* AuthResult.swift */; };
 		7CF61030274455A400F081CA /* AuthenticationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF6102F274455A400F081CA /* AuthenticationController.swift */; };
+		7CF61033274476E500F081CA /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF61032274476E500F081CA /* AuthService.swift */; };
+		7CF6103527447C1D00F081CA /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF6103427447C1D00F081CA /* ProfileController.swift */; };
 		E0F0A59AFB84FC1BF71312E9 /* Pods_DoIt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EC3EBB945B3D7C2BC8D858D /* Pods_DoIt.framework */; };
 /* End PBXBuildFile section */
 
@@ -48,9 +51,12 @@
 		7CAC5DDB27232C6300E2D70B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CAC5DE3272330C500E2D70B /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
 		7CAC5DE6272346CB00E2D70B /* CustomUIElementsAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIElementsAuth.swift; sourceTree = "<group>"; };
-		7CBBC3952744535000446586 /* Services */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Services; sourceTree = "<group>"; };
 		7CC8A34F272C95DD00BEC453 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7CE65B5D27459C1C00F45D57 /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
+		7CE65B5F27459C5300F45D57 /* AuthResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResult.swift; sourceTree = "<group>"; };
 		7CF6102F274455A400F081CA /* AuthenticationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationController.swift; sourceTree = "<group>"; };
+		7CF61032274476E500F081CA /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		7CF6103427447C1D00F081CA /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +86,7 @@
 				7CF6102F274455A400F081CA /* AuthenticationController.swift */,
 				7C6382F1272A7DDC00FED2F4 /* Strings.swift */,
 				7CAC5DE3272330C500E2D70B /* RegistrationController.swift */,
+				7CF6103427447C1D00F081CA /* ProfileController.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -157,7 +164,7 @@
 		7CAC5DCC27232C6000E2D70B /* DoIt */ = {
 			isa = PBXGroup;
 			children = (
-				7CBBC3952744535000446586 /* Services */,
+				7CF61031274476CB00F081CA /* Services */,
 				7C6382DF272777F600FED2F4 /* Localizable.strings */,
 				7C6382D52725C5E800FED2F4 /* Models */,
 				7C6382D42725C5D800FED2F4 /* Vendors */,
@@ -170,6 +177,24 @@
 				7C6382E42727885F00FED2F4 /* Extensions */,
 			);
 			path = DoIt;
+			sourceTree = "<group>";
+		};
+		7CE65B612745B6E200F45D57 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				7CF61032274476E500F081CA /* AuthService.swift */,
+				7CE65B5D27459C1C00F45D57 /* AuthError.swift */,
+				7CE65B5F27459C5300F45D57 /* AuthResult.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		7CF61031274476CB00F081CA /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				7CE65B612745B6E200F45D57 /* Auth */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		B766E86225DE8DD29BE57590 /* Pods */ = {
@@ -249,7 +274,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7CBBC3962744535000446586 /* Services in Resources */,
 				7CAC5DDA27232C6300E2D70B /* LaunchScreen.storyboard in Resources */,
 				7C6382DD272777F600FED2F4 /* Localizable.strings in Resources */,
 				7CC8A350272C95DD00BEC453 /* GoogleService-Info.plist in Resources */,
@@ -310,11 +334,15 @@
 				7CAC5DE7272346CB00E2D70B /* CustomUIElementsAuth.swift in Sources */,
 				7CAC5DCE27232C6000E2D70B /* AppDelegate.swift in Sources */,
 				7C6382F2272A7DDC00FED2F4 /* Strings.swift in Sources */,
+				7CF61033274476E500F081CA /* AuthService.swift in Sources */,
 				7CAC5DE4272330C500E2D70B /* RegistrationController.swift in Sources */,
 				7C6382E32727884000FED2F4 /* UIImageExtension.swift in Sources */,
+				7CE65B5E27459C1C00F45D57 /* AuthError.swift in Sources */,
 				7C6382EA2728A30A00FED2F4 /* CustomNavigationController.swift in Sources */,
+				7CF6103527447C1D00F081CA /* ProfileController.swift in Sources */,
 				7C6382F02729CCC300FED2F4 /* StringExtension.swift in Sources */,
 				7CAC5DD027232C6000E2D70B /* SceneDelegate.swift in Sources */,
+				7CE65B6027459C5300F45D57 /* AuthResult.swift in Sources */,
 				7CF61030274455A400F081CA /* AuthenticationController.swift in Sources */,
 				7C6382E62728807900FED2F4 /* UIColorsExtension.swift in Sources */,
 				7C6382E8272883AC00FED2F4 /* Printer.swift in Sources */,

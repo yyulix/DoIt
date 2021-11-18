@@ -10,4 +10,5 @@ target 'DoIt' do
 	pod 'Firebase/Database'
 	pod 'Firebase/Storage'
 	pod 'Firebase/Auth'
+	pod 'PopupDialog'
 end

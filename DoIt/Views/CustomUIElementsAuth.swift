@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PopupDialog
 
 final class InputField: UIView, UITextFieldDelegate {
 
@@ -101,6 +102,8 @@ final class CustomRoundedButton: UIView {
 
     // MARK: - Private Properties
 
+    public lazy var button = UIButton(type: .system)
+    
     // MARK: - Initializers
 
     init(title: String, target: Any? = nil, action: Selector? = nil) {
@@ -109,7 +112,6 @@ final class CustomRoundedButton: UIView {
 
         heightAnchor.constraint(equalToConstant: UIConstants.height).isActive = true
 
-        let button = UIButton(type: .system)
         if let target = target, let action = action {
             button.addTarget(target, action: action, for: .touchUpInside)
         }

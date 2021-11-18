@@ -16,3 +16,14 @@
 "auth.headerSignUp" = "Registration";
 "auth.alreadySignedUp" = "Already have an account? ";
 "auth.notSignedUp" = "Don't you have an account? ";
+
+"auth.signInSuccellful" = "Sign In successful";
+"auth.signInUnuccellful" = "Sign In unsuccessful";
+"auth.signUpSuccellful" = "Sign Up successful";
+"auth.signUpUnuccellful" = "Sign Up unsuccessful";
+
+"auth.welcome" = "Welcome!";
+"auth.accept" = "OK";
+"auth.invitation" = "Let's start";
+
+"auth.passwordMismatched" = "Passwords don't match";

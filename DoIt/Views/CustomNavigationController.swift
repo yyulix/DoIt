@@ -27,5 +27,10 @@ class CustomNavigationController: UINavigationController {
         UINavigationBar.appearance().tintColor = .white
         UINavigationBar.appearance().standardAppearance = navBarAppearance
         UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
+        UINavigationBar.appearance().backItem?.hidesBackButton = true
+        let backBtn = UIBarButtonItem(title: "", style: UIBarButtonItem.Style.plain, target: navigationController, action: nil)
+
+
+        navigationItem.leftBarButtonItem = backBtn
     }
 }

@@ -19,4 +19,15 @@ enum AuthStrings: String {
     // screen headers
     case headerSignIn = "auth.headerSignIn"
     case headerSignUp = "auth.headerSignUp"
+    
+    case signInSuccessful = "auth.signInSuccellful"
+    case signInUnsuccessful = "auth.signInUnuccellful"
+    case signUpSuccessful = "auth.signUpSuccellful"
+    case signUpUnuccessful = "auth.signUpUnuccellful"
+    
+    case welcome = "auth.welcome"
+    case accept = "auth.accept"
+    case invitation = "auth.invitation"
+    
+    case passwordMismatched = "auth.passwordMismatched"
 }
