@@ -63,7 +63,6 @@
 		7C6382CE2725C4EF00FED2F4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E425F6382746C0BA00BA195B /* Profile */,
 				E49F201F27355B9900F50258 /* Sign */,
 				E49F201E27355B8800F50258 /* Search Friends */,
 				E49F201A273554DD00F50258 /* Custom Views */,
@@ -145,13 +144,6 @@
 				7C6382E42727885F00FED2F4 /* Extensions */,
 			);
 			path = DoIt;
-			sourceTree = "<group>";
-		};
-		E425F6382746C0BA00BA195B /* Profile */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Profile;
 			sourceTree = "<group>";
 		};
 		E442B5BE273F093900FE37C3 /* Models */ = {
