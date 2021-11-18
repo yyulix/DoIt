@@ -63,7 +63,8 @@
 		7C6382CE2725C4EF00FED2F4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E49F201F27355B9900F50258 /* Sign */,
+				E425F63C2746C26800BA195B /* SignUp */,
+				E49F201F27355B9900F50258 /* SignIn */,
 				E49F201E27355B8800F50258 /* Search Friends */,
 				E49F201A273554DD00F50258 /* Custom Views */,
 			);
@@ -146,6 +147,14 @@
 			path = DoIt;
 			sourceTree = "<group>";
 		};
+		E425F63C2746C26800BA195B /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				7CAC5DE3272330C500E2D70B /* RegistrationController.swift */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
 		E442B5BE273F093900FE37C3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -172,13 +181,12 @@
 			path = "Search Friends";
 			sourceTree = "<group>";
 		};
-		E49F201F27355B9900F50258 /* Sign */ = {
+		E49F201F27355B9900F50258 /* SignIn */ = {
 			isa = PBXGroup;
 			children = (
 				E032E8F9272C1B5D0051B371 /* AuthenticationController.swift */,
-				7CAC5DE3272330C500E2D70B /* RegistrationController.swift */,
 			);
-			path = Sign;
+			path = SignIn;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
