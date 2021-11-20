@@ -25,7 +25,7 @@ class MyTasksController: UIViewController {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.delegate = collectionView.self
         collectionView.dataSource = collectionView.self
-        collectionView.register(CollectionCell.self, forCellWithReuseIdentifier: CollectionCell.identifier)
+        collectionView.register(ChapterCollectionViewCell.self, forCellWithReuseIdentifier: "ChapterCollectionCell")
         return collectionView
     }()
     

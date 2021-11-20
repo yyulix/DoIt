@@ -25,7 +25,7 @@ class FeedController: UIViewController {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.delegate = collectionView.self
         collectionView.dataSource = collectionView.self
-        collectionView.register(FeedCollectionCell.self, forCellWithReuseIdentifier: FeedCollectionCell.identifier)
+        collectionView.register(FeedCollectionCell.self, forCellWithReuseIdentifier: "FeedCollectionCell")
         return collectionView
     }()
     

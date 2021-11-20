@@ -7,10 +7,7 @@
 
 import UIKit
 
-class CollectionCell: UICollectionViewCell {
-    
-    // MARK: - Public Property
-    static let identifier = "CollectionCell"
+class ChapterCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Private Property
     private struct UIConstants {
@@ -38,16 +35,24 @@ class CollectionCell: UICollectionViewCell {
     
     //MARK: - Public Methods
     func configureCell(chapterData: Chapter) {
+        configureLayout()
+        configureData(chapterData: chapterData)
+    }
+    
+    private func configureLayout() {
         addSubview(chapterLabel)
         chapterLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: UIConstants.leftPadding).isActive = true
         chapterLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: UIConstants.rightPadding).isActive = true
         chapterLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         chapterLabel.font = chapterLabel.font.withSize(UIConstants.labelFontSize)
-        chapterLabel.text = chapterData.title!
-        chapterLabel.textColor = chapterData.textColor!
-        backgroundColor = chapterData.color!
         layer.masksToBounds = true
         layer.cornerRadius = UIConstants.cornerRadius
         contentMode = .scaleAspectFit
+    }
+    
+    private func configureData(chapterData: Chapter) {
+        chapterLabel.text = chapterData.title!
+        chapterLabel.textColor = chapterData.textColor!
+        backgroundColor = chapterData.color!
     }
 }

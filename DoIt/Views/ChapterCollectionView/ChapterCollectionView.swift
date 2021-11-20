@@ -27,7 +27,7 @@ class ChapterCollectionView: UICollectionView, UICollectionViewDelegate {
 extension ChapterCollectionView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionCell.identifier, for: indexPath) as? CollectionCell else { return .init(frame: .zero) }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ChapterCollectionCell", for: indexPath) as? ChapterCollectionViewCell else { return .init(frame: .zero) }
         cell.configureCell(chapterData: chapters[indexPath.row])
         return cell
     }

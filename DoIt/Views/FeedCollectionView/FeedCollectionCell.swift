@@ -9,9 +9,6 @@ import UIKit
 
 class FeedCollectionCell: UICollectionViewCell {
     
-    // MARK: - Public Property
-    static let identifier = "FeedCollectionCell"
-    
     // MARK: - Private Property
     private struct UIConstants {
         static let padding = 6.0

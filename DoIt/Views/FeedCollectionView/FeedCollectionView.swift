@@ -31,7 +31,7 @@ extension FeedCollectionView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedCollectionCell.identifier, for: indexPath) as? FeedCollectionCell else { return .init(frame: .zero) }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FeedCollectionCell", for: indexPath) as? FeedCollectionCell else { return .init(frame: .zero) }
         cell.configureCell(taskInfo: tasks[indexPath.row])
         return cell
     }
