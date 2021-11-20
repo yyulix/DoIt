@@ -61,7 +61,7 @@ class RegistrationController: UIViewController {
     }
     
     @objc private func signInButtonPressed(_ sender: UIButton) {
-        let myTasks = MyTasksController()
-        self.navigationController?.pushViewController(myTasks, animated: true)
+        let mainScreen = MainTabBarController()
+        self.navigationController?.pushViewController(mainScreen, animated: true)
     }
 }

@@ -7,13 +7,13 @@
 
 import UIKit
 
-struct ChapterStruct{
+struct Chapter{
     let title: String?
     let color: UIColor?
     let textColor: UIColor?
 }
 
-struct TaskStruct{
+struct Task{
     let image: UIImage?
     let title: String?
     let description: String?

@@ -16,11 +16,11 @@ class CollectionCell: UICollectionViewCell {
     private struct UIConstants {
         static let leftPadding = 11.0
         static let rightPadding = -11.0
-        static let cornerRadius = 25.0
-        static let labelFontSize = 24.0
+        static let cornerRadius = 15.0
+        static let labelFontSize = 18.0
     }
     
-    private let label: UILabel = {
+    private let chapterLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
@@ -37,14 +37,14 @@ class CollectionCell: UICollectionViewCell {
     }
     
     //MARK: - Public Methods
-    func configureCell(chapterData: ChapterStruct) {
-        addSubview(label)
-        label.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: UIConstants.leftPadding).isActive = true
-        label.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: UIConstants.rightPadding).isActive = true
-        label.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        label.font = label.font.withSize(UIConstants.labelFontSize)
-        label.text = chapterData.title!
-        label.textColor = chapterData.textColor!
+    func configureCell(chapterData: Chapter) {
+        addSubview(chapterLabel)
+        chapterLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: UIConstants.leftPadding).isActive = true
+        chapterLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: UIConstants.rightPadding).isActive = true
+        chapterLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        chapterLabel.font = chapterLabel.font.withSize(UIConstants.labelFontSize)
+        chapterLabel.text = chapterData.title!
+        chapterLabel.textColor = chapterData.textColor!
         backgroundColor = chapterData.color!
         layer.masksToBounds = true
         layer.cornerRadius = UIConstants.cornerRadius

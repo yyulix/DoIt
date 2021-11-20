@@ -17,14 +17,14 @@ class TaskTableViewCell: UITableViewCell {
         static let cornerRadius = 12.0
         static let imageSize = 75.0
         static let buttonSize = 30.0
-        static let indicatorWidth = 12.0
+        static let indicatorWidth = 10.0
         static let paddingTop = 10.0
         static let paddingBottom = -13.0
         static let paddingLeft = 13.0
         static let paddingRight = -13.0
-        static let titleFontSize = 24.0
-        static let descriptionFontSize = 18.0
-        static let space = 8.0
+        static let titleFontSize = 22.0
+        static let descriptionFontSize = 16.0
+        static let space = 10.0
         static let dividerWidth = 1.0
     }
 
@@ -89,7 +89,7 @@ class TaskTableViewCell: UITableViewCell {
     }()
     
     //MARK: - Public Methods
-    func configureCell(taskInfo: TaskStruct) {
+    func configureCell(taskInfo: Task) {
         contentView.layer.cornerRadius = UIConstants.cornerRadius
         self.selectionStyle = .none
         
@@ -100,7 +100,7 @@ class TaskTableViewCell: UITableViewCell {
         configureImage(cellImage: taskInfo.image)
         configureDescription(description: taskInfo.description)
         configureDeadline(date: taskInfo.deadline)
-        configureDivider()
+        configureDivider(color: taskInfo.color)
     }
     
     //MARK: - Private Methods
@@ -119,17 +119,16 @@ class TaskTableViewCell: UITableViewCell {
         indicator.leadingAnchor.constraint(equalTo: insideView.leadingAnchor).isActive = true
         indicator.bottomAnchor.constraint(equalTo: insideView.bottomAnchor).isActive = true
         indicator.widthAnchor.constraint(equalToConstant: UIConstants.indicatorWidth).isActive = true
-        indicator.backgroundColor = color!
+        if let _ = color {
+            indicator.backgroundColor = color!
+        } else {
+            indicator.backgroundColor = .lightGray
+        }
     }
     
     private func configureCheckbox(isDone: Bool) {
         insideView.addSubview(checkBox)
-        if isDone {
-            checkBox.setImage(UIImage.TaskIcons.isDone, for: UIControl.State.normal)
-        } else {
-            checkBox.setImage(UIImage.TaskIcons.isNotDone, for: UIControl.State.normal)
-        }
-        
+        isDone ? checkBox.setImage(UIImage.TaskIcons.isDone, for: .normal) : checkBox.setImage(UIImage.TaskIcons.isNotDone, for: .normal)
         checkBox.topAnchor.constraint(equalTo: insideView.topAnchor, constant: UIConstants.paddingTop).isActive = true
         checkBox.trailingAnchor.constraint(equalTo: insideView.trailingAnchor, constant: UIConstants.paddingRight).isActive = true
         checkBox.widthAnchor.constraint(equalToConstant: UIConstants.buttonSize).isActive = true
@@ -194,12 +193,17 @@ class TaskTableViewCell: UITableViewCell {
         deadline.bottomAnchor.constraint(equalTo: insideView.bottomAnchor, constant: UIConstants.paddingBottom).isActive = true
     }
     
-    private func configureDivider() {
+    private func configureDivider(color: UIColor?) {
         insideView.addSubview(divider)
         divider.leadingAnchor.constraint(equalTo: indicator.trailingAnchor, constant: UIConstants.paddingLeft).isActive = true
         divider.trailingAnchor.constraint(equalTo: insideView.trailingAnchor, constant: UIConstants.paddingRight).isActive = true
         divider.bottomAnchor.constraint(equalTo: insideView.bottomAnchor).isActive = true
         divider.heightAnchor.constraint(equalToConstant: UIConstants.dividerWidth).isActive = true
+        if let _ = color {
+            divider.backgroundColor = color!
+        } else {
+            divider.backgroundColor = .lightGray
+        }
     }
     
 }
