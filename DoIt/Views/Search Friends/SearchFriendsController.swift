@@ -12,7 +12,7 @@ final class SearchFriendsController: UIViewController {
 
     struct Constants {
         static let cellHeight: CGFloat = 90
-        static let durationSearchBar: CGFloat = 2
+        static let durationSearchBar: CGFloat = 0.2
         static let typeOfAnimation: UIView.AnimationOptions = .curveEaseInOut
         static let opacityValueToAnimate: CGFloat = 0.1
     }
