@@ -30,7 +30,7 @@ class ChapterCollectionViewCell: UICollectionViewCell {
         layer.cornerRadius = UIConstants.cornerRadius
         contentMode = .scaleAspectFit
         configureChapterLabel()
-        configureData(chapterData: chapterData)
+        configureData(withChapter: chapterData)
     }
     
     private func configureChapterLabel() {
@@ -41,9 +41,9 @@ class ChapterCollectionViewCell: UICollectionViewCell {
         chapterLabel.font = chapterLabel.font.withSize(UIConstants.labelFontSize)
     }
     
-    private func configureData(chapterData: Chapter) {
-        chapterLabel.text = chapterData.title!
-        chapterLabel.textColor = chapterData.textColor!
-        backgroundColor = chapterData.color!
+    private func configureData(withChapter: Chapter) {
+        chapterLabel.text = withChapter.title!
+        chapterLabel.textColor = withChapter.textColor!
+        backgroundColor = withChapter.color!
     }
 }
