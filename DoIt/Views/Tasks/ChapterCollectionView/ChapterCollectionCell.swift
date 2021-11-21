@@ -24,11 +24,6 @@ class ChapterCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    //MARK: - Override Methods
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -36,7 +31,7 @@ class ChapterCollectionViewCell: UICollectionViewCell {
     //MARK: - Public Methods
     func configureCell(chapterData: Chapter) {
         configureLayout()
-        configureData(chapterData: chapterData)
+        configureData(withChapter: chapterData)
     }
     
     private func configureLayout() {
@@ -50,9 +45,9 @@ class ChapterCollectionViewCell: UICollectionViewCell {
         contentMode = .scaleAspectFit
     }
     
-    private func configureData(chapterData: Chapter) {
-        chapterLabel.text = chapterData.title!
-        chapterLabel.textColor = chapterData.textColor!
-        backgroundColor = chapterData.color!
+    private func configureData(withChapter: Chapter) {
+        chapterLabel.text = withChapter.title!
+        chapterLabel.textColor = withChapter.textColor!
+        backgroundColor = withChapter.color!
     }
 }

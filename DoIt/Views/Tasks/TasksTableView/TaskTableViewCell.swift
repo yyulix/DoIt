@@ -128,7 +128,7 @@ class TaskTableViewCell: UITableViewCell {
     
     private func configureCheckbox(isDone: Bool) {
         insideView.addSubview(checkBox)
-        isDone ? checkBox.setImage(UIImage.TaskIcons.isDone, for: .normal) : checkBox.setImage(UIImage.TaskIcons.isNotDone, for: .normal)
+        isDone ? checkBox.setImage(UIImage.TaskIcons.done, for: .normal) : checkBox.setImage(UIImage.TaskIcons.notDone, for: .normal)
         checkBox.topAnchor.constraint(equalTo: insideView.topAnchor, constant: UIConstants.paddingTop).isActive = true
         checkBox.trailingAnchor.constraint(equalTo: insideView.trailingAnchor, constant: UIConstants.paddingRight).isActive = true
         checkBox.widthAnchor.constraint(equalToConstant: UIConstants.buttonSize).isActive = true

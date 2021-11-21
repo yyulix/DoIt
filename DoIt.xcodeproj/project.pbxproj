@@ -78,11 +78,8 @@
 			isa = PBXGroup;
 			children = (
 				83AF419F27429B5500CA8AAA /* MainTabBarController.swift */,
-				83369A3F273855BD0025F3D9 /* MyTasksController.swift */,
-				83AF41A127431EB500CA8AAA /* FeedController.swift */,
-				83AF41A427431EF300CA8AAA /* FeedCollectionView */,
-				83369A462738565B0025F3D9 /* ChapterCollectionView */,
-				83369A452738564B0025F3D9 /* TasksTableView */,
+				83A8CCCE274AAEEF00CCC15C /* Tasks */,
+				83A8CCCD274AAED800CCC15C /* Feed */,
 				7CAC5DE6272346CB00E2D70B /* CustomUIElementsAuth.swift */,
 				7C6382E92728A30A00FED2F4 /* CustomNavigationController.swift */,
 			);
@@ -199,6 +196,25 @@
 				83369A49273856950025F3D9 /* ChapterCollectionCell.swift */,
 			);
 			path = ChapterCollectionView;
+			sourceTree = "<group>";
+		};
+		83A8CCCD274AAED800CCC15C /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				83AF41A127431EB500CA8AAA /* FeedController.swift */,
+				83AF41A427431EF300CA8AAA /* FeedCollectionView */,
+			);
+			path = Feed;
+			sourceTree = "<group>";
+		};
+		83A8CCCE274AAEEF00CCC15C /* Tasks */ = {
+			isa = PBXGroup;
+			children = (
+				83369A3F273855BD0025F3D9 /* MyTasksController.swift */,
+				83369A452738564B0025F3D9 /* TasksTableView */,
+				83369A462738565B0025F3D9 /* ChapterCollectionView */,
+			);
+			path = Tasks;
 			sourceTree = "<group>";
 		};
 		83AF41A427431EF300CA8AAA /* FeedCollectionView */ = {
