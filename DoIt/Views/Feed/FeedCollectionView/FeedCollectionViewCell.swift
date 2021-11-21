@@ -70,30 +70,30 @@ class FeedCollectionViewCell: UICollectionViewCell {
     func configureCell(taskInfo: Task) {
         layer.masksToBounds = true
         layer.cornerRadius = UIConstants.cornerRadius
-        configureTaskImage(image: taskInfo.image)
-        configureTaskLabel(titleText: taskInfo.title)
+        configureTaskImage(withImage: taskInfo.image)
+        configureTaskLabel(withLabel: taskInfo.title)
         configureCreatorViews()
         contentMode = .scaleAspectFit
         backgroundColor = .white
     }
     
-    private func configureTaskImage(image: UIImage?) {
+    private func configureTaskImage(withImage: UIImage?) {
         self.addSubview(taskImage)
-        taskImage.image = image ?? UIImage.TaskIcons.defaultImage
+        taskImage.image = withImage ?? UIImage.TaskIcons.defaultImage
         taskImage.topAnchor.constraint(equalTo: self.topAnchor, constant: UIConstants.topPadding).isActive = true
         taskImage.widthAnchor.constraint(equalToConstant: UIConstants.taskImageSize).isActive = true
         taskImage.heightAnchor.constraint(equalToConstant: UIConstants.taskImageSize).isActive = true
         taskImage.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
     }
     
-    private func configureTaskLabel(titleText: String) {
+    private func configureTaskLabel(withLabel: String) {
         self.addSubview(taskLabel)
         taskLabel.topAnchor.constraint(equalTo: taskImage.bottomAnchor, constant: UIConstants.padding).isActive = true
         taskLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: UIConstants.leftPadding).isActive = true
         taskLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: UIConstants.rightPadding).isActive = true
         taskLabel.textColor = UIColor.AppColors.mainTextColor
         taskLabel.font = taskLabel.font.withSize(UIConstants.labelFontSize)
-        taskLabel.text = titleText
+        taskLabel.text = withLabel
     }
     
     private func configureCreatorViews() {
