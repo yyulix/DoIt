@@ -17,6 +17,6 @@ extension UIImage {
     struct TaskIcons {
         static var done: UIImage { UIImage(named: "isDone")! }
         static var notDone: UIImage { UIImage(named: "isNotDone")! }
-        static var standartImage: UIImage { UIImage(named: "standartImage")! }
+        static var defaultImage: UIImage { UIImage(named: "standartImage")! }
     }
 }

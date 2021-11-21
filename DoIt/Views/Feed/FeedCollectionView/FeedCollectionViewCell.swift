@@ -1,5 +1,5 @@
 //
-//  FeedCollectionCell.swift
+//  FeedCollectionViewCell.swift
 //  DoIt
 //
 //  Created by Данил Иванов on 16.11.2021.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FeedCollectionCell: UICollectionViewCell {
+class FeedCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Private Property
     private struct UIConstants {
@@ -79,29 +79,21 @@ class FeedCollectionCell: UICollectionViewCell {
     
     private func configureTaskImage(image: UIImage?) {
         self.addSubview(taskImage)
-        if let _ = image {
-            taskImage.image = image
-        } else {
-            taskImage.image = UIImage.TaskIcons.standartImage
-        }
+        taskImage.image = image ?? UIImage.TaskIcons.defaultImage
         taskImage.topAnchor.constraint(equalTo: self.topAnchor, constant: UIConstants.topPadding).isActive = true
         taskImage.widthAnchor.constraint(equalToConstant: UIConstants.taskImageSize).isActive = true
         taskImage.heightAnchor.constraint(equalToConstant: UIConstants.taskImageSize).isActive = true
         taskImage.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
     }
     
-    private func configureTaskLabel(titleText: String?) {
+    private func configureTaskLabel(titleText: String) {
         self.addSubview(taskLabel)
         taskLabel.topAnchor.constraint(equalTo: taskImage.bottomAnchor, constant: UIConstants.padding).isActive = true
         taskLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: UIConstants.leftPadding).isActive = true
         taskLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: UIConstants.rightPadding).isActive = true
         taskLabel.textColor = UIColor.AppColors.mainTextColor
         taskLabel.font = taskLabel.font.withSize(UIConstants.labelFontSize)
-        if let _ = titleText {
-            taskLabel.text = titleText
-        } else {
-            taskLabel.text = TaskString.title.rawValue.localized
-        }
+        taskLabel.text = titleText
     }
     
     private func configureCreatorViews() {

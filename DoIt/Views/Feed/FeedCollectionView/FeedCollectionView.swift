@@ -14,15 +14,15 @@ class FeedCollectionView: UICollectionView, UICollectionViewDelegate {
         static let collectionInset: CGFloat = 10.0
     }
     
-    let tasks = [Task(image: UIImage(named: "bob"), title: "Поменять резину", description: nil, deadline: nil, isDone: true, creator: nil, color: .black),
-                 Task(image: UIImage(named: "duck"), title: nil, description: nil, deadline: nil, isDone: false, creator: nil, color: nil),
-                 Task(image: UIImage(named: "bob"), title: "Отдохнуть", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: nil, isDone: false, creator: nil, color: .red),
-                 Task(image: UIImage(named: "duck"), title: "Почистить зубы", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: nil, isDone: true, creator: nil, color: .orange),
-                 Task(image: UIImage(named: "duck"), title: nil, description: nil, deadline: nil, isDone: false, creator: nil, color: nil),
-                 Task(image: UIImage(named: "bob"), title: "Отдохнуть", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: nil, isDone: false, creator: nil, color: .red),
-                 Task(image: UIImage(named: "duck"), title: "Почистить зубы", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: nil, isDone: true, creator: nil, color: .orange),
-                 Task(image: UIImage(named: "duck"), title: nil, description: nil, deadline: nil, isDone: false, creator: nil, color: nil),
-                 Task(image: UIImage(named: "bob"), title: "Отдохнуть", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: nil, isDone: false, creator: nil, color: .red)]
+    private let tasks = [Task(image: UIImage(named: "bob"), title: "Поменять резину", description: nil, deadline: nil, isDone: true, creatorId: nil, color: .black),
+                 Task(image: UIImage(named: "duck"), title: nil, description: nil, deadline: nil, isDone: false, creatorId: nil, color: nil),
+                 Task(image: UIImage(named: "bob"), title: "Отдохнуть", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: nil, isDone: false, creatorId: nil, color: .red),
+                 Task(image: UIImage(named: "duck"), title: "Почистить зубы", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: nil, isDone: true, creatorId: nil, color: .orange),
+                 Task(image: UIImage(named: "duck"), title: nil, description: nil, deadline: nil, isDone: false, creatorId: nil, color: nil),
+                 Task(image: UIImage(named: "bob"), title: "Отдохнуть", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: nil, isDone: false, creatorId: nil, color: .red),
+                 Task(image: UIImage(named: "duck"), title: "Почистить зубы", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: nil, isDone: true, creatorId: nil, color: .orange),
+                 Task(image: UIImage(named: "duck"), title: nil, description: nil, deadline: nil, isDone: false, creatorId: nil, color: nil),
+                 Task(image: UIImage(named: "bob"), title: "Отдохнуть", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: nil, isDone: false, creatorId: nil, color: .red)]
 }
 
 extension FeedCollectionView: UICollectionViewDataSource {
@@ -31,7 +31,7 @@ extension FeedCollectionView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FeedCollectionCell", for: indexPath) as? FeedCollectionCell else { return .init(frame: .zero) }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FeedCollectionCell", for: indexPath) as? FeedCollectionViewCell else { return .init(frame: .zero) }
         cell.configureCell(taskInfo: tasks[indexPath.row])
         return cell
     }

@@ -21,7 +21,7 @@
 		7CAC5DDA27232C6300E2D70B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CAC5DD827232C6300E2D70B /* LaunchScreen.storyboard */; };
 		7CAC5DE4272330C500E2D70B /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC5DE3272330C500E2D70B /* RegistrationController.swift */; };
 		7CAC5DE7272346CB00E2D70B /* CustomUIElementsAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC5DE6272346CB00E2D70B /* CustomUIElementsAuth.swift */; };
-		83369A40273855BD0025F3D9 /* MyTasksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83369A3F273855BD0025F3D9 /* MyTasksController.swift */; };
+		83369A40273855BD0025F3D9 /* TasksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83369A3F273855BD0025F3D9 /* TasksController.swift */; };
 		83369A42273855FA0025F3D9 /* TasksTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83369A41273855FA0025F3D9 /* TasksTableView.swift */; };
 		83369A44273856240025F3D9 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83369A43273856240025F3D9 /* TaskTableViewCell.swift */; };
 		83369A48273856790025F3D9 /* ChapterCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83369A47273856790025F3D9 /* ChapterCollectionView.swift */; };
@@ -30,7 +30,7 @@
 		83AF41A027429B5500CA8AAA /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AF419F27429B5500CA8AAA /* MainTabBarController.swift */; };
 		83AF41A227431EB500CA8AAA /* FeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AF41A127431EB500CA8AAA /* FeedController.swift */; };
 		83AF41A627431F7500CA8AAA /* FeedCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AF41A527431F7500CA8AAA /* FeedCollectionView.swift */; };
-		83AF41A827431F9600CA8AAA /* FeedCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AF41A727431F9600CA8AAA /* FeedCollectionCell.swift */; };
+		83AF41A827431F9600CA8AAA /* FeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AF41A727431F9600CA8AAA /* FeedCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,7 +51,7 @@
 		7CAC5DDB27232C6300E2D70B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CAC5DE3272330C500E2D70B /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
 		7CAC5DE6272346CB00E2D70B /* CustomUIElementsAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIElementsAuth.swift; sourceTree = "<group>"; };
-		83369A3F273855BD0025F3D9 /* MyTasksController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTasksController.swift; sourceTree = "<group>"; };
+		83369A3F273855BD0025F3D9 /* TasksController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksController.swift; sourceTree = "<group>"; };
 		83369A41273855FA0025F3D9 /* TasksTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTableView.swift; sourceTree = "<group>"; };
 		83369A43273856240025F3D9 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		83369A47273856790025F3D9 /* ChapterCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterCollectionView.swift; sourceTree = "<group>"; };
@@ -60,7 +60,7 @@
 		83AF419F27429B5500CA8AAA /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		83AF41A127431EB500CA8AAA /* FeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedController.swift; sourceTree = "<group>"; };
 		83AF41A527431F7500CA8AAA /* FeedCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionView.swift; sourceTree = "<group>"; };
-		83AF41A727431F9600CA8AAA /* FeedCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionCell.swift; sourceTree = "<group>"; };
+		83AF41A727431F9600CA8AAA /* FeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +131,7 @@
 		7C6382D52725C5E800FED2F4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				83369A4D273857020025F3D9 /* Structures.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -142,7 +143,6 @@
 				7C6382E52728807900FED2F4 /* UIColorsExtension.swift */,
 				7C6382E7272883AC00FED2F4 /* Printer.swift */,
 				7C6382EF2729CCC300FED2F4 /* StringExtension.swift */,
-				83369A4D273857020025F3D9 /* Structures.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -210,7 +210,7 @@
 		83A8CCCE274AAEEF00CCC15C /* Tasks */ = {
 			isa = PBXGroup;
 			children = (
-				83369A3F273855BD0025F3D9 /* MyTasksController.swift */,
+				83369A3F273855BD0025F3D9 /* TasksController.swift */,
 				83369A452738564B0025F3D9 /* TasksTableView */,
 				83369A462738565B0025F3D9 /* ChapterCollectionView */,
 			);
@@ -221,7 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				83AF41A527431F7500CA8AAA /* FeedCollectionView.swift */,
-				83AF41A727431F9600CA8AAA /* FeedCollectionCell.swift */,
+				83AF41A727431F9600CA8AAA /* FeedCollectionViewCell.swift */,
 			);
 			path = FeedCollectionView;
 			sourceTree = "<group>";
@@ -300,8 +300,8 @@
 			files = (
 				7CAC5DE7272346CB00E2D70B /* CustomUIElementsAuth.swift in Sources */,
 				83369A44273856240025F3D9 /* TaskTableViewCell.swift in Sources */,
-				83AF41A827431F9600CA8AAA /* FeedCollectionCell.swift in Sources */,
-				83369A40273855BD0025F3D9 /* MyTasksController.swift in Sources */,
+				83AF41A827431F9600CA8AAA /* FeedCollectionViewCell.swift in Sources */,
+				83369A40273855BD0025F3D9 /* TasksController.swift in Sources */,
 				7CAC5DCE27232C6000E2D70B /* AppDelegate.swift in Sources */,
 				83369A4A273856950025F3D9 /* ChapterCollectionCell.swift in Sources */,
 				83AF41A627431F7500CA8AAA /* FeedCollectionView.swift in Sources */,

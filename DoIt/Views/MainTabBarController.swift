@@ -22,8 +22,7 @@ class MainTabBarController: UITabBarController {
     //MARK: - Helpers
     
     func configureViewControllers() {
-        
-        let tasks = MyTasksController()
+        let tasks = TasksController()
         let feed = FeedController()
         
         viewControllers = [configuredController(image: UIImage(systemName: "square.text.square"), rootViewController: tasks),
@@ -35,7 +34,4 @@ class MainTabBarController: UITabBarController {
         nav.tabBarItem.image = image
         return nav
     }
-
-    
-
 }

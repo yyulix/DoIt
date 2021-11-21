@@ -15,7 +15,7 @@ class ChapterCollectionView: UICollectionView, UICollectionViewDelegate {
         static let cellHeight = 35.0
     }
     
-    var chapters = [Chapter(title: "Все задачи", color: .gray, textColor: .white),
+    private var chapters = [Chapter(title: "Все задачи", color: .gray, textColor: .white),
                     Chapter(title: "Работа", color: .orange, textColor: .black),
                     Chapter(title: "Учеба", color: .green, textColor: .gray),
                     Chapter(title: "Саморазвитие", color: .systemTeal, textColor: .white),
@@ -36,7 +36,3 @@ extension ChapterCollectionView: UICollectionViewDataSource {
         return chapters.count
     }
 }
-
-    
-
-

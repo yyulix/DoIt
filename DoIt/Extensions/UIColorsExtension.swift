@@ -13,5 +13,6 @@ extension UIColor {
         static let mainTextColor = UIColor.black
         static let minorTextColor = UIColor.systemGray
         static let taskDeadlineColor = UIColor.black
+        static let feedBackgroundColor = UIColor.systemGray5
     }
 }

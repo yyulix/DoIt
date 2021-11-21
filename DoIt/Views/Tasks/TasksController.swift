@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MyTasksController: UIViewController {
+class TasksController: UIViewController {
 
     // MARK: - Private Property
     private struct UIConstants {
@@ -34,7 +34,7 @@ class MyTasksController: UIViewController {
         tableView.dataSource = tableView.self
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = UITableView.automaticDimension
-        tableView.register(TaskTableViewCell.self, forCellReuseIdentifier: TaskTableViewCell.identifier)
+        tableView.register(TaskTableViewCell.self, forCellReuseIdentifier: "TableViewCell")
         tableView.separatorColor = UIColor.clear
         tableView.showsVerticalScrollIndicator = false
         return tableView

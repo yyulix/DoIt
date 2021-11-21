@@ -10,11 +10,10 @@ import UIKit
 class FeedController: UIViewController {
 
     private struct UIConstants {
-        static let padding = 8.0
         static let collectionInset = 10.0
     }
     
-    var collection: FeedCollectionView = {
+    private var collection: FeedCollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         let collectionView = FeedCollectionView(frame: .zero, collectionViewLayout: layout)
@@ -25,7 +24,7 @@ class FeedController: UIViewController {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.delegate = collectionView.self
         collectionView.dataSource = collectionView.self
-        collectionView.register(FeedCollectionCell.self, forCellWithReuseIdentifier: "FeedCollectionCell")
+        collectionView.register(FeedCollectionViewCell.self, forCellWithReuseIdentifier: "FeedCollectionCell")
         return collectionView
     }()
     
@@ -37,7 +36,7 @@ class FeedController: UIViewController {
     
     private func layoutCollection() {
         view.addSubview(collection)
-        collection.backgroundColor = .lightGray
+        collection.backgroundColor = UIColor.AppColors.feedBackgroundColor
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         collection.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true

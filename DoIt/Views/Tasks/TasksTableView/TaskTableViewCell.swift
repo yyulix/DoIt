@@ -9,9 +9,6 @@ import UIKit
 
 class TaskTableViewCell: UITableViewCell {
     
-    // MARK: - Public Property
-    static let identifier = "taskCell"
-    
     // MARK: - Private Property
     private struct UIConstants {
         static let cornerRadius = 12.0
@@ -36,7 +33,7 @@ class TaskTableViewCell: UITableViewCell {
         return insideView
     }()
     
-    private let indicator: UIView = {
+    private let chapterIndicator: UIView = {
         let indicator = UIView()
         indicator.translatesAutoresizingMaskIntoConstraints = false
         return indicator
@@ -114,16 +111,12 @@ class TaskTableViewCell: UITableViewCell {
     }
     
     private func configureIndicator(color: UIColor?) {
-        insideView.addSubview(indicator)
-        indicator.topAnchor.constraint(equalTo: insideView.topAnchor).isActive = true
-        indicator.leadingAnchor.constraint(equalTo: insideView.leadingAnchor).isActive = true
-        indicator.bottomAnchor.constraint(equalTo: insideView.bottomAnchor).isActive = true
-        indicator.widthAnchor.constraint(equalToConstant: UIConstants.indicatorWidth).isActive = true
-        if let _ = color {
-            indicator.backgroundColor = color!
-        } else {
-            indicator.backgroundColor = .lightGray
-        }
+        insideView.addSubview(chapterIndicator)
+        chapterIndicator.topAnchor.constraint(equalTo: insideView.topAnchor).isActive = true
+        chapterIndicator.leadingAnchor.constraint(equalTo: insideView.leadingAnchor).isActive = true
+        chapterIndicator.bottomAnchor.constraint(equalTo: insideView.bottomAnchor).isActive = true
+        chapterIndicator.widthAnchor.constraint(equalToConstant: UIConstants.indicatorWidth).isActive = true
+        chapterIndicator.backgroundColor = color ?? UIColor.AppColors.accentColor
     }
     
     private func configureCheckbox(isDone: Bool) {
@@ -137,40 +130,25 @@ class TaskTableViewCell: UITableViewCell {
     
     private func configureImage(cellImage: UIImage?) {
         insideView.addSubview(image)
-        if let _ = cellImage {
-            image.image = cellImage
-        } else {
-            image.image = UIImage.TaskIcons.standartImage
-        }
-        
+        image.image = cellImage ?? UIImage.TaskIcons.defaultImage
         image.topAnchor.constraint(equalTo: title.bottomAnchor, constant: UIConstants.space).isActive = true
-        image.leadingAnchor.constraint(equalTo: indicator.trailingAnchor, constant: UIConstants.paddingLeft).isActive = true
+        image.leadingAnchor.constraint(equalTo: chapterIndicator.trailingAnchor, constant: UIConstants.paddingLeft).isActive = true
         image.widthAnchor.constraint(equalToConstant: UIConstants.imageSize).isActive = true
         image.heightAnchor.constraint(equalToConstant: UIConstants.imageSize).isActive = true
     }
     
-    private func configureTitle(titleText: String?) {
+    private func configureTitle(titleText: String) {
         insideView.addSubview(title)
-        if let _ = titleText {
-            title.text = titleText
-        } else {
-            title.text = TaskString.title.rawValue.localized
-        }
-        
+        title.text = titleText
         title.topAnchor.constraint(equalTo: insideView.topAnchor, constant: UIConstants.paddingTop).isActive = true
-        title.leadingAnchor.constraint(equalTo: indicator.trailingAnchor, constant: UIConstants.paddingLeft).isActive = true
+        title.leadingAnchor.constraint(equalTo: chapterIndicator.trailingAnchor, constant: UIConstants.paddingLeft).isActive = true
         title.trailingAnchor.constraint(equalTo: insideView.trailingAnchor, constant: UIConstants.paddingRight - UIConstants.buttonSize + UIConstants.paddingRight).isActive = true
     }
     
     private func configureDescription(description: String?) {
         insideView.addSubview(taskDescription)
         taskDescription.font = taskDescription.font.withSize(UIConstants.descriptionFontSize)
-        if let _ = description {
-            taskDescription.text = description
-        } else {
-            taskDescription.text = TaskString.description.rawValue.localized
-        }
-        
+        taskDescription.text = description ?? TaskString.description.rawValue.localized
         taskDescription.font = title.font.withSize(UIConstants.descriptionFontSize)
         taskDescription.topAnchor.constraint(equalTo: title.bottomAnchor, constant: UIConstants.space).isActive = true
         taskDescription.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: UIConstants.paddingLeft).isActive = true
@@ -185,25 +163,19 @@ class TaskTableViewCell: UITableViewCell {
         } else {
             deadline.text = TaskString.deadline.rawValue.localized
         }
-        
         deadline.font = deadline.font.withSize(UIConstants.descriptionFontSize)
         deadline.topAnchor.constraint(equalTo: image.bottomAnchor, constant: UIConstants.space).isActive = true
-        deadline.leadingAnchor.constraint(equalTo: indicator.trailingAnchor, constant: UIConstants.paddingLeft).isActive = true
+        deadline.leadingAnchor.constraint(equalTo: chapterIndicator.trailingAnchor, constant: UIConstants.paddingLeft).isActive = true
         deadline.trailingAnchor.constraint(equalTo: insideView.trailingAnchor, constant: UIConstants.paddingRight - UIConstants.buttonSize + UIConstants.paddingRight).isActive = true
         deadline.bottomAnchor.constraint(equalTo: insideView.bottomAnchor, constant: UIConstants.paddingBottom).isActive = true
     }
     
     private func configureDivider(color: UIColor?) {
         insideView.addSubview(divider)
-        divider.leadingAnchor.constraint(equalTo: indicator.trailingAnchor, constant: UIConstants.paddingLeft).isActive = true
+        divider.leadingAnchor.constraint(equalTo: chapterIndicator.trailingAnchor, constant: UIConstants.paddingLeft).isActive = true
         divider.trailingAnchor.constraint(equalTo: insideView.trailingAnchor, constant: UIConstants.paddingRight).isActive = true
         divider.bottomAnchor.constraint(equalTo: insideView.bottomAnchor).isActive = true
         divider.heightAnchor.constraint(equalToConstant: UIConstants.dividerWidth).isActive = true
-        if let _ = color {
-            divider.backgroundColor = color!
-        } else {
-            divider.backgroundColor = .lightGray
-        }
+        divider.backgroundColor = color ?? UIColor.AppColors.accentColor
     }
-    
 }

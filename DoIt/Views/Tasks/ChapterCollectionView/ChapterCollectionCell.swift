@@ -24,30 +24,26 @@ class ChapterCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     //MARK: - Public Methods
     func configureCell(chapterData: Chapter) {
-        configureLayout()
-        configureData(withChapter: chapterData)
+        layer.masksToBounds = true
+        layer.cornerRadius = UIConstants.cornerRadius
+        contentMode = .scaleAspectFit
+        configureChapterLabel()
+        configureData(chapterData: chapterData)
     }
     
-    private func configureLayout() {
+    private func configureChapterLabel() {
         addSubview(chapterLabel)
         chapterLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: UIConstants.leftPadding).isActive = true
         chapterLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: UIConstants.rightPadding).isActive = true
         chapterLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         chapterLabel.font = chapterLabel.font.withSize(UIConstants.labelFontSize)
-        layer.masksToBounds = true
-        layer.cornerRadius = UIConstants.cornerRadius
-        contentMode = .scaleAspectFit
     }
     
-    private func configureData(withChapter: Chapter) {
-        chapterLabel.text = withChapter.title!
-        chapterLabel.textColor = withChapter.textColor!
-        backgroundColor = withChapter.color!
+    private func configureData(chapterData: Chapter) {
+        chapterLabel.text = chapterData.title!
+        chapterLabel.textColor = chapterData.textColor!
+        backgroundColor = chapterData.color!
     }
 }
