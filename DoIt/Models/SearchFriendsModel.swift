@@ -10,7 +10,7 @@ import UIKit
 
 struct SearchFriendsModel {
     let image: UIImage?
-    let login: String?
+    let login: String
     let summery: String?
     let isFollowed: Bool
 }

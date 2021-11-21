@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AuthenticationController: UIViewController {
+class SignInController: UIViewController {
     
     private struct UIConstants {
         static let spacing = 12.0

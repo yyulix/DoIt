@@ -12,7 +12,7 @@ final class SearchFriendsController: UIViewController {
 
     struct Constants {
         static let cellHeight: CGFloat = 90
-        static let durationSearchBar: CGFloat = 0.2
+        static let durationSearchBar: CGFloat = 2
         static let typeOfAnimation: UIView.AnimationOptions = .curveEaseInOut
         static let opacityValueToAnimate: CGFloat = 0.1
     }
@@ -31,7 +31,7 @@ final class SearchFriendsController: UIViewController {
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.placeholder = FindFriendsString.searchPlaceholder.rawValue.localized
+        searchBar.placeholder = FindFriendsStrings.searchPlaceholder.rawValue.localized
         searchBar.delegate = self
         searchBar.textContentType = .nickname
         searchBar.showsCancelButton = false
@@ -47,7 +47,7 @@ final class SearchFriendsController: UIViewController {
     private lazy var openSearchButton: UIBarButtonItem = {
         let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
+        button.setImage(.SearchFriendsIcons.searchIcon, for: .normal)
         button.addTarget(self, action: #selector(addSearchBarView), for: .touchUpInside)
         button.tintColor = .AppColors.navigationTextColor
         return UIBarButtonItem(customView: button)
@@ -55,7 +55,7 @@ final class SearchFriendsController: UIViewController {
     
     private lazy var titleView: UILabel = {
         let label = UILabel()
-        label.text = FindFriendsString.header.rawValue.localized
+        label.text = FindFriendsStrings.header.rawValue.localized
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .AppColors.navigationTextColor
         return label
@@ -79,7 +79,7 @@ final class SearchFriendsController: UIViewController {
     }
 
     private func configureNavigationController() {
-        navigationItem.title = FindFriendsString.header.rawValue.localized
+        navigationItem.title = FindFriendsStrings.header.rawValue.localized
         definesPresentationContext = true
         
         navigationItem.titleView = titleView
@@ -165,7 +165,7 @@ extension SearchFriendsController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SearchFriendsCell.self), for: indexPath) as? SearchFriendsCell else {
             return .init()
         }
-        cell.configureCell(with: SearchFriendsModel(image: nil, login: nil, summery: nil, isFollowed: false))
+        cell.configureCell(with: SearchFriendsModel(image: nil, login: "", summery: nil, isFollowed: false))
         return cell
     }
     

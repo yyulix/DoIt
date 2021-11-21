@@ -26,10 +26,6 @@ final class SearchFriendsCell: UITableViewCell {
         static let stackViewSpacing: CGFloat = -20
 
         static let followButtonSizeOfFont: CGFloat = 15
-        static let followButtonMinimumScaleFactor: CGFloat = 0.5
-        
-        static let followButtonAnimationDuration: CGFloat = 0.2
-        static let followButtonAnimationScale: CGFloat = 0.9
     }
 
     private lazy var profileImageView: UIImageView = {
@@ -71,13 +67,13 @@ final class SearchFriendsCell: UITableViewCell {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
 
-        button.setTitle(FindFriendsString.followButton.rawValue.localized, for: .normal)
-        button.setTitle(FindFriendsString.unfollowButton.rawValue.localized, for: .selected)
+        button.setTitle(FindFriendsStrings.followButton.rawValue.localized, for: .normal)
+        button.setTitle(FindFriendsStrings.unfollowButton.rawValue.localized, for: .selected)
         button.setTitleColor(.AppColors.navigationTextColor, for: .normal)
 
         button.titleLabel?.font = .systemFont(ofSize: Constants.followButtonSizeOfFont)
         button.titleLabel?.adjustsFontSizeToFitWidth = true
-        button.titleLabel?.minimumScaleFactor = Constants.followButtonMinimumScaleFactor
+        button.titleLabel?.minimumScaleFactor = 0.5
 
         button.layer.masksToBounds = true
         button.layer.cornerRadius = Constants.defaultCornerRadius
@@ -98,6 +94,7 @@ final class SearchFriendsCell: UITableViewCell {
     }
 
     // MARK: - Helpers
+    
     func configureCell(with model: SearchFriendsModel) {
         profileImageView.image = model.image ?? UIImage.SearchFriendsIcons.personPlaceholderIcon
         loginLabel.text = model.login
@@ -130,11 +127,11 @@ final class SearchFriendsCell: UITableViewCell {
     
     @objc
     private func didTapFollowButton() {
-        UIView.animate(withDuration: Constants.followButtonAnimationDuration, delay: 0, options: .curveEaseInOut) {
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
             self.configureFollowButton(isFollowed: !self.followButton.isSelected)
-            self.followButton.transform = CGAffineTransform(scaleX: Constants.followButtonAnimationScale, y: Constants.followButtonAnimationScale)
+            self.followButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
         } completion: { _ in
-            UIView.animate(withDuration: Constants.followButtonAnimationDuration) {
+            UIView.animate(withDuration: 0.2) {
                 self.followButton.transform = CGAffineTransform.identity
             }
         }

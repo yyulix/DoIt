@@ -13,4 +13,8 @@ extension UIColor {
         static let navigationTextColor = UIColor.white
         static let grey = UIColor.init(white: 200 / 255, alpha: 1)
     }
+
+    struct ProfileColors {
+        static let headerColor = UIColor(named: "ProfileHeaderColor")!
+    }
 }

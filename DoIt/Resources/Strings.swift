@@ -21,9 +21,37 @@ enum AuthStrings: String {
     case headerSignUp = "auth.headerSignUp"
 }
 
-enum FindFriendsString: String {
+enum FindFriendsStrings: String {
     case header = "findFriends.header"
     case followButton = "findFriends.followButton"
     case unfollowButton = "findFriends.unfollowButton"
     case searchPlaceholder = "findFriends.searchPlaceholder"
+}
+
+enum ProfileStrings: String {
+    case header = "profile.header"
+    case followButton = "profile.followButton"
+    case unfollowButton = "profile.unfollowButton"
+    case titleSummary = "profile.summary"
+    case summaryPlaceholder = "profile.summaryPlaceholder"
+    case titleStatistics = "profile.statistics"
+    case statisticsInProgress = "profile.statisticsInProgress"
+    case statisticsExpired = "profile.statisticsExpired"
+    case statisticsDone = "profile.statisticsDone"
+    case statisticsTotal = "profile.statisticsTotal"
+    case titleTasks = "profile.tasks"
+    case noTasks = "profile.notasks"
+    case titleFriends = "profile.friends"
+    case noFriends = "profile.nofriends"
+}
+
+enum ProfileEditString: String {
+    case header = "profileEdit.header"
+    case newPhoto = "profileEdit.newPhoto"
+    case namePlaceholder = "profileEdit.namePlaceholder"
+    case loginPlaceholder = "profileEdit.loginPlaceholder"
+    case summeryPlaceholder = "profileEdit.summaryPlaceholder"
+    case nameHint = "profileEdit.nameHint"
+    case loginHint = "profileEdit.loginHint"
+    case summaryHint = "profileEdit.summaryHint"
 }
