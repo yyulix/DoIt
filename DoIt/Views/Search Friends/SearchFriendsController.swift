@@ -165,12 +165,13 @@ extension SearchFriendsController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SearchFriendsCell.self), for: indexPath) as? SearchFriendsCell else {
             return .init()
         }
-        cell.configureCell(with: SearchFriendsModel(image: nil, login: "", summery: nil, isFollowed: false))
+        cell.configureCell(with: SearchFriendsModel(image: nil, name: nil, login: "", summery: nil, isFollowed: false))
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let profileViewController = ProfileViewController()
+        navigationController?.pushViewController(profileViewController, animated: true)
     }
 }
 

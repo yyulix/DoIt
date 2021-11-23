@@ -20,13 +20,25 @@
 		7CAC5DDA27232C6300E2D70B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CAC5DD827232C6300E2D70B /* LaunchScreen.storyboard */; };
 		7CAC5DE4272330C500E2D70B /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC5DE3272330C500E2D70B /* SignUpController.swift */; };
 		7CAC5DE7272346CB00E2D70B /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC5DE6272346CB00E2D70B /* Auth.swift */; };
+		BD02FE90E768E72D0ED8F137 /* Pods_DoIt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 398FC216ACD975D5B7553D0A /* Pods_DoIt.framework */; };
 		E032E8FA272C1B5D0051B371 /* SignInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E032E8F9272C1B5D0051B371 /* SignInController.swift */; };
 		E49B80242741477500C59BBB /* SearchFriendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49B80222741477500C59BBB /* SearchFriendsCell.swift */; };
 		E49B80252741477500C59BBB /* SearchFriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49B80232741477500C59BBB /* SearchFriendsController.swift */; };
 		E49B80272741479100C59BBB /* SearchFriendsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49B80262741479100C59BBB /* SearchFriendsModel.swift */; };
+		E4F5042A274D0C6B00E5ADF3 /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F50427274D0C6A00E5ADF3 /* ProfileEditViewController.swift */; };
+		E4F5042B274D0C6B00E5ADF3 /* ProfileFriendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F50428274D0C6B00E5ADF3 /* ProfileFriendsCell.swift */; };
+		E4F5042C274D0C6B00E5ADF3 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F50429274D0C6B00E5ADF3 /* ProfileViewController.swift */; };
+		E4F5042E274D0C7600E5ADF3 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F5042D274D0C7600E5ADF3 /* Profile.swift */; };
+		E4F50433274D0C9200E5ADF3 /* ProfileFriendsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F5042F274D0C9200E5ADF3 /* ProfileFriendsModel.swift */; };
+		E4F50434274D0C9200E5ADF3 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F50430274D0C9200E5ADF3 /* ProfileModel.swift */; };
+		E4F50435274D0C9200E5ADF3 /* ProfileEditModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F50431274D0C9200E5ADF3 /* ProfileEditModel.swift */; };
+		E4F50436274D0C9200E5ADF3 /* ProfileTaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F50432274D0C9200E5ADF3 /* ProfileTaskModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		398FC216ACD975D5B7553D0A /* Pods_DoIt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DoIt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C65EA86699A24C12BBCE9DC /* Pods-DoIt.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DoIt.release.xcconfig"; path = "Target Support Files/Pods-DoIt/Pods-DoIt.release.xcconfig"; sourceTree = "<group>"; };
+		77B8C20DF3DFF0063AE2196A /* Pods-DoIt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DoIt.debug.xcconfig"; path = "Target Support Files/Pods-DoIt/Pods-DoIt.debug.xcconfig"; sourceTree = "<group>"; };
 		7C5DE36E272AD0E30051C54B /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7C6382DE272777F600FED2F4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7C6382E22727884000FED2F4 /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
@@ -47,6 +59,14 @@
 		E49B80222741477500C59BBB /* SearchFriendsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFriendsCell.swift; sourceTree = "<group>"; };
 		E49B80232741477500C59BBB /* SearchFriendsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFriendsController.swift; sourceTree = "<group>"; };
 		E49B80262741479100C59BBB /* SearchFriendsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFriendsModel.swift; sourceTree = "<group>"; };
+		E4F50427274D0C6A00E5ADF3 /* ProfileEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
+		E4F50428274D0C6B00E5ADF3 /* ProfileFriendsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileFriendsCell.swift; sourceTree = "<group>"; };
+		E4F50429274D0C6B00E5ADF3 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		E4F5042D274D0C7600E5ADF3 /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		E4F5042F274D0C9200E5ADF3 /* ProfileFriendsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileFriendsModel.swift; sourceTree = "<group>"; };
+		E4F50430274D0C9200E5ADF3 /* ProfileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
+		E4F50431274D0C9200E5ADF3 /* ProfileEditModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileEditModel.swift; sourceTree = "<group>"; };
+		E4F50432274D0C9200E5ADF3 /* ProfileTaskModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTaskModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,15 +74,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD02FE90E768E72D0ED8F137 /* Pods_DoIt.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		44250C609B2DD82274CFF714 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				77B8C20DF3DFF0063AE2196A /* Pods-DoIt.debug.xcconfig */,
+				4C65EA86699A24C12BBCE9DC /* Pods-DoIt.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		7C6382CE2725C4EF00FED2F4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E4F50426274D0C5C00E5ADF3 /* Profile */,
 				E425F63C2746C26800BA195B /* SignUp */,
 				E49F201F27355B9900F50258 /* SignIn */,
 				E49F201E27355B8800F50258 /* Search Friends */,
@@ -120,6 +151,8 @@
 			children = (
 				7CAC5DCC27232C6000E2D70B /* DoIt */,
 				7CAC5DCB27232C6000E2D70B /* Products */,
+				44250C609B2DD82274CFF714 /* Pods */,
+				CAEEE27AB118BF3C037E0450 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -147,6 +180,14 @@
 			path = DoIt;
 			sourceTree = "<group>";
 		};
+		CAEEE27AB118BF3C037E0450 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				398FC216ACD975D5B7553D0A /* Pods_DoIt.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E425F63C2746C26800BA195B /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
@@ -158,6 +199,10 @@
 		E442B5BE273F093900FE37C3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				E4F50431274D0C9200E5ADF3 /* ProfileEditModel.swift */,
+				E4F5042F274D0C9200E5ADF3 /* ProfileFriendsModel.swift */,
+				E4F50430274D0C9200E5ADF3 /* ProfileModel.swift */,
+				E4F50432274D0C9200E5ADF3 /* ProfileTaskModel.swift */,
 				E49B80262741479100C59BBB /* SearchFriendsModel.swift */,
 			);
 			path = Models;
@@ -166,6 +211,7 @@
 		E49F201A273554DD00F50258 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				E4F5042D274D0C7600E5ADF3 /* Profile.swift */,
 				7C6382E92728A30A00FED2F4 /* CustomNavigationController.swift */,
 				7CAC5DE6272346CB00E2D70B /* Auth.swift */,
 			);
@@ -189,6 +235,16 @@
 			path = SignIn;
 			sourceTree = "<group>";
 		};
+		E4F50426274D0C5C00E5ADF3 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				E4F50427274D0C6A00E5ADF3 /* ProfileEditViewController.swift */,
+				E4F50428274D0C6B00E5ADF3 /* ProfileFriendsCell.swift */,
+				E4F50429274D0C6B00E5ADF3 /* ProfileViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -196,17 +252,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7CAC5DDE27232C6300E2D70B /* Build configuration list for PBXNativeTarget "DoIt" */;
 			buildPhases = (
+				CA3333BD51E8D1030B1FFDED /* [CP] Check Pods Manifest.lock */,
 				7CAC5DC627232C6000E2D70B /* Sources */,
 				7CAC5DC727232C6000E2D70B /* Frameworks */,
 				7CAC5DC827232C6000E2D70B /* Resources */,
+				CC67EF94B6BEB1480D6A2A20 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = DoIt;
-			packageProductDependencies = (
-			);
 			productName = DoIt;
 			productReference = 7CAC5DCA27232C6000E2D70B /* DoIt.app */;
 			productType = "com.apple.product-type.application";
@@ -236,8 +292,6 @@
 				Base,
 			);
 			mainGroup = 7CAC5DC127232C6000E2D70B;
-			packageReferences = (
-			);
 			productRefGroup = 7CAC5DCB27232C6000E2D70B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -260,25 +314,75 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		CA3333BD51E8D1030B1FFDED /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DoIt-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CC67EF94B6BEB1480D6A2A20 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DoIt/Pods-DoIt-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DoIt/Pods-DoIt-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DoIt/Pods-DoIt-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		7CAC5DC627232C6000E2D70B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				E49B80272741479100C59BBB /* SearchFriendsModel.swift in Sources */,
+				E4F5042A274D0C6B00E5ADF3 /* ProfileEditViewController.swift in Sources */,
 				7CAC5DE7272346CB00E2D70B /* Auth.swift in Sources */,
 				7CAC5DCE27232C6000E2D70B /* AppDelegate.swift in Sources */,
 				7C6382F2272A7DDC00FED2F4 /* Strings.swift in Sources */,
 				E49B80252741477500C59BBB /* SearchFriendsController.swift in Sources */,
+				E4F50436274D0C9200E5ADF3 /* ProfileTaskModel.swift in Sources */,
 				7CAC5DE4272330C500E2D70B /* SignUpController.swift in Sources */,
+				E4F5042E274D0C7600E5ADF3 /* Profile.swift in Sources */,
+				E4F5042C274D0C6B00E5ADF3 /* ProfileViewController.swift in Sources */,
+				E4F50433274D0C9200E5ADF3 /* ProfileFriendsModel.swift in Sources */,
 				7C6382E32727884000FED2F4 /* UIImageExtension.swift in Sources */,
 				7C6382EA2728A30A00FED2F4 /* CustomNavigationController.swift in Sources */,
 				7C6382F02729CCC300FED2F4 /* StringExtension.swift in Sources */,
 				7CAC5DD027232C6000E2D70B /* SceneDelegate.swift in Sources */,
+				E4F50435274D0C9200E5ADF3 /* ProfileEditModel.swift in Sources */,
 				E49B80242741477500C59BBB /* SearchFriendsCell.swift in Sources */,
+				E4F50434274D0C9200E5ADF3 /* ProfileModel.swift in Sources */,
 				E032E8FA272C1B5D0051B371 /* SignInController.swift in Sources */,
 				7C6382E62728807900FED2F4 /* UIColorsExtension.swift in Sources */,
 				7C6382E8272883AC00FED2F4 /* Printer.swift in Sources */,
+				E4F5042B274D0C6B00E5ADF3 /* ProfileFriendsCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,6 +529,7 @@
 		};
 		7CAC5DDF27232C6300E2D70B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 77B8C20DF3DFF0063AE2196A /* Pods-DoIt.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -453,6 +558,7 @@
 		};
 		7CAC5DE027232C6300E2D70B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4C65EA86699A24C12BBCE9DC /* Pods-DoIt.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

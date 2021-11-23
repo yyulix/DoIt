@@ -96,10 +96,19 @@ final class SearchFriendsCell: UITableViewCell {
     // MARK: - Helpers
     
     func configureCell(with model: SearchFriendsModel) {
-        profileImageView.image = model.image ?? UIImage.SearchFriendsIcons.personPlaceholderIcon
         loginLabel.text = model.login
         configureSummeryLabel(text: model.summery)
         configureFollowButton(isFollowed: model.isFollowed)
+        configureImageView(image: model.image, name: model.name, login: model.login)
+    }
+    
+    private func configureImageView(image: UIImage?, name: String?, login: String) {
+        profileImageView.layoutIfNeeded()
+        guard let image = image else {
+            profileImageView.setImageForName(name ?? login, circular: false, textAttributes: nil)
+            return
+        }
+        profileImageView.image = image
     }
     
     private func configureSummeryLabel(text: String?) {
