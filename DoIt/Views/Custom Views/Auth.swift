@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class InputField: UIView, UITextFieldDelegate {
+final class InputField: UIView {
 
     private struct UIConstants {
         static let height = 50.0
@@ -31,7 +31,7 @@ final class InputField: UIView, UITextFieldDelegate {
     
     // MARK: - Private Properties
     
-    private let icon = UIImageView()
+    private var icon: UIImageView?
     private let dividerView = UIView()
     
     // MARK: - Initializers
@@ -40,6 +40,9 @@ final class InputField: UIView, UITextFieldDelegate {
         super.init(frame: .zero)
         
         heightAnchor.constraint(equalToConstant: UIConstants.height).isActive = true
+        if labelImage != nil {
+            icon = UIImageView()
+        }
         addIcon(labelImage: labelImage)
         addTextfield(placeholderText: placeholderText)
         addDivider()
@@ -55,6 +58,9 @@ final class InputField: UIView, UITextFieldDelegate {
     // MARK: - Private methods
     
     private func addIcon(labelImage: UIImage? = nil) {
+        guard let icon = icon else {
+            return
+        }
         addSubview(icon)
         icon.image = labelImage
         icon.tintColor = UIColor.AppColors.accentColor
@@ -72,7 +78,7 @@ final class InputField: UIView, UITextFieldDelegate {
         textField.textColor = .black
         textField.translatesAutoresizingMaskIntoConstraints = false
 
-        textField.leftAnchor.constraint(equalTo: icon.rightAnchor, constant: UIConstants.space).isActive = true
+        textField.leftAnchor.constraint(equalTo: icon == nil ? leftAnchor : icon!.rightAnchor, constant: UIConstants.space).isActive = true
         textField.rightAnchor.constraint(equalTo: rightAnchor, constant: UIConstants.paddingRight).isActive = true
         textField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: UIConstants.paddingBottom).isActive = true
     }
@@ -83,15 +89,15 @@ final class InputField: UIView, UITextFieldDelegate {
         dividerView.backgroundColor = UIColor.AppColors.accentColor
         dividerView.translatesAutoresizingMaskIntoConstraints = false
 
+        let leftOffsetDifference = icon == nil ? UIConstants.iconWidth : 0
         dividerView.heightAnchor.constraint(equalToConstant: UIConstants.dividerWidth).isActive = true
-        dividerView.leftAnchor.constraint(equalTo: leftAnchor, constant: UIConstants.paddingLeft).isActive = true
+        dividerView.leftAnchor.constraint(equalTo: leftAnchor, constant: UIConstants.paddingLeft - leftOffsetDifference).isActive = true
         dividerView.rightAnchor.constraint(equalTo: rightAnchor, constant: UIConstants.paddingRight).isActive = true
         dividerView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
 }
 
 final class CustomRoundedButton: UIView {
-
     private struct UIConstants {
         static let height = 50.0
         static let width = 200.0

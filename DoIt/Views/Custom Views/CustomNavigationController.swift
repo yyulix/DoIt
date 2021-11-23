@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomNavigationController: UINavigationController {
+final class CustomNavigationController: UINavigationController {
 
     override init(rootViewController: UIViewController) {
         super.init(rootViewController: rootViewController)
@@ -23,8 +23,8 @@ class CustomNavigationController: UINavigationController {
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithOpaqueBackground()
         navBarAppearance.backgroundColor = .systemTeal
-        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-        UINavigationBar.appearance().tintColor = .white
+        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.AppColors.navigationTextColor]
+        UINavigationBar.appearance().tintColor = .AppColors.navigationTextColor
         UINavigationBar.appearance().standardAppearance = navBarAppearance
         UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
     }

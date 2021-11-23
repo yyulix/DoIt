@@ -16,3 +16,32 @@
 "auth.headerSignUp" = "Registration";
 "auth.alreadySignedUp" = "Already have an account? ";
 "auth.notSignedUp" = "Don't you have an account? ";
+
+"findFriends.header" = "Find User";
+"findFriends.followButton" = "Add";
+"findFriends.unfollowButton" = "Remove";
+"findFriends.searchPlaceholder" = "Search for a user";
+
+"profile.header" = "Profile";
+"profile.followButton" = "Add";
+"profile.unfollowButton" = "Remove";
+"profile.summary" = "Summary";
+"profile.summaryPlaceholder" = "There's no description yet😢";
+"profile.statistics" = "Tasks statistics";
+"profile.statisticsInProgress" = "In progress";
+"profile.statisticsExpired" = "Expired";
+"profile.statisticsDone" = "Done";
+"profile.statisticsTotal" = "Total";
+"profile.tasks" = "Tasks";
+"profile.notasks" = "There's no tasks yet😢";
+"profile.friends" = "Friends";
+"profile.nofriends" = "There's no friends yet😢";
+
+"profileEdit.header" = "Edit";
+"profileEdit.newPhoto" = "New photo";
+"profileEdit.namePlaceholder" = "Your name";
+"profileEdit.loginPlaceholder" = "Your login";
+"profileEdit.summaryPlaceholder" = "You summary";
+"profileEdit.nameHint" = "Enter your first and last name";
+"profileEdit.loginHint" = "Enter your login";
+"profileEdit.summaryHint" = "Write something about yourself\nFor example: 23 years old. I am fond of sports";
