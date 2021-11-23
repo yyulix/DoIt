@@ -171,6 +171,7 @@ final class ProfileEditViewController: UIViewController {
     private func configureNavigationController() {
         navigationItem.title = ProfileEditString.header.rawValue.localized
         navigationItem.rightBarButtonItem = doneButton
+        navigationController?.hidesBarsOnSwipe = true
     }
     
     private func layoutScrollView() {

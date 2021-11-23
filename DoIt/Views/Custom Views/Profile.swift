@@ -193,13 +193,12 @@ final class ProfileTaskView: UIView {
     
     func configureCell(with: ProfileTaskModel) {
         chapterIndicatorView.backgroundColor = with.color ?? .AppColors.accentColor
-        imageView.image = with.image ?? .AuthIcons.envelopeIcon
+//        imageView.image = with.image ?? .TaskIcons.defaultImage
         titleTasksLabel.text = with.title
-        taskDescriptionLabel.text = with.description
+//        taskDescriptionLabel.text = with.description ?? TaskString.description.rawValue.localized
         dividerView.backgroundColor = with.color ?? .AppColors.accentColor
         guard let date = with.deadline else {
 //            deadline.text = TaskString.deadline.rawValue.localized
-            deadlineLabel.text = "deadline"
             return
         }
         deadlineLabel.text = DateFormatter().string(from: date)

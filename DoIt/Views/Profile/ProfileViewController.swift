@@ -213,6 +213,7 @@ class ProfileViewController: UIViewController {
         name: nil,
         login: "",
         summary: nil,
+        statistics: .init(inProgress: "0", outdated: "0", done: "0", total: "0"),
         tasks: nil,
         friends: [],
         isMyScreen: false,
@@ -244,6 +245,7 @@ class ProfileViewController: UIViewController {
             name: nil,
             login: "",
             summary: nil,
+            statistics: ProfileStatisticsModel(inProgress: "0", outdated: "0", done: "0", total: "0"),
             tasks: nil,
             friends: nil,
             isMyScreen: true,
@@ -256,7 +258,7 @@ class ProfileViewController: UIViewController {
     private func configureCells() {
         configureHeader(image: information.image, name: information.name, login: information.login, isFollowed: information.isFollowed, isMyScreen: information.isMyScreen)
         configureInformation(summary: information.summary)
-        configureStatistics()
+        configureStatistics(with: information.statistics)
         configureTasks(with: information.tasks ?? [])
         
         if let friends = information.friends {
@@ -407,8 +409,11 @@ extension ProfileViewController {
 // MARK: - Statistics View Configuration
 
 extension ProfileViewController {
-    func configureStatistics() {
-        
+    func configureStatistics(with: ProfileStatisticsModel) {
+        inProgressNumberLabel.text = with.inProgress
+        outdatedNumberLabel.text = with.outdated
+        doneNumberLabel.text = with.done
+        totalNumberLabel.text = with.total
     }
     
     func configureStatisticsView() -> UIView {
@@ -560,6 +565,7 @@ extension ProfileViewController {
     private func configureNavigationController(title: String, isMyScreen: Bool = false) {
         navigationItem.title = "@" + title
         navigationItem.rightBarButtonItem = isMyScreen ? settingButton : nil
+        navigationController?.hidesBarsOnSwipe = true
     }
     
     @objc

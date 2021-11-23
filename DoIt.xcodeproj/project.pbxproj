@@ -33,6 +33,7 @@
 		E4F50434274D0C9200E5ADF3 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F50430274D0C9200E5ADF3 /* ProfileModel.swift */; };
 		E4F50435274D0C9200E5ADF3 /* ProfileEditModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F50431274D0C9200E5ADF3 /* ProfileEditModel.swift */; };
 		E4F50436274D0C9200E5ADF3 /* ProfileTaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F50432274D0C9200E5ADF3 /* ProfileTaskModel.swift */; };
+		E4F50438274D17B600E5ADF3 /* ProfileStatisticsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F50437274D17B600E5ADF3 /* ProfileStatisticsModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +68,7 @@
 		E4F50430274D0C9200E5ADF3 /* ProfileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		E4F50431274D0C9200E5ADF3 /* ProfileEditModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileEditModel.swift; sourceTree = "<group>"; };
 		E4F50432274D0C9200E5ADF3 /* ProfileTaskModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTaskModel.swift; sourceTree = "<group>"; };
+		E4F50437274D17B600E5ADF3 /* ProfileStatisticsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStatisticsModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,6 +206,7 @@
 				E4F50430274D0C9200E5ADF3 /* ProfileModel.swift */,
 				E4F50432274D0C9200E5ADF3 /* ProfileTaskModel.swift */,
 				E49B80262741479100C59BBB /* SearchFriendsModel.swift */,
+				E4F50437274D17B600E5ADF3 /* ProfileStatisticsModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -370,6 +373,7 @@
 				E4F50436274D0C9200E5ADF3 /* ProfileTaskModel.swift in Sources */,
 				7CAC5DE4272330C500E2D70B /* SignUpController.swift in Sources */,
 				E4F5042E274D0C7600E5ADF3 /* Profile.swift in Sources */,
+				E4F50438274D17B600E5ADF3 /* ProfileStatisticsModel.swift in Sources */,
 				E4F5042C274D0C6B00E5ADF3 /* ProfileViewController.swift in Sources */,
 				E4F50433274D0C9200E5ADF3 /* ProfileFriendsModel.swift in Sources */,
 				7C6382E32727884000FED2F4 /* UIImageExtension.swift in Sources */,

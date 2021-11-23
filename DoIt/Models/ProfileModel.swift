@@ -13,6 +13,7 @@ struct ProfileModel {
     let name: String?
     let login: String
     let summary: String?
+    let statistics: ProfileStatisticsModel
     let tasks: [ProfileTaskModel]?
     let friends: [ProfileFriendsModel]?
     let isMyScreen: Bool
