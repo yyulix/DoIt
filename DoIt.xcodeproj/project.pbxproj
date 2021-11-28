@@ -20,6 +20,10 @@
 		7CAC5DDA27232C6300E2D70B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CAC5DD827232C6300E2D70B /* LaunchScreen.storyboard */; };
 		7CAC5DE4272330C500E2D70B /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC5DE3272330C500E2D70B /* SignUpController.swift */; };
 		7CAC5DE7272346CB00E2D70B /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC5DE6272346CB00E2D70B /* Auth.swift */; };
+		E0026C3F2753A0A200B61C41 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0026C3E2753A0A200B61C41 /* OnboardingViewController.swift */; };
+		E0026C412753A0CF00B61C41 /* OnboardingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0026C402753A0CF00B61C41 /* OnboardingCell.swift */; };
+		E0026C432753A0EF00B61C41 /* CustomUIElementsOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0026C422753A0EF00B61C41 /* CustomUIElementsOnboarding.swift */; };
+		E0026C452753A13100B61C41 /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0026C442753A13100B61C41 /* Onboarding.swift */; };
 		E032E8FA272C1B5D0051B371 /* SignInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E032E8F9272C1B5D0051B371 /* SignInController.swift */; };
 		E49B80242741477500C59BBB /* SearchFriendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49B80222741477500C59BBB /* SearchFriendsCell.swift */; };
 		E49B80252741477500C59BBB /* SearchFriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49B80232741477500C59BBB /* SearchFriendsController.swift */; };
@@ -42,6 +46,10 @@
 		7CAC5DDB27232C6300E2D70B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CAC5DE3272330C500E2D70B /* SignUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
 		7CAC5DE6272346CB00E2D70B /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
+		E0026C3E2753A0A200B61C41 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		E0026C402753A0CF00B61C41 /* OnboardingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCell.swift; sourceTree = "<group>"; };
+		E0026C422753A0EF00B61C41 /* CustomUIElementsOnboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIElementsOnboarding.swift; sourceTree = "<group>"; };
+		E0026C442753A13100B61C41 /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
 		E032E8F9272C1B5D0051B371 /* SignInController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInController.swift; sourceTree = "<group>"; };
 		E49B801F274146F800C59BBB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E49B80222741477500C59BBB /* SearchFriendsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFriendsCell.swift; sourceTree = "<group>"; };
@@ -63,6 +71,7 @@
 		7C6382CE2725C4EF00FED2F4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E0026C3D2753A07300B61C41 /* Onboarding */,
 				E425F63C2746C26800BA195B /* SignUp */,
 				E49F201F27355B9900F50258 /* SignIn */,
 				E49F201E27355B8800F50258 /* Search Friends */,
@@ -145,6 +154,17 @@
 				7C6382E42727885F00FED2F4 /* Extensions */,
 			);
 			path = DoIt;
+			sourceTree = "<group>";
+		};
+		E0026C3D2753A07300B61C41 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				E0026C3E2753A0A200B61C41 /* OnboardingViewController.swift */,
+				E0026C402753A0CF00B61C41 /* OnboardingCell.swift */,
+				E0026C422753A0EF00B61C41 /* CustomUIElementsOnboarding.swift */,
+				E0026C442753A13100B61C41 /* Onboarding.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 		E425F63C2746C26800BA195B /* SignUp */ = {
@@ -265,15 +285,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E0026C452753A13100B61C41 /* Onboarding.swift in Sources */,
 				E49B80272741479100C59BBB /* SearchFriendsModel.swift in Sources */,
 				7CAC5DE7272346CB00E2D70B /* Auth.swift in Sources */,
+				E0026C412753A0CF00B61C41 /* OnboardingCell.swift in Sources */,
 				7CAC5DCE27232C6000E2D70B /* AppDelegate.swift in Sources */,
 				7C6382F2272A7DDC00FED2F4 /* Strings.swift in Sources */,
 				E49B80252741477500C59BBB /* SearchFriendsController.swift in Sources */,
 				7CAC5DE4272330C500E2D70B /* SignUpController.swift in Sources */,
 				7C6382E32727884000FED2F4 /* UIImageExtension.swift in Sources */,
+				E0026C3F2753A0A200B61C41 /* OnboardingViewController.swift in Sources */,
 				7C6382EA2728A30A00FED2F4 /* CustomNavigationController.swift in Sources */,
 				7C6382F02729CCC300FED2F4 /* StringExtension.swift in Sources */,
+				E0026C432753A0EF00B61C41 /* CustomUIElementsOnboarding.swift in Sources */,
 				7CAC5DD027232C6000E2D70B /* SceneDelegate.swift in Sources */,
 				E49B80242741477500C59BBB /* SearchFriendsCell.swift in Sources */,
 				E032E8FA272C1B5D0051B371 /* SignInController.swift in Sources */,

@@ -45,3 +45,7 @@
 "profileEdit.nameHint" = "Enter your first and last name";
 "profileEdit.loginHint" = "Enter your login";
 "profileEdit.summaryHint" = "Write something about yourself\nFor example: 23 years old. I am fond of sports";
+
+"onboarding.backButton" = "Prev";
+"onboarding.nextButton" = "Next";
+"onboarding.exitButton" = "Exit";
