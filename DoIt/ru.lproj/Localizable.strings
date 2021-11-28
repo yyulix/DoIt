@@ -45,3 +45,7 @@
 "profileEdit.nameHint" = "Укажите ваши имя и фамилию";
 "profileEdit.loginHint" = "Укажите ваш логин";
 "profileEdit.summaryHint" = "Напишите что нибудь о себе\nНапример: 23 года. Увлекаюсь спортом";
+
+"onboarding.backButton" = "Назад";
+"onboarding.nextButton" = "Далее";
+"onboarding.exitButton" = "Выйти";

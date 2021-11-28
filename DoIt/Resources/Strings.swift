@@ -55,3 +55,9 @@ enum ProfileEditString: String {
     case loginHint = "profileEdit.loginHint"
     case summaryHint = "profileEdit.summaryHint"
 }
+
+enum OnboardingStrings: String {
+    case backButton = "onboarding.backButton"
+    case nextButton = "onboarding.nextButton"
+    case exitButton = "onboarding.exitButton"
+}
