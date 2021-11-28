@@ -79,8 +79,6 @@ class TaskTableViewCell: UITableViewCell {
     
     private let divider: UIView = {
         let divider = UIView()
-        divider.backgroundColor = UIColor.AppColors.accentColor
-        //поменять цвет на UIColor.AppColors.accentColor
         divider.translatesAutoresizingMaskIntoConstraints = false
         return divider
     }()
@@ -110,13 +108,13 @@ class TaskTableViewCell: UITableViewCell {
         insideView.layer.cornerRadius = UIConstants.cornerRadius
     }
     
-    private func configureIndicator(color: UIColor?) {
+    private func configureIndicator(color: UIColor) {
         insideView.addSubview(chapterIndicator)
         chapterIndicator.topAnchor.constraint(equalTo: insideView.topAnchor).isActive = true
         chapterIndicator.leadingAnchor.constraint(equalTo: insideView.leadingAnchor).isActive = true
         chapterIndicator.bottomAnchor.constraint(equalTo: insideView.bottomAnchor).isActive = true
         chapterIndicator.widthAnchor.constraint(equalToConstant: UIConstants.indicatorWidth).isActive = true
-        chapterIndicator.backgroundColor = color ?? UIColor.AppColors.accentColor
+        chapterIndicator.backgroundColor = color
     }
     
     private func configureCheckbox(isDone: Bool) {
@@ -170,12 +168,12 @@ class TaskTableViewCell: UITableViewCell {
         deadline.bottomAnchor.constraint(equalTo: insideView.bottomAnchor, constant: UIConstants.paddingBottom).isActive = true
     }
     
-    private func configureDivider(color: UIColor?) {
+    private func configureDivider(color: UIColor) {
         insideView.addSubview(divider)
         divider.leadingAnchor.constraint(equalTo: chapterIndicator.trailingAnchor, constant: UIConstants.paddingLeft).isActive = true
         divider.trailingAnchor.constraint(equalTo: insideView.trailingAnchor, constant: UIConstants.paddingRight).isActive = true
         divider.bottomAnchor.constraint(equalTo: insideView.bottomAnchor).isActive = true
         divider.heightAnchor.constraint(equalToConstant: UIConstants.dividerWidth).isActive = true
-        divider.backgroundColor = color ?? UIColor.AppColors.accentColor
+        divider.backgroundColor = color
     }
 }

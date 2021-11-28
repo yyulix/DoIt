@@ -10,6 +10,18 @@ import UIKit
 class TasksController: UIViewController {
 
     // MARK: - Private Property
+    private let tasks = [Task(image: UIImage(named: "bob"), title: "Task 1: Get ready for an exam", description: nil, deadline: nil, isDone: true, creatorId: 23, color: .black),
+                         Task(image: UIImage(named: "bob"), title: "Task 2: Get ready for an exam", description: nil, deadline: nil, isDone: false, creatorId: 23, color: .yellow),
+                 Task(image: UIImage(named: "bob"), title: "Task 3: Get ready for an exam", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: nil, isDone: false, creatorId: 23, color: .red),
+                 Task(image: UIImage(named: "bob"), title: "Task 4: Get ready for an exam", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: nil, isDone: true, creatorId: 23, color: .orange)]
+    
+    private var chapters = [Chapter(title: "Все задачи", color: .gray, textColor: .white),
+                    Chapter(title: "Работа", color: .orange, textColor: .black),
+                    Chapter(title: "Учеба", color: .green, textColor: .gray),
+                    Chapter(title: "Саморазвитие", color: .systemTeal, textColor: .white),
+                    Chapter(title: "Семья", color: .yellow, textColor: .gray),
+                    Chapter(title: "Проживание. Счета", color: .red, textColor: .black)]
+    
     private struct UIConstants {
         static let topPadding = 10.0
         static let leftPadding = 5.0
@@ -17,21 +29,20 @@ class TasksController: UIViewController {
         static let collectionHeight = 35.0
     }
     
-    var collection: ChapterCollectionView = {
+    private lazy var collection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.estimatedItemSize = CGSize(width: 0, height: UIConstants.collectionHeight)
-        let collectionView = ChapterCollectionView(frame: .zero, collectionViewLayout: layout)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.delegate = collectionView.self
-        collectionView.dataSource = collectionView.self
+        collectionView.dataSource = self
         collectionView.register(ChapterCollectionViewCell.self, forCellWithReuseIdentifier: "ChapterCollectionCell")
         return collectionView
     }()
     
-    var table: TasksTableView = {
-        let tableView = TasksTableView()
-        tableView.dataSource = tableView.self
+    private lazy var table: UITableView = {
+        let tableView = UITableView()
+        tableView.dataSource = self
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = UITableView.automaticDimension
         tableView.register(TaskTableViewCell.self, forCellReuseIdentifier: "TableViewCell")
@@ -66,5 +77,31 @@ class TasksController: UIViewController {
         table.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: UIConstants.leftPadding).isActive = true
         table.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: UIConstants.rightPadding).isActive = true
         table.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+    }
+}
+
+extension TasksController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tasks.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as? TaskTableViewCell else { return .init(frame: .zero) }
+        cell.configureCell(taskInfo: tasks[indexPath.row])
+        return cell
+    }
+}
+
+extension TasksController: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ChapterCollectionCell", for: indexPath) as? ChapterCollectionViewCell else { return .init(frame: .zero) }
+        cell.configureCell(chapterData: chapters[indexPath.row])
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return chapters.count
     }
 }

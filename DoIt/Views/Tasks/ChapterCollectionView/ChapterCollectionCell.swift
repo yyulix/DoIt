@@ -42,8 +42,8 @@ class ChapterCollectionViewCell: UICollectionViewCell {
     }
     
     private func configureData(withChapter: Chapter) {
-        chapterLabel.text = withChapter.title!
-        chapterLabel.textColor = withChapter.textColor!
-        backgroundColor = withChapter.color!
+        chapterLabel.text = withChapter.title
+        chapterLabel.textColor = withChapter.textColor
+        backgroundColor = withChapter.color
     }
 }

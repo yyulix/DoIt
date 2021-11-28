@@ -8,9 +8,9 @@
 import UIKit
 
 struct Chapter{
-    let title: String?
-    let color: UIColor?
-    let textColor: UIColor?
+    let title: String
+    let color: UIColor
+    let textColor: UIColor
 }
 
 struct Task{
@@ -19,6 +19,6 @@ struct Task{
     let description: String?
     let deadline: Date?
     let isDone: Bool
-    let creatorId: Int?
-    let color: UIColor?
+    let creatorId: Int
+    let color: UIColor
 }
