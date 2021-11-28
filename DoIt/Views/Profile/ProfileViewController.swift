@@ -38,7 +38,7 @@ class ProfileViewController: UIViewController {
         
         static let stackViewLeftRightOffset: CGFloat = 24
         static let stackViewBottomOffset: CGFloat = offset * 2
-        static let stackViewSpacing: CGFloat = 12
+        static let stackViewSpacingHeader: CGFloat = 12
         static let stackViewSpacingAfterName: CGFloat = -4
         
         static let contentViewTopOffset: CGFloat = 50
@@ -52,6 +52,15 @@ class ProfileViewController: UIViewController {
         static let textInformationSizeOfFont: CGFloat = 12
         static let numberSizeOfFont: CGFloat = 20
         static let stackViewSpacingBetweenStackViews: CGFloat = 2
+        
+        // Tasks
+        static let tasksCornerRadius = 12.0
+        static let tasksImageSize = 40.0
+        static let tasksPaddingLeft = 13.0
+        static let tasksTitleFontSize = 18.0
+        static let tasksDescriptionFontSize = 14.0
+        static let tasksDividerWidth = 1.0
+        static let tasksIndicatorWidth = 10.0
         
         // Friends
         static let friendsConllectionHeight: CGFloat = 120
@@ -173,7 +182,24 @@ class ProfileViewController: UIViewController {
         return label
     }()
     
-    private var taskViews: [ProfileTaskView] = [ .init(), .init(), .init() ]
+    private lazy var showAllTasksButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(systemName: "chevron.right"), for: .normal)
+        button.tintColor = .AppColors.accentColor
+        button.contentHorizontalAlignment = .left
+        button.addTarget(self, action: #selector(showAllTasks), for: .touchUpInside)
+        button.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        return button
+    }()
+    
+    private lazy var taskViews: [UIView] = []
+    private lazy var chapterTaskIndicatorViews: [UIView] = []
+    private lazy var titleTaskLabels: [UILabel] = []
+    private lazy var imageTaskViews: [UIImageView] = []
+    private lazy var descriptionTaskLabels: [UILabel] = []
+    private lazy var deadlineTaskLabels: [UILabel] = []
+    private lazy var dividerTaskViews: [UIView] = []
     
     // MARK: - Friends View
     
@@ -247,7 +273,10 @@ class ProfileViewController: UIViewController {
             summary: nil,
             statistics: ProfileStatisticsModel(inProgress: "0", outdated: "0", done: "0", total: "0"),
             tasks: nil,
-            friends: nil,
+            friends: [
+                ProfileFriendsModel(image: nil, login: "ggregegeg", name: "My name is"),
+                ProfileFriendsModel(image: .SearchFriendsIcons.searchIcon, login: "search", name: nil)
+            ],
             isMyScreen: true,
             isFollowed: false)
         
@@ -299,7 +328,7 @@ extension ProfileViewController {
 // MARK: - Header View Configuration
 
 extension ProfileViewController {
-    func configureHeader(image: UIImage?, name: String?, login: String, isFollowed: Bool, isMyScreen: Bool) {
+    private func configureHeader(image: UIImage?, name: String?, login: String, isFollowed: Bool, isMyScreen: Bool) {
         configureHeaderHeight(withName: name != nil, isMyScreen: isMyScreen)
         configureProfileImage(image: image, name: name, login: login)
         
@@ -385,7 +414,7 @@ extension ProfileViewController {
         let stack = UIStackView(arrangedSubviews: [profileImageView, nameLabel, loginLabel, followButton])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
-        stack.spacing = Constants.stackViewSpacing
+        stack.spacing = Constants.stackViewSpacingHeader
         stack.alignment = .center
         stack.setCustomSpacing(Constants.stackViewSpacingAfterName, after: nameLabel)
         return stack
@@ -395,7 +424,7 @@ extension ProfileViewController {
 // MARK: - Information View Configuration
 
 extension ProfileViewController {
-    func configureInformation(summary: String?) {
+    private func configureInformation(summary: String?) {
         summaryLabel.text = summary ?? ProfileStrings.summaryPlaceholder.rawValue.localized
     }
     
@@ -409,20 +438,20 @@ extension ProfileViewController {
 // MARK: - Statistics View Configuration
 
 extension ProfileViewController {
-    func configureStatistics(with: ProfileStatisticsModel) {
+    private func configureStatistics(with: ProfileStatisticsModel) {
         inProgressNumberLabel.text = with.inProgress
         outdatedNumberLabel.text = with.outdated
         doneNumberLabel.text = with.done
         totalNumberLabel.text = with.total
     }
     
-    func configureStatisticsView() -> UIView {
+    private func configureStatisticsView() -> UIView {
         let view = getView()
         configureStackView(arrangedSubviews: [titleLabelStatistics, layoutStackViewStatistics()], spacing: Constants.spacingStackView, toView: view)
         return view
     }
     
-    func layoutStackViewStatistics() -> UIStackView {
+    private func layoutStackViewStatistics() -> UIStackView {
         let inProgressStack = getSubStackViewStatistics(titleLabel: inProgressTextLabel, numberLabel: inProgressNumberLabel)
         let outdatedStack = getSubStackViewStatistics(titleLabel: outdatedTextLabel, numberLabel: outdatedNumberLabel)
         let doneStack = getSubStackViewStatistics(titleLabel: doneTextLabel, numberLabel: doneNumberLabel)
@@ -437,7 +466,7 @@ extension ProfileViewController {
         return stack
     }
     
-    func getSubStackViewStatistics(titleLabel: UILabel, numberLabel: UILabel) -> UIStackView {
+    private func getSubStackViewStatistics(titleLabel: UILabel, numberLabel: UILabel) -> UIStackView {
         let stack = UIStackView(arrangedSubviews: [numberLabel, titleLabel])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
@@ -445,7 +474,7 @@ extension ProfileViewController {
         return stack
     }
     
-    func getLabelForStatistics(title: String? = nil) -> UILabel {
+    private func getLabelForStatistics(title: String? = nil) -> UILabel {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: title == nil ? Constants.numberSizeOfFont : Constants.textInformationSizeOfFont)
@@ -461,19 +490,31 @@ extension ProfileViewController {
     private func configureTasks(with: [ProfileTaskModel]) {
         let taskToConfigure = min(with.count, taskViews.count)
         for i in 0..<taskToConfigure {
-            taskViews[i].configureCell(with: with[i])
+            configureTaskView(index: i, with: with[i])
         }
         
         showTasks(count: taskToConfigure)
         noTasksLabel.isHidden = taskToConfigure != 0
+        showAllTasksButton.isHidden = taskToConfigure == 0
     }
     
     private func configureTasksView() -> UIView {
         let view = getView()
-        var arrangedSubviews: [UIView] = [titleLabelTasks]
+        
+        for _ in 0..<3 {
+            createTaskView()
+        }
+        
+        var arrangedSubviews: [UIView] = [getTasksSubStackView(arrangedSubviews: [titleLabelTasks, showAllTasksButton])]
         arrangedSubviews.append(contentsOf: taskViews)
         arrangedSubviews.append(noTasksLabel)
-        taskViews.forEach( { $0.isHidden = true } )
+        
+        taskViews.forEach {
+            $0.isHidden = true
+            $0.isUserInteractionEnabled = true
+            $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openTask(_:))))
+        }
+        
         configureStackView(arrangedSubviews: arrangedSubviews, spacing: Constants.spacingStackView, toView: view)
         return view
     }
@@ -490,12 +531,127 @@ extension ProfileViewController {
             taskViews[i].isHidden = true
         }
     }
+    
+    private func createTaskView() {
+        let view = getView()
+        view.backgroundColor = .systemBackground
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = Constants.tasksCornerRadius
+        view.contentMode = .scaleAspectFit
+        
+        let chapterIndicatorView = configureTaskChapterIndicatorView(rootView: view)
+        let titleTaskLabel = getTaskLabel(fontSize: Constants.tasksTitleFontSize)
+        let imageTaskView = getImageTaskView()
+        let descriptionTaskLabel = getDescriptionTaskLabel()
+        let deadlineTaskLabel = getTaskLabel(fontSize: Constants.tasksDescriptionFontSize)
+        let dividerTaskView = getDividerTaskView()
+        
+        taskViews.append(view)
+        chapterTaskIndicatorViews.append(chapterIndicatorView)
+        titleTaskLabels.append(titleTaskLabel)
+        imageTaskViews.append(imageTaskView)
+        descriptionTaskLabels.append(descriptionTaskLabel)
+        deadlineTaskLabels.append(deadlineTaskLabel)
+        dividerTaskViews.append(dividerTaskView)
+        
+        let arrangedSubview = [titleTaskLabel, getTasksSubStackView(arrangedSubviews: [imageTaskView, descriptionTaskLabel]), deadlineTaskLabel, dividerTaskView]
+        layoutTasksMainStackView(rootView: view, chapterIndicatorView: chapterIndicatorView, arrangedSubviews: arrangedSubview)
+    }
+    
+    private func layoutTasksMainStackView(rootView: UIView, chapterIndicatorView: UIView, arrangedSubviews: [UIView]) {
+        let stack = UIStackView(arrangedSubviews: arrangedSubviews)
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.spacing = Constants.spacingStackView
+        stack.axis = .vertical
+        rootView.addSubview(stack)
+        stack.topAnchor.constraint(equalTo: rootView.topAnchor).isActive = true
+        stack.leftAnchor.constraint(equalTo: chapterIndicatorView.rightAnchor, constant: Constants.tasksPaddingLeft).isActive = true
+        stack.rightAnchor.constraint(equalTo: rootView.rightAnchor).isActive = true
+        stack.bottomAnchor.constraint(equalTo: rootView.bottomAnchor).isActive = true
+    }
+    
+    private func getTasksSubStackView(arrangedSubviews: [UIView]) -> UIStackView {
+        let stack = UIStackView(arrangedSubviews: arrangedSubviews)
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = .horizontal
+        stack.spacing = Constants.spacingStackView
+        return stack
+    }
+    
+    private func configureTaskChapterIndicatorView(rootView: UIView) -> UIView {
+        let chapterIndicatorView = getView()
+        rootView.addSubview(chapterIndicatorView)
+        chapterIndicatorView.topAnchor.constraint(equalTo: rootView.topAnchor).isActive = true
+        chapterIndicatorView.leadingAnchor.constraint(equalTo: rootView.leadingAnchor).isActive = true
+        chapterIndicatorView.bottomAnchor.constraint(equalTo: rootView.bottomAnchor).isActive = true
+        chapterIndicatorView.widthAnchor.constraint(equalToConstant: Constants.tasksIndicatorWidth).isActive = true
+        return chapterIndicatorView
+    }
+    
+    private func getTaskLabel(fontSize: CGFloat) -> UILabel {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: fontSize)
+        return label
+    }
+    
+    private func getImageTaskView() -> UIImageView {
+        let image = UIImageView()
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.layer.masksToBounds = true
+        image.layer.cornerRadius = Constants.tasksCornerRadius
+        image.widthAnchor.constraint(equalToConstant: Constants.tasksImageSize).isActive = true
+        image.heightAnchor.constraint(equalTo: image.widthAnchor).isActive = true
+        return image
+    }
+    
+    private func getDescriptionTaskLabel() -> UILabel {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .secondaryLabel
+        label.numberOfLines = 0
+        label.font = .systemFont(ofSize: Constants.tasksDescriptionFontSize)
+        return label
+    }
+    
+    private func getDividerTaskView() -> UIView {
+        let view = UIView()
+        view.backgroundColor = .AppColors.accentColor
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.heightAnchor.constraint(equalToConstant: Constants.tasksDividerWidth).isActive = true
+        return view
+    }
+    
+    private func configureTaskView(index: Int, with: ProfileTaskModel) {
+        guard index < taskViews.count else { return }
+        chapterTaskIndicatorViews[index].backgroundColor = with.color ?? .AppColors.accentColor
+//        imageTaskViews[index].image = with.image ?? .TaskIcons.defaultImage
+        titleTaskLabels[index].text = with.title
+//        descriptionTaskLabels[index].text = with.description ?? TaskString.description.rawValue.localized
+        dividerTaskViews[index].backgroundColor = with.color ?? .AppColors.accentColor
+        guard let date = with.deadline else {
+//            deadlineTaskLabels[index].text = TaskString.deadline.rawValue.localized
+            return
+        }
+        deadlineTaskLabels[index].text = date.formatted(date: .numeric, time: .shortened)
+    }
+    
+    @objc
+    private func showAllTasks() {
+        
+    }
+    
+    @objc
+    private func openTask(_ sender: UITapGestureRecognizer) {
+        guard let view = sender.view else { return }
+        guard let _ = taskViews.firstIndex(of: view) else { return }
+    }
 }
 
 // MARK: - Friends View Configuration
 
 extension ProfileViewController {
-    func configureFriends(isFriendsEmpty: Bool) {
+    private func configureFriends(isFriendsEmpty: Bool) {
         noFriendsLabel.isHidden = !isFriendsEmpty
         collectionView.isHidden = isFriendsEmpty
     }
@@ -592,6 +748,11 @@ extension ProfileViewController: UICollectionViewDataSource {
         guard let friends = information.friends else { return .init(frame: .zero) }
         cell.configureCell(with: friends[indexPath.row])
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let profileViewController = ProfileViewController()
+        navigationController?.pushViewController(profileViewController, animated: true)
     }
 }
 

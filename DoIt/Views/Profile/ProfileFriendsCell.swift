@@ -38,15 +38,35 @@ class ProfileFriendsCell: UICollectionViewCell {
     }()
 
     // MARK: - Lifecycle
-
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        configureUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - Helpers
     func configureCell(with: ProfileFriendsModel) {
+        loginLabel.text = "@" + with.login
+        guard let image = with.image else {
+            profileImageView.layoutIfNeeded()
+            profileImageView.setImageForName(with.name ?? with.login, circular: false, textAttributes: nil)
+            return
+        }
+        profileImageView.image = image
+    }
+    
+    private func configureUI() {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         contentView.isUserInteractionEnabled = false
         
         layoutContentView()
-        layoutImageView(with.image)
-        layoutLoginLabel(with.login)
+        layoutImageView()
+        layoutLoginLabel()
     }
 
     // MARK: - Constraints
@@ -58,23 +78,18 @@ class ProfileFriendsCell: UICollectionViewCell {
         contentView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
     
-    private func layoutImageView(_ image: UIImage?) {
+    private func layoutImageView() {
         contentView.addSubview(profileImageView)
         profileImageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         profileImageView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: Constants.imageOffset).isActive = true
         profileImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -Constants.imageOffset).isActive = true
-        profileImageView.image = image
     }
 
-    private func layoutLoginLabel(_ login: String?) {
+    private func layoutLoginLabel() {
         contentView.addSubview(loginLabel)
         loginLabel.topAnchor.constraint(lessThanOrEqualTo: profileImageView.bottomAnchor, constant: Constants.offset).isActive = true
         loginLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
         loginLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
         loginLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-        guard let login = login else {
-            return
-        }
-        loginLabel.text = "@" + login
     }
 }

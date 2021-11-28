@@ -11,4 +11,5 @@ import UIKit
 struct ProfileFriendsModel {
     let image: UIImage?
     let login: String
+    let name: String?
 }
