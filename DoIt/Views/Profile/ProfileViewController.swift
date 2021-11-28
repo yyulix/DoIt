@@ -54,13 +54,12 @@ class ProfileViewController: UIViewController {
         static let stackViewSpacingBetweenStackViews: CGFloat = 2
         
         // Tasks
-        static let tasksCornerRadius = 12.0
-        static let tasksImageSize = 40.0
-        static let tasksPaddingLeft = 13.0
-        static let tasksTitleFontSize = 18.0
-        static let tasksDescriptionFontSize = 14.0
-        static let tasksDividerWidth = 1.0
-        static let tasksIndicatorWidth = 10.0
+        static let tasksCornerRadius: CGFloat = 12
+        static let tasksImageSize: CGFloat = 40
+        static let tasksPaddingLeft: CGFloat = 13
+        static let tasksTitleFontSize: CGFloat = 18
+        static let tasksDividerWidth: CGFloat = 1
+        static let tasksIndicatorWidth: CGFloat = 10
         
         // Friends
         static let friendsConllectionHeight: CGFloat = 120
@@ -273,10 +272,7 @@ class ProfileViewController: UIViewController {
             summary: nil,
             statistics: ProfileStatisticsModel(inProgress: "0", outdated: "0", done: "0", total: "0"),
             tasks: nil,
-            friends: [
-                ProfileFriendsModel(image: nil, login: "ggregegeg", name: "My name is"),
-                ProfileFriendsModel(image: .SearchFriendsIcons.searchIcon, login: "search", name: nil)
-            ],
+            friends: nil,
             isMyScreen: true,
             isFollowed: false)
         
@@ -543,7 +539,7 @@ extension ProfileViewController {
         let titleTaskLabel = getTaskLabel(fontSize: Constants.tasksTitleFontSize)
         let imageTaskView = getImageTaskView()
         let descriptionTaskLabel = getDescriptionTaskLabel()
-        let deadlineTaskLabel = getTaskLabel(fontSize: Constants.tasksDescriptionFontSize)
+        let deadlineTaskLabel = getTaskLabel(fontSize: Constants.textLabelSizeOfFont)
         let dividerTaskView = getDividerTaskView()
         
         taskViews.append(view)
@@ -610,7 +606,7 @@ extension ProfileViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .secondaryLabel
         label.numberOfLines = 0
-        label.font = .systemFont(ofSize: Constants.tasksDescriptionFontSize)
+        label.font = .systemFont(ofSize: Constants.textLabelSizeOfFont)
         return label
     }
     
