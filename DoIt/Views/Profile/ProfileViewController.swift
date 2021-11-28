@@ -54,6 +54,7 @@ class ProfileViewController: UIViewController {
         static let stackViewSpacingBetweenStackViews: CGFloat = 2
         
         // Tasks
+        static let tasksNumber: Int = 3
         static let tasksCornerRadius: CGFloat = 12
         static let tasksImageSize: CGFloat = 40
         static let tasksPaddingLeft: CGFloat = 13
@@ -497,7 +498,7 @@ extension ProfileViewController {
     private func configureTasksView() -> UIView {
         let view = getView()
         
-        for _ in 0..<3 {
+        for _ in 0..<Constants.tasksNumber {
             createTaskView()
         }
         
