@@ -27,7 +27,7 @@ class FeedController: UIViewController {
     private lazy var collection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.itemSize = CGSize(width: self.collection.frame.width * 0.5 - 3 * UIConstants.collectionInset * 2, height: UIConstants.cellHeight)
+        layout.itemSize = CGSize(width: self.view.frame.width * 0.5 - UIConstants.collectionInset * 1.5, height: UIConstants.cellHeight)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.contentInset = UIEdgeInsets(top: UIConstants.collectionInset,
                                                    left: UIConstants.collectionInset,
