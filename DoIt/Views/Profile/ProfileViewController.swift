@@ -193,13 +193,73 @@ class ProfileViewController: UIViewController {
         return button
     }()
     
-    private lazy var taskViews: [UIView] = []
-    private lazy var chapterTaskIndicatorViews: [UIView] = []
-    private lazy var titleTaskLabels: [UILabel] = []
-    private lazy var imageTaskViews: [UIImageView] = []
-    private lazy var descriptionTaskLabels: [UILabel] = []
-    private lazy var deadlineTaskLabels: [UILabel] = []
-    private lazy var dividerTaskViews: [UIView] = []
+    private var taskView: UIView {
+        let view = getView()
+        view.backgroundColor = .systemBackground
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = Constants.tasksCornerRadius
+        view.contentMode = .scaleAspectFit
+        return view
+    }
+    
+    private var chapterIndicatorTaskView: UIView {
+        let view = getView()
+        view.widthAnchor.constraint(equalToConstant: Constants.tasksIndicatorWidth).isActive = true
+        return view
+    }
+    
+    private var titleTaskLabel: UILabel {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: Constants.tasksTitleFontSize)
+        return label
+    }
+    
+    private var imageTaskView: UIImageView {
+        let image = UIImageView()
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.layer.masksToBounds = true
+        image.layer.cornerRadius = Constants.tasksCornerRadius
+        image.widthAnchor.constraint(equalToConstant: Constants.tasksImageSize).isActive = true
+        image.heightAnchor.constraint(equalTo: image.widthAnchor).isActive = true
+        return image
+    }
+    
+    private var descriptionTaskLabel: UILabel {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .secondaryLabel
+        label.numberOfLines = 0
+        label.font = .systemFont(ofSize: Constants.textLabelSizeOfFont)
+        return label
+    }
+    
+    private var deadlineTaskLabel: UILabel {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: Constants.textLabelSizeOfFont)
+        return label
+    }
+    
+    private var dividerTaskView: UIView {
+        let view = UIView()
+        view.backgroundColor = .AppColors.accentColor
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.heightAnchor.constraint(equalToConstant: Constants.tasksDividerWidth).isActive = true
+        return view
+    }
+    
+    private struct TaskViewData {
+        let taskView: UIView
+        let chapterTaskIndicatorView: UIView
+        let titleTaskLabel: UILabel
+        let imageTaskLabel: UIImageView
+        let desciptionTaskLabel: UILabel
+        let deadlineTaskLabel: UILabel
+        let dividerTaskView: UIView
+    }
+    
+    private lazy var taskViews: [TaskViewData] = []
     
     // MARK: - Friends View
     
@@ -503,13 +563,13 @@ extension ProfileViewController {
         }
         
         var arrangedSubviews: [UIView] = [getTasksSubStackView(arrangedSubviews: [titleLabelTasks, showAllTasksButton])]
-        arrangedSubviews.append(contentsOf: taskViews)
+        arrangedSubviews.append(contentsOf: taskViews.map({ $0.taskView }))
         arrangedSubviews.append(noTasksLabel)
         
         taskViews.forEach {
-            $0.isHidden = true
-            $0.isUserInteractionEnabled = true
-            $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openTask(_:))))
+            $0.taskView.isHidden = true
+            $0.taskView.isUserInteractionEnabled = true
+            $0.taskView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openTask(_:))))
         }
         
         configureStackView(arrangedSubviews: arrangedSubviews, spacing: Constants.spacingStackView, toView: view)
@@ -518,41 +578,31 @@ extension ProfileViewController {
     
     private func showTasks(count: Int) {
         for i in 0..<count {
-            taskViews[i].isHidden = false
+            taskViews[i].taskView.isHidden = false
         }
         hideTasks(fromTaskIndex: count)
     }
     
     private func hideTasks(fromTaskIndex: Int) {
         for i in fromTaskIndex..<taskViews.count {
-            taskViews[i].isHidden = true
+            taskViews[i].taskView.isHidden = true
         }
     }
     
     private func createTaskView() {
-        let view = getView()
-        view.backgroundColor = .systemBackground
-        view.layer.masksToBounds = true
-        view.layer.cornerRadius = Constants.tasksCornerRadius
-        view.contentMode = .scaleAspectFit
+        let view = taskView
+        let taskViewData = TaskViewData(taskView: view,
+                                        chapterTaskIndicatorView: layoutTaskChapterIndicatorView(rootView: view),
+                                        titleTaskLabel: titleTaskLabel,
+                                        imageTaskLabel: imageTaskView,
+                                        desciptionTaskLabel: descriptionTaskLabel,
+                                        deadlineTaskLabel: deadlineTaskLabel,
+                                        dividerTaskView: dividerTaskView)
         
-        let chapterIndicatorView = configureTaskChapterIndicatorView(rootView: view)
-        let titleTaskLabel = getTaskLabel(fontSize: Constants.tasksTitleFontSize)
-        let imageTaskView = getImageTaskView()
-        let descriptionTaskLabel = getDescriptionTaskLabel()
-        let deadlineTaskLabel = getTaskLabel(fontSize: Constants.textLabelSizeOfFont)
-        let dividerTaskView = getDividerTaskView()
-        
-        taskViews.append(view)
-        chapterTaskIndicatorViews.append(chapterIndicatorView)
-        titleTaskLabels.append(titleTaskLabel)
-        imageTaskViews.append(imageTaskView)
-        descriptionTaskLabels.append(descriptionTaskLabel)
-        deadlineTaskLabels.append(deadlineTaskLabel)
-        dividerTaskViews.append(dividerTaskView)
-        
-        let arrangedSubview = [titleTaskLabel, getTasksSubStackView(arrangedSubviews: [imageTaskView, descriptionTaskLabel]), deadlineTaskLabel, dividerTaskView]
-        layoutTasksMainStackView(rootView: view, chapterIndicatorView: chapterIndicatorView, arrangedSubviews: arrangedSubview)
+        taskViews.append(taskViewData)
+        let subArrangedSubviews = [taskViewData.imageTaskLabel, taskViewData.desciptionTaskLabel]
+        let arrangedSubviews = [taskViewData.titleTaskLabel, getTasksSubStackView(arrangedSubviews: subArrangedSubviews), taskViewData.deadlineTaskLabel, taskViewData.dividerTaskView]
+        layoutTasksMainStackView(rootView: view, chapterIndicatorView: taskViewData.chapterTaskIndicatorView, arrangedSubviews: arrangedSubviews)
     }
     
     private func layoutTasksMainStackView(rootView: UIView, chapterIndicatorView: UIView, arrangedSubviews: [UIView]) {
@@ -575,62 +625,27 @@ extension ProfileViewController {
         return stack
     }
     
-    private func configureTaskChapterIndicatorView(rootView: UIView) -> UIView {
-        let chapterIndicatorView = getView()
+    private func layoutTaskChapterIndicatorView(rootView: UIView) -> UIView {
+        let chapterIndicatorView = chapterIndicatorTaskView
         rootView.addSubview(chapterIndicatorView)
         chapterIndicatorView.topAnchor.constraint(equalTo: rootView.topAnchor).isActive = true
         chapterIndicatorView.leadingAnchor.constraint(equalTo: rootView.leadingAnchor).isActive = true
         chapterIndicatorView.bottomAnchor.constraint(equalTo: rootView.bottomAnchor).isActive = true
-        chapterIndicatorView.widthAnchor.constraint(equalToConstant: Constants.tasksIndicatorWidth).isActive = true
         return chapterIndicatorView
-    }
-    
-    private func getTaskLabel(fontSize: CGFloat) -> UILabel {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: fontSize)
-        return label
-    }
-    
-    private func getImageTaskView() -> UIImageView {
-        let image = UIImageView()
-        image.translatesAutoresizingMaskIntoConstraints = false
-        image.layer.masksToBounds = true
-        image.layer.cornerRadius = Constants.tasksCornerRadius
-        image.widthAnchor.constraint(equalToConstant: Constants.tasksImageSize).isActive = true
-        image.heightAnchor.constraint(equalTo: image.widthAnchor).isActive = true
-        return image
-    }
-    
-    private func getDescriptionTaskLabel() -> UILabel {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .secondaryLabel
-        label.numberOfLines = 0
-        label.font = .systemFont(ofSize: Constants.textLabelSizeOfFont)
-        return label
-    }
-    
-    private func getDividerTaskView() -> UIView {
-        let view = UIView()
-        view.backgroundColor = .AppColors.accentColor
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.heightAnchor.constraint(equalToConstant: Constants.tasksDividerWidth).isActive = true
-        return view
     }
     
     private func configureTaskView(index: Int, with: ProfileTaskModel) {
         guard index < taskViews.count else { return }
-        chapterTaskIndicatorViews[index].backgroundColor = with.color ?? .AppColors.accentColor
-//        imageTaskViews[index].image = with.image ?? .TaskIcons.defaultImage
-        titleTaskLabels[index].text = with.title
-//        descriptionTaskLabels[index].text = with.description ?? TaskString.description.rawValue.localized
-        dividerTaskViews[index].backgroundColor = with.color ?? .AppColors.accentColor
+        taskViews[index].chapterTaskIndicatorView.backgroundColor = with.color ?? .AppColors.accentColor
+//        taskViews[index].imageTaskLabel.image = with.image ?? .TaskIcons.defaultImage
+        taskViews[index].titleTaskLabel.text = with.title
+//        taskViews[index].desciptionTaskLabel.text = with.description ?? TaskString.description.rawValue.localized
+        taskViews[index].dividerTaskView.backgroundColor = with.color ?? .AppColors.accentColor
         guard let date = with.deadline else {
-//            deadlineTaskLabels[index].text = TaskString.deadline.rawValue.localized
+//            taskViews[index].deadlineTaskLabel.text = TaskString.deadline.rawValue.localized
             return
         }
-        deadlineTaskLabels[index].text = date.formatted(date: .numeric, time: .shortened)
+        taskViews[index].deadlineTaskLabel.text = date.formatted(date: .numeric, time: .shortened)
     }
     
     @objc
@@ -641,7 +656,8 @@ extension ProfileViewController {
     @objc
     private func openTask(_ sender: UITapGestureRecognizer) {
         guard let view = sender.view else { return }
-        guard let _ = taskViews.firstIndex(of: view) else { return }
+        guard let i = taskViews.firstIndex(where: { $0.taskView == view } ) else { return }
+        print(i)
     }
 }
 
