@@ -16,9 +16,11 @@
 "auth.headerSignUp" = "Регистрация";
 "auth.alreadySignedUp" = "Уже есть аккаунт? ";
 "auth.notSignedUp" = "Нет аккаунта? ";
+
 "task.title" = "Название не установлено";
 "task.description" = "Описание не установлено";
 "task.deadline" = "Срок не установлен";
+
 
 "findFriends.header" = "Найти пользователя";
 "findFriends.followButton" = "Добавить";
