@@ -25,6 +25,10 @@
 		E0026C432753A0EF00B61C41 /* CustomUIElementsOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0026C422753A0EF00B61C41 /* CustomUIElementsOnboarding.swift */; };
 		E0026C452753A13100B61C41 /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0026C442753A13100B61C41 /* Onboarding.swift */; };
 		E032E8FA272C1B5D0051B371 /* SignInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E032E8F9272C1B5D0051B371 /* SignInController.swift */; };
+		E0662DC5275769C300A591E1 /* CustomUIElementsTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0662DC4275769C300A591E1 /* CustomUIElementsTask.swift */; };
+		E0662DC7275769DF00A591E1 /* TaskCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0662DC6275769DF00A591E1 /* TaskCategory.swift */; };
+		E0662DC9275769FA00A591E1 /* TaskEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0662DC8275769FA00A591E1 /* TaskEditViewController.swift */; };
+		E0662DCB27576A1800A591E1 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0662DCA27576A1800A591E1 /* TaskViewController.swift */; };
 		E49B80242741477500C59BBB /* SearchFriendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49B80222741477500C59BBB /* SearchFriendsCell.swift */; };
 		E49B80252741477500C59BBB /* SearchFriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49B80232741477500C59BBB /* SearchFriendsController.swift */; };
 		E49B80272741479100C59BBB /* SearchFriendsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49B80262741479100C59BBB /* SearchFriendsModel.swift */; };
@@ -51,6 +55,10 @@
 		E0026C422753A0EF00B61C41 /* CustomUIElementsOnboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIElementsOnboarding.swift; sourceTree = "<group>"; };
 		E0026C442753A13100B61C41 /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
 		E032E8F9272C1B5D0051B371 /* SignInController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInController.swift; sourceTree = "<group>"; };
+		E0662DC4275769C300A591E1 /* CustomUIElementsTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIElementsTask.swift; sourceTree = "<group>"; };
+		E0662DC6275769DF00A591E1 /* TaskCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCategory.swift; sourceTree = "<group>"; };
+		E0662DC8275769FA00A591E1 /* TaskEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEditViewController.swift; sourceTree = "<group>"; };
+		E0662DCA27576A1800A591E1 /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		E49B801F274146F800C59BBB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E49B80222741477500C59BBB /* SearchFriendsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFriendsCell.swift; sourceTree = "<group>"; };
 		E49B80232741477500C59BBB /* SearchFriendsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFriendsController.swift; sourceTree = "<group>"; };
@@ -71,6 +79,7 @@
 		7C6382CE2725C4EF00FED2F4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E0662DC3275769AF00A591E1 /* Task Screen */,
 				E0026C3D2753A07300B61C41 /* Onboarding */,
 				E425F63C2746C26800BA195B /* SignUp */,
 				E49F201F27355B9900F50258 /* SignIn */,
@@ -165,6 +174,17 @@
 				E0026C442753A13100B61C41 /* Onboarding.swift */,
 			);
 			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		E0662DC3275769AF00A591E1 /* Task Screen */ = {
+			isa = PBXGroup;
+			children = (
+				E0662DC4275769C300A591E1 /* CustomUIElementsTask.swift */,
+				E0662DC6275769DF00A591E1 /* TaskCategory.swift */,
+				E0662DC8275769FA00A591E1 /* TaskEditViewController.swift */,
+				E0662DCA27576A1800A591E1 /* TaskViewController.swift */,
+			);
+			path = "Task Screen";
 			sourceTree = "<group>";
 		};
 		E425F63C2746C26800BA195B /* SignUp */ = {
@@ -294,10 +314,14 @@
 				E49B80252741477500C59BBB /* SearchFriendsController.swift in Sources */,
 				7CAC5DE4272330C500E2D70B /* SignUpController.swift in Sources */,
 				7C6382E32727884000FED2F4 /* UIImageExtension.swift in Sources */,
+				E0662DCB27576A1800A591E1 /* TaskViewController.swift in Sources */,
 				E0026C3F2753A0A200B61C41 /* OnboardingViewController.swift in Sources */,
+				E0662DC7275769DF00A591E1 /* TaskCategory.swift in Sources */,
 				7C6382EA2728A30A00FED2F4 /* CustomNavigationController.swift in Sources */,
 				7C6382F02729CCC300FED2F4 /* StringExtension.swift in Sources */,
 				E0026C432753A0EF00B61C41 /* CustomUIElementsOnboarding.swift in Sources */,
+				E0662DC5275769C300A591E1 /* CustomUIElementsTask.swift in Sources */,
+				E0662DC9275769FA00A591E1 /* TaskEditViewController.swift in Sources */,
 				7CAC5DD027232C6000E2D70B /* SceneDelegate.swift in Sources */,
 				E49B80242741477500C59BBB /* SearchFriendsCell.swift in Sources */,
 				E032E8FA272C1B5D0051B371 /* SignInController.swift in Sources */,

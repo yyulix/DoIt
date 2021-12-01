@@ -61,3 +61,35 @@ enum OnboardingStrings: String {
     case nextButton = "onboarding.nextButton"
     case exitButton = "onboarding.exitButton"
 }
+
+enum TaskScreen: String {
+    case countdown = "taskScreen.countdown"
+    case deadline = "taskScreen.deadline"
+    case chapter = "taskScreen.chapter"
+    case description = "taskScreen.description"
+    case descriptionText = "taskScreen.descriptionText"
+    case deleteButton = "taskScreen.deleteButton"
+    case editButton = "taskScreen.editButton"
+    case returnButton = "taskScreen.returnButton"
+    case saveButton = "taskScreen.saveButton"
+    case changePhotoButton = "taskScreen.changePhotoButton"
+}
+
+enum TasksCategory: String {
+    case shopping = "taskScreen.shopping"
+    case home = "taskScreen.home"
+    case job = "taskScreen.job"
+    case family = "taskScreen.family"
+    case general = "taskScreen.general"
+    case study = "taskScreen.study"
+    case sport = "taskScreen.sport"
+    case friends = "taskScreen.friends"
+    case events = "taskScreen.events"
+    case health = "taskScreen.health"
+    case travel = "taskScreen.travel"
+    case science = "taskScreen.science"
+    case finance = "taskScreen.finance"
+    case charity = "taskScreen.charity"
+    case moving = "taskScreen.moving"
+}
+

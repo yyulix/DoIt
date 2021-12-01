@@ -49,3 +49,30 @@
 "onboarding.backButton" = "Назад";
 "onboarding.nextButton" = "Далее";
 "onboarding.exitButton" = "Выйти";
+
+"taskScreen.countdown" = "Осталось";
+"taskScreen.deadline" = "Срок";
+"taskScreen.chapter" = "Раздел";
+"taskScreen.description" = "Описание";
+"taskScreen.descriptionText" = "Описание Вашей задачи";
+"taskScreen.deleteButton" = "Удалить";
+"taskScreen.editButton" = "Изменить";
+"taskScreen.returnButton" = "Назад";
+"taskScreen.saveButton" = "Сохранить";
+"taskScreen.changePhotoButton" = "Изменить фото";
+
+"taskScreen.shopping" = "Покупки";
+"taskScreen.home" = "Дом";
+"taskScreen.job" = "Работа";
+"taskScreen.family" = "Семья";
+"taskScreen.general" = "Общее";
+"taskScreen.study" = "Учеба";
+"taskScreen.sport" = "Спорт";
+"taskScreen.friends" = "Друзья";
+"taskScreen.events" = "События";
+"taskScreen.health" = "Здоровье";
+"taskScreen.travel" = "Путешествия";
+"taskScreen.science" = "Наука";
+"taskScreen.finance" = "Финансы";
+"taskScreen.charity" = "Благотворительность";
+"taskScreen.moving" = "Переезд";
