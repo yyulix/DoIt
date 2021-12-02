@@ -18,6 +18,7 @@ extension UIImage {
         static var done: UIImage { UIImage(named: "isDone")! }
         static var notDone: UIImage { UIImage(named: "isNotDone")! }
         static var defaultImage: UIImage { UIImage(named: "standartImage")! }
+    }
         
     struct ProfileEditIcons {
         static var doneIcon: UIImage { UIImage(systemName: "checkmark")! }
