@@ -21,6 +21,12 @@ enum AuthStrings: String {
     case headerSignUp = "auth.headerSignUp"
 }
 
+enum TaskString: String {
+    case title = "task.title"
+    case description = "task.description"
+    case deadline = "task.deadline"
+}
+
 enum FindFriendsStrings: String {
     case header = "findFriends.header"
     case followButton = "findFriends.followButton"

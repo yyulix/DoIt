@@ -17,6 +17,10 @@
 "auth.alreadySignedUp" = "Already have an account? ";
 "auth.notSignedUp" = "Don't you have an account? ";
 
+"task.title" = "Title was't given";
+"task.description" = "Description was't given";
+"task.deadline" = "Task has no deadline";
+
 "findFriends.header" = "Find User";
 "findFriends.followButton" = "Add";
 "findFriends.unfollowButton" = "Remove";
