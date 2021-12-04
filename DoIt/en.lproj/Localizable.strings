@@ -21,10 +21,10 @@
 "task.description" = "Description was't given";
 "task.deadline" = "Task has no deadline";
 
-"findFriends.header" = "Find User";
-"findFriends.followButton" = "Add";
-"findFriends.unfollowButton" = "Remove";
-"findFriends.searchPlaceholder" = "Search for a user";
+"findUsers.header" = "Find User";
+"findUsers.followButton" = "Add";
+"findUsers.unfollowButton" = "Remove";
+"findUsers.searchPlaceholder" = "Search for a user";
 
 "profile.header" = "Profile";
 "profile.followButton" = "Add";
@@ -38,8 +38,8 @@
 "profile.statisticsTotal" = "Total";
 "profile.tasks" = "Tasks";
 "profile.notasks" = "There's no tasks yet😢";
-"profile.friends" = "Friends";
-"profile.nofriends" = "There's no friends yet😢";
+"profile.followings" = "Following";
+"profile.nofollowings" = "There's no followings yet😢";
 
 "profileEdit.header" = "Edit";
 "profileEdit.newPhoto" = "New photo";

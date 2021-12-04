@@ -27,11 +27,11 @@ enum TaskString: String {
     case deadline = "task.deadline"
 }
 
-enum FindFriendsStrings: String {
-    case header = "findFriends.header"
-    case followButton = "findFriends.followButton"
-    case unfollowButton = "findFriends.unfollowButton"
-    case searchPlaceholder = "findFriends.searchPlaceholder"
+enum FindUsersStrings: String {
+    case header = "findUsers.header"
+    case followButton = "findUsers.followButton"
+    case unfollowButton = "findUsers.unfollowButton"
+    case searchPlaceholder = "findUsers.searchPlaceholder"
 }
 
 enum ProfileStrings: String {
@@ -47,8 +47,8 @@ enum ProfileStrings: String {
     case statisticsTotal = "profile.statisticsTotal"
     case titleTasks = "profile.tasks"
     case noTasks = "profile.notasks"
-    case titleFriends = "profile.friends"
-    case noFriends = "profile.nofriends"
+    case titleFollowings = "profile.followings"
+    case noFollowings = "profile.nofollowings"
 }
 
 enum ProfileEditString: String {

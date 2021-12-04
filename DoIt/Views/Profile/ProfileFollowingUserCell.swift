@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class ProfileFriendsCell: UICollectionViewCell {
+class ProfileFollowingUserCell: UICollectionViewCell {
     // MARK: - Private Properties
 
     private struct Constants {
@@ -50,7 +50,7 @@ class ProfileFriendsCell: UICollectionViewCell {
     }
     
     // MARK: - Helpers
-    func configureCell(with: SearchFriendsModel) {
+    func configureCell(with: UserModel) {
         loginLabel.text = "@" + with.login
         guard let image = with.image else {
             profileImageView.layoutIfNeeded()

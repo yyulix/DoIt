@@ -124,8 +124,8 @@ class ProfileViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
 
-        button.setTitle(FindFriendsStrings.followButton.rawValue.localized, for: .normal)
-        button.setTitle(FindFriendsStrings.unfollowButton.rawValue.localized, for: .selected)
+        button.setTitle(FindUsersStrings.followButton.rawValue.localized, for: .normal)
+        button.setTitle(FindUsersStrings.unfollowButton.rawValue.localized, for: .selected)
         button.setTitleColor(.AppColors.navigationTextColor, for: .normal)
         
         button.titleLabel?.font = UIFont.systemFont(ofSize: Constants.followButtonSizeOfFont)
@@ -261,20 +261,20 @@ class ProfileViewController: UIViewController {
     
     private lazy var taskViews: [TaskViewData] = []
     
-    // MARK: - Friends View
+    // MARK: - Following View
     
-    private lazy var titleLabelFriends: UILabel = getTitleLabel(title: ProfileStrings.titleFriends.rawValue.localized)
+    private lazy var titleLabelFollowing: UILabel = getTitleLabel(title: ProfileStrings.titleFollowings.rawValue.localized)
     
-    private lazy var noFriendsLabel: UILabel = {
+    private lazy var noFollowingLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: Constants.textLabelSizeOfFont)
-        label.text = ProfileStrings.noFriends.rawValue.localized
+        label.text = ProfileStrings.noFollowings.rawValue.localized
         label.isHidden = true
         return label
     }()
     
-    private lazy var collectionView: UICollectionView = {
+    private lazy var followingCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.itemSize = Constants.collectionViewCellSize
@@ -284,7 +284,7 @@ class ProfileViewController: UIViewController {
         layout.minimumLineSpacing = 0
         
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.register(ProfileFriendsCell.self, forCellWithReuseIdentifier: String(describing: ProfileFriendsCell.self))
+        collection.register(ProfileFollowingUserCell.self, forCellWithReuseIdentifier: String(describing: ProfileFollowingUserCell.self))
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.showsHorizontalScrollIndicator = false
         collection.delegate = self
@@ -294,16 +294,18 @@ class ProfileViewController: UIViewController {
     
     // MARK: - Configuration
     
-    private var information: ProfileModel = ProfileModel(
+    private var userModel: UserModel = UserModel(
         image: nil,
         name: nil,
         login: "",
         summary: nil,
         statistics: .init(inProgress: "0", outdated: "0", done: "0", total: "0"),
-        tasks: nil,
-        friends: [],
         isMyScreen: false,
         isFollowed: false)
+    
+    private var userFollowingModel: UserFollowingModel = UserFollowingModel(login: "", followings: [])
+    
+    private var userTasksModel: UserTasksModel = UserTasksModel(login: "", tasks: [])
     
     // MARK: - Lifecycle
     
@@ -325,32 +327,27 @@ class ProfileViewController: UIViewController {
     }
     
     private func configure() {
-        information = ProfileModel(
+        userModel = UserModel(
             image: nil,
             name: nil,
             login: "",
             summary: nil,
-            statistics: ProfileStatisticsModel(inProgress: "0", outdated: "0", done: "0", total: "0"),
-            tasks: nil,
-            friends: nil,
+            statistics: UserStatisticsModel(inProgress: "0", outdated: "0", done: "0", total: "0"),
             isMyScreen: true,
             isFollowed: false)
         
-        configureNavigationController(title: information.login, isMyScreen: information.isMyScreen)
+        configureNavigationController(title: userModel.login, isMyScreen: userModel.isMyScreen)
         configureCells()
     }
     
     private func configureCells() {
-        configureHeader(image: information.image, name: information.name, login: information.login, isFollowed: information.isFollowed, isMyScreen: information.isMyScreen)
-        configureInformation(summary: information.summary)
-        configureStatistics(with: information.statistics)
-        configureTasks(with: information.tasks ?? [])
+        configureHeader(image: userModel.image, name: userModel.name, login: userModel.login, isFollowed: userModel.isFollowed, isMyScreen: userModel.isMyScreen)
+        configureInformation(summary: userModel.summary)
+        configureStatistics(with: userModel.statistics)
         
-        if let friends = information.friends {
-            configureFriends(isFriendsEmpty: friends.count == 0 ? true : false)
-        } else {
-            configureFriends(isFriendsEmpty: true)
-        }
+        configureTasks(with: userTasksModel.tasks)
+        
+        configureFollowing(isFollowingEmpty: userFollowingModel.followings.count == 0 ? true : false)
     }
 }
 
@@ -366,7 +363,7 @@ extension ProfileViewController {
     }
     
     private func layoutCellsStackView() {
-        let allViews = [configureHeaderView(), configureInformationView(), getSeparatorView(), configureStatisticsView(), getSeparatorView(), configureTasksView(), getSeparatorView(), configureFriendsView(), getSeparatorView()]
+        let allViews = [configureHeaderView(), configureInformationView(), getSeparatorView(), configureStatisticsView(), getSeparatorView(), configureTasksView(), getSeparatorView(), configureFollowingView(), getSeparatorView()]
         configureStackView(arrangedSubviews: allViews, spacing: Constants.spacingStackView, toView: scrollView, isEqualWidthToView: true)
     }
 }
@@ -484,7 +481,7 @@ extension ProfileViewController {
 // MARK: - Statistics View Configuration
 
 extension ProfileViewController {
-    private func configureStatistics(with: ProfileStatisticsModel) {
+    private func configureStatistics(with: UserStatisticsModel) {
         inProgressNumberLabel.text = with.inProgress
         outdatedNumberLabel.text = with.outdated
         doneNumberLabel.text = with.done
@@ -533,7 +530,7 @@ extension ProfileViewController {
 // MARK: - Tasks View Configuration
 
 extension ProfileViewController {
-    private func configureTasks(with: [TaskModel]) {
+    private func configureTasks(with: [Task]) {
         let taskToConfigure = min(with.count, taskViews.count)
         for i in 0..<taskToConfigure {
             configureTaskView(index: i, with: with[i])
@@ -623,15 +620,15 @@ extension ProfileViewController {
         return chapterIndicatorView
     }
     
-    private func configureTaskView(index: Int, with: TaskModel) {
+    private func configureTaskView(index: Int, with: Task) {
         guard index < taskViews.count else { return }
         taskViews[index].chapterTaskIndicatorView.backgroundColor = with.color
-//        taskViews[index].imageTaskLabel.image = with.image ?? .TaskIcons.defaultImage
+        taskViews[index].imageTaskLabel.image = with.image ?? .TaskIcons.defaultImage
         taskViews[index].titleTaskLabel.text = with.title
-//        taskViews[index].desciptionTaskLabel.text = with.description ?? TaskString.description.rawValue.localized
+        taskViews[index].desciptionTaskLabel.text = with.description ?? TaskString.description.rawValue.localized
         taskViews[index].dividerTaskView.backgroundColor = with.color
         guard let date = with.deadline else {
-//            taskViews[index].deadlineTaskLabel.text = TaskString.deadline.rawValue.localized
+            taskViews[index].deadlineTaskLabel.text = TaskString.deadline.rawValue.localized
             return
         }
         taskViews[index].deadlineTaskLabel.text = date.formatted(date: .numeric, time: .shortened)
@@ -646,29 +643,28 @@ extension ProfileViewController {
     private func openTask(_ sender: UITapGestureRecognizer) {
         guard let view = sender.view else { return }
         guard let i = taskViews.firstIndex(where: { $0.taskView == view } ) else { return }
-        print(i)
     }
 }
 
-// MARK: - Friends View Configuration
+// MARK: - Following View Configuration
 
 extension ProfileViewController {
-    private func configureFriends(isFriendsEmpty: Bool) {
-        noFriendsLabel.isHidden = !isFriendsEmpty
-        collectionView.isHidden = isFriendsEmpty
+    private func configureFollowing(isFollowingEmpty: Bool) {
+        noFollowingLabel.isHidden = !isFollowingEmpty
+        followingCollectionView.isHidden = isFollowingEmpty
     }
     
-    private func configureFriendsView() -> UIView {
+    private func configureFollowingView() -> UIView {
         let view = getView()
-        layoutFriendsController()
-        configureStackView(arrangedSubviews: [titleLabelFriends, collectionView, noFriendsLabel],
+        layoutFollowingCollectionView()
+        configureStackView(arrangedSubviews: [titleLabelFollowing, followingCollectionView, noFollowingLabel],
                            spacing: Constants.spacingStackView,
                            toView: view)
         return view
     }
     
-    private func layoutFriendsController() {
-        collectionView.heightAnchor.constraint(equalToConstant: Constants.friendsConllectionHeight).isActive = true
+    private func layoutFollowingCollectionView() {
+        followingCollectionView.heightAnchor.constraint(equalToConstant: Constants.friendsConllectionHeight).isActive = true
     }
 }
 
@@ -732,7 +728,7 @@ extension ProfileViewController {
     @objc
     private func openSettings() {
         let profileEditViewController = ProfileEditViewController()
-        profileEditViewController.configure(login: information.login, profileImage: profileImageView.image, summeryText: information.summary)
+        profileEditViewController.configure(login: userModel.login, profileImage: profileImageView.image, summeryText: userModel.summary)
         navigationController?.pushViewController(profileEditViewController, animated: true)
     }
 }
@@ -743,15 +739,14 @@ extension ProfileViewController: UICollectionViewDelegate {
 
 extension ProfileViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return information.friends?.count ?? 0
+        return userFollowingModel.followings.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ProfileFriendsCell.self), for: indexPath) as? ProfileFriendsCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ProfileFollowingUserCell.self), for: indexPath) as? ProfileFollowingUserCell else {
             return .init(frame: .zero)
         }
-        guard let friends = information.friends else { return .init(frame: .zero) }
-        cell.configureCell(with: friends[indexPath.row])
+        cell.configureCell(with: userFollowingModel.followings[indexPath.row])
         return cell
     }
     

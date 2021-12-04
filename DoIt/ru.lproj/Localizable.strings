@@ -21,11 +21,10 @@
 "task.description" = "Описание не установлено";
 "task.deadline" = "Срок не установлен";
 
-
-"findFriends.header" = "Найти пользователя";
-"findFriends.followButton" = "Добавить";
-"findFriends.unfollowButton" = "Удалить";
-"findFriends.searchPlaceholder" = "Поиск пользователя";
+"findUsers.header" = "Найти пользователя";
+"findUsers.followButton" = "Добавить";
+"findUsers.unfollowButton" = "Удалить";
+"findUsers.searchPlaceholder" = "Поиск пользователя";
 
 "profile.header" = "Профиль";
 "profile.followButton" = "Добавить";
@@ -39,8 +38,8 @@
 "profile.statisticsTotal" = "Всего";
 "profile.tasks" = "Задачи";
 "profile.notasks" = "Поставленных задач еще нет😢";
-"profile.friends" = "Друзья";
-"profile.nofriends" = "Друзья еще не появились😢";
+"profile.followings" = "Подписки";
+"profile.nofollowings" = "Подписок еще нет😢";
 
 "profileEdit.header" = "Редактировать";
 "profileEdit.newPhoto" = "Новое фото";
