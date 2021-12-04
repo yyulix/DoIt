@@ -25,14 +25,12 @@
 		E49B80242741477500C59BBB /* SearchFriendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49B80222741477500C59BBB /* SearchFriendsCell.swift */; };
 		E49B80252741477500C59BBB /* SearchFriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49B80232741477500C59BBB /* SearchFriendsController.swift */; };
 		E49B80272741479100C59BBB /* SearchFriendsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49B80262741479100C59BBB /* SearchFriendsModel.swift */; };
+		E4B0C6082757A03A0020548E /* ProfileFriendsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B0C6072757A03A0020548E /* ProfileFriendsModel.swift */; };
 		E4F5042A274D0C6B00E5ADF3 /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F50427274D0C6A00E5ADF3 /* ProfileEditViewController.swift */; };
 		E4F5042B274D0C6B00E5ADF3 /* ProfileFriendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F50428274D0C6B00E5ADF3 /* ProfileFriendsCell.swift */; };
 		E4F5042C274D0C6B00E5ADF3 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F50429274D0C6B00E5ADF3 /* ProfileViewController.swift */; };
 		E4F5042E274D0C7600E5ADF3 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F5042D274D0C7600E5ADF3 /* Profile.swift */; };
-		E4F50433274D0C9200E5ADF3 /* ProfileFriendsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F5042F274D0C9200E5ADF3 /* ProfileFriendsModel.swift */; };
 		E4F50434274D0C9200E5ADF3 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F50430274D0C9200E5ADF3 /* ProfileModel.swift */; };
-		E4F50435274D0C9200E5ADF3 /* ProfileEditModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F50431274D0C9200E5ADF3 /* ProfileEditModel.swift */; };
-		E4F50436274D0C9200E5ADF3 /* ProfileTaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F50432274D0C9200E5ADF3 /* ProfileTaskModel.swift */; };
 		E4F50438274D17B600E5ADF3 /* ProfileStatisticsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F50437274D17B600E5ADF3 /* ProfileStatisticsModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -60,14 +58,12 @@
 		E49B80222741477500C59BBB /* SearchFriendsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFriendsCell.swift; sourceTree = "<group>"; };
 		E49B80232741477500C59BBB /* SearchFriendsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFriendsController.swift; sourceTree = "<group>"; };
 		E49B80262741479100C59BBB /* SearchFriendsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFriendsModel.swift; sourceTree = "<group>"; };
+		E4B0C6072757A03A0020548E /* ProfileFriendsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFriendsModel.swift; sourceTree = "<group>"; };
 		E4F50427274D0C6A00E5ADF3 /* ProfileEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
 		E4F50428274D0C6B00E5ADF3 /* ProfileFriendsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileFriendsCell.swift; sourceTree = "<group>"; };
 		E4F50429274D0C6B00E5ADF3 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		E4F5042D274D0C7600E5ADF3 /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
-		E4F5042F274D0C9200E5ADF3 /* ProfileFriendsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileFriendsModel.swift; sourceTree = "<group>"; };
 		E4F50430274D0C9200E5ADF3 /* ProfileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
-		E4F50431274D0C9200E5ADF3 /* ProfileEditModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileEditModel.swift; sourceTree = "<group>"; };
-		E4F50432274D0C9200E5ADF3 /* ProfileTaskModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTaskModel.swift; sourceTree = "<group>"; };
 		E4F50437274D17B600E5ADF3 /* ProfileStatisticsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStatisticsModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -201,12 +197,10 @@
 		E442B5BE273F093900FE37C3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				E4F50431274D0C9200E5ADF3 /* ProfileEditModel.swift */,
-				E4F5042F274D0C9200E5ADF3 /* ProfileFriendsModel.swift */,
 				E4F50430274D0C9200E5ADF3 /* ProfileModel.swift */,
-				E4F50432274D0C9200E5ADF3 /* ProfileTaskModel.swift */,
 				E49B80262741479100C59BBB /* SearchFriendsModel.swift */,
 				E4F50437274D17B600E5ADF3 /* ProfileStatisticsModel.swift */,
+				E4B0C6072757A03A0020548E /* ProfileFriendsModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -364,23 +358,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4B0C6082757A03A0020548E /* ProfileFriendsModel.swift in Sources */,
 				E49B80272741479100C59BBB /* SearchFriendsModel.swift in Sources */,
 				E4F5042A274D0C6B00E5ADF3 /* ProfileEditViewController.swift in Sources */,
 				7CAC5DE7272346CB00E2D70B /* Auth.swift in Sources */,
 				7CAC5DCE27232C6000E2D70B /* AppDelegate.swift in Sources */,
 				7C6382F2272A7DDC00FED2F4 /* Strings.swift in Sources */,
 				E49B80252741477500C59BBB /* SearchFriendsController.swift in Sources */,
-				E4F50436274D0C9200E5ADF3 /* ProfileTaskModel.swift in Sources */,
 				7CAC5DE4272330C500E2D70B /* SignUpController.swift in Sources */,
 				E4F5042E274D0C7600E5ADF3 /* Profile.swift in Sources */,
 				E4F50438274D17B600E5ADF3 /* ProfileStatisticsModel.swift in Sources */,
 				E4F5042C274D0C6B00E5ADF3 /* ProfileViewController.swift in Sources */,
-				E4F50433274D0C9200E5ADF3 /* ProfileFriendsModel.swift in Sources */,
 				7C6382E32727884000FED2F4 /* UIImageExtension.swift in Sources */,
 				7C6382EA2728A30A00FED2F4 /* CustomNavigationController.swift in Sources */,
 				7C6382F02729CCC300FED2F4 /* StringExtension.swift in Sources */,
 				7CAC5DD027232C6000E2D70B /* SceneDelegate.swift in Sources */,
-				E4F50435274D0C9200E5ADF3 /* ProfileEditModel.swift in Sources */,
 				E49B80242741477500C59BBB /* SearchFriendsCell.swift in Sources */,
 				E4F50434274D0C9200E5ADF3 /* ProfileModel.swift in Sources */,
 				E032E8FA272C1B5D0051B371 /* SignInController.swift in Sources */,

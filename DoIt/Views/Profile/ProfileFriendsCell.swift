@@ -50,7 +50,7 @@ class ProfileFriendsCell: UICollectionViewCell {
     }
     
     // MARK: - Helpers
-    func configureCell(with: ProfileFriendsModel) {
+    func configureCell(with: SearchFriendsModel) {
         loginLabel.text = "@" + with.login
         guard let image = with.image else {
             profileImageView.layoutIfNeeded()

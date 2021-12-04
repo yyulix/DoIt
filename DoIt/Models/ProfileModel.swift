@@ -14,8 +14,8 @@ struct ProfileModel {
     let login: String
     let summary: String?
     let statistics: ProfileStatisticsModel
-    let tasks: [ProfileTaskModel]?
-    let friends: [ProfileFriendsModel]?
+    let tasks: [TaskModel]?
+    let friends: [SearchFriendsModel]?
     let isMyScreen: Bool
     let isFollowed: Bool
 }

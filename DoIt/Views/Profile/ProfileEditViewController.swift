@@ -41,12 +41,6 @@ final class ProfileEditViewController: UIViewController {
         return scrollView
     }()
     
-    private lazy var contentView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
     private lazy var profileImageView: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -152,10 +146,10 @@ final class ProfileEditViewController: UIViewController {
     
     // MARK: - Helpers
     
-    func configure(with: ProfileEditModel) {
-        login = with.login
-        profileImageView.image = with.image
-        summaryTextView.text = with.summery
+    func configure(login: String, profileImage: UIImage?, summeryText: String?) {
+        self.login = login
+        profileImageView.image = profileImage
+        summaryTextView.text = summeryText
     }
     
     private func configureUI() {
@@ -163,7 +157,6 @@ final class ProfileEditViewController: UIViewController {
         
         configureNavigationController()
         layoutScrollView()
-        layoutContentView()
         layoutStackView()
         layoutWidthInputFields()
     }
@@ -182,22 +175,14 @@ final class ProfileEditViewController: UIViewController {
         scrollView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
     }
     
-    private func layoutContentView() {
-        scrollView.addSubview(contentView)
-        contentView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
-        contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-        contentView.leftAnchor.constraint(equalTo: scrollView.leftAnchor).isActive = true
-        contentView.rightAnchor.constraint(equalTo: scrollView.rightAnchor).isActive = true
-        
-        contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
-    }
-    
     private func layoutStackView() {
-        contentView.addSubview(stackView)
-        stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.stackViewTopOffset).isActive = true
-        stackView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: Constants.offset).isActive = true
-        stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: Constants.offset).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        scrollView.addSubview(stackView)
+        stackView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: Constants.stackViewTopOffset).isActive = true
+        stackView.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: Constants.offset).isActive = true
+        stackView.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: Constants.offset).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        
+        stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
     }
     private func layoutWidthInputFields() {
         nameInputField.widthAnchor.constraint(equalTo: stackView.widthAnchor).isActive = true

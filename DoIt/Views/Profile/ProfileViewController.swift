@@ -84,10 +84,10 @@ class ProfileViewController: UIViewController {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.showsVerticalScrollIndicator = false
         scrollView.delegate = self
+        scrollView.alwaysBounceVertical = true
+        scrollView.alwaysBounceHorizontal = false
         return scrollView
     }()
-    
-    private lazy var contentView: UIView = getView()
     
     // MARK: - Header View
     
@@ -321,7 +321,6 @@ class ProfileViewController: UIViewController {
         
         configureNavigationController(title: ProfileStrings.header.rawValue.localized)
         layoutScrollView()
-        layoutContentView()
         layoutCellsStackView()
     }
     
@@ -366,19 +365,9 @@ extension ProfileViewController {
         scrollView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
     }
     
-    private func layoutContentView() {
-        scrollView.addSubview(contentView)
-        contentView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
-        contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-        contentView.leftAnchor.constraint(equalTo: scrollView.leftAnchor).isActive = true
-        contentView.rightAnchor.constraint(equalTo: scrollView.rightAnchor).isActive = true
-        
-        contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
-    }
-    
     private func layoutCellsStackView() {
         let allViews = [configureHeaderView(), configureInformationView(), getSeparatorView(), configureStatisticsView(), getSeparatorView(), configureTasksView(), getSeparatorView(), configureFriendsView(), getSeparatorView()]
-        configureStackView(arrangedSubviews: allViews, spacing: Constants.spacingStackView, toView: contentView)
+        configureStackView(arrangedSubviews: allViews, spacing: Constants.spacingStackView, toView: scrollView, isEqualWidthToView: true)
     }
 }
 
@@ -544,7 +533,7 @@ extension ProfileViewController {
 // MARK: - Tasks View Configuration
 
 extension ProfileViewController {
-    private func configureTasks(with: [ProfileTaskModel]) {
+    private func configureTasks(with: [TaskModel]) {
         let taskToConfigure = min(with.count, taskViews.count)
         for i in 0..<taskToConfigure {
             configureTaskView(index: i, with: with[i])
@@ -634,13 +623,13 @@ extension ProfileViewController {
         return chapterIndicatorView
     }
     
-    private func configureTaskView(index: Int, with: ProfileTaskModel) {
+    private func configureTaskView(index: Int, with: TaskModel) {
         guard index < taskViews.count else { return }
-        taskViews[index].chapterTaskIndicatorView.backgroundColor = with.color ?? .AppColors.accentColor
+        taskViews[index].chapterTaskIndicatorView.backgroundColor = with.color
 //        taskViews[index].imageTaskLabel.image = with.image ?? .TaskIcons.defaultImage
         taskViews[index].titleTaskLabel.text = with.title
 //        taskViews[index].desciptionTaskLabel.text = with.description ?? TaskString.description.rawValue.localized
-        taskViews[index].dividerTaskView.backgroundColor = with.color ?? .AppColors.accentColor
+        taskViews[index].dividerTaskView.backgroundColor = with.color
         guard let date = with.deadline else {
 //            taskViews[index].deadlineTaskLabel.text = TaskString.deadline.rawValue.localized
             return
@@ -686,7 +675,7 @@ extension ProfileViewController {
 // MARK: - Helpers
 
 extension ProfileViewController {
-    private func configureStackView(arrangedSubviews: [UIView], spacing: CGFloat, toView: UIView, stackViewOffset: CGFloat = Constants.offset) {
+    private func configureStackView(arrangedSubviews: [UIView], spacing: CGFloat, toView: UIView, stackViewOffset: CGFloat = Constants.offset, isEqualWidthToView: Bool = false) {
         let stack = UIStackView(arrangedSubviews: arrangedSubviews)
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
@@ -697,6 +686,9 @@ extension ProfileViewController {
         stack.leftAnchor.constraint(equalTo: toView.leftAnchor, constant: stackViewOffset).isActive = true
         stack.rightAnchor.constraint(equalTo: toView.rightAnchor, constant: -stackViewOffset).isActive = true
         stack.bottomAnchor.constraint(equalTo: toView.bottomAnchor, constant: -stackViewOffset).isActive = true
+        if isEqualWidthToView {
+            stack.widthAnchor.constraint(equalTo: toView.widthAnchor, constant: -2 * stackViewOffset).isActive = true
+        }
     }
     
     private func getView() -> UIView {
@@ -740,7 +732,7 @@ extension ProfileViewController {
     @objc
     private func openSettings() {
         let profileEditViewController = ProfileEditViewController()
-        profileEditViewController.configure(with: ProfileEditModel(login: information.login, image: profileImageView.image, summery: information.summary))
+        profileEditViewController.configure(login: information.login, profileImage: profileImageView.image, summeryText: information.summary)
         navigationController?.pushViewController(profileEditViewController, animated: true)
     }
 }
