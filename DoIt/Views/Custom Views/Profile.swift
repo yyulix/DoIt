@@ -13,7 +13,7 @@ final class InputBox: UIView {
     
     struct Constants {
         static let fontSize: CGFloat = 17
-        static let padding: CGFloat = 8.0
+        static let paddingLeft: CGFloat = 28.0
         static let paddingRight: CGFloat = -28.0
         static let adjustWidthToTextView: CGFloat = 8
         static let underScopeViewHeight: CGFloat = 1
@@ -89,14 +89,15 @@ final class InputBox: UIView {
     }
     
     private func configureTextView() {
+        textView.textContainer.lineFragmentPadding = 0
         textView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(textView)
         
         textView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        textView.widthAnchor.constraint(equalTo: underScopeView.widthAnchor, constant: Constants.adjustWidthToTextView).isActive = true
+        textView.leftAnchor.constraint(equalTo: leftAnchor, constant: Constants.paddingLeft).isActive = true
+        textView.rightAnchor.constraint(equalTo: rightAnchor, constant: Constants.paddingRight).isActive = true
         textView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         textView.heightAnchor.constraint(lessThanOrEqualToConstant: maxHeight).isActive = true
-        textView.centerXAnchor.constraint(equalTo: underScopeView.centerXAnchor).isActive = true
         
         textView.scrollsToTop = false
         textView.isScrollEnabled = false
@@ -108,7 +109,7 @@ final class InputBox: UIView {
         underScopeView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(underScopeView)
         underScopeView.heightAnchor.constraint(equalToConstant: Constants.underScopeViewHeight).isActive = true
-        underScopeView.leftAnchor.constraint(equalTo: leftAnchor, constant: Constants.padding).isActive = true
+        underScopeView.leftAnchor.constraint(equalTo: leftAnchor, constant: Constants.paddingLeft).isActive = true
         underScopeView.rightAnchor.constraint(equalTo: rightAnchor, constant: Constants.paddingRight).isActive = true
         underScopeView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         underScopeView.backgroundColor = .AppColors.accentColor

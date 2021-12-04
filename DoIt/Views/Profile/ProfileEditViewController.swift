@@ -22,9 +22,9 @@ final class ProfileEditViewController: UIViewController {
         static let loginLabelSizeOfFont: CGFloat = 12
         
         static let stackViewTopOffset: CGFloat = 16
-        static let stackViewSpacing: CGFloat = 2
-        static let stackViewSpacingAfterChangeButton: CGFloat = -24
-        static let stackViewSpacingAfterHints: CGFloat = -8
+        static let stackViewSpacing: CGFloat = 4
+        static let stackViewSpacingAfterChangeButton: CGFloat = -16
+        static let stackViewSpacingAfterHints: CGFloat = -6
         
         static let hintLabelSizeOfFont: CGFloat = 12
         
@@ -178,8 +178,8 @@ final class ProfileEditViewController: UIViewController {
     private func layoutStackView() {
         scrollView.addSubview(stackView)
         stackView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: Constants.stackViewTopOffset).isActive = true
-        stackView.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: Constants.offset).isActive = true
-        stackView.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: Constants.offset).isActive = true
+        stackView.leftAnchor.constraint(equalTo: scrollView.leftAnchor).isActive = true
+        stackView.rightAnchor.constraint(equalTo: scrollView.rightAnchor).isActive = true
         stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
         
         stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
