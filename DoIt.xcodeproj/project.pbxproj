@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5038435A2AA2F8CD2F8BEF43 /* Pods_DoIt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08B69A42E301E7239EBE517D /* Pods_DoIt.framework */; };
 		7C6382DD272777F600FED2F4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7C6382DF272777F600FED2F4 /* Localizable.strings */; };
 		7C6382E32727884000FED2F4 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6382E22727884000FED2F4 /* UIImageExtension.swift */; };
 		7C6382E62728807900FED2F4 /* UIColorsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6382E52728807900FED2F4 /* UIColorsExtension.swift */; };
@@ -42,6 +43,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		08B69A42E301E7239EBE517D /* Pods_DoIt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DoIt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C5DE36E272AD0E30051C54B /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7C6382DE272777F600FED2F4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7C6382E22727884000FED2F4 /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
@@ -77,6 +79,8 @@
 		83AF419F27429B5500CA8AAA /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		83AF41A127431EB500CA8AAA /* FeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedController.swift; sourceTree = "<group>"; };
 		83AF41A727431F9600CA8AAA /* FeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionViewCell.swift; sourceTree = "<group>"; };
+		A6F76C970701A2725CD83976 /* Pods-DoIt.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DoIt.release.xcconfig"; path = "Target Support Files/Pods-DoIt/Pods-DoIt.release.xcconfig"; sourceTree = "<group>"; };
+		E5B597D22D74D989EB26883A /* Pods-DoIt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DoIt.debug.xcconfig"; path = "Target Support Files/Pods-DoIt/Pods-DoIt.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,12 +88,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5038435A2AA2F8CD2F8BEF43 /* Pods_DoIt.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		68E55F666999107589684535 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E5B597D22D74D989EB26883A /* Pods-DoIt.debug.xcconfig */,
+				A6F76C970701A2725CD83976 /* Pods-DoIt.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		7C6382CE2725C4EF00FED2F4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -164,6 +179,8 @@
 			children = (
 				7CAC5DCC27232C6000E2D70B /* DoIt */,
 				7CAC5DCB27232C6000E2D70B /* Products */,
+				68E55F666999107589684535 /* Pods */,
+				FBE1554FF59FC4B0618D3B41 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -298,6 +315,14 @@
 			path = FeedCollectionView;
 			sourceTree = "<group>";
 		};
+		FBE1554FF59FC4B0618D3B41 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				08B69A42E301E7239EBE517D /* Pods_DoIt.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -305,17 +330,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7CAC5DDE27232C6300E2D70B /* Build configuration list for PBXNativeTarget "DoIt" */;
 			buildPhases = (
+				423DF60E81691518C8C7A6E1 /* [CP] Check Pods Manifest.lock */,
 				7CAC5DC627232C6000E2D70B /* Sources */,
 				7CAC5DC727232C6000E2D70B /* Frameworks */,
 				7CAC5DC827232C6000E2D70B /* Resources */,
+				FC7455CDDE53378C6DD0B23E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = DoIt;
-			packageProductDependencies = (
-			);
 			productName = DoIt;
 			productReference = 7CAC5DCA27232C6000E2D70B /* DoIt.app */;
 			productType = "com.apple.product-type.application";
@@ -345,8 +370,6 @@
 				Base,
 			);
 			mainGroup = 7CAC5DC127232C6000E2D70B;
-			packageReferences = (
-			);
 			productRefGroup = 7CAC5DCB27232C6000E2D70B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -368,6 +391,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		423DF60E81691518C8C7A6E1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DoIt-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FC7455CDDE53378C6DD0B23E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DoIt/Pods-DoIt-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DoIt/Pods-DoIt-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DoIt/Pods-DoIt-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7CAC5DC627232C6000E2D70B /* Sources */ = {
@@ -549,6 +614,7 @@
 		};
 		7CAC5DDF27232C6300E2D70B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E5B597D22D74D989EB26883A /* Pods-DoIt.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -577,6 +643,7 @@
 		};
 		7CAC5DE027232C6300E2D70B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A6F76C970701A2725CD83976 /* Pods-DoIt.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
