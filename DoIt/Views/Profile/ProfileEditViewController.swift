@@ -23,7 +23,7 @@ final class ProfileEditViewController: UIViewController {
         
         static let stackViewTopOffset: CGFloat = 16
         static let stackViewSpacing: CGFloat = 4
-        static let stackViewSpacingAfterChangeButton: CGFloat = -16
+        static let stackViewSpacingAfterChangeButton: CGFloat = 0
         static let stackViewSpacingAfterHints: CGFloat = -6
         
         static let hintLabelSizeOfFont: CGFloat = 12
@@ -54,6 +54,7 @@ final class ProfileEditViewController: UIViewController {
     
     private lazy var changePhotoButton: AttributedCustomButton = {
         let button = AttributedCustomButton(firstPart: "", secondPart: ProfileEditString.newPhoto.rawValue.localized)
+        button.addTarget(self, action: #selector(didTapChangeProfileImage), for: .touchUpInside)
         return button
     }()
     
@@ -126,6 +127,13 @@ final class ProfileEditViewController: UIViewController {
         return UIBarButtonItem(customView: button)
     }()
     
+    private lazy var imagePickerController: UIImagePickerController = {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true
+        return picker
+    }()
+    
     private var keyboardHeight: CGFloat = 0
     private var login: String = ""
     
@@ -195,6 +203,23 @@ extension ProfileEditViewController {
     @objc
     private func doneEditing() {
         
+    }
+}
+
+// MARK: - Change Image
+
+extension ProfileEditViewController {
+    @objc
+    private func didTapChangeProfileImage() {
+        present(imagePickerController, animated: true, completion: nil)
+    }
+}
+
+extension ProfileEditViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let image = info[.editedImage] as? UIImage else { return }
+        profileImageView.image = image
+        dismiss(animated: true, completion: nil)
     }
 }
 

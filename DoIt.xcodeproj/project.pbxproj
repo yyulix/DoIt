@@ -122,7 +122,6 @@
 			isa = PBXGroup;
 			children = (
 				E4A95D4F275BEA0E00EE3F59 /* Profile */,
-				83AF419F27429B5500CA8AAA /* MainTabBarController.swift */,
 				8383502127583E57008847E1 /* Custom Views */,
 				8383502627583E57008847E1 /* Onboarding */,
 				8383503027583E58008847E1 /* Search Users */,
@@ -252,6 +251,7 @@
 		8383502127583E57008847E1 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				83AF419F27429B5500CA8AAA /* MainTabBarController.swift */,
 				E4A95D5C275BEAAA00EE3F59 /* Profile.swift */,
 				8383502227583E57008847E1 /* Auth.swift */,
 				8383502327583E57008847E1 /* CustomNavigationController.swift */,
