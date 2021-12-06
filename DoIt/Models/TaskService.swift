@@ -8,7 +8,7 @@
 
 import Firebase
 
-struct TaskService {
+class TaskService {
     
     static let shared = TaskService()
     

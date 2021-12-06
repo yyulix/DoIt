@@ -63,74 +63,9 @@ final class SearchFriendsController: UIViewController {
 
     // MARK: - Lifecycle
 
-//    struct AuthCredentials {
-//        let email: String
-//        let password: String
-//        let fullname: String
-//        let username: String
-//    }
-
-//    struct AuthService {
-//        //create static instance service
-//        static let shared = AuthService()
-//
-//        func logUserIn(withEmail email:String, password:String, completion:AuthDataResultCallback?){
-//            Auth.auth().signIn(withEmail: email, password: password, completion: completion)
-//            print("DEBUG: Email is \(email), passward is \(password)")
-//        }
-//
-//
-//        func registerUser(credentials : AuthCredentials, completion: @escaping(Error?, DatabaseReference) -> Void) {
-//            // upload image data and download image url
-//            let email = credentials.email
-//            let password = credentials.password
-//            let username = credentials.username
-//            let fullname = credentials.fullname
-//
-//            let filename = NSUUID().uuidString
-//            let storageRef = STORAGE_PROFILE_IMAGES.child(filename)
-//
-//        }
-//    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        print("111")
-
-        AuthService.shared.signIn(email: "qwerty11111@gmail.com", password: "_1234678A") { (result) in
-            print(result)
-        }
-        var t : Task = Task(image: nil, title: "title", description: nil, deadline: Date.now, isDone: false, creatorId: 0, color: UIColor.red)
-        TaskService.shared.uploadTask(task: t) { error, result in
-            print(error, result)
-        }
-        
-        UserService.shared.followUser(uid: "hQekAm6zPvZ8xVgQAGQ0ceN6DpM2") { error, result in
-            print(error, result)
-        }
-        
-        UserService.shared.fetchUserFollowers(uid: "vkdW6hhGIHh1It2fjexEDpQ0tEB3") { user in
-            print("kkk", user)
-        }
-//        TaskService.shared.uploadTask(task: t) { error, result in
-//            print(error, result)
-//        }
-//        TaskService.shared.uploadTask(task: t) { error, result in
-//            print(error, result)
-//        }
-//        TaskService.shared.uploadTask(task: t) { error, result in
-//            print(error, result)
-//        }
-//        TaskService.shared.uploadTask(task: t) { error, result in
-//            print(error, result)
-//        }
-//        TaskService.shared.uploadTask(task: t) { error, result in
-//            print(error, result)
-//        }
-        UserService.shared.fetchUsers { user in
-            print(user)
-        }
     }
 
     // MARK: - Helpers

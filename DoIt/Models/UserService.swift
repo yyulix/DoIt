@@ -9,7 +9,7 @@ import Firebase
 
 typealias DatabaseCompletion = ((Error?, DatabaseReference)-> Void)
 
-struct UserService {
+class UserService {
     
     static let shared = UserService()
         
@@ -21,9 +21,7 @@ struct UserService {
             completion(user)
         }
     }
-    
-    // TODO: - Update profile
-    
+        
     // TODO: - Update profile picture
     
     func updateUserData(user: User, completion: @escaping(DatabaseCompletion)){
@@ -66,20 +64,6 @@ struct UserService {
         REF_USER_FOLLOWING.child(currentUid).child(uid).observeSingleEvent(of: .value) { snapshot in            completion(snapshot.exists())
         }
     }
-    
-//    func fetchUserFollowers(uid: String, completion: @escaping([User])->Void){
-//
-//        var users = [User]()
-//
-//        REF_USER_FOLLOWERS.child(uid).observe(.childAdded) { (snapshot) in
-//            let usr = snapshot.key
-//            print("!!!", usr)
-//            guard let dictionary = snapshot.value as? [String: AnyObject] else {return}
-//            let user = User(uid: usr, dictionary: dictionary)
-//            users.append(user)
-//            completion(users)
-//        }
-//    }
     
     func fetchUserFollowers(uid: String, completion: @escaping([String])->Void) {
         var users_uid = [String]()

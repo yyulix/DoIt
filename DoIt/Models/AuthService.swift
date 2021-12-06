@@ -7,8 +7,8 @@
 
 import Firebase
 
-struct AuthService {
-    //create static instance service
+class AuthService {
+
     static let shared = AuthService()
 
     func signIn(email: String?, password: String?, completion: @escaping (AuthResult) -> Void) {
