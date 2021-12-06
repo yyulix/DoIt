@@ -14,4 +14,4 @@ let REF_TASKS = DB_REF.child("tasks")
 let REF_USER_TASKS = DB_REF.child("user-tasks")
 let REF_USER_FOLLOWERS = DB_REF.child("user-followers")
 let REF_USER_FOLLOWING = DB_REF.child("user-following")
-let REF_TWEET_REPLIES = DB_REF.child("tweet-replies")
+
