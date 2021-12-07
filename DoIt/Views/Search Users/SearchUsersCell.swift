@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class SearchFriendsCell: UITableViewCell {
+final class SearchUsersCell: UITableViewCell {
     // MARK: - Private Properties
 
     private struct Constants {
@@ -67,8 +67,8 @@ final class SearchFriendsCell: UITableViewCell {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
 
-        button.setTitle(FindFriendsStrings.followButton.rawValue.localized, for: .normal)
-        button.setTitle(FindFriendsStrings.unfollowButton.rawValue.localized, for: .selected)
+        button.setTitle(FindUsersStrings.followButton.rawValue.localized, for: .normal)
+        button.setTitle(FindUsersStrings.unfollowButton.rawValue.localized, for: .selected)
         button.setTitleColor(.AppColors.navigationTextColor, for: .normal)
 
         button.titleLabel?.font = .systemFont(ofSize: Constants.followButtonSizeOfFont)
@@ -95,11 +95,20 @@ final class SearchFriendsCell: UITableViewCell {
 
     // MARK: - Helpers
     
-    func configureCell(with model: SearchFriendsModel) {
-        profileImageView.image = model.image ?? UIImage.SearchFriendsIcons.personPlaceholderIcon
+    func configureCell(with model: UserModel) {
         loginLabel.text = model.login
-        configureSummeryLabel(text: model.summery)
+        configureSummeryLabel(text: model.summary)
         configureFollowButton(isFollowed: model.isFollowed)
+        configureImageView(image: model.image, name: model.name, login: model.login)
+    }
+    
+    private func configureImageView(image: UIImage?, name: String?, login: String) {
+        profileImageView.layoutIfNeeded()
+        guard let image = image else {
+            profileImageView.setImageForName(name ?? login, circular: false, textAttributes: nil)
+            return
+        }
+        profileImageView.image = image
     }
     
     private func configureSummeryLabel(text: String?) {

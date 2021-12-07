@@ -21,10 +21,10 @@
 "task.description" = "Description was't given";
 "task.deadline" = "Task has no deadline";
 
-"findFriends.header" = "Find User";
-"findFriends.followButton" = "Add";
-"findFriends.unfollowButton" = "Remove";
-"findFriends.searchPlaceholder" = "Search for a user";
+"findUsers.header" = "Find User";
+"findUsers.followButton" = "Add";
+"findUsers.unfollowButton" = "Remove";
+"findUsers.searchPlaceholder" = "Search for a user";
 
 "profile.header" = "Profile";
 "profile.followButton" = "Add";
@@ -38,8 +38,8 @@
 "profile.statisticsTotal" = "Total";
 "profile.tasks" = "Tasks";
 "profile.notasks" = "There's no tasks yet😢";
-"profile.friends" = "Friends";
-"profile.nofriends" = "There's no friends yet😢";
+"profile.followings" = "Following";
+"profile.nofollowings" = "There's no followings yet😢";
 
 "profileEdit.header" = "Edit";
 "profileEdit.newPhoto" = "New photo";
@@ -48,7 +48,7 @@
 "profileEdit.summaryPlaceholder" = "You summary";
 "profileEdit.nameHint" = "Enter your first and last name";
 "profileEdit.loginHint" = "Enter your login";
-"profileEdit.summaryHint" = "Write something about yourself\nFor example: 23 years old. I am fond of sports";
+"profileEdit.summaryHint" = "Write something about yourself\nFor example: 23 y.o. designer from California";
 
 "onboarding.backButton" = "Prev";
 "onboarding.nextButton" = "Next";

@@ -29,7 +29,6 @@ extension UIImage {
     }
     
     struct SearchFriendsIcons {
-        static var personPlaceholderIcon: UIImage { UIImage(named: "imagePlaceHolder")! }
         static var searchIcon: UIImage { UIImage(systemName: "magnifyingglass")! }
     }
 }

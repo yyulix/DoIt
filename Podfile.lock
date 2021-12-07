@@ -1,0 +1,16 @@
+PODS:
+  - InitialsImageView (0.7.0)
+
+DEPENDENCIES:
+  - InitialsImageView
+
+SPEC REPOS:
+  trunk:
+    - InitialsImageView
+
+SPEC CHECKSUMS:
+  InitialsImageView: 7a416d36fc6df5434198664db28a3ffb0228426d
+
+PODFILE CHECKSUM: 768b1d88617844da20f92b92b8beb27dfefe4e7a
+
+COCOAPODS: 1.11.2

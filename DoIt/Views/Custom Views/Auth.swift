@@ -78,7 +78,11 @@ final class InputField: UIView {
         textField.textColor = .black
         textField.translatesAutoresizingMaskIntoConstraints = false
 
-        textField.leftAnchor.constraint(equalTo: icon == nil ? leftAnchor : icon!.rightAnchor, constant: UIConstants.space).isActive = true
+        if let icon = icon {
+            textField.leftAnchor.constraint(equalTo: icon.rightAnchor, constant: UIConstants.space).isActive = true
+        } else {
+            textField.leftAnchor.constraint(equalTo: leftAnchor, constant: UIConstants.paddingLeft).isActive = true
+        }
         textField.rightAnchor.constraint(equalTo: rightAnchor, constant: UIConstants.paddingRight).isActive = true
         textField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: UIConstants.paddingBottom).isActive = true
     }
@@ -89,9 +93,8 @@ final class InputField: UIView {
         dividerView.backgroundColor = UIColor.AppColors.accentColor
         dividerView.translatesAutoresizingMaskIntoConstraints = false
 
-        let leftOffsetDifference = icon == nil ? UIConstants.iconWidth : 0
         dividerView.heightAnchor.constraint(equalToConstant: UIConstants.dividerWidth).isActive = true
-        dividerView.leftAnchor.constraint(equalTo: leftAnchor, constant: UIConstants.paddingLeft - leftOffsetDifference).isActive = true
+        dividerView.leftAnchor.constraint(equalTo: leftAnchor, constant: UIConstants.paddingLeft).isActive = true
         dividerView.rightAnchor.constraint(equalTo: rightAnchor, constant: UIConstants.paddingRight).isActive = true
         dividerView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
