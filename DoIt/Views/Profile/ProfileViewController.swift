@@ -421,7 +421,7 @@ extension ProfileViewController {
     
     private func configureFollowButton(isFollowed: Bool) {
         followButton.isSelected = isFollowed
-        followButton.backgroundColor = isFollowed ? .AppColors.grey : .AppColors.accentColor
+        followButton.backgroundColor = isFollowed ? .AppColors.greyColor : .AppColors.accentColor
     }
     
     private func configureHeaderHeight(withName: Bool, isMyScreen: Bool) {
@@ -707,7 +707,7 @@ extension ProfileViewController {
         view.heightAnchor.constraint(equalToConstant: Constants.heightSeparator).isActive = true
         let innerView = getView()
         view.addSubview(innerView)
-        innerView.backgroundColor = .AppColors.grey
+        innerView.backgroundColor = .AppColors.greyColor
         innerView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         innerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Constants.offsetSeparator).isActive = true
         innerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Constants.offsetSeparator).isActive = true

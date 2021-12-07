@@ -134,7 +134,7 @@ final class ProfileEditViewController: UIViewController {
         return picker
     }()
     
-    private var keyboardHeight: CGFloat = 0
+    private let keyboardManager = KeyboardManager.shared
     private var login: String = ""
     
     // MARK: - Lifecycle
@@ -142,10 +142,8 @@ final class ProfileEditViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        let tap = UITapGestureRecognizer(target: keyboardManager, action: #selector(keyboardManager.dismissKeyboard(_:)))
         view.addGestureRecognizer(tap)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         
         view.snapshotView(afterScreenUpdates: true)
         
@@ -223,45 +221,11 @@ extension ProfileEditViewController: UIImagePickerControllerDelegate, UINavigati
     }
 }
 
-// MARK: - Actions with Keyboard
-
-extension ProfileEditViewController {
-    @objc
-    private func keyboardWillShow(_ sender: Notification) {
-        if let userInfo = (sender as NSNotification).userInfo {
-            if let keyboardHeight = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height {
-                self.keyboardHeight = keyboardHeight
-                NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-            }
-        }
-    }
-
-    @objc
-    private func dismissKeyboard() {
-        view.endEditing(true)
-    }
-
-    private func scrollViewToInputLabel(textField: UIView, animated: Bool = true) {
-        view.layoutIfNeeded()
-        let fieldInScrollView = textField.convert(textField.bounds, to: view)
-        let bottomOfTextField: CGFloat = fieldInScrollView.maxY
-        let topOfKeyboard = view.frame.height - keyboardHeight
-        if bottomOfTextField > topOfKeyboard {
-            scrollView.setContentOffset(.init(x: 0, y: abs(topOfKeyboard - bottomOfTextField) + Constants.offsetForKeyboard), animated: animated)
-        }
-        view.layoutIfNeeded()
-    }
-
-    private func scrollViewToDefault() {
-        scrollView.setContentOffset(.zero, animated: true)
-    }
-}
-
 // MARK: - Text Labels Delegate
 
 extension ProfileEditViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        scrollViewToInputLabel(textField: textField)
+        keyboardManager.scrollViewToLabel(textField, view: view, scrollView: scrollView)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -274,7 +238,7 @@ extension ProfileEditViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        scrollViewToDefault()
+        keyboardManager.scrollViewToDefault(scrollView: scrollView)
     }
 }
 
@@ -285,18 +249,18 @@ extension ProfileEditViewController: UITextViewDelegate {
         if textView == summaryTextView.textView {
             summaryTextView.removePlaceholder()
         }
-        scrollViewToInputLabel(textField: textView)
+        keyboardManager.scrollViewToLabel(textView, view: view, scrollView: scrollView)
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        scrollViewToInputLabel(textField: textView, animated: false)
+        keyboardManager.scrollViewToLabel(textView, view: view, scrollView: scrollView, animated: false)
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if textView == summaryTextView.textView {
             summaryTextView.updateLayout()
         }
-        scrollViewToInputLabel(textField: textView)
+        keyboardManager.scrollViewToLabel(textView, view: view, scrollView: scrollView)
         return true
     }
     
@@ -305,7 +269,7 @@ extension ProfileEditViewController: UITextViewDelegate {
         if textView == summaryTextView.textView {
             summaryTextView.setPlaceholder()
         }
-        scrollViewToDefault()
+        keyboardManager.scrollViewToDefault(scrollView: scrollView)
     }
 }
 

@@ -54,6 +54,7 @@
 "onboarding.nextButton" = "Далее";
 "onboarding.exitButton" = "Выйти";
 
+"taskScreen.header" = "Название задачи";
 "taskScreen.countdown" = "Осталось";
 "taskScreen.deadline" = "Срок";
 "taskScreen.chapter" = "Раздел";

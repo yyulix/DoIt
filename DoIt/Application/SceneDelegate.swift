@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
         if ((window? = UIWindow(windowScene: scene)) != nil) {
-            window?.rootViewController = CustomNavigationController(rootViewController: ProfileViewController())
+            window?.rootViewController = CustomNavigationController(rootViewController: TaskViewController())
             window?.makeKeyAndVisible()
         } else {
             Logger.log("Invalid window")

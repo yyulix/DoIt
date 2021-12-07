@@ -28,6 +28,8 @@ final class InputBox: UIView {
             guard text != "" else { return }
             removePlaceholder()
             textView.text = text
+            layoutIfNeeded()
+            updateLayout()
         }
     }
     

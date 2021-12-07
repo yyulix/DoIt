@@ -18,6 +18,11 @@ extension UIImage {
         static var done: UIImage { UIImage(named: "isDone")! }
         static var notDone: UIImage { UIImage(named: "isNotDone")! }
         static var defaultImage: UIImage { UIImage(named: "standartImage")! }
+        static var doneIcon: UIImage { UIImage(systemName: "checkmark.circle")! }
+        static var outdatedIcon: UIImage { UIImage(systemName: "xmark.square")! }
+        static var trashIcon: UIImage { UIImage(systemName: "trash.circle")! }
+        static var checkMarkIcon: UIImage { UIImage(systemName: "checkmark")! }
+        static var editIcon: UIImage { UIImage(systemName: "square.and.pencil")! }
     }
         
     struct ProfileEditIcons {

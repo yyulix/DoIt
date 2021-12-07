@@ -118,7 +118,7 @@ final class SearchUsersCell: UITableViewCell {
     
     private func configureFollowButton(isFollowed: Bool) {
         followButton.isSelected = isFollowed
-        followButton.backgroundColor = isFollowed ? .AppColors.grey : .AppColors.accentColor
+        followButton.backgroundColor = isFollowed ? .AppColors.greyColor : .AppColors.accentColor
     }
 
     private func configureUI() {

@@ -69,6 +69,7 @@ enum OnboardingStrings: String {
 }
 
 enum TaskScreen: String {
+    case header = "taskScreen.header"
     case countdown = "taskScreen.countdown"
     case deadline = "taskScreen.deadline"
     case chapter = "taskScreen.chapter"
