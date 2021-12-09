@@ -12,14 +12,8 @@ final class ProfileEditViewController: UIViewController {
     // MARK: - Properties
     
     private struct Constants {
-        static let offset: CGFloat = 8
-        
         static let profileImageCornerRadius: CGFloat = 12
         static let profileImageWidth: CGFloat = 100
-        
-        static let nameLabelSizeOfFont: CGFloat = 16
-        
-        static let loginLabelSizeOfFont: CGFloat = 12
         
         static let stackViewTopOffset: CGFloat = 16
         static let stackViewSpacing: CGFloat = 4
@@ -27,8 +21,6 @@ final class ProfileEditViewController: UIViewController {
         static let stackViewSpacingAfterHints: CGFloat = -6
         
         static let hintLabelSizeOfFont: CGFloat = 12
-        
-        static let offsetForKeyboard: CGFloat = 15
         
         static let heightOfTextView: CGFloat = 200
     }

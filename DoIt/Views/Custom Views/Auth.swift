@@ -75,7 +75,6 @@ final class InputField: UIView {
         addSubview(textField)
         textField.autocorrectionType = .no
         textField.placeholder = placeholderText
-        textField.textColor = .black
         textField.translatesAutoresizingMaskIntoConstraints = false
 
         if let icon = icon {
@@ -124,7 +123,7 @@ final class CustomRoundedButton: UIView {
         }
 
         button.layer.cornerRadius = UIConstants.height / 2;
-        button.backgroundColor = UIColor.systemTeal
+        button.backgroundColor = .AppColors.accentColor
         button.setTitle(title, for: .normal)
         button.tintColor = .white
 
@@ -162,8 +161,7 @@ final class AttributedCustomButton: UIButton {
         let attributedTitle = NSMutableAttributedString(
             string: firstPart,
             attributes: [
-                NSAttributedString.Key.font: UIFont.systemFont(ofSize: UIConstants.fontSize),
-                NSAttributedString.Key.foregroundColor: UIColor.black
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: UIConstants.fontSize)
             ]
         )
         attributedTitle.append(NSAttributedString(

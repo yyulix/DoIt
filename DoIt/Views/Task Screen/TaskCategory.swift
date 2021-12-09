@@ -8,45 +8,36 @@
 import UIKit
 
 struct TaskCategory {
-    let chapter: String?
+    var chapter: Chapter {
+        TaskCategory.chapters[chapterIndex]
+    }
     
-    private var index: Int
+    static var chaptersCount: Int {
+        TaskCategory.chapters.count
+    }
     
-    init(index: Int){
-        self.index = index
-        switch index {
-        case 0:
-            self.chapter = TasksCategory.shopping.rawValue.localized
-        case 1:
-            self.chapter = TasksCategory.home.rawValue.localized
-        case 2:
-            self.chapter = TasksCategory.job.rawValue.localized
-        case 3:
-            self.chapter = TasksCategory.family.rawValue.localized
-        case 4:
-            self.chapter = TasksCategory.general.rawValue.localized
-        case 5:
-            self.chapter = TasksCategory.study.rawValue.localized
-        case 6:
-            self.chapter = TasksCategory.sport.rawValue.localized
-        case 7:
-            self.chapter = TasksCategory.friends.rawValue.localized
-        case 8:
-            self.chapter = TasksCategory.events.rawValue.localized
-        case 9:
-            self.chapter = TasksCategory.health.rawValue.localized
-        case 10:
-            self.chapter = TasksCategory.travel.rawValue.localized
-        case 11:
-            self.chapter = TasksCategory.science.rawValue.localized
-        case 12:
-            self.chapter = TasksCategory.finance.rawValue.localized
-        case 13:
-            self.chapter = TasksCategory.charity.rawValue.localized
-        case 14:
-            self.chapter = TasksCategory.moving.rawValue.localized
-        default:
-            self.chapter = "Default"
-        }
+    private var chapterIndex: Int = 0
+    private static let chapters: [Chapter] = [
+        Chapter(title: TasksCategory.shopping.rawValue.localized, color: .ChapterColors.shoppingColor),
+        Chapter(title: TasksCategory.home.rawValue.localized, color: .ChapterColors.homeColor),
+        Chapter(title: TasksCategory.job.rawValue.localized, color: .ChapterColors.jobColor),
+        Chapter(title: TasksCategory.family.rawValue.localized, color: .ChapterColors.familyColor),
+        
+        Chapter(title: TasksCategory.general.rawValue.localized, color: .ChapterColors.generalColor),
+        Chapter(title: TasksCategory.study.rawValue.localized, color: .ChapterColors.studyColor),
+        Chapter(title: TasksCategory.sport.rawValue.localized, color: .ChapterColors.sportColor),
+        Chapter(title: TasksCategory.friends.rawValue.localized, color: .ChapterColors.friendsColor),
+        
+        Chapter(title: TasksCategory.events.rawValue.localized, color: .ChapterColors.eventsColor),
+        Chapter(title: TasksCategory.health.rawValue.localized, color: .ChapterColors.healthColor),
+        Chapter(title: TasksCategory.travel.rawValue.localized, color: .ChapterColors.travelColor),
+        Chapter(title: TasksCategory.science.rawValue.localized, color: .ChapterColors.scienceColor),
+        
+        Chapter(title: TasksCategory.finance.rawValue.localized, color: .ChapterColors.financeColor),
+        Chapter(title: TasksCategory.moving.rawValue.localized, color: .ChapterColors.movingColor)
+    ]
+    
+    init(index: Int = 0) {
+        chapterIndex = min(max(index, 0), TaskCategory.chaptersCount - 1)
     }
 }

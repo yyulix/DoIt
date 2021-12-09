@@ -21,29 +21,37 @@ class ChapterCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
+        label.font = .systemFont(ofSize: UIConstants.labelFontSize)
         return label
     }()
     
     //MARK: - Public Methods
-    func configureCell(chapterData: Chapter) {
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        configureUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configureCell(with model: Chapter) {
+        chapterLabel.text = model.title
+        backgroundColor = model.color
+    }
+    
+    private func configureUI() {
         layer.masksToBounds = true
         layer.cornerRadius = UIConstants.cornerRadius
-        contentMode = .scaleAspectFit
         configureChapterLabel()
-        configureData(withChapter: chapterData)
     }
     
     private func configureChapterLabel() {
         addSubview(chapterLabel)
-        chapterLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: UIConstants.leftPadding).isActive = true
-        chapterLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: UIConstants.rightPadding).isActive = true
-        chapterLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        chapterLabel.font = chapterLabel.font.withSize(UIConstants.labelFontSize)
-    }
-    
-    private func configureData(withChapter: Chapter) {
-        chapterLabel.text = withChapter.title
-        chapterLabel.textColor = withChapter.textColor
-        backgroundColor = withChapter.color
+        chapterLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: UIConstants.leftPadding).isActive = true
+        chapterLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: UIConstants.rightPadding).isActive = true
+        chapterLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
 }

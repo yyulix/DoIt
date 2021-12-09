@@ -734,7 +734,10 @@ extension ProfileViewController {
 }
 
 extension ProfileViewController: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let profileViewController = ProfileViewController()
+        navigationController?.pushViewController(profileViewController, animated: true)
+    }
 }
 
 extension ProfileViewController: UICollectionViewDataSource {
@@ -748,11 +751,6 @@ extension ProfileViewController: UICollectionViewDataSource {
         }
         cell.configureCell(with: userFollowingModel.followings[indexPath.row])
         return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let profileViewController = ProfileViewController()
-        navigationController?.pushViewController(profileViewController, animated: true)
     }
 }
 

@@ -16,14 +16,9 @@ class TaskEditViewController: UIViewController {
         static let stackPadding = 20.0
         static let verticalStackSpacing = 10.0
         static let horizontalStackSpacing = 20.0
-        static let referencePadding = 116.0
         static let verticalStackTopSpacing = 15.0
-        static let countOfChapters = 14
-        static let smallPickerHeight = 220.0
-        static let bigPickerHeight = 150.0
         static let imageCornerRadius = 12.0
         static let pickerHeightMultiplier = 0.3
-        static let offsetForKeyboard: CGFloat = 15
     }
     
     private lazy var datePicker: UIDatePicker = {
@@ -34,6 +29,13 @@ class TaskEditViewController: UIViewController {
     }()
     
     private lazy var chapterPicker: UIPickerView = {
+        let picker = UIPickerView()
+        picker.dataSource = self
+        picker.delegate = self
+        return picker
+    }()
+    
+    private lazy var colorPicker: UIPickerView = {
         let picker = UIPickerView()
         picker.dataSource = self
         picker.delegate = self
@@ -61,7 +63,7 @@ class TaskEditViewController: UIViewController {
     }()
     
     private lazy var taskLabel: InputField = {
-        let label = InputField(labelImage: nil, keyboardType: .default, placeholderText: TaskScreen.header.rawValue.localized)
+        let label = InputField(labelImage: nil, keyboardType: .default, placeholderText: TaskScreen.taskName.rawValue.localized)
         label.textField.font = UIFont(name: "Helvetica Neue Bold", size: UIConstants.navigationBarFontSize)
         label.textField.textAlignment = .center
         return label
@@ -69,14 +71,7 @@ class TaskEditViewController: UIViewController {
     
     private lazy var timerTitle: UILabel = getTitleLabel(title: TaskScreen.deadline.rawValue.localized)
 
-    private lazy var timerLabel: UITextField = {
-       let timerLabel = UITextField()
-        timerLabel.translatesAutoresizingMaskIntoConstraints = false
-        timerLabel.font = UIFont.systemFont(ofSize: UIConstants.normalFontSize)
-        timerLabel.placeholder = TaskScreen.deadline.rawValue.localized
-        timerLabel.textAlignment = .center
-        return timerLabel
-    }()
+    private lazy var timerLabel: UITextField = getTextField(placeholder: TaskScreen.deadlineText.rawValue.localized)
     
     private lazy var taskDescriptionTitle: UILabel = getTitleLabel(title: TaskScreen.description.rawValue.localized)
     
@@ -88,14 +83,11 @@ class TaskEditViewController: UIViewController {
     
     private lazy var taskChapterTitle: UILabel = getTitleLabel(title: TaskScreen.chapter.rawValue.localized)
     
-    private lazy var taskChapter: UITextField = {
-        let taskChapter = UITextField()
-        taskChapter.translatesAutoresizingMaskIntoConstraints = false
-        taskChapter.placeholder = TaskScreen.chapter.rawValue.localized
-        taskChapter.textAlignment = .center
-        taskChapter.font = UIFont.systemFont(ofSize: UIConstants.normalFontSize)
-        return taskChapter
-    }()
+    private lazy var taskChapter: UITextField = getTextField(placeholder: TaskScreen.chapterText.rawValue.localized)
+    
+    private lazy var taskColorTitle: UILabel = getTitleLabel(title: TaskScreen.color.rawValue.localized)
+    
+    private lazy var taskColor: UITextField = getTextField(placeholder: TaskScreen.colorText.rawValue.localized)
     
     private lazy var taskImage: UIImageView = {
         let image = UIImageView()
@@ -121,10 +113,26 @@ class TaskEditViewController: UIViewController {
     
     private lazy var setImageButton = CustomRoundedTaskButton(title: TaskScreen.changePhotoButton.rawValue.localized, target: self, action: #selector(imageSetButtonPressed), width: view.bounds.width / 2, color: .AppColors.purpleColor)
     
-    private let dateFormatter = DateFormatter()
-    private let chapters = (0...UIConstants.countOfChapters).map({ TaskCategory(index: $0) })
-    
     private let keyboardManager = KeyboardManager.shared
+    
+    private let dateFormatter = DateFormatter()
+    
+    private let chapters = (0...TaskCategory.chaptersCount).map({ TaskCategory(index: $0) })
+    
+    private let colors: [(color: UIColor, stringColor: String)] = [
+        (.TaskColors.black, TaskScreen.blackColor.rawValue.localized),
+        (.TaskColors.white, TaskScreen.whiteColor.rawValue.localized),
+        (.TaskColors.red, TaskScreen.redColor.rawValue.localized),
+        (.TaskColors.green, TaskScreen.greenColor.rawValue.localized),
+        (.TaskColors.blue, TaskScreen.blueColor.rawValue.localized),
+        (.TaskColors.yellow, TaskScreen.yellowColor.rawValue.localized),
+        (.TaskColors.gray, TaskScreen.grayColor.rawValue.localized),
+        (.TaskColors.purple, TaskScreen.purpleColor.rawValue.localized),
+        (.TaskColors.orange, TaskScreen.orangeColor.rawValue.localized),
+        (.TaskColors.magenta, TaskScreen.magentaColor.rawValue.localized),
+        (.TaskColors.cyan, TaskScreen.cyanColor.rawValue.localized),
+        (.TaskColors.brown, TaskScreen.brownColor.rawValue.localized)
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -135,7 +143,7 @@ class TaskEditViewController: UIViewController {
         configureView()
     }
     
-    func configureView() {
+    private func configureView() {
         view.backgroundColor = .systemBackground
         
         layoutScrollView()
@@ -144,6 +152,7 @@ class TaskEditViewController: UIViewController {
         configureStacks()
         configurePicker(picker: datePicker, toView: timerLabel, action: #selector(datePickerDoneButtonPressed))
         configurePicker(picker: chapterPicker, toView: taskChapter, action: #selector(chapterDoneButtonPressed))
+        configurePicker(picker: colorPicker, toView: taskColor, action: #selector(colorDoneButtonPressed))
     }
     
     private func layoutScrollView() {
@@ -166,7 +175,7 @@ class TaskEditViewController: UIViewController {
     }
     
     private func configureStacks() {
-        let verticalStack = UIStackView(arrangedSubviews: [taskLabel, timerTitle, timerLabel, taskChapterTitle, taskChapter, taskDescriptionTitle, taskDescription, taskImageViewContainter, setImageButton])
+        let verticalStack = UIStackView(arrangedSubviews: [taskLabel, timerTitle, timerLabel, taskChapterTitle, taskChapter, taskColorTitle, taskColor, taskDescriptionTitle, taskDescription, taskImageViewContainter, setImageButton])
         verticalStack.translatesAutoresizingMaskIntoConstraints = false
         verticalStack.axis = .vertical
         verticalStack.distribution = .equalSpacing
@@ -208,34 +217,6 @@ class TaskEditViewController: UIViewController {
         accessView.inputView = picker
     }
     
-    @objc func returnButtonPressed() {
-        dismiss(animated: true)
-    }
-
-    @objc func saveButtonPressed() {
-        
-    }
-    
-    @objc func imageSetButtonPressed() {
-        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
-            present(imagePicker, animated: true, completion: nil)
-        }
-    }
-    
-    @objc func chapterDoneButtonPressed() {
-        view.endEditing(true)
-    }
-    
-    @objc func datePickerDoneButtonPressed() {
-        dateFormatter.dateFormat = "HH:mm dd.MM.YYYY"
-        timerLabel.text = dateFormatter.string(from: datePicker.date)
-        view.endEditing(true)
-    }
-}
-
-// MARK: - Helpers
-
-extension TaskEditViewController {
     private func getTitleLabel(title: String) -> UILabel {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -243,6 +224,15 @@ extension TaskEditViewController {
         label.text = title
         label.textAlignment = .left
         return label
+    }
+    
+    private func getTextField(placeholder: String) -> UITextField {
+        let field = UITextField()
+        field.translatesAutoresizingMaskIntoConstraints = false
+        field.placeholder = placeholder
+        field.textAlignment = .center
+        field.font = UIFont.systemFont(ofSize: UIConstants.normalFontSize)
+        return field
     }
 }
 
@@ -252,10 +242,12 @@ extension TaskEditViewController: UINavigationControllerDelegate {   }
 
 extension TaskEditViewController: UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[.editedImage] as? UIImage {
-            taskImage.image = image
-            taskImageViewContainter.isHidden = false
+        guard let image = info[.editedImage] as? UIImage else {
+            imagePicker.dismiss(animated: true, completion: nil);
+            return
         }
+        taskImage.image = image
+        taskImageViewContainter.isHidden = false
         imagePicker.dismiss(animated: true, completion: nil)
     }
     
@@ -270,15 +262,28 @@ extension TaskEditViewController: UIPickerViewDelegate {   }
 
 extension TaskEditViewController: UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return chapters[row].chapter
+        if pickerView == chapterPicker {
+            return chapters[row].chapter.title
+        } else {
+            return colors[row].stringColor
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        taskChapter.text = chapters[row].chapter
+        if pickerView == chapterPicker {
+            taskChapter.text = chapters[row].chapter.title
+        } else {
+            taskColor.text = colors[row].stringColor
+            taskColor.textColor = colors[row].color
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return chapters.count
+        if pickerView == chapterPicker {
+            return chapters.count
+        } else {
+            return colors.count
+        }
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -308,5 +313,36 @@ extension TaskEditViewController: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         textView.resignFirstResponder()
         keyboardManager.scrollViewToDefault(scrollView: scrollView)
+    }
+}
+
+// MARK: - Actions
+
+extension TaskEditViewController {
+    @objc private func returnButtonPressed() {
+        dismiss(animated: true)
+    }
+
+    @objc private func saveButtonPressed() {
+        
+    }
+    
+    @objc private func imageSetButtonPressed() {
+        guard UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) else { return }
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    @objc private func chapterDoneButtonPressed() {
+        view.endEditing(true)
+    }
+    
+    @objc private func datePickerDoneButtonPressed() {
+        dateFormatter.dateFormat = "HH:mm dd.MM.YYYY"
+        timerLabel.text = dateFormatter.string(from: datePicker.date)
+        view.endEditing(true)
+    }
+    
+    @objc private func colorDoneButtonPressed() {
+        view.endEditing(true)
     }
 }

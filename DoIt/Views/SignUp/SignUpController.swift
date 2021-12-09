@@ -13,10 +13,6 @@ class SignUpController: UIViewController {
         static let spacing = 12.0
     }
 
-    // MARK: - Public Property
-
-    // MARK: - Private Property
-
     private lazy var usernameInputView = InputField(labelImage: UIImage.AuthIcons.personIcon, placeholderText: AuthStrings.username.rawValue.localized)
     private lazy var envelopeInputView = InputField(labelImage: UIImage.AuthIcons.envelopeIcon, placeholderText: AuthStrings.email.rawValue.localized)
     private lazy var passwordInputView : InputField = {
@@ -29,24 +25,26 @@ class SignUpController: UIViewController {
         retypePasswordInput.textField.isSecureTextEntry = true
         return retypePasswordInput
     }()
-    private lazy var registerButton = CustomRoundedButton(title: AuthStrings.signUp.rawValue.localized)
-    private lazy var signInButton = AttributedCustomButton(firstPart: AuthStrings.alreadySignedUp.rawValue.localized, secondPart: AuthStrings.signIn.rawValue.localized)
-
-    // MARK: - Public Methods
-
-    // MARK: - Override Methods
+    private lazy var registerButton = CustomRoundedButton(title: AuthStrings.signUp.rawValue.localized, target: self, action: #selector(registerButtonPressed(_:)))
+    private lazy var signInButton: AttributedCustomButton = {
+        let button = AttributedCustomButton(firstPart: AuthStrings.alreadySignedUp.rawValue.localized, secondPart: AuthStrings.signIn.rawValue.localized)
+        button.addTarget(self, action: #selector(signInButtonPressed(_:)), for: .touchUpInside)
+        return button
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.hidesBarsOnSwipe = true
-        view.backgroundColor = .white
-        navigationItem.title = AuthStrings.headerSignUp.rawValue.localized
-        view.backgroundColor = .white
-        signInButton.addTarget(self, action: #selector(signInButtonPressed(_:)), for: .touchDown)
-        configureInputsStackView()
+        configureView()
     }
 
     // MARK: - Private Methods
+    
+    private func configureView() {
+        navigationController?.hidesBarsOnSwipe = true
+        view.backgroundColor = .systemBackground
+        navigationItem.title = AuthStrings.headerSignUp.rawValue.localized
+        configureInputsStackView()
+    }
 
     private func configureInputsStackView() {
         let stack = UIStackView(arrangedSubviews: [usernameInputView, envelopeInputView, passwordInputView, retypePasswordInputView, registerButton, signInButton])
@@ -59,8 +57,14 @@ class SignUpController: UIViewController {
         stack.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
     }
     
+    @objc private func registerButtonPressed(_ sender: UIButton) {
+        let mainScreen = CustomNavigationController(rootViewController: MainTabBarController())
+        mainScreen.modalPresentationStyle = .fullScreen
+        present(mainScreen, animated: true)
+        
+    }
+    
     @objc private func signInButtonPressed(_ sender: UIButton) {
-        let mainScreen = MainTabBarController()
-        self.navigationController?.pushViewController(mainScreen, animated: true)
+        navigationController?.pushViewController(SignInController(), animated: true)
     }
 }

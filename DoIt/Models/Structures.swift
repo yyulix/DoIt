@@ -7,18 +7,20 @@
 
 import UIKit
 
-struct Chapter{
-    let title: String
-    let color: UIColor
-    let textColor: UIColor
-}
-
-struct Task{
+struct Task {
     let image: UIImage?
     let title: String
     let description: String?
     let deadline: Date?
     let isDone: Bool
-    let creatorId: Int
+    let creatorId: String
+    let color: UIColor
+    let chapterId: Int
+    let creationTime: Date
+    let isMyTask: Bool
+}
+
+struct Chapter {
+    let title: String
     let color: UIColor
 }

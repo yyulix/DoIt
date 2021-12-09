@@ -10,17 +10,6 @@ import UIKit
 class TasksController: UIViewController {
 
     // MARK: - Private Property
-    private let tasks = [Task(image: UIImage(named: "bob"), title: "Task 1: Get ready for an exam", description: nil, deadline: nil, isDone: true, creatorId: 23, color: .black),
-                         Task(image: UIImage(named: "bob"), title: "Task 2: Get ready for an exam", description: nil, deadline: nil, isDone: false, creatorId: 23, color: .yellow),
-                 Task(image: UIImage(named: "bob"), title: "Task 3: Get ready for an exam", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: nil, isDone: false, creatorId: 23, color: .red),
-                 Task(image: UIImage(named: "bob"), title: "Task 4: Get ready for an exam", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: nil, isDone: true, creatorId: 23, color: .orange)]
-    
-    private var chapters = [Chapter(title: "Все задачи", color: .gray, textColor: .white),
-                    Chapter(title: "Работа", color: .orange, textColor: .black),
-                    Chapter(title: "Учеба", color: .green, textColor: .gray),
-                    Chapter(title: "Саморазвитие", color: .systemTeal, textColor: .white),
-                    Chapter(title: "Семья", color: .yellow, textColor: .gray),
-                    Chapter(title: "Проживание. Счета", color: .red, textColor: .black)]
     
     private struct UIConstants {
         static let topPadding = 10.0
@@ -32,30 +21,42 @@ class TasksController: UIViewController {
     private lazy var collection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.estimatedItemSize = CGSize(width: 0, height: UIConstants.collectionHeight)
+        layout.estimatedItemSize = CGSize(width: 100, height: UIConstants.collectionHeight)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(ChapterCollectionViewCell.self, forCellWithReuseIdentifier: "ChapterCollectionCell")
+        collectionView.register(ChapterCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ChapterCollectionViewCell.self))
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
     
     private lazy var table: UITableView = {
         let tableView = UITableView()
+        tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = UITableView.automaticDimension
-        tableView.register(TaskTableViewCell.self, forCellReuseIdentifier: "TableViewCell")
-        tableView.separatorColor = UIColor.clear
+        tableView.register(TaskTableViewCell.self, forCellReuseIdentifier: String(describing: TaskTableViewCell.self))
+        tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
     
+    private let tasks = [
+        Task(image: UIImage(named: "bob"), title: "Task 1: Get ready for an exam", description: nil, deadline: nil, isDone: true, creatorId: "1", color: .black, chapterId: 0, creationTime: Date(), isMyTask: true),
+        Task(image: UIImage(named: "bob"), title: "Task 2: Get ready for an exam", description: nil, deadline: nil, isDone: false, creatorId: "2", color: .yellow, chapterId: 1, creationTime: Date(), isMyTask: true),
+        Task(image: UIImage(named: "bob"), title: "Task 3: Get ready for an exam", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: nil, isDone: false, creatorId: "2", color: .red, chapterId: 2, creationTime: Date(), isMyTask: true),
+        Task(image: UIImage(named: "bob"), title: "Task 4: Get ready for an exam", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: nil, isDone: true, creatorId: "1", color: .orange, chapterId: 3, creationTime: Date(), isMyTask: true)
+    ]
+    
+    private let chapters = (0...TaskCategory.chaptersCount).map({ TaskCategory(index: $0) })
     
     //MARK: - Override Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         layoutCollection()
         layoutTable()
     }
@@ -63,7 +64,6 @@ class TasksController: UIViewController {
     //MARK: - Private Methods
     private func layoutCollection() {
         view.addSubview(collection)
-        collection.translatesAutoresizingMaskIntoConstraints = false
         collection.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: UIConstants.topPadding).isActive = true
         collection.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         collection.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
@@ -72,11 +72,17 @@ class TasksController: UIViewController {
     
     private func layoutTable() {
         view.addSubview(table)
-        table.translatesAutoresizingMaskIntoConstraints = false
         table.topAnchor.constraint(equalTo: collection.bottomAnchor, constant: UIConstants.topPadding).isActive = true
         table.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: UIConstants.leftPadding).isActive = true
         table.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: UIConstants.rightPadding).isActive = true
         table.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+    }
+}
+
+extension TasksController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let taskViewController = TaskViewController()
+        navigationController?.pushViewController(taskViewController, animated: true)
     }
 }
 
@@ -87,21 +93,25 @@ extension TasksController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as? TaskTableViewCell else { return .init(frame: .zero) }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TaskTableViewCell.self), for: indexPath) as? TaskTableViewCell else { return .init(frame: .zero) }
         cell.configureCell(taskInfo: tasks[indexPath.row])
         return cell
     }
 }
 
-extension TasksController: UICollectionViewDataSource {
+extension TasksController: UICollectionViewDelegate {
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ChapterCollectionCell", for: indexPath) as? ChapterCollectionViewCell else { return .init(frame: .zero) }
-        cell.configureCell(chapterData: chapters[indexPath.row])
-        return cell
-    }
+}
+
+extension TasksController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return chapters.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ChapterCollectionViewCell.self), for: indexPath) as? ChapterCollectionViewCell else { return .init(frame: .zero) }
+        cell.configureCell(with: chapters[indexPath.row].chapter)
+        return cell
     }
 }

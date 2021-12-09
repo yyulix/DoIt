@@ -152,6 +152,11 @@ extension SearchUsersController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return SearchUsersController.Constants.cellHeight
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let profileViewController = ProfileViewController()
+        navigationController?.pushViewController(profileViewController, animated: true)
+    }
 }
 
 extension SearchUsersController: UITableViewDataSource {
@@ -166,11 +171,6 @@ extension SearchUsersController: UITableViewDataSource {
         cell.configureCell(with: userModels[indexPath.row])
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let profileViewController = ProfileViewController()
-        navigationController?.pushViewController(profileViewController, animated: true)
-    }
 }
 
 extension SearchUsersController: UISearchBarDelegate {
@@ -181,8 +181,6 @@ extension SearchUsersController: UISearchBarDelegate {
         
         removeSearchBarView()
     }
-    
-    
 }
 
 extension SearchUsersController: UIScrollViewDelegate {

@@ -34,6 +34,7 @@ class FeedCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
+        label.font = .systemFont(ofSize: UIConstants.labelFontSize)
         return label
     }()
     
@@ -52,7 +53,7 @@ class FeedCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
-        label.textColor = UIColor.AppColors.minorTextColor
+        label.textColor = .secondaryLabel
         label.font = label.font.withSize(UIConstants.creatorFontSize)
         return label
     }()
@@ -60,6 +61,8 @@ class FeedCollectionViewCell: UICollectionViewCell {
     //MARK: - Override Methods
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
@@ -67,47 +70,51 @@ class FeedCollectionViewCell: UICollectionViewCell {
     }
     
     //MARK: - Public Methods
-    func configureCell(taskInfo: Task) {
+    func configureCell(taskInfo: Task, userInfo: UserModel) {
+        taskImage.image = taskInfo.image ?? UIImage.TaskIcons.defaultImage
+        taskLabel.text = taskInfo.title
+        creatorLabel.text = "@" + userInfo.login
+        guard let image = userInfo.image else {
+            creatorImage.layoutIfNeeded()
+            creatorImage.setImageForName(userInfo.name ?? userInfo.login, circular: false, textAttributes: nil)
+            return
+        }
+        creatorImage.image = image
+    }
+    
+    private func configureUI() {
         layer.masksToBounds = true
         layer.cornerRadius = UIConstants.cornerRadius
-        configureTaskImage(withImage: taskInfo.image)
-        configureTaskLabel(withLabel: taskInfo.title)
+        backgroundColor = .systemBackground
+        configureTaskImage()
+        configureTaskLabel()
         configureCreatorViews()
-        contentMode = .scaleAspectFit
-        backgroundColor = .white
     }
     
-    private func configureTaskImage(withImage: UIImage?) {
-        self.addSubview(taskImage)
-        taskImage.image = withImage ?? UIImage.TaskIcons.defaultImage
-        taskImage.topAnchor.constraint(equalTo: self.topAnchor, constant: UIConstants.topPadding).isActive = true
+    private func configureTaskImage() {
+        addSubview(taskImage)
+        taskImage.topAnchor.constraint(equalTo: topAnchor, constant: UIConstants.topPadding).isActive = true
         taskImage.widthAnchor.constraint(equalToConstant: UIConstants.taskImageSize).isActive = true
         taskImage.heightAnchor.constraint(equalToConstant: UIConstants.taskImageSize).isActive = true
-        taskImage.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        taskImage.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     }
     
-    private func configureTaskLabel(withLabel: String) {
-        self.addSubview(taskLabel)
+    private func configureTaskLabel() {
+        addSubview(taskLabel)
         taskLabel.topAnchor.constraint(equalTo: taskImage.bottomAnchor, constant: UIConstants.padding).isActive = true
-        taskLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: UIConstants.leftPadding).isActive = true
-        taskLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: UIConstants.rightPadding).isActive = true
-        taskLabel.textColor = UIColor.AppColors.mainTextColor
-        taskLabel.font = taskLabel.font.withSize(UIConstants.labelFontSize)
-        taskLabel.text = withLabel
+        taskLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: UIConstants.leftPadding).isActive = true
+        taskLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: UIConstants.rightPadding).isActive = true
     }
     
     private func configureCreatorViews() {
-        //это тут пока не появится что-то для хранения пользоватееля
-        creatorImage.image = UIImage(named: "bob")
-        creatorLabel.text = "@SpoungeBob"
         let stack = UIStackView(arrangedSubviews: [creatorImage, creatorLabel])
         stack.axis = .horizontal
         stack.spacing = UIConstants.padding
-        self.addSubview(stack)
         stack.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(stack)
         stack.topAnchor.constraint(equalTo: taskLabel.bottomAnchor, constant: UIConstants.padding).isActive = true
-        stack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: UIConstants.leftPadding).isActive = true
-        stack.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: UIConstants.rightPadding).isActive = true
-        stack.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -UIConstants.topPadding).isActive = true
+        stack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: UIConstants.leftPadding).isActive = true
+        stack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: UIConstants.rightPadding).isActive = true
+        stack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -UIConstants.topPadding).isActive = true
     }
 }
