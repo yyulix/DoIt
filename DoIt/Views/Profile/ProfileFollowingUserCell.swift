@@ -28,7 +28,7 @@ class ProfileFollowingUserCell: UICollectionViewCell {
         return image
     }()
     
-    lazy var loginLabel: UILabel = {
+    private lazy var loginLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: Constants.loginLabelSizeOfFont)

@@ -14,14 +14,11 @@ final class ProfileEditViewController: UIViewController {
     private struct Constants {
         static let profileImageCornerRadius: CGFloat = 12
         static let profileImageWidth: CGFloat = 100
-        
         static let stackViewTopOffset: CGFloat = 16
         static let stackViewSpacing: CGFloat = 4
         static let stackViewSpacingAfterChangeButton: CGFloat = 0
         static let stackViewSpacingAfterHints: CGFloat = -6
-        
         static let hintLabelSizeOfFont: CGFloat = 12
-        
         static let heightOfTextView: CGFloat = 200
     }
     
@@ -152,7 +149,6 @@ final class ProfileEditViewController: UIViewController {
     
     private func configureUI() {
         view.backgroundColor = .systemBackground
-        
         configureNavigationController()
         layoutScrollView()
         layoutStackView()
@@ -179,7 +175,6 @@ final class ProfileEditViewController: UIViewController {
         stackView.leftAnchor.constraint(equalTo: scrollView.leftAnchor).isActive = true
         stackView.rightAnchor.constraint(equalTo: scrollView.rightAnchor).isActive = true
         stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-        
         stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
     }
     private func layoutWidthInputFields() {

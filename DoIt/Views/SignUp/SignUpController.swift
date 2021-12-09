@@ -58,13 +58,13 @@ class SignUpController: UIViewController {
     }
     
     @objc private func registerButtonPressed(_ sender: UIButton) {
-        let mainScreen = CustomNavigationController(rootViewController: MainTabBarController())
+        let mainScreen = CustomNavigationController(rootViewController: OnboardingViewController())
         mainScreen.modalPresentationStyle = .fullScreen
         present(mainScreen, animated: true)
         
     }
     
     @objc private func signInButtonPressed(_ sender: UIButton) {
-        navigationController?.pushViewController(SignInController(), animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
 }

@@ -7,25 +7,24 @@
 
 import UIKit
 
-class OnboardingViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class OnboardingViewController: UIViewController, OnboardingCellDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     private struct UIConstants {
         static let topPaddingPageContol = 15.0
-        static let bottomPaddingCollection = -110.0
-        static let topPaddingCollection = 100.0
-        static let horizontalStackPaddingLeft = 20.0
-        static let horizontalStackPaddingRight = -20.0
-        static let horizontalStackPaddingBottom = -15.0
-        static let horizontalStackSpacing = 20.0
+        static let bottomPaddingCollection = -100.0
+        static let stackViewButtonsPadding = 5.0
     }
     
-    private let topPadding = UIApplication.shared.windows.first?.safeAreaInsets.top
-    private let onboarding = [Onboarding(index: 0), Onboarding(index: 1), Onboarding(index: 2), Onboarding(index: 3)]
     private lazy var collectionView: UICollectionView = {
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        let window = windowScene?.windows.first
+        let topPadding = window?.safeAreaInsets.top
+        let bottomPadding = window?.safeAreaInsets.bottom
         let layout = UICollectionViewFlowLayout()
         let collection = UICollectionView(frame: view.frame, collectionViewLayout: layout)
-        let cellSize = CGSize(width: view.bounds.width, height: view.bounds.height - (view.safeAreaInsets.top + view.safeAreaInsets.bottom) - 150)
-        layout.itemSize = cellSize
+        let sizeCell = CGSize(width: view.bounds.width, height: view.bounds.height - (topPadding! + bottomPadding!) - UIConstants.topPaddingPageContol + UIConstants.bottomPaddingCollection)
+        layout.itemSize = sizeCell
         layout.scrollDirection = .horizontal
         collection.isPagingEnabled = true
         layout.minimumLineSpacing = 1
@@ -35,6 +34,7 @@ class OnboardingViewController: UIViewController, UICollectionViewDelegate, UICo
         collection.register(OnboardingCell.self, forCellWithReuseIdentifier: "onboardingCell")
         return collection
     }()
+    
     private let pageControl: UIPageControl = {
         let pageControl = UIPageControl()
         pageControl.pageIndicatorTintColor = .lightGray
@@ -42,13 +42,16 @@ class OnboardingViewController: UIViewController, UICollectionViewDelegate, UICo
         pageControl.isUserInteractionEnabled = false
         return pageControl
     }()
-    private lazy var previousButton = PageControlButtons(title: OnboardingStrings.backButton.rawValue.localized, target: self, action: #selector(pageControlButtonTaped(button:)), tag: 0, width: UIScreen.main.bounds.width / 3, color: UIColor.AppColors.cancelColor)
-    private lazy var nextButton = PageControlButtons(title: OnboardingStrings.nextButton.rawValue.localized, target: self, action: #selector(pageControlButtonTaped(button:)), tag: 1, width: UIScreen.main.bounds.width / 3, color: UIColor.AppColors.accentColor)
-    private lazy var exitButton = PageControlButtons(title: OnboardingStrings.exitButton.rawValue.localized, target: self, action: #selector(pageControlButtonTaped(button:)), tag: 2, width: UIScreen.main.bounds.width / 3, color: UIColor.AppColors.exitColor)
+    
+    private lazy var previousButton = CustomRoundedButton(title: OnboardingStrings.backButton.rawValue.localized, target: self, action: #selector(pageControlButtonTaped(button:)), tag: 0, width: UIScreen.main.bounds.width / 3, color: UIColor.AppColors.cancelColor)
+    private lazy var nextButton = CustomRoundedButton(title: OnboardingStrings.nextButton.rawValue.localized, target: self, action: #selector(pageControlButtonTaped(button:)), tag: 1, width: UIScreen.main.bounds.width / 3, color: UIColor.AppColors.accentColor)
+    private lazy var exitButton = CustomRoundedButton(title: OnboardingStrings.exitButton.rawValue.localized, target: self, action: #selector(pageControlButtonTaped(button:)), tag: 2, width: UIScreen.main.bounds.width / 3, color: UIColor.AppColors.exitColor)
+    
+    private let onboarding = [Onboarding(index: 0), Onboarding(index: 1), Onboarding(index: 2), Onboarding(index: 3)]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         navigationController?.navigationBar.isHidden = true
         configureCollectionView()
         configureHorizontalStack()
@@ -65,18 +68,18 @@ class OnboardingViewController: UIViewController, UICollectionViewDelegate, UICo
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "onboardingCell", for: indexPath) as? OnboardingCell else { return .init() }
+        cell.delegate = self
         cell.fillOnboardingData(onboarding: onboarding[indexPath.item])
         return cell
     }
     
     private func configureCollectionView() {
         view.addSubview(collectionView)
-        collectionView.backgroundColor = .white
-        
+        collectionView.backgroundColor = .systemBackground
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
         collectionView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
-        collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: UIConstants.bottomPaddingCollection).isActive = true
+        collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: UIConstants.bottomPaddingCollection).isActive = true
     }
     
@@ -105,7 +108,15 @@ class OnboardingViewController: UIViewController, UICollectionViewDelegate, UICo
     }
 
     private func goToNextVC() {
-        
+        let taskViewController = MainTabBarController()
+        taskViewController.modalPresentationStyle = .fullScreen
+        present(taskViewController, animated: true, completion: nil)
+    }
+    
+    func closeButtonPressed() {
+        let taskViewController = MainTabBarController()
+        taskViewController.modalPresentationStyle = .fullScreen
+        present(taskViewController, animated: true, completion: nil)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -131,13 +142,13 @@ class OnboardingViewController: UIViewController, UICollectionViewDelegate, UICo
         horizontalStack.axis = .horizontal
         horizontalStack.alignment = .fill
         horizontalStack.distribution = .fillEqually
-        horizontalStack.spacing = UIConstants.horizontalStackSpacing
+        horizontalStack.spacing = UIConstants.stackViewButtonsPadding
         
         view.addSubview(horizontalStack)
         horizontalStack.translatesAutoresizingMaskIntoConstraints = false
-        horizontalStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: UIConstants.horizontalStackPaddingLeft).isActive = true
-        horizontalStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: UIConstants.horizontalStackPaddingRight).isActive = true
-        horizontalStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: UIConstants.horizontalStackPaddingBottom).isActive = true
+        horizontalStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: UIConstants.stackViewButtonsPadding).isActive = true
+        horizontalStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -UIConstants.stackViewButtonsPadding).isActive = true
+        horizontalStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -UIConstants.stackViewButtonsPadding).isActive = true
         
         buttonContext(onFirstPage: true)
     }
@@ -154,15 +165,13 @@ class OnboardingViewController: UIViewController, UICollectionViewDelegate, UICo
         switch button.tag {
         case 0:
             pageControl.currentPage -= 1
-            print(pageControl.currentPage)
         case 2:
             goToNextVC()
         default:
             pageControl.currentPage += 1
-            print(pageControl.currentPage)
         }
         navigatePageControlButtons(page: pageControl.currentPage)
-        collectionView.selectItem(at: IndexPath(item: pageControl.currentPage, section: 0), animated: true, scrollPosition: .centeredHorizontally)
+        let indexPath: IndexPath = IndexPath(item: pageControl.currentPage, section: 0)
+        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
     }
 }
-

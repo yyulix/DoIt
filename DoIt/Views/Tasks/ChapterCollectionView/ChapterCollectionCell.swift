@@ -22,6 +22,7 @@ class ChapterCollectionViewCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.font = .systemFont(ofSize: UIConstants.labelFontSize)
+        label.textColor = .black
         return label
     }()
     

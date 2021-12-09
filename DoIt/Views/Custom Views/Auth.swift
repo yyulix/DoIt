@@ -111,7 +111,7 @@ final class CustomRoundedButton: UIView {
 
     // MARK: - Initializers
 
-    init(title: String, target: Any? = nil, action: Selector? = nil) {
+    init(title: String, target: Any? = nil, action: Selector? = nil, tag: Int? = 0, width: CGFloat? = UIConstants.width, color: UIColor? = UIColor.AppColors.accentColor) {
 
         super.init(frame: .zero)
 
@@ -122,8 +122,9 @@ final class CustomRoundedButton: UIView {
             button.addTarget(target, action: action, for: .touchUpInside)
         }
 
+        button.tag = tag ?? 0
         button.layer.cornerRadius = UIConstants.height / 2;
-        button.backgroundColor = .AppColors.accentColor
+        button.backgroundColor = color
         button.setTitle(title, for: .normal)
         button.tintColor = .white
 
@@ -131,7 +132,7 @@ final class CustomRoundedButton: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         button.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        button.widthAnchor.constraint(equalToConstant: UIConstants.width).isActive = true
+        button.widthAnchor.constraint(equalToConstant: width ?? UIConstants.width).isActive = true
         button.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
     }
 

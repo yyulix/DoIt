@@ -12,48 +12,32 @@ class ProfileViewController: UIViewController {
     // MARK: - Properties
     
     struct Constants {
-        // Collection View
         static let collectionViewCellSize: CGSize = .init(width: 120, height: 120)
         static let collectionViewInset: UIEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: 0)
-        
         static let offset: CGFloat = 8
         static let spacingStackView: CGFloat = 8
         static let cornerRadius: CGFloat = 12
-        
-        // Header
         static let headerHeight: CGFloat = 210
         static let headerHeightWithName: CGFloat = 230
         static let myHeaderHeight: CGFloat = 180
         static let myHeaderHeightWithName: CGFloat = 200
-        
         static let headerCornerRadius: CGFloat = 8
-        
         static let nameLabelSizeOfFont: CGFloat = 16
-        
         static let loginLabelSizeOfFont: CGFloat = 12
-        
         static let followButtonSizeOfFont: CGFloat = 15
         static let followButtonWidth: CGFloat = 80
         static let followButtonHeight: CGFloat = 27
-        
         static let stackViewLeftRightOffset: CGFloat = 24
         static let stackViewBottomOffset: CGFloat = offset * 2
         static let stackViewSpacingHeader: CGFloat = 12
         static let stackViewSpacingAfterName: CGFloat = -4
-        
         static let contentViewTopOffset: CGFloat = 50
         static let contentViewCornerRadius: CGFloat = 20
-        
-        // Information
         static let titleLabelSizeOfFont: CGFloat = 12
         static let textLabelSizeOfFont: CGFloat = 14
-        
-        // Statistics
         static let textInformationSizeOfFont: CGFloat = 12
         static let numberSizeOfFont: CGFloat = 20
         static let stackViewSpacingBetweenStackViews: CGFloat = 2
-        
-        // Tasks
         static let tasksNumber: Int = 3
         static let tasksCornerRadius: CGFloat = 12
         static let tasksImageSize: CGFloat = 40
@@ -61,11 +45,7 @@ class ProfileViewController: UIViewController {
         static let tasksTitleFontSize: CGFloat = 18
         static let tasksDividerWidth: CGFloat = 1
         static let tasksIndicatorWidth: CGFloat = 10
-        
-        // Friends
         static let friendsConllectionHeight: CGFloat = 120
-        
-        // Separator
         static let heightSeparator: CGFloat = 1
         static let offsetSeparator: CGFloat = 20
     }
@@ -259,8 +239,6 @@ class ProfileViewController: UIViewController {
         let dividerTaskView: UIView
     }
     
-    private lazy var taskViews: [TaskViewData] = []
-    
     // MARK: - Following View
     
     private lazy var titleLabelFollowing: UILabel = getTitleLabel(title: ProfileStrings.titleFollowings.rawValue.localized)
@@ -292,6 +270,19 @@ class ProfileViewController: UIViewController {
         return collection
     }()
     
+    // MARK: - Lifecycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        configureUI()
+        configure()
+    }
+    
+    // MARK: - Task View
+    
+    private lazy var taskViews: [TaskViewData] = []
+    
     // MARK: - Configuration
     
     private var userModel: UserModel = UserModel(
@@ -306,15 +297,6 @@ class ProfileViewController: UIViewController {
     private var userFollowingModel: UserFollowingModel = UserFollowingModel(login: "", followings: [])
     
     private var userTasksModel: UserTasksModel = UserTasksModel(login: "", tasks: [])
-    
-    // MARK: - Lifecycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        configureUI()
-        configure()
-    }
     
     // MARK: - Helpers
     
@@ -441,6 +423,16 @@ extension ProfileViewController {
         profileImageView.image = image
     }
     
+    private func configureHeaderStackView() -> UIStackView {
+        let stack = UIStackView(arrangedSubviews: [profileImageView, nameLabel, loginLabel, followButton])
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = .vertical
+        stack.spacing = Constants.stackViewSpacingHeader
+        stack.alignment = .center
+        stack.setCustomSpacing(Constants.stackViewSpacingAfterName, after: nameLabel)
+        return stack
+    }
+    
     @objc
     private func didTapFollowButton() {
         UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
@@ -451,16 +443,6 @@ extension ProfileViewController {
                 self.followButton.transform = CGAffineTransform.identity
             }
         }
-    }
-    
-    private func configureHeaderStackView() -> UIStackView {
-        let stack = UIStackView(arrangedSubviews: [profileImageView, nameLabel, loginLabel, followButton])
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.axis = .vertical
-        stack.spacing = Constants.stackViewSpacingHeader
-        stack.alignment = .center
-        stack.setCustomSpacing(Constants.stackViewSpacingAfterName, after: nameLabel)
-        return stack
     }
 }
 
