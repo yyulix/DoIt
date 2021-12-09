@@ -297,15 +297,6 @@ class ProfileViewController: UIViewController {
         configureUI()
     }
     
-    // MARK: - Lifecycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        configureUI()
-        configure()
-    }
-    
     // MARK: - Helpers
     
     func configure(with model: UserModel) {
@@ -626,6 +617,7 @@ extension ProfileViewController {
         guard let i = taskViews.firstIndex(where: { $0.taskView == view } ) else { return }
         
         let taskViewController = TaskViewController()
+        taskViewController.taskModel = userTasksModel.tasks[i]
         taskViewController.modalPresentationStyle = .fullScreen
         present(taskViewController, animated: true, completion: nil)
     }
@@ -713,7 +705,7 @@ extension ProfileViewController {
     @objc
     private func openSettings() {
         let profileEditViewController = ProfileEditViewController()
-        profileEditViewController.configure(with: userModel)
+        profileEditViewController.userModel = userModel
         navigationController?.pushViewController(profileEditViewController, animated: true)
     }
 }

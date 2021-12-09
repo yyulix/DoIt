@@ -68,6 +68,7 @@ class FeedController: UIViewController {
 extension FeedController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let taskViewController = TaskViewController()
+        taskViewController.taskModel = followersTasks[indexPath.row]
         navigationController?.pushViewController(taskViewController, animated: true)
     }
 }

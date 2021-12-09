@@ -115,7 +115,11 @@ class TaskEditViewController: UIViewController {
     
     private let keyboardManager = KeyboardManager.shared
     
-    private let dateFormatter = DateFormatter()
+    private let dateFormatter: DateFormatter = {
+        let dateFormateer = DateFormatter()
+        dateFormateer.dateFormat = "HH:mm dd.MM.YYYY"
+        return dateFormateer
+    }()
     
     private let chapters = (0...(TaskCategory.chaptersCount - 1)).map({ TaskCategory(index: $0) })
     
@@ -134,7 +138,7 @@ class TaskEditViewController: UIViewController {
         (.TaskColors.brown, TaskScreen.brownColor.rawValue.localized)
     ]
     
-    private var taskModel: Task = Task(image: UIImage(named: "bob"), title: "Поменять резину", description: nil, deadline: nil, isDone: true, creatorId: "GIOWJEOG", color: .black, chapterId: 0, creationTime: Date(), isMyTask: false)
+    var taskModel: Task?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -147,7 +151,6 @@ class TaskEditViewController: UIViewController {
     private func configureView() {
         view.backgroundColor = .systemBackground
         
-        configureTask()
         layoutScrollView()
         layoutContentView()
         layoutImageView()
@@ -155,6 +158,7 @@ class TaskEditViewController: UIViewController {
         configurePicker(picker: datePicker, toView: timerLabel, action: #selector(datePickerDoneButtonPressed))
         configurePicker(picker: chapterPicker, toView: taskChapter, action: #selector(chapterDoneButtonPressed))
         configurePicker(picker: colorPicker, toView: taskColor, action: #selector(colorDoneButtonPressed))
+        configureTask()
     }
     
     private func layoutScrollView() {
@@ -339,7 +343,6 @@ extension TaskEditViewController {
     }
     
     @objc private func datePickerDoneButtonPressed() {
-        dateFormatter.dateFormat = "HH:mm dd.MM.YYYY"
         timerLabel.text = dateFormatter.string(from: datePicker.date)
         view.endEditing(true)
     }
@@ -351,26 +354,13 @@ extension TaskEditViewController {
 
 extension TaskEditViewController {
     func configureTask() {
-        
-        let calendar = Calendar(identifier: .gregorian)
-        
-        taskModel = Task(image: UIImage(named: "bob"),
-                         title: "Поменять резину",
-                         description: "Descripton about task",
-                         deadline: calendar.date(from: DateComponents(year: 2021, month: 12, day: 10, hour: 18, minute: 20, second: 00)),
-                         isDone: false,
-                         creatorId: "GIOWJEOG",
-                         color: .black,
-                         chapterId: 5,
-                         creationTime: Date(),
-                         isMyTask: true)
-        
-        taskImageViewContainter.isHidden = false
+        guard let taskModel = taskModel else { return }
+        taskImageViewContainter.isHidden = taskModel.image == nil ? true : false
         taskLabel.textField.placeholder = taskModel.title
-        dateFormatter.dateFormat = "HH:mm dd.MM.YYYY"
-        timerLabel = getTextField(placeholder: dateFormatter.string(from: taskModel.deadline!))
-        taskChapter = getTextField(placeholder: TaskCategory(index: taskModel.chapterId).chapter.title)
+        taskChapter.placeholder = TaskCategory(index: taskModel.chapterId).chapter.title
         taskDescription.text = taskModel.description
         taskImage.image = taskModel.image
+        guard let deadline = taskModel.deadline else { return }
+        timerLabel.placeholder = dateFormatter.string(from: deadline)
     }
 }

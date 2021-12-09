@@ -100,8 +100,7 @@ class TaskViewController: UIViewController {
         guard let deadlineDate = deadlineDate else { return nil }
         return Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date(), to: deadlineDate)
     }
-    
-    private var taskModel: Task = Task(image: UIImage(named: "bob"), title: "Поменять резину", description: nil, deadline: nil, isDone: true, creatorId: "GIOWJEOG", color: .black, chapterId: 0, creationTime: Date(), isMyTask: false)
+    var taskModel: Task?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,11 +110,12 @@ class TaskViewController: UIViewController {
     
     private func configureView() {
         view.backgroundColor = .systemBackground
-        configureTask()
         layoutScrollView()
         layoutContentView()
         layoutImageView()
         layoutStackViews()
+        
+        configure()
     }
     
     private func layoutScrollView() {
@@ -220,6 +220,7 @@ extension TaskViewController {
 
     @objc private func editButtonPressed(){
         let taskEditController = TaskEditViewController()
+        taskEditController.taskModel = taskModel
         present(taskEditController, animated: true, completion: nil)
     }
     
@@ -236,24 +237,11 @@ extension TaskViewController {
 }
 
 extension TaskViewController {
-    func configureTask() {
-        
-        let calendar = Calendar(identifier: .gregorian)
-        
-        taskModel = Task(image: UIImage(named: "bob"),
-                         title: "Поменять резину",
-                         description: "Descripton about task",
-                         deadline: calendar.date(from: DateComponents(year: 2021, month: 12, day: 10, hour: 18, minute: 02, second: 00)),
-                         isDone: false,
-                         creatorId: "GIOWJEOG",
-                         color: .black,
-                         chapterId: 5,
-                         creationTime: Date(),
-                         isMyTask: true)
-        
-        taskImageViewContainter.isHidden = false
-        taskDescription.text = taskModel.description
+    private func configure() {
+        guard let taskModel = taskModel else { return }
         taskImage.image = taskModel.image
+        taskImageViewContainter.isHidden = taskModel.image == nil ? true : false
+        taskDescription.text = taskModel.description
         taskChapter.text = TaskCategory(index: taskModel.chapterId).chapter.title
         configureNavigationBar(title: taskModel.title, isDone: taskModel.isDone)
         horizontalStack.isHidden = !taskModel.isMyTask

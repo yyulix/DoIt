@@ -48,7 +48,7 @@ class TasksController: UIViewController {
         Task(image: UIImage(named: "bob"), title: "Task 1: Get ready for an exam", description: nil, deadline: nil, isDone: true, creatorId: "1", color: .black, chapterId: 0, creationTime: Date(), isMyTask: true),
         Task(image: UIImage(named: "bob"), title: "Task 2: Get ready for an exam", description: nil, deadline: nil, isDone: false, creatorId: "2", color: .yellow, chapterId: 1, creationTime: Date(), isMyTask: true),
         Task(image: UIImage(named: "bob"), title: "Task 3: Get ready for an exam", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: nil, isDone: false, creatorId: "2", color: .red, chapterId: 2, creationTime: Date(), isMyTask: true),
-        Task(image: UIImage(named: "bob"), title: "Task 4: Get ready for an exam", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: nil, isDone: true, creatorId: "1", color: .orange, chapterId: 3, creationTime: Date(), isMyTask: true)
+        Task(image: UIImage(named: "bob"), title: "Task 4: Get ready for an exam", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: Date(timeIntervalSinceNow: 50), isDone: true, creatorId: "1", color: .orange, chapterId: 3, creationTime: Date(), isMyTask: true)
     ]
     
     private let chapters = (0...(TaskCategory.chaptersCount - 1)).map({ TaskCategory(index: $0) })
@@ -82,6 +82,7 @@ class TasksController: UIViewController {
 extension TasksController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let taskViewController = TaskViewController()
+        taskViewController.taskModel = tasks[indexPath.row]
         navigationController?.pushViewController(taskViewController, animated: true)
     }
 }

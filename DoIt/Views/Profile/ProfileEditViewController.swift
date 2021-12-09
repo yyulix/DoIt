@@ -124,7 +124,7 @@ final class ProfileEditViewController: UIViewController {
     }()
     
     private let keyboardManager = KeyboardManager.shared
-    private var userModel: UserModel = .init(image: nil, name: nil, login: "", summary: nil, statistics: UserStatisticsModel(inProgress: "0", outdated: "0", done: "0", total: "0"), isMyScreen: true, isFollowed: false)
+    var userModel: UserModel?
     
     // MARK: - Lifecycle
     
@@ -141,11 +141,8 @@ final class ProfileEditViewController: UIViewController {
     
     // MARK: - Helpers
     
-    func configure(with model: UserModel) {
-        userModel = model
-    }
-    
     private func configure() {
+        guard let userModel = userModel else { return }
         summaryTextView.text = userModel.summary
         guard let image = userModel.image else {
             profileImageView.layoutIfNeeded()
