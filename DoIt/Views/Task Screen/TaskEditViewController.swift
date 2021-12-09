@@ -134,18 +134,20 @@ class TaskEditViewController: UIViewController {
         (.TaskColors.brown, TaskScreen.brownColor.rawValue.localized)
     ]
     
+    private var taskModel: Task = Task(image: UIImage(named: "bob"), title: "Поменять резину", description: nil, deadline: nil, isDone: true, creatorId: "GIOWJEOG", color: .black, chapterId: 0, creationTime: Date(), isMyTask: false)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let tap = UITapGestureRecognizer(target: keyboardManager, action: #selector(keyboardManager.dismissKeyboard(_:)))
         view.addGestureRecognizer(tap)
-        
         configureView()
     }
     
     private func configureView() {
         view.backgroundColor = .systemBackground
         
+        configureTask()
         layoutScrollView()
         layoutContentView()
         layoutImageView()
@@ -344,5 +346,31 @@ extension TaskEditViewController {
     
     @objc private func colorDoneButtonPressed() {
         view.endEditing(true)
+    }
+}
+
+extension TaskEditViewController {
+    func configureTask() {
+        
+        let calendar = Calendar(identifier: .gregorian)
+        
+        taskModel = Task(image: UIImage(named: "bob"),
+                         title: "Поменять резину",
+                         description: "Descripton about task",
+                         deadline: calendar.date(from: DateComponents(year: 2021, month: 12, day: 10, hour: 18, minute: 20, second: 00)),
+                         isDone: false,
+                         creatorId: "GIOWJEOG",
+                         color: .black,
+                         chapterId: 5,
+                         creationTime: Date(),
+                         isMyTask: true)
+        
+        taskImageViewContainter.isHidden = false
+        taskLabel.textField.placeholder = taskModel.title
+        dateFormatter.dateFormat = "HH:mm dd.MM.YYYY"
+        timerLabel = getTextField(placeholder: dateFormatter.string(from: taskModel.deadline!))
+        taskChapter = getTextField(placeholder: TaskCategory(index: taskModel.chapterId).chapter.title)
+        taskDescription.text = taskModel.description
+        taskImage.image = taskModel.image
     }
 }

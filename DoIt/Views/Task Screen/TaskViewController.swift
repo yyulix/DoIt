@@ -60,7 +60,7 @@ class TaskViewController: UIViewController {
     private lazy var taskImageViewContainter: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.isHidden = false
+        view.isHidden = true
         return view
     }()
     
@@ -105,13 +105,13 @@ class TaskViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureTask()
         configureView()
         runCountdown()
     }
     
     private func configureView() {
         view.backgroundColor = .systemBackground
+        configureTask()
         layoutScrollView()
         layoutContentView()
         layoutImageView()
@@ -240,7 +240,7 @@ extension TaskViewController {
         
         let calendar = Calendar(identifier: .gregorian)
         
-        taskModel = Task(image: UIImage(named: ""),
+        taskModel = Task(image: UIImage(named: "bob"),
                          title: "Поменять резину",
                          description: "Descripton about task",
                          deadline: calendar.date(from: DateComponents(year: 2021, month: 12, day: 10, hour: 18, minute: 02, second: 00)),
@@ -251,6 +251,7 @@ extension TaskViewController {
                          creationTime: Date(),
                          isMyTask: true)
         
+        taskImageViewContainter.isHidden = false
         taskDescription.text = taskModel.description
         taskImage.image = taskModel.image
         taskChapter.text = TaskCategory(index: taskModel.chapterId).chapter.title
