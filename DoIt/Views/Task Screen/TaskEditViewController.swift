@@ -117,7 +117,7 @@ class TaskEditViewController: UIViewController {
     
     private let dateFormatter = DateFormatter()
     
-    private let chapters = (0...TaskCategory.chaptersCount).map({ TaskCategory(index: $0) })
+    private let chapters = (0...(TaskCategory.chaptersCount - 1)).map({ TaskCategory(index: $0) })
     
     private let colors: [(color: UIColor, stringColor: String)] = [
         (.TaskColors.black, TaskScreen.blackColor.rawValue.localized),

@@ -51,7 +51,7 @@ class TasksController: UIViewController {
         Task(image: UIImage(named: "bob"), title: "Task 4: Get ready for an exam", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: nil, isDone: true, creatorId: "1", color: .orange, chapterId: 3, creationTime: Date(), isMyTask: true)
     ]
     
-    private let chapters = (0...TaskCategory.chaptersCount).map({ TaskCategory(index: $0) })
+    private let chapters = (0...(TaskCategory.chaptersCount - 1)).map({ TaskCategory(index: $0) })
     
     //MARK: - Override Methods
     override func viewDidLoad() {
