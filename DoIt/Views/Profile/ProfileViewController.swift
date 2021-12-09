@@ -270,15 +270,6 @@ class ProfileViewController: UIViewController {
         return collection
     }()
     
-    // MARK: - Lifecycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        configureUI()
-        configure()
-    }
-    
     // MARK: - Task View
     
     private lazy var taskViews: [TaskViewData] = []
@@ -297,6 +288,15 @@ class ProfileViewController: UIViewController {
     private var userFollowingModel: UserFollowingModel = UserFollowingModel(login: "", followings: [])
     
     private var userTasksModel: UserTasksModel = UserTasksModel(login: "", tasks: [])
+    
+    // MARK: - Lifecycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        configureUI()
+        configure()
+    }
     
     // MARK: - Helpers
     

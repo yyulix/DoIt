@@ -60,7 +60,7 @@ class TaskViewController: UIViewController {
     private lazy var taskImageViewContainter: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.isHidden = true
+        view.isHidden = false
         return view
     }()
     
@@ -83,7 +83,7 @@ class TaskViewController: UIViewController {
     private var timer: Timer?
     private let currentDate = Date()
     
-    private let deadlineDate: Date? = {
+    private var deadlineDate: Date? = {
         var future = DateComponents(
             year: 2021,
             month: 12,
@@ -101,9 +101,11 @@ class TaskViewController: UIViewController {
         return Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date(), to: deadlineDate)
     }
     
+    private var taskModel: Task = Task(image: UIImage(named: "bob"), title: "Поменять резину", description: nil, deadline: nil, isDone: true, creatorId: "GIOWJEOG", color: .black, chapterId: 0, creationTime: Date(), isMyTask: false)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureNavigationBar()
+        configureTask()
         configureView()
         runCountdown()
     }
@@ -169,6 +171,7 @@ class TaskViewController: UIViewController {
         label.font = .systemFont(ofSize: UIConstants.navigationBarFontSize)
         label.textAlignment = .center
         label.text = title
+        label.textColor = .black
 
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -222,11 +225,37 @@ extension TaskViewController {
     
     @objc private func updateTime() {
         guard let days = countdown?.day, let hours = countdown?.hour, let minutes = countdown?.minute, let seconds = countdown?.second else { return }
-        guard let deadlineDate = deadlineDate, deadlineDate >= currentDate else {
+        guard let deadlineDate = deadlineDate, deadlineDate >= currentDate, days >= 0 && hours >= 0 && minutes >= 0 && seconds >= 0 else {
+            timer?.invalidate()
             timerLabel.text = "00:00:00:00"
             timerLabel.textColor = .red
             return
         }
         timerLabel.text = String(format: "%02i:%02i:%02i:%02i", days, hours, minutes, seconds)
+    }
+}
+
+extension TaskViewController {
+    func configureTask() {
+        
+        let calendar = Calendar(identifier: .gregorian)
+        
+        taskModel = Task(image: UIImage(named: ""),
+                         title: "Поменять резину",
+                         description: "Descripton about task",
+                         deadline: calendar.date(from: DateComponents(year: 2021, month: 12, day: 10, hour: 18, minute: 02, second: 00)),
+                         isDone: false,
+                         creatorId: "GIOWJEOG",
+                         color: .black,
+                         chapterId: 5,
+                         creationTime: Date(),
+                         isMyTask: true)
+        
+        taskDescription.text = taskModel.description
+        taskImage.image = taskModel.image
+        taskChapter.text = TaskCategory(index: taskModel.chapterId).chapter.title
+        configureNavigationBar(title: taskModel.title, isDone: taskModel.isDone)
+        horizontalStack.isHidden = !taskModel.isMyTask
+        deadlineDate = taskModel.deadline
     }
 }

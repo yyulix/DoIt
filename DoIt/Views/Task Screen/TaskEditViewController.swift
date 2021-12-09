@@ -107,11 +107,11 @@ class TaskEditViewController: UIViewController {
         return view
     }()
     
-    private lazy var returnButton = CustomRoundedTaskButton(title: TaskScreen.returnButton.rawValue.localized, target: self, action: #selector(returnButtonPressed), width: view.bounds.width / 3, color: .AppColors.greyColor)
+    private lazy var returnButton = CustomRoundedButton(title: TaskScreen.returnButton.rawValue.localized, target: self, action: #selector(returnButtonPressed), width: view.bounds.width / 3, color: .AppColors.greyColor)
     
-    private lazy var saveButton = CustomRoundedTaskButton(title: TaskScreen.saveButton.rawValue.localized, target: self, action: #selector(saveButtonPressed), width: view.bounds.width / 3, color: UIColor.AppColors.accentColor)
+    private lazy var saveButton = CustomRoundedButton(title: TaskScreen.saveButton.rawValue.localized, target: self, action: #selector(saveButtonPressed), width: view.bounds.width / 3, color: UIColor.AppColors.accentColor)
     
-    private lazy var setImageButton = CustomRoundedTaskButton(title: TaskScreen.changePhotoButton.rawValue.localized, target: self, action: #selector(imageSetButtonPressed), width: view.bounds.width / 2, color: .AppColors.purpleColor)
+    private lazy var setImageButton = CustomRoundedButton(title: TaskScreen.changePhotoButton.rawValue.localized, target: self, action: #selector(imageSetButtonPressed), width: view.bounds.width / 2, color: .AppColors.purpleColor)
     
     private let keyboardManager = KeyboardManager.shared
     

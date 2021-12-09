@@ -18,21 +18,21 @@ struct Onboarding {
         self.index = index
         switch index {
         case 0:
-            self.image = "bob"
-            self.titleText = "bob1"
-            self.labelText = "bob11"
+            self.image = ""
+            self.titleText = ""
+            self.labelText = ""
         case 1:
-            self.image = "bob"
-            self.titleText = "bob2"
-            self.labelText = "bob22"
+            self.image = ""
+            self.titleText = ""
+            self.labelText = ""
         case 2:
-            self.image = "bob"
-            self.titleText = "bob3"
-            self.labelText = "bob33"
+            self.image = ""
+            self.titleText = ""
+            self.labelText = ""
         case 3:
-            self.image = "bob"
-            self.titleText = "bob4"
-            self.labelText = "bob44"
+            self.image = ""
+            self.titleText = ""
+            self.labelText = ""
         default:
             self.image = ""
             self.titleText = ""
