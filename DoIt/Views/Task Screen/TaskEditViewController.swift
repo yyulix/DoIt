@@ -107,11 +107,11 @@ class TaskEditViewController: UIViewController {
         return view
     }()
     
-    private lazy var returnButton = CustomRoundedTaskButton(title: TaskScreen.returnButton.rawValue.localized, target: self, action: #selector(returnButtonPressed), width: view.bounds.width / 3, color: .AppColors.greyColor)
+    private lazy var returnButton = CustomRoundedButton(title: TaskScreen.returnButton.rawValue.localized, target: self, action: #selector(returnButtonPressed), width: view.bounds.width / 3, color: .AppColors.greyColor)
     
-    private lazy var saveButton = CustomRoundedTaskButton(title: TaskScreen.saveButton.rawValue.localized, target: self, action: #selector(saveButtonPressed), width: view.bounds.width / 3, color: UIColor.AppColors.accentColor)
+    private lazy var saveButton = CustomRoundedButton(title: TaskScreen.saveButton.rawValue.localized, target: self, action: #selector(saveButtonPressed), width: view.bounds.width / 3, color: UIColor.AppColors.accentColor)
     
-    private lazy var setImageButton = CustomRoundedTaskButton(title: TaskScreen.changePhotoButton.rawValue.localized, target: self, action: #selector(imageSetButtonPressed), width: view.bounds.width / 2, color: .AppColors.purpleColor)
+    private lazy var setImageButton = CustomRoundedButton(title: TaskScreen.changePhotoButton.rawValue.localized, target: self, action: #selector(imageSetButtonPressed), width: view.bounds.width / 2, color: .AppColors.purpleColor)
     
     private let keyboardManager = KeyboardManager.shared
     
@@ -134,18 +134,20 @@ class TaskEditViewController: UIViewController {
         (.TaskColors.brown, TaskScreen.brownColor.rawValue.localized)
     ]
     
+    private var taskModel: Task = Task(image: UIImage(named: "bob"), title: "Поменять резину", description: nil, deadline: nil, isDone: true, creatorId: "GIOWJEOG", color: .black, chapterId: 0, creationTime: Date(), isMyTask: false)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let tap = UITapGestureRecognizer(target: keyboardManager, action: #selector(keyboardManager.dismissKeyboard(_:)))
         view.addGestureRecognizer(tap)
-        
         configureView()
     }
     
     private func configureView() {
         view.backgroundColor = .systemBackground
         
+        configureTask()
         layoutScrollView()
         layoutContentView()
         layoutImageView()
@@ -344,5 +346,31 @@ extension TaskEditViewController {
     
     @objc private func colorDoneButtonPressed() {
         view.endEditing(true)
+    }
+}
+
+extension TaskEditViewController {
+    func configureTask() {
+        
+        let calendar = Calendar(identifier: .gregorian)
+        
+        taskModel = Task(image: UIImage(named: "bob"),
+                         title: "Поменять резину",
+                         description: "Descripton about task",
+                         deadline: calendar.date(from: DateComponents(year: 2021, month: 12, day: 10, hour: 18, minute: 20, second: 00)),
+                         isDone: false,
+                         creatorId: "GIOWJEOG",
+                         color: .black,
+                         chapterId: 5,
+                         creationTime: Date(),
+                         isMyTask: true)
+        
+        taskImageViewContainter.isHidden = false
+        taskLabel.textField.placeholder = taskModel.title
+        dateFormatter.dateFormat = "HH:mm dd.MM.YYYY"
+        timerLabel = getTextField(placeholder: dateFormatter.string(from: taskModel.deadline!))
+        taskChapter = getTextField(placeholder: TaskCategory(index: taskModel.chapterId).chapter.title)
+        taskDescription.text = taskModel.description
+        taskImage.image = taskModel.image
     }
 }
