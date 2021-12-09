@@ -8,7 +8,6 @@
 import UIKit
 
 class OnboardingViewController: UIViewController, OnboardingCellDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
     private struct UIConstants {
         static let topPaddingPageContol = 15.0
         static let bottomPaddingCollection = -100.0
@@ -108,15 +107,13 @@ class OnboardingViewController: UIViewController, OnboardingCellDelegate, UIColl
     }
 
     private func goToNextVC() {
-        let taskViewController = MainTabBarController()
+        let taskViewController = CustomNavigationController(rootViewController: MainTabBarController())
         taskViewController.modalPresentationStyle = .fullScreen
         present(taskViewController, animated: true, completion: nil)
     }
     
     func closeButtonPressed() {
-        let taskViewController = MainTabBarController()
-        taskViewController.modalPresentationStyle = .fullScreen
-        present(taskViewController, animated: true, completion: nil)
+        goToNextVC()
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

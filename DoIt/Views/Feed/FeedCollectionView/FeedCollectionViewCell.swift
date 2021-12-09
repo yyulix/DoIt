@@ -22,7 +22,7 @@ class FeedCollectionViewCell: UICollectionViewCell {
         static let creatorImageSize = 30.0
     }
     
-    private let taskImage: UIImageView = {
+    private lazy var taskImage: UIImageView = {
         let image = UIImageView()
         image.layer.masksToBounds = true
         image.layer.cornerRadius = UIConstants.cornerRadius
@@ -30,7 +30,7 @@ class FeedCollectionViewCell: UICollectionViewCell {
         return image
     }()
     
-    private let taskLabel: UILabel = {
+    private lazy var taskLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
@@ -38,7 +38,7 @@ class FeedCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private let creatorImage: UIImageView = {
+    private lazy var creatorImage: UIImageView = {
         let image = UIImageView()
         image.layer.masksToBounds = true
         image.layer.cornerRadius = UIConstants.cornerRadius
@@ -46,17 +46,23 @@ class FeedCollectionViewCell: UICollectionViewCell {
         image.widthAnchor.constraint(equalToConstant: UIConstants.creatorImageSize).isActive = true
         image.heightAnchor.constraint(equalToConstant: UIConstants.creatorImageSize).isActive = true
         image.layer.cornerRadius = UIConstants.cornerRadius
+        image.isUserInteractionEnabled = true
+        image.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openUser)))
         return image
     }()
     
-    private let creatorLabel: UILabel = {
+    private lazy var creatorLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
         label.textColor = .secondaryLabel
         label.font = label.font.withSize(UIConstants.creatorFontSize)
+        label.isUserInteractionEnabled = true
+        label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openUser)))
         return label
     }()
+    
+    var tapOnUser: (() -> ())?
     
     //MARK: - Override Methods
     override init(frame: CGRect) {
@@ -86,6 +92,8 @@ class FeedCollectionViewCell: UICollectionViewCell {
         layer.masksToBounds = true
         layer.cornerRadius = UIConstants.cornerRadius
         backgroundColor = .systemBackground
+        contentView.isUserInteractionEnabled = false
+        
         configureTaskImage()
         configureTaskLabel()
         configureCreatorViews()
@@ -116,5 +124,10 @@ class FeedCollectionViewCell: UICollectionViewCell {
         stack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: UIConstants.leftPadding).isActive = true
         stack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: UIConstants.rightPadding).isActive = true
         stack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -UIConstants.topPadding).isActive = true
+    }
+    
+    @objc
+    private func openUser() {
+        tapOnUser?()
     }
 }

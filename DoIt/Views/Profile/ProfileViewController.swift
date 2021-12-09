@@ -276,7 +276,6 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         
         configureUI()
-        configure()
     }
     
     // MARK: - Task View
@@ -300,24 +299,15 @@ class ProfileViewController: UIViewController {
     
     // MARK: - Helpers
     
+    func configure(with model: UserModel) {
+        userModel = model
+    }
+    
     private func configureUI() {
         view.backgroundColor = .systemBackground
         
-        configureNavigationController(title: ProfileStrings.header.rawValue.localized)
         layoutScrollView()
         layoutCellsStackView()
-    }
-    
-    private func configure() {
-        userModel = UserModel(
-            image: nil,
-            name: nil,
-            login: "",
-            summary: nil,
-            statistics: UserStatisticsModel(inProgress: "0", outdated: "0", done: "0", total: "0"),
-            isMyScreen: true,
-            isFollowed: false)
-        
         configureNavigationController(title: userModel.login, isMyScreen: userModel.isMyScreen)
         configureCells()
     }
@@ -625,6 +615,10 @@ extension ProfileViewController {
     private func openTask(_ sender: UITapGestureRecognizer) {
         guard let view = sender.view else { return }
         guard let i = taskViews.firstIndex(where: { $0.taskView == view } ) else { return }
+        
+        let taskViewController = TaskViewController()
+        taskViewController.modalPresentationStyle = .fullScreen
+        present(taskViewController, animated: true, completion: nil)
     }
 }
 
@@ -710,7 +704,7 @@ extension ProfileViewController {
     @objc
     private func openSettings() {
         let profileEditViewController = ProfileEditViewController()
-        profileEditViewController.configure(login: userModel.login, profileImage: profileImageView.image, summeryText: userModel.summary)
+        profileEditViewController.configure(with: userModel)
         navigationController?.pushViewController(profileEditViewController, animated: true)
     }
 }

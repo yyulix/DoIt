@@ -33,9 +33,9 @@ class FeedController: UIViewController {
     }()
     
     private lazy var following = [
-        UserModel(image: nil, name: "wfqjoapfa", login: "fqFJqow", summary: nil, statistics: UserStatisticsModel(inProgress: "0", outdated: "0", done: "0", total: "0"), isMyScreen: false, isFollowed: true),
+        UserModel(image: nil, name: "wfqjoapfa", login: "fqFJqow", summary: nil, statistics: UserStatisticsModel(inProgress: "0", outdated: "0", done: "1", total: "1"), isMyScreen: false, isFollowed: true),
         UserModel(image: nil, name: "gsgdsgger", login: "GIOWJEOG", summary: nil, statistics: UserStatisticsModel(inProgress: "0", outdated: "0", done: "0", total: "0"), isMyScreen: false, isFollowed: true),
-        UserModel(image: nil, name: "greaiojgeo", login: "fwaojfoq", summary: nil, statistics: UserStatisticsModel(inProgress: "0", outdated: "0", done: "0", total: "0"), isMyScreen: false, isFollowed: true)
+        UserModel(image: nil, name: "greaiojgeo", login: "fwaojfoq", summary: nil, statistics: UserStatisticsModel(inProgress: "0", outdated: "0", done: "0", total: "0"), isMyScreen: true, isFollowed: true)
     ]
     
     private lazy var followersTasks = [
@@ -80,6 +80,11 @@ extension FeedController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedCollectionViewCell.self.description(), for: indexPath) as? FeedCollectionViewCell else { return .init(frame: .zero) }
         guard let userInfo = following.first(where: { $0.login == followersTasks[indexPath.row].creatorId }) else { return .init(frame: .zero) }
+        cell.tapOnUser = { [weak self] in
+            let profileViewController = ProfileViewController()
+            profileViewController.configure(with: userInfo)
+            self?.navigationController?.pushViewController(profileViewController, animated: true)
+        }
         cell.configureCell(taskInfo: followersTasks[indexPath.row], userInfo: userInfo)
         return cell
     }

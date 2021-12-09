@@ -124,7 +124,7 @@ final class ProfileEditViewController: UIViewController {
     }()
     
     private let keyboardManager = KeyboardManager.shared
-    private var login: String = ""
+    private var userModel: UserModel = .init(image: nil, name: nil, login: "", summary: nil, statistics: UserStatisticsModel(inProgress: "0", outdated: "0", done: "0", total: "0"), isMyScreen: true, isFollowed: false)
     
     // MARK: - Lifecycle
     
@@ -141,10 +141,18 @@ final class ProfileEditViewController: UIViewController {
     
     // MARK: - Helpers
     
-    func configure(login: String, profileImage: UIImage?, summeryText: String?) {
-        self.login = login
-        profileImageView.image = profileImage
-        summaryTextView.text = summeryText
+    func configure(with model: UserModel) {
+        userModel = model
+    }
+    
+    private func configure() {
+        summaryTextView.text = userModel.summary
+        guard let image = userModel.image else {
+            profileImageView.layoutIfNeeded()
+            profileImageView.setImageForName(userModel.name ?? userModel.login, circular: false, textAttributes: nil)
+            return
+        }
+        profileImageView.image = image
     }
     
     private func configureUI() {
@@ -153,6 +161,7 @@ final class ProfileEditViewController: UIViewController {
         layoutScrollView()
         layoutStackView()
         layoutWidthInputFields()
+        configure()
     }
     
     private func configureNavigationController() {
