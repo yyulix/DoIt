@@ -57,11 +57,16 @@ class TasksController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        configureNavigationController()
         layoutCollection()
         layoutTable()
     }
     
     //MARK: - Private Methods
+    private func configureNavigationController() {
+        navigationItem.title = TasksStrings.header.rawValue.localized
+    }
+    
     private func layoutCollection() {
         view.addSubview(collection)
         collection.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: UIConstants.topPadding).isActive = true
@@ -83,6 +88,7 @@ extension TasksController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let taskViewController = TaskViewController()
         taskViewController.taskModel = tasks[indexPath.row]
+        taskViewController.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(taskViewController, animated: true)
     }
 }

@@ -72,6 +72,7 @@ enum TaskScreen: String {
     case taskName = "taskScreen.taskName"
     case countdown = "taskScreen.countdown"
     case deadline = "taskScreen.deadline"
+    case noDeadline = "taskScreen.noDeadline"
     case deadlineText = "taskScreen.deadlineText"
     case chapter = "taskScreen.chapter"
     case chapterText = "taskScreen.chapterText"
@@ -117,3 +118,15 @@ enum TasksCategory: String {
     case moving = "tasksCategory.moving"
 }
 
+enum TasksStrings: String {
+    case header = "tasks.header"
+}
+
+enum FeedStrings: String {
+    case header = "feed.header"
+}
+
+enum TabBarStrings: String {
+    case tasks = "tabbar.tasks"
+    case feed = "tabbar.feed"
+}

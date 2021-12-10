@@ -54,6 +54,11 @@ class FeedController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         layoutCollection()
+        configureNavigationController()
+    }
+    
+    private func configureNavigationController() {
+        navigationItem.title = FeedStrings.header.rawValue.localized
     }
     
     private func layoutCollection() {
@@ -69,6 +74,7 @@ extension FeedController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let taskViewController = TaskViewController()
         taskViewController.taskModel = followersTasks[indexPath.row]
+        taskViewController.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(taskViewController, animated: true)
     }
 }

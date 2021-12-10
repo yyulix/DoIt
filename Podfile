@@ -6,5 +6,6 @@ target 'DoIt' do
   use_frameworks!
 
   # Pods for DoIt
+	pod "EasyNotificationBadge"
 	pod "InitialsImageView"
 end

@@ -107,7 +107,7 @@ class OnboardingViewController: UIViewController, OnboardingCellDelegate, UIColl
     }
 
     private func goToNextVC() {
-        let taskViewController = CustomNavigationController(rootViewController: MainTabBarController())
+        let taskViewController = CustomTabBarController()
         taskViewController.modalPresentationStyle = .fullScreen
         present(taskViewController, animated: true, completion: nil)
     }

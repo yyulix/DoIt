@@ -1,16 +1,20 @@
 PODS:
+  - EasyNotificationBadge (1.2.5)
   - InitialsImageView (0.7.0)
 
 DEPENDENCIES:
+  - EasyNotificationBadge
   - InitialsImageView
 
 SPEC REPOS:
   trunk:
+    - EasyNotificationBadge
     - InitialsImageView
 
 SPEC CHECKSUMS:
+  EasyNotificationBadge: a3ebbcb1de0c0558e102e954380c75801f352702
   InitialsImageView: 7a416d36fc6df5434198664db28a3ffb0228426d
 
-PODFILE CHECKSUM: 768b1d88617844da20f92b92b8beb27dfefe4e7a
+PODFILE CHECKSUM: 8adbb309c34abf2f095b8b9408040f0fbf5cc1ad
 
 COCOAPODS: 1.11.2

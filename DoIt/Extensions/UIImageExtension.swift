@@ -36,4 +36,10 @@ extension UIImage {
     struct SearchFriendsIcons {
         static var searchIcon: UIImage { UIImage(systemName: "magnifyingglass")! }
     }
+    
+    struct TabBarIcons {
+        static var addTaskIcon: UIImage { UIImage(systemName: "plus")! }
+        static var tasksIcon: UIImage { UIImage(systemName: "square.text.square")! }
+        static var feedIcon: UIImage { UIImage(systemName: "square.grid.2x2")! }
+    }
 }

@@ -57,6 +57,7 @@
 "taskScreen.taskName" = "Название задачи";
 "taskScreen.countdown" = "Осталось";
 "taskScreen.deadline" = "Срок";
+"taskScreen.noDeadline" = "Срок не задан";
 "taskScreen.deadlineText" = "Выберите срок";
 "taskScreen.chapter" = "Раздел";
 "taskScreen.chapterText" = "Выберите раздел";
@@ -98,3 +99,10 @@
 "tasksCategory.finance" = "Финансы";
 "tasksCategory.charity" = "Благотворительность";
 "tasksCategory.moving" = "Переезд";
+
+"tasks.header" = "Ваша лента задач";
+
+"feed.header" = "Лента задач";
+
+"tabbar.tasks" = "Задачи";
+"tabbar.feed" = "Лента";

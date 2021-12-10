@@ -57,6 +57,7 @@
 "taskScreen.taskName" = "Task name";
 "taskScreen.countdown" = "Countdown";
 "taskScreen.deadline" = "Deadline";
+"taskScreen.noDeadline" = "No deadline";
 "taskScreen.deadlineText" = "Select deadline";
 "taskScreen.chapter" = "Chapter";
 "taskScreen.chapterText" = "Select chapter";
@@ -98,3 +99,10 @@
 "tasksCategory.finance" = "Finance";
 "tasksCategory.charity" = "Charity";
 "tasksCategory.moving" = "Moving";
+
+"tasks.header" = "Your tasks feed";
+
+"feed.header" = "Tasks feed";
+
+"tabbar.tasks" = "Tasks";
+"tabbar.feed" = "Feed";

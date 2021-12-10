@@ -52,9 +52,9 @@ class SignInController: UIViewController {
     }
     
     @objc private func signInButtonPressed(_ sender: UIButton) {
-        let mainScreen = CustomNavigationController(rootViewController: OnboardingViewController())
-        mainScreen.modalPresentationStyle = .fullScreen
-        present(mainScreen, animated: true)
+        let tabbarController = CustomTabBarController()
+        tabbarController.modalPresentationStyle = .fullScreen
+        present(tabbarController, animated: true)
         
     }
     

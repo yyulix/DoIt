@@ -60,7 +60,6 @@ class TaskViewController: UIViewController {
     private lazy var taskImageViewContainter: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.isHidden = true
         return view
     }()
     
@@ -106,6 +105,10 @@ class TaskViewController: UIViewController {
         super.viewDidLoad()
         configureView()
         runCountdown()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
     }
     
     private func configureView() {
@@ -168,10 +171,9 @@ class TaskViewController: UIViewController {
         navigationBarView.translatesAutoresizingMaskIntoConstraints = false
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: UIConstants.navigationBarFontSize)
         label.textAlignment = .center
         label.text = title
-        label.textColor = .black
+        label.textColor = .AppColors.navigationTextColor
 
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -239,12 +241,12 @@ extension TaskViewController {
 extension TaskViewController {
     private func configure() {
         guard let taskModel = taskModel else { return }
-        taskImage.image = taskModel.image
-        taskImageViewContainter.isHidden = taskModel.image == nil ? true : false
+        taskImage.image = taskModel.image ?? .TaskIcons.defaultImage
         taskDescription.text = taskModel.description
         taskChapter.text = TaskCategory(index: taskModel.chapterId).chapter.title
         configureNavigationBar(title: taskModel.title, isDone: taskModel.isDone)
         horizontalStack.isHidden = !taskModel.isMyTask
         deadlineDate = taskModel.deadline
+        timerLabel.text = taskModel.deadline == nil ? TaskScreen.noDeadline.rawValue.localized : nil
     }
 }
