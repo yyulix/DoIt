@@ -18,6 +18,15 @@ class TasksController: UIViewController {
         static let collectionHeight = 35.0
     }
     
+    private lazy var profileButton: UIBarButtonItem = {
+        let button = UIButton(type: .custom)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(.AuthIcons.personIcon, for: .normal)
+        button.addTarget(self, action: #selector(openProfile), for: .touchUpInside)
+        button.tintColor = .AppColors.navigationTextColor
+        return UIBarButtonItem(customView: button)
+    }()
+    
     private lazy var collection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -53,18 +62,29 @@ class TasksController: UIViewController {
     
     private let chapters = (0...(TaskCategory.chaptersCount - 1)).map({ TaskCategory(index: $0) })
     
+    private var userModel: UserModel = UserModel(
+        image: nil,
+        name: nil,
+        login: "",
+        summary: nil,
+        statistics: .init(inProgress: "0", outdated: "0", done: "0", total: "0"),
+        isMyScreen: true,
+        isFollowed: false)
+    
     //MARK: - Override Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        configureNavigationController()
+        configureNavigationController(title: TasksStrings.header.rawValue.localized, isMyScreen: userModel.isMyScreen)
         layoutCollection()
         layoutTable()
     }
     
     //MARK: - Private Methods
-    private func configureNavigationController() {
-        navigationItem.title = TasksStrings.header.rawValue.localized
+    private func configureNavigationController(title: String, isMyScreen: Bool = false) {
+        navigationItem.title = title
+        navigationItem.rightBarButtonItem = isMyScreen ? profileButton : nil
+        navigationController?.hidesBarsOnSwipe = true
     }
     
     private func layoutCollection() {
@@ -120,5 +140,14 @@ extension TasksController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ChapterCollectionViewCell.self), for: indexPath) as? ChapterCollectionViewCell else { return .init(frame: .zero) }
         cell.configureCell(with: chapters[indexPath.row].chapter)
         return cell
+    }
+}
+
+extension TasksController {
+    @objc
+    private func openProfile() {
+        let profileViewController = ProfileViewController()
+        navigationController?.pushViewController(profileViewController, animated: true)
+        profileViewController.userModel = userModel
     }
 }

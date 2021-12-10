@@ -14,6 +14,15 @@ class FeedController: UIViewController {
         static let cellHeight = 190.0
     }
     
+    private lazy var searchButton: UIBarButtonItem = {
+        let button = UIButton(type: .custom)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(.SearchFriendsIcons.searchIcon, for: .normal)
+        button.addTarget(self, action: #selector(openSearch), for: .touchUpInside)
+        button.tintColor = .AppColors.navigationTextColor
+        return UIBarButtonItem(customView: button)
+    }()
+    
     private lazy var collection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -54,11 +63,13 @@ class FeedController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         layoutCollection()
-        configureNavigationController()
+        configureNavigationController(title: FeedStrings.header.rawValue.localized)
     }
     
-    private func configureNavigationController() {
-        navigationItem.title = FeedStrings.header.rawValue.localized
+    private func configureNavigationController(title: String) {
+        navigationItem.title = title
+        navigationItem.rightBarButtonItem = searchButton
+        navigationController?.hidesBarsOnSwipe = true
     }
     
     private func layoutCollection() {
@@ -94,5 +105,13 @@ extension FeedController: UICollectionViewDataSource {
         }
         cell.configureCell(taskInfo: followersTasks[indexPath.row], userInfo: userInfo)
         return cell
+    }
+}
+
+extension FeedController {
+    @objc
+    private func openSearch() {
+        let searchUsersController = SearchUsersController()
+        navigationController?.pushViewController(searchUsersController, animated: true)
     }
 }

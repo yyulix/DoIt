@@ -276,14 +276,7 @@ class ProfileViewController: UIViewController {
     
     // MARK: - Configuration
     
-    private var userModel: UserModel = UserModel(
-        image: nil,
-        name: nil,
-        login: "",
-        summary: nil,
-        statistics: .init(inProgress: "0", outdated: "0", done: "0", total: "0"),
-        isMyScreen: false,
-        isFollowed: false)
+    var userModel: UserModel?
     
     private var userFollowingModel: UserFollowingModel = UserFollowingModel(login: "", followings: [])
     
@@ -308,14 +301,14 @@ class ProfileViewController: UIViewController {
         
         layoutScrollView()
         layoutCellsStackView()
-        configureNavigationController(title: userModel.login, isMyScreen: userModel.isMyScreen)
+        configureNavigationController(title: userModel?.login ?? "", isMyScreen: userModel?.isMyScreen ?? false)
         configureCells()
     }
     
     private func configureCells() {
-        configureHeader(image: userModel.image, name: userModel.name, login: userModel.login, isFollowed: userModel.isFollowed, isMyScreen: userModel.isMyScreen)
-        configureInformation(summary: userModel.summary)
-        configureStatistics(with: userModel.statistics)
+        configureHeader(image: userModel?.image ?? nil, name: userModel?.name ?? nil, login: userModel?.login ?? "", isFollowed: userModel?.isFollowed ?? false, isMyScreen: userModel?.isMyScreen ?? false)
+        configureInformation(summary: userModel?.summary ?? nil)
+        configureStatistics(with: userModel?.statistics ?? .init(inProgress: "0", outdated: "0", done: "0", total: "0"))
         
         configureTasks(with: userTasksModel.tasks)
         
