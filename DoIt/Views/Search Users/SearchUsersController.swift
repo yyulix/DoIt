@@ -85,7 +85,8 @@ final class SearchUsersController: UIViewController {
     private func configureNavigationController() {
         navigationItem.title = FindUsersStrings.header.rawValue.localized
         navigationItem.titleView = titleView
-        navigationItem.setRightBarButton(openSearchButton, animated: true)
+        navigationItem.largeTitleDisplayMode = .never
+        navigationItem.setRightBarButton(openSearchButton, animated: false)
     }
 
     private func layoutTableView() {

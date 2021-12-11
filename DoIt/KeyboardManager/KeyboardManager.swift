@@ -10,7 +10,7 @@ import UIKit
 
 class KeyboardManager {
     struct Constants {
-        static let keyboardOffset = 20.0
+        static let keyboardOffset = 30.0
     }
     
     static let shared = KeyboardManager()

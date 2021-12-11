@@ -195,14 +195,15 @@ class TaskViewController: UIViewController {
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = UIView.ContentMode.scaleAspectFit
         image.setContentCompressionResistancePriority(.required, for: .horizontal)
-        
+
         let stack = UIStackView(arrangedSubviews: [label, image])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .horizontal
         stack.spacing = UIConstants.verticalStackSpacing
-        
+
         navigationItem.titleView = stack
-        
+        navigationItem.largeTitleDisplayMode = .never
+
         guard let isDone = isDone else { return }
         image.tintColor = isDone ? .AppColors.taskDoneColor : .AppColors.taskOutdatedColor
         image.image = isDone ? .TaskIcons.doneIcon : .TaskIcons.outdatedIcon

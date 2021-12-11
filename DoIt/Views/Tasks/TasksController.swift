@@ -62,9 +62,10 @@ class TasksController: UIViewController {
     
     private var selectedTasks: [Task]? {
         didSet {
-            table.reloadData()
+            table.reloadSections(IndexSet(integer: 0), with: .fade)
         }
     }
+    private var previousSelectedChapterId = -1
     
     private let chapters = (0...(TaskCategory.chaptersCount - 1)).map({ TaskCategory(index: $0) })
     
@@ -134,11 +135,13 @@ extension TasksController: UICollectionViewDataSource {
 extension TasksController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let newSelectedTasks = tasks.filter({ $0.chapterId == indexPath.row })
-        guard selectedTasks?.first?.chapterId != indexPath.row else {
+        guard previousSelectedChapterId != indexPath.row else {
+            previousSelectedChapterId = -1
             selectedTasks = nil
             return
         }
         selectedTasks = newSelectedTasks
+        previousSelectedChapterId = indexPath.row
     }
 }
 

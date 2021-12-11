@@ -316,6 +316,7 @@ class ProfileViewController: UIViewController {
     private func configureNavigationController(title: String, isMyScreen: Bool = false) {
         navigationItem.title = "@" + title
         navigationItem.rightBarButtonItem = isMyScreen ? settingButton : nil
+        navigationItem.largeTitleDisplayMode = .always
     }
 }
 
@@ -733,6 +734,7 @@ extension ProfileViewController {
     private func openSettings() {
         let profileEditViewController = ProfileEditViewController()
         profileEditViewController.userModel = userModel
+        profileEditViewController.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(profileEditViewController, animated: true)
     }
 }
