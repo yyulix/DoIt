@@ -107,8 +107,15 @@ class TaskViewController: UIViewController {
         runCountdown()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    private func configure() {
+        guard let taskModel = taskModel else { return }
+        taskImage.image = taskModel.image ?? .TaskIcons.defaultImage
+        taskDescription.text = taskModel.description
+        taskChapter.text = TaskCategory(index: taskModel.chapterId).chapter.title
+        configureNavigationBar(title: taskModel.title, isDone: taskModel.isDone)
+        horizontalStack.isHidden = !taskModel.isMyTask
+        deadlineDate = taskModel.deadline
+        timerLabel.text = taskModel.deadline == nil ? TaskScreen.noDeadline.rawValue.localized : nil
     }
     
     private func configureView() {
@@ -166,6 +173,15 @@ class TaskViewController: UIViewController {
         taskImage.centerXAnchor.constraint(equalTo: taskImageViewContainter.centerXAnchor).isActive = true
     }
     
+    private func getLabel(title: String? = nil) -> UILabel {
+        let timerLabel = UILabel()
+        timerLabel.translatesAutoresizingMaskIntoConstraints = false
+        timerLabel.font = UIFont.systemFont(ofSize: title == nil ? UIConstants.normalFontSize : UIConstants.boldFontSize)
+        timerLabel.text = title
+        timerLabel.textAlignment = title == nil ? .center : .left
+        return timerLabel
+    }
+    
     private func configureNavigationBar(title: String? = nil, isDone: Bool? = nil) {
         let navigationBarView = UIView()
         navigationBarView.translatesAutoresizingMaskIntoConstraints = false
@@ -190,15 +206,6 @@ class TaskViewController: UIViewController {
         guard let isDone = isDone else { return }
         image.tintColor = isDone ? .AppColors.taskDoneColor : .AppColors.taskOutdatedColor
         image.image = isDone ? .TaskIcons.doneIcon : .TaskIcons.outdatedIcon
-    }
-    
-    private func getLabel(title: String? = nil) -> UILabel {
-        let timerLabel = UILabel()
-        timerLabel.translatesAutoresizingMaskIntoConstraints = false
-        timerLabel.font = UIFont.systemFont(ofSize: title == nil ? UIConstants.normalFontSize : UIConstants.boldFontSize)
-        timerLabel.text = title
-        timerLabel.textAlignment = title == nil ? .center : .left
-        return timerLabel
     }
     
     private func runCountdown() {
@@ -235,18 +242,5 @@ extension TaskViewController {
             return
         }
         timerLabel.text = String(format: "%02i:%02i:%02i:%02i", days, hours, minutes, seconds)
-    }
-}
-
-extension TaskViewController {
-    private func configure() {
-        guard let taskModel = taskModel else { return }
-        taskImage.image = taskModel.image ?? .TaskIcons.defaultImage
-        taskDescription.text = taskModel.description
-        taskChapter.text = TaskCategory(index: taskModel.chapterId).chapter.title
-        configureNavigationBar(title: taskModel.title, isDone: taskModel.isDone)
-        horizontalStack.isHidden = !taskModel.isMyTask
-        deadlineDate = taskModel.deadline
-        timerLabel.text = taskModel.deadline == nil ? TaskScreen.noDeadline.rawValue.localized : nil
     }
 }

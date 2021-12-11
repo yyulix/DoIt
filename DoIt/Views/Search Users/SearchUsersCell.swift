@@ -16,15 +16,10 @@ final class SearchUsersCell: UITableViewCell {
         static let offsetPictureFromLeft: CGFloat = 10
         static let offsetFollowButtonFromRight: CGFloat = 12
         static let multiplierWidthFollowButton: CGFloat = 0.21
-        
         static let defaultCornerRadius: CGFloat = 12
-        
         static let loginLabelSizeOfFont: CGFloat = 18
-        
         static let summeryLabelSizeOfFont: CGFloat = 14
-        
         static let stackViewSpacing: CGFloat = -20
-
         static let followButtonSizeOfFont: CGFloat = 15
     }
 
@@ -125,14 +120,36 @@ final class SearchUsersCell: UITableViewCell {
         selectionStyle = .none
         contentView.isUserInteractionEnabled = false
         
-        addSubview(profileImageView)
-        addSubview(followButton)
-        addSubview(informationStackView)
-        
         layoutImageView()
         layoutFollowButton()
         layoutStackView()
     }
+
+    // MARK: - Constraints
+
+    private func layoutImageView() {
+        addSubview(profileImageView)
+        profileImageView.topAnchor.constraint(equalTo: topAnchor, constant: Constants.offsetPicture).isActive = true
+        profileImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.offsetPictureFromLeft).isActive = true
+        profileImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.offsetPicture).isActive = true
+    }
+
+    private func layoutStackView() {
+        addSubview(informationStackView)
+        informationStackView.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: Constants.offset).isActive = true
+        informationStackView.topAnchor.constraint(equalTo: topAnchor, constant: Constants.offset).isActive = true
+        informationStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.offset).isActive = true
+        informationStackView.trailingAnchor.constraint(equalTo: followButton.leadingAnchor, constant: -Constants.offset).isActive = true
+    }
+
+    private func layoutFollowButton() {
+        addSubview(followButton)
+        followButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: Constants.multiplierWidthFollowButton).isActive = true
+        followButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.offsetFollowButtonFromRight).isActive = true
+        followButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+    }
+    
+    // MARK: - Actions
     
     @objc
     private func didTapFollowButton() {
@@ -144,26 +161,5 @@ final class SearchUsersCell: UITableViewCell {
                 self.followButton.transform = CGAffineTransform.identity
             }
         }
-    }
-
-    // MARK: - Constraints
-
-    private func layoutImageView() {
-        profileImageView.topAnchor.constraint(equalTo: topAnchor, constant: Constants.offsetPicture).isActive = true
-        profileImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.offsetPictureFromLeft).isActive = true
-        profileImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.offsetPicture).isActive = true
-    }
-
-    private func layoutStackView() {
-        informationStackView.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: Constants.offset).isActive = true
-        informationStackView.topAnchor.constraint(equalTo: topAnchor, constant: Constants.offset).isActive = true
-        informationStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.offset).isActive = true
-        informationStackView.trailingAnchor.constraint(equalTo: followButton.leadingAnchor, constant: -Constants.offset).isActive = true
-    }
-
-    private func layoutFollowButton() {
-        followButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: Constants.multiplierWidthFollowButton).isActive = true
-        followButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.offsetFollowButtonFromRight).isActive = true
-        followButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
 }

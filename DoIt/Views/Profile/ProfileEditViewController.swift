@@ -164,7 +164,6 @@ final class ProfileEditViewController: UIViewController {
     private func configureNavigationController() {
         navigationItem.title = ProfileEditString.header.rawValue.localized
         navigationItem.rightBarButtonItem = doneButton
-        navigationController?.hidesBarsOnSwipe = true
     }
     
     private func layoutScrollView() {
@@ -184,9 +183,7 @@ final class ProfileEditViewController: UIViewController {
         stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
     }
     private func layoutWidthInputFields() {
-        nameInputField.widthAnchor.constraint(equalTo: stackView.widthAnchor).isActive = true
-        loginInputField.widthAnchor.constraint(equalTo: stackView.widthAnchor).isActive = true
-        summaryTextView.widthAnchor.constraint(equalTo: stackView.widthAnchor).isActive = true
+        [nameInputField, loginInputField, summaryTextView].forEach { $0.widthAnchor.constraint(equalTo: stackView.widthAnchor).isActive = true }
     }
 }
 
@@ -265,5 +262,3 @@ extension ProfileEditViewController: UITextViewDelegate {
         keyboardManager.scrollViewToDefault(scrollView: scrollView)
     }
 }
-
-extension ProfileEditViewController: UIScrollViewDelegate {  }

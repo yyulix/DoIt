@@ -53,38 +53,38 @@ class TasksController: UIViewController {
         return tableView
     }()
     
-    private let tasks = [
+    var tasks = [
         Task(image: UIImage(named: "bob"), title: "Task 1: Get ready for an exam", description: nil, deadline: nil, isDone: true, creatorId: "1", color: .black, chapterId: 0, creationTime: Date(), isMyTask: true),
         Task(image: UIImage(named: "bob"), title: "Task 2: Get ready for an exam", description: nil, deadline: nil, isDone: false, creatorId: "2", color: .yellow, chapterId: 1, creationTime: Date(), isMyTask: true),
         Task(image: UIImage(named: "bob"), title: "Task 3: Get ready for an exam", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: nil, isDone: false, creatorId: "2", color: .red, chapterId: 2, creationTime: Date(), isMyTask: true),
         Task(image: UIImage(named: "bob"), title: "Task 4: Get ready for an exam", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: Date(timeIntervalSinceNow: 50), isDone: true, creatorId: "1", color: .orange, chapterId: 3, creationTime: Date(), isMyTask: true)
     ]
     
+    private var selectedTasks: [Task]? {
+        didSet {
+            table.reloadData()
+        }
+    }
+    
     private let chapters = (0...(TaskCategory.chaptersCount - 1)).map({ TaskCategory(index: $0) })
     
-    private var userModel: UserModel = UserModel(
-        image: nil,
-        name: nil,
-        login: "",
-        summary: nil,
-        statistics: .init(inProgress: "0", outdated: "0", done: "0", total: "0"),
-        isMyScreen: true,
-        isFollowed: false)
+    var userModel: UserModel?
     
     //MARK: - Override Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        configureNavigationController(title: TasksStrings.header.rawValue.localized, isMyScreen: userModel.isMyScreen)
+        configureNavigationController()
+        view.addSubview(table)
         layoutCollection()
         layoutTable()
     }
     
     //MARK: - Private Methods
-    private func configureNavigationController(title: String, isMyScreen: Bool = false) {
-        navigationItem.title = title
-        navigationItem.rightBarButtonItem = isMyScreen ? profileButton : nil
-        navigationController?.hidesBarsOnSwipe = true
+    private func configureNavigationController() {
+        navigationItem.title = TasksStrings.header.rawValue.localized
+        guard let userModel = userModel else { return }
+        navigationItem.rightBarButtonItem = userModel.isMyScreen ? profileButton : nil
     }
     
     private func layoutCollection() {
@@ -96,7 +96,6 @@ class TasksController: UIViewController {
     }
     
     private func layoutTable() {
-        view.addSubview(table)
         table.topAnchor.constraint(equalTo: collection.bottomAnchor, constant: UIConstants.topPadding).isActive = true
         table.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: UIConstants.leftPadding).isActive = true
         table.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: UIConstants.rightPadding).isActive = true
@@ -104,30 +103,17 @@ class TasksController: UIViewController {
     }
 }
 
-extension TasksController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let taskViewController = TaskViewController()
-        taskViewController.taskModel = tasks[indexPath.row]
-        taskViewController.hidesBottomBarWhenPushed = true
-        navigationController?.pushViewController(taskViewController, animated: true)
-    }
-}
-
 extension TasksController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tasks.count
+        return selectedTasks?.count ?? tasks.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TaskTableViewCell.self), for: indexPath) as? TaskTableViewCell else { return .init(frame: .zero) }
-        cell.configureCell(taskInfo: tasks[indexPath.row])
+        cell.configureCell(taskInfo: selectedTasks?[indexPath.row] ?? tasks[indexPath.row])
         return cell
     }
-}
-
-extension TasksController: UICollectionViewDelegate {
-    
 }
 
 extension TasksController: UICollectionViewDataSource {
@@ -143,11 +129,38 @@ extension TasksController: UICollectionViewDataSource {
     }
 }
 
+// MARK: - Actions
+
+extension TasksController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let newSelectedTasks = tasks.filter({ $0.chapterId == indexPath.row })
+        guard selectedTasks?.first?.chapterId != indexPath.row else {
+            selectedTasks = nil
+            return
+        }
+        selectedTasks = newSelectedTasks
+    }
+}
+
+extension TasksController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let taskViewController = TaskViewController()
+        taskViewController.taskModel = selectedTasks?[indexPath.row] ?? tasks[indexPath.row]
+        taskViewController.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(taskViewController, animated: true)
+    }
+}
+
 extension TasksController {
     @objc
     private func openProfile() {
         let profileViewController = ProfileViewController()
-        navigationController?.pushViewController(profileViewController, animated: true)
         profileViewController.userModel = userModel
+        guard let userModel = userModel else {
+            navigationController?.pushViewController(profileViewController, animated: true)
+            return
+        }
+        profileViewController.userTasksModel = UserTasksModel(login: userModel.login, tasks: tasks)
+        navigationController?.pushViewController(profileViewController, animated: true)
     }
 }

@@ -31,6 +31,7 @@ extension UIImage {
     
     struct ProfileIcons {
         static var gearIcon: UIImage { UIImage(systemName: "gear")! }
+        static var allTasksIcon: UIImage { UIImage(systemName: "chevron.right")! }
     }
     
     struct SearchFriendsIcons {

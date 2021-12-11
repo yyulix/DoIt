@@ -14,8 +14,8 @@ class CustomTabBarController: UITabBarController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
-        let tabBar: STTabbar = {
-            let tabBar = STTabbar()
+        let tabBar: CustomTabBar = {
+            let tabBar = CustomTabBar()
             tabBar.centerButtonColor = .AppColors.purpleColor
             tabBar.buttonImage = .TabBarIcons.addTaskIcon
             tabBar.tintColor = .AppColors.navigationTextColor
@@ -32,29 +32,49 @@ class CustomTabBarController: UITabBarController {
     //MARK: - Helpers
     
     func configureViewControllers() {
-        let tasks = CustomNavigationController(rootViewController: TasksController())
+        let userModel = UserModel(image: nil, name: nil, login: "", summary: nil, statistics: UserStatisticsModel(inProgress: "0", outdated: "0", done: "0", total: "0"), isMyScreen: true, isFollowed: false)
+        
+        let tasks = TasksController()
+        tasks.userModel = userModel
         tasks.tabBarItem = UITabBarItem(title: TabBarStrings.tasks.rawValue.localized, image: .TabBarIcons.tasksIcon, selectedImage: nil)
-        let feed = CustomNavigationController(rootViewController: FeedController())
+        
+        let feed = FeedController()
+        feed.userModel = userModel
         feed.tabBarItem = UITabBarItem(title: TabBarStrings.feed.rawValue.localized, image: .TabBarIcons.feedIcon, selectedImage: nil)
-        viewControllers = [tasks, feed]
-        selectedViewController = tasks
+        
+        let controllers = [ CustomNavigationController(rootViewController: tasks), CustomNavigationController(rootViewController: feed) ]
+        
+        viewControllers = controllers
+        selectedViewController = controllers[0]
     }
 }
 
-public final class STTabbar: UITabBar {
+final class CustomTabBar: UITabBar {
+    var centerButtonColor: UIColor?
+    var centerButtonHeight: CGFloat = 50.0
+    var padding: CGFloat = 5.0
+    var buttonImage: UIImage?
     
-    // MARK:- Variables -
-    @objc public var centerButtonActionHandler: (() -> ())?
-
-    public var centerButtonColor: UIColor?
-    public var centerButtonHeight: CGFloat = 50.0
-    public var padding: CGFloat = 5.0
-    public var buttonImage: UIImage?
+    var tabbarColor: UIColor = .AppColors.accentColor
+    var unselectedItemColor: UIColor = .AppColors.greyColor
     
-    public var tabbarColor: UIColor = .AppColors.accentColor
-    public var unselectedItemColor: UIColor = .AppColors.greyColor
-
+    var centerButtonActionHandler: (() -> ())?
+    
     private var shapeLayer: CALayer?
+    
+    override func draw(_ rect: CGRect) {
+        addShape()
+    }
+        
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        guard !clipsToBounds && !isHidden && alpha > 0 else { return nil }
+        for member in subviews.reversed() {
+            let subPoint = member.convert(point, from: self)
+            guard let result = member.hitTest(subPoint, with: event) else { continue }
+            return result
+        }
+        return nil
+    }
     
     private func addShape() {
         let shapeLayer = CAShapeLayer()
@@ -70,25 +90,11 @@ public final class STTabbar: UITabBar {
         setupMiddleButton()
     }
     
-    override public func draw(_ rect: CGRect) {
-        addShape()
-    }
-        
-    override public func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        guard !clipsToBounds && !isHidden && alpha > 0 else { return nil }
-        for member in subviews.reversed() {
-            let subPoint = member.convert(point, from: self)
-            guard let result = member.hitTest(subPoint, with: event) else { continue }
-            return result
-        }
-        return nil
-    }
-    
     private func createPath() -> CGPath {
         let f = CGFloat(centerButtonHeight / 2.0) + padding
         let h = frame.height
         let w = frame.width
-        let halfW = frame.width/2.0
+        let halfW = frame.width / 2.0
         let r = CGFloat(18)
         let path = UIBezierPath()
         path.move(to: .zero)

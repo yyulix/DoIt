@@ -61,6 +61,8 @@ final class SearchUsersController: UIViewController {
         return label
     }()
     
+    var userModel: UserModel?
+    
     private var userModels: [UserModel] = []
 
     // MARK: - Lifecycle
@@ -82,8 +84,6 @@ final class SearchUsersController: UIViewController {
 
     private func configureNavigationController() {
         navigationItem.title = FindUsersStrings.header.rawValue.localized
-        definesPresentationContext = true
-        
         navigationItem.titleView = titleView
         navigationItem.setRightBarButton(openSearchButton, animated: true)
     }
@@ -94,34 +94,6 @@ final class SearchUsersController: UIViewController {
         tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
         tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-    }
-}
-
-extension SearchUsersController {
-    @objc
-    private func addSearchBarView() {
-        let alphaColor: UIColor = .AppColors.navigationTextColor.withAlphaComponent(Constants.opacityValueToAnimate)
-        
-        UIView.animate(withDuration: Constants.durationSearchBar, delay: 0, options: Constants.typeOfAnimation) {
-            self.navigationController?.navigationBar.tintColor = alphaColor
-            self.navigationItem.titleView?.layer.opacity = Float(Constants.opacityValueToAnimate)
-            self.navigationItem.rightBarButtonItem?.customView?.tintColor = alphaColor
-        } completion: { _ in
-            self.configureNavigationControllerAnimation(withSearchBar: true) { _ in
-                self.searchBar.setShowsCancelButton(true, animated: true)
-                self.searchBar.becomeFirstResponder()
-            }
-        }
-    }
-    
-    func removeSearchBarView() {
-        searchBar.setShowsCancelButton(false, animated: true)
-        
-        UIView.animate(withDuration: Constants.durationSearchBar, delay: 0, options: Constants.typeOfAnimation) {
-            self.navigationItem.titleView?.layer.opacity = Float(Constants.opacityValueToAnimate)
-        } completion: { _ in
-            self.configureNavigationControllerAnimation(withSearchBar: false)
-        }
     }
     
     func configureNavigationControllerAnimation(withSearchBar: Bool, completion: ((Bool) -> ())? = nil) {
@@ -155,6 +127,7 @@ extension SearchUsersController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let profileViewController = ProfileViewController()
+        profileViewController.userModel = userModels[indexPath.row]
         navigationController?.pushViewController(profileViewController, animated: true)
     }
 }
@@ -173,6 +146,8 @@ extension SearchUsersController: UITableViewDataSource {
     }
 }
 
+// MARK: - Actions
+
 extension SearchUsersController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
@@ -183,12 +158,30 @@ extension SearchUsersController: UISearchBarDelegate {
     }
 }
 
-extension SearchUsersController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0 {
-            navigationController?.setNavigationBarHidden(true, animated: true)
-        } else {
-            navigationController?.setNavigationBarHidden(false, animated: true)
+extension SearchUsersController {
+    @objc
+    private func addSearchBarView() {
+        let alphaColor: UIColor = .AppColors.navigationTextColor.withAlphaComponent(Constants.opacityValueToAnimate)
+        
+        UIView.animate(withDuration: Constants.durationSearchBar, delay: 0, options: Constants.typeOfAnimation) {
+            self.navigationController?.navigationBar.tintColor = alphaColor
+            self.navigationItem.titleView?.layer.opacity = Float(Constants.opacityValueToAnimate)
+            self.navigationItem.rightBarButtonItem?.customView?.tintColor = alphaColor
+        } completion: { _ in
+            self.configureNavigationControllerAnimation(withSearchBar: true) { _ in
+                self.searchBar.setShowsCancelButton(true, animated: true)
+                self.searchBar.becomeFirstResponder()
+            }
+        }
+    }
+    
+    func removeSearchBarView() {
+        searchBar.setShowsCancelButton(false, animated: true)
+        
+        UIView.animate(withDuration: Constants.durationSearchBar, delay: 0, options: Constants.typeOfAnimation) {
+            self.navigationItem.titleView?.layer.opacity = Float(Constants.opacityValueToAnimate)
+        } completion: { _ in
+            self.configureNavigationControllerAnimation(withSearchBar: false)
         }
     }
 }

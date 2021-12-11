@@ -30,7 +30,7 @@ class ProfileViewController: UIViewController {
         static let stackViewLeftRightOffset: CGFloat = 24
         static let stackViewBottomOffset: CGFloat = offset * 2
         static let stackViewSpacingHeader: CGFloat = 12
-        static let stackViewSpacingAfterName: CGFloat = -4
+        static let stackViewSpacingAfterName: CGFloat = 0
         static let contentViewTopOffset: CGFloat = 50
         static let contentViewCornerRadius: CGFloat = 20
         static let titleLabelSizeOfFont: CGFloat = 12
@@ -48,6 +48,7 @@ class ProfileViewController: UIViewController {
         static let friendsConllectionHeight: CGFloat = 120
         static let heightSeparator: CGFloat = 1
         static let offsetSeparator: CGFloat = 20
+        static let showAllTasksWidth: CGFloat = 30
     }
     
     private lazy var settingButton: UIBarButtonItem = {
@@ -120,8 +121,6 @@ class ProfileViewController: UIViewController {
         return button
     }()
     
-    private var headerHeightConstraint: NSLayoutConstraint = .init()
-    
     // MARK: - Information View
     
     private lazy var titleLabelInformation: UILabel = getTitleLabel(title: ProfileStrings.titleSummary.rawValue.localized)
@@ -165,11 +164,11 @@ class ProfileViewController: UIViewController {
     private lazy var showAllTasksButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "chevron.right"), for: .normal)
+        button.setImage(.ProfileIcons.allTasksIcon, for: .normal)
         button.tintColor = .AppColors.accentColor
         button.contentHorizontalAlignment = .left
         button.addTarget(self, action: #selector(showAllTasks), for: .touchUpInside)
-        button.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        button.widthAnchor.constraint(equalToConstant: Constants.showAllTasksWidth).isActive = true
         return button
     }()
     
@@ -270,6 +269,8 @@ class ProfileViewController: UIViewController {
         return collection
     }()
     
+    private var headerHeightConstraint: NSLayoutConstraint = .init()
+    
     // MARK: - Task View
     
     private lazy var taskViews: [TaskViewData] = []
@@ -278,9 +279,9 @@ class ProfileViewController: UIViewController {
     
     var userModel: UserModel?
     
-    private var userFollowingModel: UserFollowingModel = UserFollowingModel(login: "", followings: [])
+    var userFollowingModel: UserFollowingModel?
     
-    private var userTasksModel: UserTasksModel = UserTasksModel(login: "", tasks: [])
+    var userTasksModel: UserTasksModel?
     
     // MARK: - Lifecycle
     
@@ -292,8 +293,15 @@ class ProfileViewController: UIViewController {
     
     // MARK: - Helpers
     
-    func configure(with model: UserModel) {
-        userModel = model
+    private func configureCells() {
+        guard let userModel = userModel else { return }
+        configureHeader(image: userModel.image, name: userModel.name, login: userModel.login, isFollowed: userModel.isFollowed, isMyScreen: userModel.isMyScreen)
+        configureInformation(summary: userModel.summary)
+        configureStatistics(with: userModel.statistics)
+        
+        configureTasks(with: userTasksModel?.tasks ?? [])
+        
+        configureFollowing(isFollowingEmpty: (userFollowingModel?.followings ?? []).count == 0 ? true : false)
     }
     
     private func configureUI() {
@@ -305,20 +313,17 @@ class ProfileViewController: UIViewController {
         configureCells()
     }
     
-    private func configureCells() {
-        configureHeader(image: userModel?.image ?? nil, name: userModel?.name ?? nil, login: userModel?.login ?? "", isFollowed: userModel?.isFollowed ?? false, isMyScreen: userModel?.isMyScreen ?? false)
-        configureInformation(summary: userModel?.summary ?? nil)
-        configureStatistics(with: userModel?.statistics ?? .init(inProgress: "0", outdated: "0", done: "0", total: "0"))
-        
-        configureTasks(with: userTasksModel.tasks)
-        
-        configureFollowing(isFollowingEmpty: userFollowingModel.followings.count == 0 ? true : false)
+    private func configureNavigationController(title: String, isMyScreen: Bool = false) {
+        navigationItem.title = "@" + title
+        navigationItem.rightBarButtonItem = isMyScreen ? settingButton : nil
     }
 }
 
-// MARK: - Main Constraints
+// MARK: - Layout
 
 extension ProfileViewController {
+    // MARK: - Main
+    
     private func layoutScrollView() {
         view.addSubview(scrollView)
         scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
@@ -329,23 +334,11 @@ extension ProfileViewController {
     
     private func layoutCellsStackView() {
         let allViews = [configureHeaderView(), configureInformationView(), getSeparatorView(), configureStatisticsView(), getSeparatorView(), configureTasksView(), getSeparatorView(), configureFollowingView(), getSeparatorView()]
+        
         configureStackView(arrangedSubviews: allViews, spacing: Constants.spacingStackView, toView: scrollView, isEqualWidthToView: true)
     }
-}
-
-// MARK: - Header View Configuration
-
-extension ProfileViewController {
-    private func configureHeader(image: UIImage?, name: String?, login: String, isFollowed: Bool, isMyScreen: Bool) {
-        configureHeaderHeight(withName: name != nil, isMyScreen: isMyScreen)
-        configureProfileImage(image: image, name: name, login: login)
-        
-        nameLabel.text = name
-        loginLabel.text = "@" + login
-        
-        configureFollowButton(isFollowed: isFollowed)
-        followButton.isHidden = isMyScreen
-    }
+    
+    // MARK: - Header View
     
     private func configureHeaderView() -> UIView {
         let view = getView()
@@ -384,28 +377,6 @@ extension ProfileViewController {
         innerView.bottomAnchor.constraint(equalTo: toView.bottomAnchor).isActive = true
     }
     
-    private func configureFollowButton(isFollowed: Bool) {
-        followButton.isSelected = isFollowed
-        followButton.backgroundColor = isFollowed ? .AppColors.greyColor : .AppColors.accentColor
-    }
-    
-    private func configureHeaderHeight(withName: Bool, isMyScreen: Bool) {
-        if withName {
-            headerHeightConstraint.constant = isMyScreen ? Constants.myHeaderHeightWithName : Constants.headerHeightWithName
-        } else {
-            headerHeightConstraint.constant = isMyScreen ? Constants.myHeaderHeight : Constants.headerHeight
-        }
-    }
-    
-    private func configureProfileImage(image: UIImage?, name: String?, login: String) {
-        profileImageView.layoutIfNeeded()
-        guard let image = image else {
-            profileImageView.setImageForName(name ?? login, circular: false, textAttributes: nil)
-            return
-        }
-        profileImageView.image = image
-    }
-    
     private func configureHeaderStackView() -> UIStackView {
         let stack = UIStackView(arrangedSubviews: [profileImageView, nameLabel, loginLabel, followButton])
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -416,43 +387,15 @@ extension ProfileViewController {
         return stack
     }
     
-    @objc
-    private func didTapFollowButton() {
-        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
-            self.configureFollowButton(isFollowed: !self.followButton.isSelected)
-            self.followButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
-        } completion: { _ in
-            UIView.animate(withDuration: 0.2) {
-                self.followButton.transform = CGAffineTransform.identity
-            }
-        }
-    }
-}
-
-// MARK: - Information View Configuration
-
-extension ProfileViewController {
-    private func configureInformation(summary: String?) {
-        summaryLabel.text = summary ?? ProfileStrings.summaryPlaceholder.rawValue.localized
-    }
+    // MARK: - Information View
     
     private func configureInformationView() -> UIView {
         let view = getView()
         configureStackView(arrangedSubviews: [titleLabelInformation, summaryLabel], spacing: Constants.spacingStackView, toView: view)
         return view
     }
-}
-
-// MARK: - Statistics View Configuration
-
-extension ProfileViewController {
-    private func configureStatistics(with: UserStatisticsModel) {
-        inProgressNumberLabel.text = with.inProgress
-        outdatedNumberLabel.text = with.outdated
-        doneNumberLabel.text = with.done
-        totalNumberLabel.text = with.total
-    }
     
+    // MARK: - Statistics View
     private func configureStatisticsView() -> UIView {
         let view = getView()
         configureStackView(arrangedSubviews: [titleLabelStatistics, layoutStackViewStatistics()], spacing: Constants.spacingStackView, toView: view)
@@ -490,21 +433,8 @@ extension ProfileViewController {
         label.textAlignment = .center
         return label
     }
-}
-
-// MARK: - Tasks View Configuration
-
-extension ProfileViewController {
-    private func configureTasks(with: [Task]) {
-        let taskToConfigure = min(with.count, taskViews.count)
-        for i in 0..<taskToConfigure {
-            configureTaskView(index: i, with: with[i])
-        }
-        
-        showTasks(count: taskToConfigure)
-        noTasksLabel.isHidden = taskToConfigure != 0
-        showAllTasksButton.isHidden = taskToConfigure == 0
-    }
+    
+    // MARK: - Tasks View
     
     private func configureTasksView() -> UIView {
         let view = getView()
@@ -525,19 +455,6 @@ extension ProfileViewController {
         
         configureStackView(arrangedSubviews: arrangedSubviews, spacing: Constants.spacingStackView, toView: view)
         return view
-    }
-    
-    private func showTasks(count: Int) {
-        for i in 0..<count {
-            taskViews[i].taskView.isHidden = false
-        }
-        hideTasks(fromTaskIndex: count)
-    }
-    
-    private func hideTasks(fromTaskIndex: Int) {
-        for i in fromTaskIndex..<taskViews.count {
-            taskViews[i].taskView.isHidden = true
-        }
     }
     
     private func createTaskView() {
@@ -585,62 +502,19 @@ extension ProfileViewController {
         return chapterIndicatorView
     }
     
-    private func configureTaskView(index: Int, with: Task) {
-        guard index < taskViews.count else { return }
-        taskViews[index].chapterTaskIndicatorView.backgroundColor = with.color
-        taskViews[index].imageTaskLabel.image = with.image ?? .TaskIcons.defaultImage
-        taskViews[index].titleTaskLabel.text = with.title
-        taskViews[index].desciptionTaskLabel.text = with.description ?? TaskString.description.rawValue.localized
-        taskViews[index].dividerTaskView.backgroundColor = with.color
-        guard let date = with.deadline else {
-            taskViews[index].deadlineTaskLabel.text = TaskString.deadline.rawValue.localized
-            return
-        }
-        taskViews[index].deadlineTaskLabel.text = date.formatted(date: .numeric, time: .shortened)
-    }
-    
-    @objc
-    private func showAllTasks() {
-        
-    }
-    
-    @objc
-    private func openTask(_ sender: UITapGestureRecognizer) {
-        guard let view = sender.view else { return }
-        guard let i = taskViews.firstIndex(where: { $0.taskView == view } ) else { return }
-        
-        let taskViewController = TaskViewController()
-        taskViewController.taskModel = userTasksModel.tasks[i]
-        taskViewController.modalPresentationStyle = .fullScreen
-        present(taskViewController, animated: true, completion: nil)
-    }
-}
-
-// MARK: - Following View Configuration
-
-extension ProfileViewController {
-    private func configureFollowing(isFollowingEmpty: Bool) {
-        noFollowingLabel.isHidden = !isFollowingEmpty
-        followingCollectionView.isHidden = isFollowingEmpty
-    }
+    // MARK: - Following View
     
     private func configureFollowingView() -> UIView {
         let view = getView()
-        layoutFollowingCollectionView()
+        followingCollectionView.heightAnchor.constraint(equalToConstant: Constants.friendsConllectionHeight).isActive = true
         configureStackView(arrangedSubviews: [titleLabelFollowing, followingCollectionView, noFollowingLabel],
                            spacing: Constants.spacingStackView,
                            toView: view)
         return view
     }
     
-    private func layoutFollowingCollectionView() {
-        followingCollectionView.heightAnchor.constraint(equalToConstant: Constants.friendsConllectionHeight).isActive = true
-    }
-}
-
-// MARK: - Helpers
-
-extension ProfileViewController {
+    // MARK: - Helpers
+    
     private func configureStackView(arrangedSubviews: [UIView], spacing: CGFloat, toView: UIView, stackViewOffset: CGFloat = Constants.offset, isEqualWidthToView: Bool = false) {
         let stack = UIStackView(arrangedSubviews: arrangedSubviews)
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -686,39 +560,127 @@ extension ProfileViewController {
     }
 }
 
-// MARK: - Navigation Controller Setup
+// MARK: - Configuration
 
 extension ProfileViewController {
-    private func configureNavigationController(title: String, isMyScreen: Bool = false) {
-        navigationItem.title = "@" + title
-        navigationItem.rightBarButtonItem = isMyScreen ? settingButton : nil
-        navigationController?.hidesBarsOnSwipe = true
+    // MARK: - Header
+    
+    private func configureHeader(image: UIImage?, name: String?, login: String, isFollowed: Bool, isMyScreen: Bool) {
+        configureHeaderHeight(withName: name != nil, isMyScreen: isMyScreen)
+        configureProfileImage(image: image, name: name, login: login)
+        
+        nameLabel.text = name
+        loginLabel.text = "@" + login
+        
+        configureFollowButton(isFollowed: isFollowed)
+        followButton.isHidden = isMyScreen
     }
     
-    @objc
-    private func openSettings() {
-        let profileEditViewController = ProfileEditViewController()
-        profileEditViewController.userModel = userModel
-        navigationController?.pushViewController(profileEditViewController, animated: true)
+    private func configureFollowButton(isFollowed: Bool) {
+        followButton.isSelected = isFollowed
+        followButton.backgroundColor = isFollowed ? .AppColors.greyColor : .AppColors.accentColor
+    }
+    
+    private func configureHeaderHeight(withName: Bool, isMyScreen: Bool) {
+        if withName {
+            headerHeightConstraint.constant = isMyScreen ? Constants.myHeaderHeightWithName : Constants.headerHeightWithName
+        } else {
+            headerHeightConstraint.constant = isMyScreen ? Constants.myHeaderHeight : Constants.headerHeight
+        }
+    }
+    
+    private func configureProfileImage(image: UIImage?, name: String?, login: String) {
+        guard let image = image else {
+            profileImageView.layoutIfNeeded()
+            profileImageView.setImageForName(name ?? login, circular: false, textAttributes: nil)
+            return
+        }
+        profileImageView.image = image
+    }
+    
+    // MARK: - Information View
+    
+    private func configureInformation(summary: String?) {
+        summaryLabel.text = summary ?? ProfileStrings.summaryPlaceholder.rawValue.localized
+    }
+    
+    // MARK: - Statistics View
+    
+    private func configureStatistics(with: UserStatisticsModel) {
+        inProgressNumberLabel.text = with.inProgress
+        outdatedNumberLabel.text = with.outdated
+        doneNumberLabel.text = with.done
+        totalNumberLabel.text = with.total
+    }
+    
+    // MARK: - Tasks View
+    
+    private func configureTasks(with: [Task]) {
+        let taskToConfigure = min(with.count, taskViews.count)
+        for i in 0..<taskToConfigure {
+            configureTaskView(index: i, with: with[i])
+        }
+        
+        showTasks(count: taskToConfigure)
+        noTasksLabel.isHidden = taskToConfigure != 0
+        showAllTasksButton.isHidden = taskToConfigure == 0
+    }
+    
+    private func showTasks(count: Int) {
+        for i in 0..<count {
+            taskViews[i].taskView.isHidden = false
+        }
+        hideTasks(fromTaskIndex: count)
+    }
+    
+    private func hideTasks(fromTaskIndex: Int) {
+        for i in fromTaskIndex..<taskViews.count {
+            taskViews[i].taskView.isHidden = true
+        }
+    }
+    
+    private func configureTaskView(index: Int, with: Task) {
+        guard index < taskViews.count else { return }
+        taskViews[index].chapterTaskIndicatorView.backgroundColor = with.color
+        taskViews[index].imageTaskLabel.image = with.image ?? .TaskIcons.defaultImage
+        taskViews[index].titleTaskLabel.text = with.title
+        taskViews[index].desciptionTaskLabel.text = with.description ?? TaskString.description.rawValue.localized
+        taskViews[index].dividerTaskView.backgroundColor = with.color
+        guard let date = with.deadline else {
+            taskViews[index].deadlineTaskLabel.text = TaskString.deadline.rawValue.localized
+            return
+        }
+        taskViews[index].deadlineTaskLabel.text = date.formatted(date: .numeric, time: .shortened)
+    }
+    
+    // MARK: - Following View
+    
+    private func configureFollowing(isFollowingEmpty: Bool) {
+        noFollowingLabel.isHidden = !isFollowingEmpty
+        followingCollectionView.isHidden = isFollowingEmpty
     }
 }
+
+// MARK: - Collection View Description
 
 extension ProfileViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let profileViewController = ProfileViewController()
+        profileViewController.userModel = userFollowingModel?.followings[indexPath.row]
         navigationController?.pushViewController(profileViewController, animated: true)
     }
 }
 
 extension ProfileViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return userFollowingModel.followings.count
+        return userFollowingModel?.followings.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ProfileFollowingUserCell.self), for: indexPath) as? ProfileFollowingUserCell else {
             return .init(frame: .zero)
         }
+        guard let userFollowingModel = userFollowingModel else { return .init() }
         cell.configureCell(with: userFollowingModel.followings[indexPath.row])
         return cell
     }
@@ -726,12 +688,51 @@ extension ProfileViewController: UICollectionViewDataSource {
 
 extension ProfileViewController: UICollectionViewDelegateFlowLayout {   }
 
-extension ProfileViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0 {
-            navigationController?.setNavigationBarHidden(true, animated: true)
-        } else {
-            navigationController?.setNavigationBarHidden(false, animated: true)
+// MARK: - Actions
+
+extension ProfileViewController {
+    @objc
+    private func showAllTasks() {
+        guard let userModel = userModel else { return }
+        guard !userModel.isMyScreen else {
+            let viewController = TasksController()
+            viewController.userModel = userModel
+            navigationController?.pushViewController(viewController, animated: true)
+            return
         }
+        let viewController = FeedController()
+        viewController.following = [userModel]
+        viewController.followingUsersTasks = userTasksModel?.tasks ?? []
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    @objc
+    private func openTask(_ sender: UITapGestureRecognizer) {
+        guard let view = sender.view else { return }
+        guard let i = taskViews.firstIndex(where: { $0.taskView == view } ) else { return }
+        
+        let taskViewController = TaskViewController()
+        taskViewController.taskModel = userTasksModel?.tasks[i]
+        taskViewController.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(taskViewController, animated: true)
+    }
+    
+    @objc
+    private func didTapFollowButton() {
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
+            self.configureFollowButton(isFollowed: !self.followButton.isSelected)
+            self.followButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+        } completion: { _ in
+            UIView.animate(withDuration: 0.2) {
+                self.followButton.transform = CGAffineTransform.identity
+            }
+        }
+    }
+    
+    @objc
+    private func openSettings() {
+        let profileEditViewController = ProfileEditViewController()
+        profileEditViewController.userModel = userModel
+        navigationController?.pushViewController(profileEditViewController, animated: true)
     }
 }

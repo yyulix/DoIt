@@ -148,6 +148,17 @@ class TaskEditViewController: UIViewController {
         configureView()
     }
     
+    private func configureTask() {
+        guard let taskModel = taskModel else { return }
+        taskImageViewContainter.isHidden = taskModel.image == nil
+        taskLabel.textField.text = taskModel.title
+        taskChapter.text = TaskCategory(index: taskModel.chapterId).chapter.title
+        taskDescription.text = taskModel.description
+        taskImage.image = taskModel.image
+        guard let deadline = taskModel.deadline else { return }
+        timerLabel.text = dateFormatter.string(from: deadline)
+    }
+    
     private func configureView() {
         view.backgroundColor = .systemBackground
         
@@ -349,18 +360,5 @@ extension TaskEditViewController {
     
     @objc private func colorDoneButtonPressed() {
         view.endEditing(true)
-    }
-}
-
-extension TaskEditViewController {
-    func configureTask() {
-        guard let taskModel = taskModel else { return }
-        taskImageViewContainter.isHidden = taskModel.image == nil ? true : false
-        taskLabel.textField.placeholder = taskModel.title
-        taskChapter.placeholder = TaskCategory(index: taskModel.chapterId).chapter.title
-        taskDescription.text = taskModel.description
-        taskImage.image = taskModel.image
-        guard let deadline = taskModel.deadline else { return }
-        timerLabel.placeholder = dateFormatter.string(from: deadline)
     }
 }
