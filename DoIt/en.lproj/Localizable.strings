@@ -100,9 +100,9 @@
 "tasksCategory.charity" = "Charity";
 "tasksCategory.moving" = "Moving";
 
-"tasks.header" = "My feed";
+"tasks.header" = "My tasks";
 
-"feed.header" = "Tasks feed";
+"feed.header" = "Following feed";
 
 "tabbar.tasks" = "Tasks";
 "tabbar.feed" = "Feed";
