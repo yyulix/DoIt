@@ -14,6 +14,10 @@ extension UIImage {
         static var lockIcon: UIImage { UIImage(systemName: "lock")! }
     }
     
+    struct Onboarding {
+        static var closeIcon: UIImage { UIImage(systemName: "xmark")! }
+    }
+    
     struct TaskIcons {
         static var done: UIImage { UIImage(named: "isDone")! }
         static var notDone: UIImage { UIImage(named: "isNotDone")! }
