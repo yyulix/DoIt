@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import SwipeableTabBarController
 
-class CustomTabBarController: UITabBarController {
+class CustomTabBarController: SwipeableTabBarController {
     
     //MARK: - Lifecycle
     override func viewDidLoad() {
@@ -26,12 +27,15 @@ class CustomTabBarController: UITabBarController {
             return tabBar
         }()
         setValue(tabBar, forKey: "tabBar")
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(changeVisibleController), name: .openTasksFromFeed, object: nil)
+        
         configureViewControllers()
     }
     
     //MARK: - Helpers
     
-    func configureViewControllers() {
+    private func configureViewControllers() {
         let userModel = UserModel(image: nil, name: nil, login: "", summary: nil, statistics: UserStatisticsModel(inProgress: "0", outdated: "0", done: "0", total: "0"), isMyScreen: true, isFollowed: false)
         
         let tasks = TasksController()
@@ -46,6 +50,11 @@ class CustomTabBarController: UITabBarController {
         
         viewControllers = controllers
         selectedViewController = controllers[0]
+    }
+    
+    @objc
+    private func changeVisibleController() {
+        selectedIndex = 0
     }
 }
 

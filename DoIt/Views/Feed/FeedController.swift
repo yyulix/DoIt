@@ -66,17 +66,30 @@ class FeedController: UIViewController {
         Task(image: UIImage(named: "bob"), title: "Отдохнуть", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: nil, isDone: false, creatorId: "GIOWJEOG", color: .red, chapterId: 8, creationTime: Date(), isMyTask: false)
     ]
     
+    private var swipeToMyTasks: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(openToTasksVC), name: .openTasksFromProfile, object: nil)
+        
         view.backgroundColor = .systemBackground
         layoutCollection()
         configureNavigationController()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if swipeToMyTasks {
+            NotificationCenter.default.post(name: .openTasksFromFeed, object: nil)
+            swipeToMyTasks = false
+        }
+    }
+    
     private func configureNavigationController() {
-        navigationItem.title = FeedStrings.header.rawValue.localized
-        guard let userModel = userModel else { return }
-        navigationItem.rightBarButtonItem = userModel.isMyScreen ? searchButton : nil
+        navigationItem.title = (userModel?.isMyScreen ?? false) ? FeedStrings.header.rawValue.localized : "Feed"
+        navigationItem.rightBarButtonItem = (userModel?.isMyScreen ?? false) ? searchButton : nil
     }
     
     private func layoutCollection() {
@@ -100,8 +113,6 @@ extension FeedController: UICollectionViewDataSource {
             let profileViewController = ProfileViewController()
             profileViewController.userModel = userInfo
             profileViewController.userTasksModel = UserTasksModel(login: userInfo.login, tasks: self?.followingUsersTasks.filter({ $0.creatorId == userInfo.login }) ?? [])
-//            let start = Int.random(in: 0...(self?.following.count ?? 0))
-//            profileViewController.userFollowingModel = UserFollowingModel(login: userInfo.login, followings: Array(self?.following[start..<Int.random(in: start...(self?.following.count ?? 0))] ?? []))
             self?.navigationController?.pushViewController(profileViewController, animated: true)
         }
         cell.configureCell(taskInfo: followingUsersTasks[indexPath.row], userInfo: userInfo)
@@ -126,5 +137,10 @@ extension FeedController {
         let searchUsersController = SearchUsersController()
         searchUsersController.userModel = userModel
         navigationController?.pushViewController(searchUsersController, animated: true)
+    }
+    
+    @objc
+    private func openToTasksVC() {
+        swipeToMyTasks = true
     }
 }

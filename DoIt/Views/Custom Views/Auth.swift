@@ -111,7 +111,7 @@ final class CustomRoundedButton: UIView {
 
     // MARK: - Initializers
 
-    init(image: UIImage? = nil, title: String? = nil, target: Any? = nil, action: Selector? = nil, tag: Int? = 0, width: CGFloat? = nil, height: CGFloat? = nil, color: UIColor? = UIColor.AppColors.accentColor, anchor: Bool = true, textColor: UIColor? = nil) {
+    init(image: UIImage? = nil, title: String? = nil, target: Any? = nil, action: Selector? = nil, tag: Int = 0, width: CGFloat? = nil, height: CGFloat? = nil, color: UIColor = UIColor.AppColors.accentColor, toRight: Bool = false, textColor: UIColor = .white) {
 
         super.init(frame: .zero)
 
@@ -122,16 +122,16 @@ final class CustomRoundedButton: UIView {
             button.addTarget(target, action: action, for: .touchUpInside)
         }
 
-        button.tag = tag ?? 0
+        button.tag = tag
         button.layer.cornerRadius = UIConstants.height / 2;
         button.backgroundColor = color
         button.setTitle(title, for: .normal)
         button.setImage(image, for: .normal)
-        button.tintColor = textColor ?? .white
+        button.tintColor = textColor
 
         addSubview(button)
         button.translatesAutoresizingMaskIntoConstraints = false
-        anchor ? (button.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true) : (button.rightAnchor.constraint(equalTo: rightAnchor).isActive = true)
+        toRight ? (button.rightAnchor.constraint(equalTo: rightAnchor).isActive = true) : (button.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true)
         button.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         button.widthAnchor.constraint(equalToConstant: width ?? UIConstants.width).isActive = true
         button.heightAnchor.constraint(equalTo: heightAnchor).isActive = true

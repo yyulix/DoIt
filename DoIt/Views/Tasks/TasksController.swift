@@ -84,8 +84,7 @@ class TasksController: UIViewController {
     //MARK: - Private Methods
     private func configureNavigationController() {
         navigationItem.title = TasksStrings.header.rawValue.localized
-        guard let userModel = userModel else { return }
-        navigationItem.rightBarButtonItem = userModel.isMyScreen ? profileButton : nil
+        navigationItem.rightBarButtonItem = (userModel?.isMyScreen ?? false) ? profileButton : nil
     }
     
     private func layoutCollection() {

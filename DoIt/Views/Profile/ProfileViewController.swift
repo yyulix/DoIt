@@ -696,12 +696,12 @@ extension ProfileViewController {
     private func showAllTasks() {
         guard let userModel = userModel else { return }
         guard !userModel.isMyScreen else {
-            let viewController = TasksController()
-            viewController.userModel = userModel
-            navigationController?.pushViewController(viewController, animated: true)
+            NotificationCenter.default.post(name: .openTasksFromProfile, object: nil)
+            navigationController?.popToRootViewController(animated: true)
             return
         }
         let viewController = FeedController()
+        viewController.userModel = userModel
         viewController.following = [userModel]
         viewController.followingUsersTasks = userTasksModel?.tasks ?? []
         navigationController?.pushViewController(viewController, animated: true)

@@ -46,6 +46,7 @@
 		E4A95D5A275BEA8600EE3F59 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A95D57275BEA8500EE3F59 /* ProfileViewController.swift */; };
 		E4A95D5B275BEA8600EE3F59 /* ProfileFollowingUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A95D58275BEA8500EE3F59 /* ProfileFollowingUserCell.swift */; };
 		E4A95D5D275BEAAA00EE3F59 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A95D5C275BEAAA00EE3F59 /* Profile.swift */; };
+		E4BC75FE276537E40016B6E2 /* NotificationNameExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BC75FD276537E40016B6E2 /* NotificationNameExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -93,6 +94,7 @@
 		E4A95D57275BEA8500EE3F59 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		E4A95D58275BEA8500EE3F59 /* ProfileFollowingUserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileFollowingUserCell.swift; sourceTree = "<group>"; };
 		E4A95D5C275BEAAA00EE3F59 /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		E4BC75FD276537E40016B6E2 /* NotificationNameExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNameExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +186,7 @@
 				7C6382E52728807900FED2F4 /* UIColorsExtension.swift */,
 				7C6382E7272883AC00FED2F4 /* Printer.swift */,
 				7C6382EF2729CCC300FED2F4 /* StringExtension.swift */,
+				E4BC75FD276537E40016B6E2 /* NotificationNameExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -503,6 +506,7 @@
 				8383504A27583F93008847E1 /* Strings.swift in Sources */,
 				83369A4E273857020025F3D9 /* Structures.swift in Sources */,
 				8383503A27583E58008847E1 /* OnboardingStruct.swift in Sources */,
+				E4BC75FE276537E40016B6E2 /* NotificationNameExtension.swift in Sources */,
 				83AF41A027429B5500CA8AAA /* CustomTabBarController.swift in Sources */,
 				8383503627583E58008847E1 /* CustomNavigationController.swift in Sources */,
 				8383503527583E58008847E1 /* Auth.swift in Sources */,

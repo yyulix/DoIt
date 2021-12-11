@@ -103,6 +103,7 @@
 "tasks.header" = "Моя лента задач";
 
 "feed.header" = "Лента задач";
+"feed.allTasksHeader" = "Лента";
 
 "tabbar.tasks" = "Задачи";
 "tabbar.feed" = "Лента";

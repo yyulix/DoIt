@@ -124,6 +124,7 @@ enum TasksStrings: String {
 
 enum FeedStrings: String {
     case header = "feed.header"
+    case allTasksHeader = "feed.allTasksHeader"
 }
 
 enum TabBarStrings: String {

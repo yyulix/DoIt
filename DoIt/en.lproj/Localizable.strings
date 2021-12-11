@@ -103,6 +103,7 @@
 "tasks.header" = "My tasks";
 
 "feed.header" = "Following feed";
+"feed.allTasksHeader" = "Feed";
 
 "tabbar.tasks" = "Tasks";
 "tabbar.feed" = "Feed";

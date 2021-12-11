@@ -8,4 +8,5 @@ target 'DoIt' do
   # Pods for DoIt
 	pod "EasyNotificationBadge"
 	pod "InitialsImageView"
+	pod 'SwipeableTabBarController'
 end
