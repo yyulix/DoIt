@@ -24,7 +24,7 @@ final class InputBox: UIView {
     var text: String? {
         didSet {
             guard let text = text else { return }
-            guard text != "" else { return }
+            guard !text.isEmpty else { return }
             removePlaceholder()
             textView.text = text
             layoutIfNeeded()

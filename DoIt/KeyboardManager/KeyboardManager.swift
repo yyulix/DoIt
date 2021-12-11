@@ -23,12 +23,14 @@ class KeyboardManager {
     
     @objc
     private func keyboardWillShow(_ sender: Notification) {
-        if let userInfo = (sender as NSNotification).userInfo {
-            if let keyboardHeight = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height {
-                self.keyboardHeight = keyboardHeight
-                NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-            }
+        guard let userInfo = (sender as NSNotification).userInfo else {
+            return
         }
+        guard let keyboardHeight = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height else {
+            return
+        }
+        self.keyboardHeight = keyboardHeight
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
     }
 
     @objc
