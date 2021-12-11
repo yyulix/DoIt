@@ -29,7 +29,7 @@ class OnboardingCell: UICollectionViewCell {
     }
     
     private let screenSize: CGFloat = 667.0
-    private lazy var closeButton = CustomRoundedButton(image: .Onboarding.closeIcon, target: self, action: #selector(closeButtonPressed), width: 20.0, height: 20.0, color: .clear, anchor: false)
+    private lazy var closeButton = CustomRoundedButton(image: .Onboarding.closeIcon, target: self, action: #selector(closeButtonPressed), width: 20.0, height: 20.0, color: .clear, anchor: false, textColor: .AppColors.greyColor)
     private var image: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false

@@ -111,7 +111,7 @@ final class CustomRoundedButton: UIView {
 
     // MARK: - Initializers
 
-    init(image: UIImage? = nil, title: String? = nil, target: Any? = nil, action: Selector? = nil, tag: Int? = 0, width: CGFloat? = nil, height: CGFloat? = nil, color: UIColor? = UIColor.AppColors.accentColor, anchor: Bool = true) {
+    init(image: UIImage? = nil, title: String? = nil, target: Any? = nil, action: Selector? = nil, tag: Int? = 0, width: CGFloat? = nil, height: CGFloat? = nil, color: UIColor? = UIColor.AppColors.accentColor, anchor: Bool = true, textColor: UIColor? = nil) {
 
         super.init(frame: .zero)
 
@@ -127,7 +127,7 @@ final class CustomRoundedButton: UIView {
         button.backgroundColor = color
         button.setTitle(title, for: .normal)
         button.setImage(image, for: .normal)
-        button.tintColor = .white
+        button.tintColor = textColor ?? .white
 
         addSubview(button)
         button.translatesAutoresizingMaskIntoConstraints = false
