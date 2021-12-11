@@ -28,9 +28,10 @@ class OnboardingCell: UICollectionViewCell {
         static let verticalStackSpacing = 5.0
     }
     
-    weak var delegate: OnboardingCellDelegate?
     private let screenSize: CGFloat = 667.0
+    
     private let closeButton = CloseButton(target: self, action: #selector(closeButtonPressed))
+    
     private var image: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -54,13 +55,15 @@ class OnboardingCell: UICollectionViewCell {
        let labelText = UITextView()
         labelText.translatesAutoresizingMaskIntoConstraints = false
         labelText.font = UIFont.systemFont(ofSize: UIConstants.labelTextFontSizeNormal)
-        labelText.textColor = UIColor.gray
+        labelText.textColor = .secondaryLabel
         labelText.textAlignment = .center
         labelText.isEditable = false
         labelText.isScrollEnabled = false
         labelText.backgroundColor = .systemBackground
         return labelText
     }()
+    
+    weak var delegate: OnboardingCellDelegate?
         
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -68,10 +71,14 @@ class OnboardingCell: UICollectionViewCell {
         configureVerticalStack()
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     func fillOnboardingData(onboarding: Onboarding) {
-        image.image = UIImage(named: onboarding.image ?? "")
-        titleText.text = onboarding.titleText ?? "Title"
-        labelText.text = onboarding.labelText ?? "Label"
+        image.image = onboarding.image
+        titleText.text = onboarding.titleText
+        labelText.text = onboarding.labelText
     }
     
     func configureVerticalStack() {
@@ -88,12 +95,13 @@ class OnboardingCell: UICollectionViewCell {
         }
         
         let verticalStack = UIStackView(arrangedSubviews: [closeButton, image, titleText, labelText])
+        verticalStack.translatesAutoresizingMaskIntoConstraints = false
         verticalStack.axis = .vertical
         verticalStack.distribution = .equalSpacing
         verticalStack.backgroundColor = .systemBackground
         verticalStack.spacing = UIConstants.verticalStackSpacing
         addSubview(verticalStack)
-        verticalStack.translatesAutoresizingMaskIntoConstraints = false
+        
         verticalStack.leftAnchor.constraint(equalTo: leftAnchor, constant: UIConstants.padding).isActive = true
         verticalStack.rightAnchor.constraint(equalTo: rightAnchor, constant: -UIConstants.padding).isActive = true
         verticalStack.topAnchor.constraint(equalTo: topAnchor, constant: UIConstants.topPadding).isActive = true
@@ -101,11 +109,6 @@ class OnboardingCell: UICollectionViewCell {
     }
     
     @objc func closeButtonPressed(){
-        guard let closeButton = self.delegate else { return }
-        closeButton.closeButtonPressed()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        delegate?.closeButtonPressed()
     }
 }

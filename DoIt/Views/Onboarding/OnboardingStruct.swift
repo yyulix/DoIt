@@ -8,9 +8,9 @@
 import UIKit
 
 struct Onboarding {
-    let image: String?
-    let titleText: String?
-    let labelText: String?
+    let image: UIImage
+    let titleText: String
+    let labelText: String
     
     private var index: Int
     
@@ -18,25 +18,25 @@ struct Onboarding {
         self.index = index
         switch index {
         case 0:
-            self.image = ""
-            self.titleText = ""
-            self.labelText = ""
+            image = UIImage()
+            titleText = ""
+            labelText = ""
         case 1:
-            self.image = ""
-            self.titleText = ""
-            self.labelText = ""
+            image = UIImage()
+            titleText = ""
+            labelText = ""
         case 2:
-            self.image = ""
-            self.titleText = ""
-            self.labelText = ""
+            image = UIImage()
+            titleText = ""
+            labelText = ""
         case 3:
-            self.image = ""
-            self.titleText = ""
-            self.labelText = ""
+            image = UIImage()
+            titleText = ""
+            labelText = ""
         default:
-            self.image = ""
-            self.titleText = ""
-            self.labelText = ""
+            image = UIImage()
+            titleText = ""
+            labelText = ""
         }
     }
 }
