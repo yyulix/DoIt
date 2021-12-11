@@ -63,11 +63,9 @@ class TaskViewController: UIViewController {
         return view
     }()
     
-    private lazy var deleteButton = TaskButton(imageName: .TaskIcons.trashIcon, target: self, action: #selector(deleteButtonPressed), width: UIScreen.main.bounds.width / 4, color: .AppColors.greyColor)
-    
-    private lazy var doneButton = TaskButton(imageName: .TaskIcons.checkMarkIcon, target: self, action: #selector(doneButtonPressed), width: UIScreen.main.bounds.width / 4, color: UIColor.AppColors.doneColor)
-    
-    private lazy var editButton = TaskButton(imageName: .TaskIcons.editIcon, target: self, action: #selector(editButtonPressed), width: UIScreen.main.bounds.width / 4, color: UIColor.AppColors.accentColor)
+    private lazy var deleteButton = CustomRoundedButton(image: .TaskIcons.trashIcon, target: self, action: #selector(deleteButtonPressed), width: UIScreen.main.bounds.width / 4, color: .AppColors.greyColor)
+    private lazy var doneButton = CustomRoundedButton(image: .TaskIcons.checkMarkIcon, target: self, action: #selector(doneButtonPressed), width: UIScreen.main.bounds.width / 4, color: UIColor.AppColors.doneColor)
+    private lazy var editButton = CustomRoundedButton(image: .TaskIcons.editIcon, target: self, action: #selector(editButtonPressed), width: UIScreen.main.bounds.width / 4, color: UIColor.AppColors.accentColor)
     
     private lazy var horizontalStack: UIStackView = {
         let horizontalStack = UIStackView(arrangedSubviews: [deleteButton, doneButton, editButton])

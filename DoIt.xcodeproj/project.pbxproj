@@ -21,13 +21,11 @@
 		8383503527583E58008847E1 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8383502227583E57008847E1 /* Auth.swift */; };
 		8383503627583E58008847E1 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8383502327583E57008847E1 /* CustomNavigationController.swift */; };
 		8383503727583E58008847E1 /* SignInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8383502527583E57008847E1 /* SignInController.swift */; };
-		8383503827583E58008847E1 /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8383502727583E57008847E1 /* Onboarding.swift */; };
 		8383503927583E58008847E1 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8383502827583E57008847E1 /* OnboardingViewController.swift */; };
 		8383503A27583E58008847E1 /* OnboardingStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8383502927583E57008847E1 /* OnboardingStruct.swift */; };
 		8383503B27583E58008847E1 /* OnboardingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8383502A27583E57008847E1 /* OnboardingCell.swift */; };
 		8383503C27583E58008847E1 /* TaskEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8383502C27583E57008847E1 /* TaskEditViewController.swift */; };
 		8383503D27583E58008847E1 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8383502D27583E57008847E1 /* TaskViewController.swift */; };
-		8383503E27583E58008847E1 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8383502E27583E57008847E1 /* Task.swift */; };
 		8383503F27583E58008847E1 /* TaskCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8383502F27583E57008847E1 /* TaskCategory.swift */; };
 		8383504027583E58008847E1 /* SearchUsersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8383503127583E58008847E1 /* SearchUsersCell.swift */; };
 		8383504127583E58008847E1 /* SearchUsersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8383503227583E58008847E1 /* SearchUsersController.swift */; };
@@ -70,13 +68,11 @@
 		8383502227583E57008847E1 /* Auth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		8383502327583E57008847E1 /* CustomNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
 		8383502527583E57008847E1 /* SignInController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInController.swift; sourceTree = "<group>"; };
-		8383502727583E57008847E1 /* Onboarding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
 		8383502827583E57008847E1 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		8383502927583E57008847E1 /* OnboardingStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingStruct.swift; sourceTree = "<group>"; };
 		8383502A27583E57008847E1 /* OnboardingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingCell.swift; sourceTree = "<group>"; };
 		8383502C27583E57008847E1 /* TaskEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskEditViewController.swift; sourceTree = "<group>"; };
 		8383502D27583E57008847E1 /* TaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
-		8383502E27583E57008847E1 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		8383502F27583E57008847E1 /* TaskCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskCategory.swift; sourceTree = "<group>"; };
 		8383503127583E58008847E1 /* SearchUsersCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchUsersCell.swift; sourceTree = "<group>"; };
 		8383503227583E58008847E1 /* SearchUsersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchUsersController.swift; sourceTree = "<group>"; };
@@ -258,8 +254,6 @@
 				83AF419F27429B5500CA8AAA /* CustomTabBarController.swift */,
 				E4A95D5C275BEAAA00EE3F59 /* Profile.swift */,
 				8383502227583E57008847E1 /* Auth.swift */,
-				8383502727583E57008847E1 /* Onboarding.swift */,
-				8383502E27583E57008847E1 /* Task.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -488,7 +482,6 @@
 				83369A4A273856950025F3D9 /* ChapterCollectionCell.swift in Sources */,
 				8383504027583E58008847E1 /* SearchUsersCell.swift in Sources */,
 				E49D6B20275BEF0C007C9A97 /* UserTasksModel.swift in Sources */,
-				8383503827583E58008847E1 /* Onboarding.swift in Sources */,
 				E4A95D59275BEA8500EE3F59 /* ProfileEditViewController.swift in Sources */,
 				83AF41A227431EB500CA8AAA /* FeedController.swift in Sources */,
 				8383503927583E58008847E1 /* OnboardingViewController.swift in Sources */,
@@ -506,7 +499,6 @@
 				7C6382E62728807900FED2F4 /* UIColorsExtension.swift in Sources */,
 				E4A95D5D275BEAAA00EE3F59 /* Profile.swift in Sources */,
 				E4A95D5A275BEA8600EE3F59 /* ProfileViewController.swift in Sources */,
-				8383503E27583E58008847E1 /* Task.swift in Sources */,
 				7C6382E8272883AC00FED2F4 /* Printer.swift in Sources */,
 				8383504A27583F93008847E1 /* Strings.swift in Sources */,
 				83369A4E273857020025F3D9 /* Structures.swift in Sources */,
