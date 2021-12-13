@@ -27,11 +27,11 @@ enum TaskString: String {
     case deadline = "task.deadline"
 }
 
-enum FindFriendsStrings: String {
-    case header = "findFriends.header"
-    case followButton = "findFriends.followButton"
-    case unfollowButton = "findFriends.unfollowButton"
-    case searchPlaceholder = "findFriends.searchPlaceholder"
+enum FindUsersStrings: String {
+    case header = "findUsers.header"
+    case followButton = "findUsers.followButton"
+    case unfollowButton = "findUsers.unfollowButton"
+    case searchPlaceholder = "findUsers.searchPlaceholder"
 }
 
 enum ProfileStrings: String {
@@ -47,8 +47,8 @@ enum ProfileStrings: String {
     case statisticsTotal = "profile.statisticsTotal"
     case titleTasks = "profile.tasks"
     case noTasks = "profile.notasks"
-    case titleFriends = "profile.friends"
-    case noFriends = "profile.nofriends"
+    case titleFollowings = "profile.followings"
+    case noFollowings = "profile.nofollowings"
 }
 
 enum ProfileEditString: String {
@@ -69,9 +69,15 @@ enum OnboardingStrings: String {
 }
 
 enum TaskScreen: String {
+    case taskName = "taskScreen.taskName"
     case countdown = "taskScreen.countdown"
     case deadline = "taskScreen.deadline"
+    case noDeadline = "taskScreen.noDeadline"
+    case deadlineText = "taskScreen.deadlineText"
     case chapter = "taskScreen.chapter"
+    case chapterText = "taskScreen.chapterText"
+    case color = "taskScreen.color"
+    case colorText = "taskScreen.colorText"
     case description = "taskScreen.description"
     case descriptionText = "taskScreen.descriptionText"
     case deleteButton = "taskScreen.deleteButton"
@@ -79,23 +85,49 @@ enum TaskScreen: String {
     case returnButton = "taskScreen.returnButton"
     case saveButton = "taskScreen.saveButton"
     case changePhotoButton = "taskScreen.changePhotoButton"
+    
+    case blackColor = "taskScreen.blackColor";
+    case whiteColor = "taskScreen.whiteColor";
+    case redColor = "taskScreen.redColor";
+    case greenColor = "taskScreen.greenColor";
+    case blueColor = "taskScreen.blueColor";
+    case yellowColor = "taskScreen.yellowColor";
+    case grayColor = "taskScreen.grayColor";
+    case purpleColor = "taskScreen.purpleColor";
+    case orangeColor = "taskScreen.orangeColor";
+    case magentaColor = "taskScreen.magentaColor";
+    case cyanColor = "taskScreen.cyanColor";
+    case brownColor = "taskScreen.brownColor";
 }
 
 enum TasksCategory: String {
-    case shopping = "taskScreen.shopping"
-    case home = "taskScreen.home"
-    case job = "taskScreen.job"
-    case family = "taskScreen.family"
-    case general = "taskScreen.general"
-    case study = "taskScreen.study"
-    case sport = "taskScreen.sport"
-    case friends = "taskScreen.friends"
-    case events = "taskScreen.events"
-    case health = "taskScreen.health"
-    case travel = "taskScreen.travel"
-    case science = "taskScreen.science"
-    case finance = "taskScreen.finance"
-    case charity = "taskScreen.charity"
-    case moving = "taskScreen.moving"
+    case shopping = "tasksCategory.shopping"
+    case home = "tasksCategory.home"
+    case job = "tasksCategory.job"
+    case family = "tasksCategory.family"
+    case general = "tasksCategory.general"
+    case study = "tasksCategory.study"
+    case sport = "tasksCategory.sport"
+    case friends = "tasksCategory.friends"
+    case events = "tasksCategory.events"
+    case health = "tasksCategory.health"
+    case travel = "tasksCategory.travel"
+    case science = "tasksCategory.science"
+    case finance = "tasksCategory.finance"
+    case charity = "tasksCategory.charity"
+    case moving = "tasksCategory.moving"
 }
 
+enum TasksStrings: String {
+    case header = "tasks.header"
+}
+
+enum FeedStrings: String {
+    case header = "feed.header"
+    case allTasksHeader = "feed.allTasksHeader"
+}
+
+enum TabBarStrings: String {
+    case tasks = "tabbar.tasks"
+    case feed = "tabbar.feed"
+}

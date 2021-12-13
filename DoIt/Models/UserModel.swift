@@ -10,6 +10,7 @@ import Firebase
 
 class User {
     
+    let image: UIImage?
     let uid: String
     let email: String
     var username: String

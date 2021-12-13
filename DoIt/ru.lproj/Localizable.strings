@@ -21,11 +21,10 @@
 "task.description" = "Описание не установлено";
 "task.deadline" = "Срок не установлен";
 
-
-"findFriends.header" = "Найти пользователя";
-"findFriends.followButton" = "Добавить";
-"findFriends.unfollowButton" = "Удалить";
-"findFriends.searchPlaceholder" = "Поиск пользователя";
+"findUsers.header" = "Найти пользователя";
+"findUsers.followButton" = "Добавить";
+"findUsers.unfollowButton" = "Удалить";
+"findUsers.searchPlaceholder" = "Поиск пользователя";
 
 "profile.header" = "Профиль";
 "profile.followButton" = "Добавить";
@@ -39,8 +38,8 @@
 "profile.statisticsTotal" = "Всего";
 "profile.tasks" = "Задачи";
 "profile.notasks" = "Поставленных задач еще нет😢";
-"profile.friends" = "Друзья";
-"profile.nofriends" = "Друзья еще не появились😢";
+"profile.followings" = "Подписки";
+"profile.nofollowings" = "Подписок еще нет😢";
 
 "profileEdit.header" = "Редактировать";
 "profileEdit.newPhoto" = "Новое фото";
@@ -49,15 +48,21 @@
 "profileEdit.summaryPlaceholder" = "О вас";
 "profileEdit.nameHint" = "Укажите ваши имя и фамилию";
 "profileEdit.loginHint" = "Укажите ваш логин";
-"profileEdit.summaryHint" = "Напишите что нибудь о себе\nНапример: 23 года. Увлекаюсь спортом";
+"profileEdit.summaryHint" = "Напишите что нибудь о себе\nНапример: 23 года, дизайнер из Санкт-Петербурга";
 
 "onboarding.backButton" = "Назад";
 "onboarding.nextButton" = "Далее";
 "onboarding.exitButton" = "Выйти";
 
+"taskScreen.taskName" = "Название задачи";
 "taskScreen.countdown" = "Осталось";
 "taskScreen.deadline" = "Срок";
+"taskScreen.noDeadline" = "Срок не задан";
+"taskScreen.deadlineText" = "Выберите срок";
 "taskScreen.chapter" = "Раздел";
+"taskScreen.chapterText" = "Выберите раздел";
+"taskScreen.color" = "Цвет";
+"taskScreen.colorText" = "Выберите цвет";
 "taskScreen.description" = "Описание";
 "taskScreen.descriptionText" = "Описание Вашей задачи";
 "taskScreen.deleteButton" = "Удалить";
@@ -66,18 +71,39 @@
 "taskScreen.saveButton" = "Сохранить";
 "taskScreen.changePhotoButton" = "Изменить фото";
 
-"taskScreen.shopping" = "Покупки";
-"taskScreen.home" = "Дом";
-"taskScreen.job" = "Работа";
-"taskScreen.family" = "Семья";
-"taskScreen.general" = "Общее";
-"taskScreen.study" = "Учеба";
-"taskScreen.sport" = "Спорт";
-"taskScreen.friends" = "Друзья";
-"taskScreen.events" = "События";
-"taskScreen.health" = "Здоровье";
-"taskScreen.travel" = "Путешествия";
-"taskScreen.science" = "Наука";
-"taskScreen.finance" = "Финансы";
-"taskScreen.charity" = "Благотворительность";
-"taskScreen.moving" = "Переезд";
+"taskScreen.blackColor" = "черный";
+"taskScreen.whiteColor" = "белый";
+"taskScreen.redColor" = "красный";
+"taskScreen.greenColor" = "зеленый";
+"taskScreen.blueColor" = "синий";
+"taskScreen.yellowColor" = "желтый";
+"taskScreen.grayColor" = "серый";
+"taskScreen.purpleColor" = "фиолетовый";
+"taskScreen.orangeColor" = "оранжевый";
+"taskScreen.magentaColor" = "пурпурный";
+"taskScreen.cyanColor" = "голубой";
+"taskScreen.brownColor" = "коричневый";
+
+"tasksCategory.shopping" = "Покупки";
+"tasksCategory.home" = "Дом";
+"tasksCategory.job" = "Работа";
+"tasksCategory.family" = "Семья";
+"tasksCategory.general" = "Общее";
+"tasksCategory.study" = "Учеба";
+"tasksCategory.sport" = "Спорт";
+"tasksCategory.friends" = "Друзья";
+"tasksCategory.events" = "События";
+"tasksCategory.health" = "Здоровье";
+"tasksCategory.travel" = "Путешествия";
+"tasksCategory.science" = "Наука";
+"tasksCategory.finance" = "Финансы";
+"tasksCategory.charity" = "Благотворительность";
+"tasksCategory.moving" = "Переезд";
+
+"tasks.header" = "Моя лента задач";
+
+"feed.header" = "Лента задач";
+"feed.allTasksHeader" = "Лента";
+
+"tabbar.tasks" = "Задачи";
+"tabbar.feed" = "Лента";

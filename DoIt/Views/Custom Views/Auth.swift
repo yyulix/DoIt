@@ -75,10 +75,13 @@ final class InputField: UIView {
         addSubview(textField)
         textField.autocorrectionType = .no
         textField.placeholder = placeholderText
-        textField.textColor = .black
         textField.translatesAutoresizingMaskIntoConstraints = false
 
-        textField.leftAnchor.constraint(equalTo: icon == nil ? leftAnchor : icon!.rightAnchor, constant: UIConstants.space).isActive = true
+        if let icon = icon {
+            textField.leftAnchor.constraint(equalTo: icon.rightAnchor, constant: UIConstants.space).isActive = true
+        } else {
+            textField.leftAnchor.constraint(equalTo: leftAnchor, constant: UIConstants.paddingLeft).isActive = true
+        }
         textField.rightAnchor.constraint(equalTo: rightAnchor, constant: UIConstants.paddingRight).isActive = true
         textField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: UIConstants.paddingBottom).isActive = true
     }
@@ -89,9 +92,8 @@ final class InputField: UIView {
         dividerView.backgroundColor = UIColor.AppColors.accentColor
         dividerView.translatesAutoresizingMaskIntoConstraints = false
 
-        let leftOffsetDifference = icon == nil ? UIConstants.iconWidth : 0
         dividerView.heightAnchor.constraint(equalToConstant: UIConstants.dividerWidth).isActive = true
-        dividerView.leftAnchor.constraint(equalTo: leftAnchor, constant: UIConstants.paddingLeft - leftOffsetDifference).isActive = true
+        dividerView.leftAnchor.constraint(equalTo: leftAnchor, constant: UIConstants.paddingLeft).isActive = true
         dividerView.rightAnchor.constraint(equalTo: rightAnchor, constant: UIConstants.paddingRight).isActive = true
         dividerView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
@@ -109,27 +111,29 @@ final class CustomRoundedButton: UIView {
 
     // MARK: - Initializers
 
-    init(title: String, target: Any? = nil, action: Selector? = nil) {
+    init(image: UIImage? = nil, title: String? = nil, target: Any? = nil, action: Selector? = nil, tag: Int = 0, width: CGFloat? = nil, height: CGFloat? = nil, color: UIColor = UIColor.AppColors.accentColor, toRight: Bool = false, textColor: UIColor = .white) {
 
         super.init(frame: .zero)
 
-        heightAnchor.constraint(equalToConstant: UIConstants.height).isActive = true
+        heightAnchor.constraint(equalToConstant: height ?? UIConstants.height).isActive = true
 
         let button = UIButton(type: .system)
         if let target = target, let action = action {
             button.addTarget(target, action: action, for: .touchUpInside)
         }
 
+        button.tag = tag
         button.layer.cornerRadius = UIConstants.height / 2;
-        button.backgroundColor = UIColor.systemTeal
+        button.backgroundColor = color
         button.setTitle(title, for: .normal)
-        button.tintColor = .white
+        button.setImage(image, for: .normal)
+        button.tintColor = textColor
 
         addSubview(button)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        toRight ? (button.rightAnchor.constraint(equalTo: rightAnchor).isActive = true) : (button.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true)
         button.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        button.widthAnchor.constraint(equalToConstant: UIConstants.width).isActive = true
+        button.widthAnchor.constraint(equalToConstant: width ?? UIConstants.width).isActive = true
         button.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
     }
 
@@ -159,8 +163,7 @@ final class AttributedCustomButton: UIButton {
         let attributedTitle = NSMutableAttributedString(
             string: firstPart,
             attributes: [
-                NSAttributedString.Key.font: UIFont.systemFont(ofSize: UIConstants.fontSize),
-                NSAttributedString.Key.foregroundColor: UIColor.black
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: UIConstants.fontSize)
             ]
         )
         attributedTitle.append(NSAttributedString(

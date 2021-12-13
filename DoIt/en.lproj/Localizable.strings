@@ -21,10 +21,10 @@
 "task.description" = "Description was't given";
 "task.deadline" = "Task has no deadline";
 
-"findFriends.header" = "Find User";
-"findFriends.followButton" = "Add";
-"findFriends.unfollowButton" = "Remove";
-"findFriends.searchPlaceholder" = "Search for a user";
+"findUsers.header" = "Find User";
+"findUsers.followButton" = "Add";
+"findUsers.unfollowButton" = "Remove";
+"findUsers.searchPlaceholder" = "Search for a user";
 
 "profile.header" = "Profile";
 "profile.followButton" = "Add";
@@ -38,25 +38,31 @@
 "profile.statisticsTotal" = "Total";
 "profile.tasks" = "Tasks";
 "profile.notasks" = "There's no tasks yet😢";
-"profile.friends" = "Friends";
-"profile.nofriends" = "There's no friends yet😢";
+"profile.followings" = "Following";
+"profile.nofollowings" = "There's no followings yet😢";
 
 "profileEdit.header" = "Edit";
 "profileEdit.newPhoto" = "New photo";
 "profileEdit.namePlaceholder" = "Your name";
 "profileEdit.loginPlaceholder" = "Your login";
-"profileEdit.summaryPlaceholder" = "You summary";
+"profileEdit.summaryPlaceholder" = "Your summary";
 "profileEdit.nameHint" = "Enter your first and last name";
 "profileEdit.loginHint" = "Enter your login";
-"profileEdit.summaryHint" = "Write something about yourself\nFor example: 23 years old. I am fond of sports";
+"profileEdit.summaryHint" = "Write something about yourself\nFor example: 23 y.o. designer from California";
 
 "onboarding.backButton" = "Prev";
 "onboarding.nextButton" = "Next";
 "onboarding.exitButton" = "Exit";
 
+"taskScreen.taskName" = "Task name";
 "taskScreen.countdown" = "Countdown";
 "taskScreen.deadline" = "Deadline";
+"taskScreen.noDeadline" = "No deadline";
+"taskScreen.deadlineText" = "Select deadline";
 "taskScreen.chapter" = "Chapter";
+"taskScreen.chapterText" = "Select chapter";
+"taskScreen.color" = "Color";
+"taskScreen.colorText" = "Select color";
 "taskScreen.description" = "Description";
 "taskScreen.descriptionText" = "Description for your task";
 "taskScreen.deleteButton" = "Delete";
@@ -65,18 +71,39 @@
 "taskScreen.saveButton" = "Save";
 "taskScreen.changePhotoButton" = "Change photo";
 
-"taskScreen.shopping" = "Shopping";
-"taskScreen.home" = "Home";
-"taskScreen.job" = "Job";
-"taskScreen.family" = "Family";
-"taskScreen.general" = "General";
-"taskScreen.study" = "Study";
-"taskScreen.sport" = "Sport";
-"taskScreen.friends" = "Friends";
-"taskScreen.events" = "Events";
-"taskScreen.health" = "Health";
-"taskScreen.travel" = "Travel";
-"taskScreen.science" = "Science";
-"taskScreen.finance" = "Finance";
-"taskScreen.charity" = "Charity";
-"taskScreen.moving" = "Moving";
+"taskScreen.blackColor" = "black";
+"taskScreen.whiteColor" = "white";
+"taskScreen.redColor" = "red";
+"taskScreen.greenColor" = "green";
+"taskScreen.blueColor" = "blue";
+"taskScreen.yellowColor" = "yellow";
+"taskScreen.grayColor" = "gray";
+"taskScreen.purpleColor" = "purple";
+"taskScreen.orangeColor" = "orange";
+"taskScreen.magentaColor" = "magenta";
+"taskScreen.cyanColor" = "cyan";
+"taskScreen.brownColor" = "brown";
+
+"tasksCategory.shopping" = "Shopping";
+"tasksCategory.home" = "Home";
+"tasksCategory.job" = "Job";
+"tasksCategory.family" = "Family";
+"tasksCategory.general" = "General";
+"tasksCategory.study" = "Study";
+"tasksCategory.sport" = "Sport";
+"tasksCategory.friends" = "Friends";
+"tasksCategory.events" = "Events";
+"tasksCategory.health" = "Health";
+"tasksCategory.travel" = "Travel";
+"tasksCategory.science" = "Science";
+"tasksCategory.finance" = "Finance";
+"tasksCategory.charity" = "Charity";
+"tasksCategory.moving" = "Moving";
+
+"tasks.header" = "My tasks";
+
+"feed.header" = "Following feed";
+"feed.allTasksHeader" = "Feed";
+
+"tabbar.tasks" = "Tasks";
+"tabbar.feed" = "Feed";

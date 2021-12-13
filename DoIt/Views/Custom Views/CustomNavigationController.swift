@@ -22,10 +22,12 @@ final class CustomNavigationController: UINavigationController {
     func setupNavigationBar() {
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithOpaqueBackground()
-        navBarAppearance.backgroundColor = .systemTeal
+        navBarAppearance.backgroundColor = .AppColors.accentColor
         navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.AppColors.navigationTextColor]
+        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.AppColors.navigationTextColor]
         UINavigationBar.appearance().tintColor = .AppColors.navigationTextColor
         UINavigationBar.appearance().standardAppearance = navBarAppearance
         UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
+        UINavigationBar.appearance().prefersLargeTitles = true
     }
 }

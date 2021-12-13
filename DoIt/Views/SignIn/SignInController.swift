@@ -19,23 +19,29 @@ class SignInController: UIViewController {
         passwordInput.textField.isSecureTextEntry = true
         return passwordInput
     }()
-    private lazy var singInButton = CustomRoundedButton(title: AuthStrings.signIn.rawValue.localized)
-    private lazy var signUpButton = AttributedCustomButton(firstPart: AuthStrings.notSignedUp.rawValue.localized, secondPart: AuthStrings.signUp.rawValue.localized)
+    private lazy var signInButton = CustomRoundedButton(title: AuthStrings.signIn.rawValue.localized, target: self, action: #selector(signInButtonPressed(_:)))
+    private lazy var signUpButton: AttributedCustomButton = {
+        let button = AttributedCustomButton(firstPart: AuthStrings.notSignedUp.rawValue.localized, secondPart: AuthStrings.signUp.rawValue.localized)
+        button.addTarget(self, action: #selector(signUpButtonPressed(_:)), for: .touchUpInside)
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        configureNavigation()
+        configureView()
+    }
+
+    // MARK: - Private Methods
+    
+    private func configureView() {
+        navigationController?.hidesBarsOnSwipe = true
+        view.backgroundColor = .systemBackground
+        navigationItem.title = AuthStrings.headerSignIn.rawValue.localized
         configureInputsStackView()
     }
     
-    func configureNavigation() {
-        navigationController?.hidesBarsOnSwipe = true
-        navigationItem.title = AuthStrings.headerSignIn.rawValue.localized
-    }
-    
     private func configureInputsStackView() {
-        let stack = UIStackView(arrangedSubviews: [usernameInputView, passwordInputView, singInButton, signUpButton])
+        let stack = UIStackView(arrangedSubviews: [usernameInputView, passwordInputView, signInButton, signUpButton])
         stack.axis = .vertical
         stack.spacing = UIConstants.spacing
         view.addSubview(stack)
@@ -43,5 +49,16 @@ class SignInController: UIViewController {
         stack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: UIConstants.spacing).isActive = true
         stack.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         stack.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+    }
+    
+    @objc private func signInButtonPressed(_ sender: UIButton) {
+        let tabbarController = CustomTabBarController()
+        tabbarController.modalPresentationStyle = .fullScreen
+        present(tabbarController, animated: true)
+        
+    }
+    
+    @objc private func signUpButtonPressed(_ sender: UIButton) {
+        navigationController?.pushViewController(SignUpController(), animated: true)
     }
 }

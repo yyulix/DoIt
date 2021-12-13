@@ -6,6 +6,9 @@ target 'DoIt' do
   use_frameworks!
 
   # Pods for DoIt
+	pod "EasyNotificationBadge"
+	pod "InitialsImageView"
+	pod 'SwipeableTabBarController'
 	pod 'Firebase/Core'
 	pod 'Firebase/Database'
 	pod 'Firebase/Storage'
