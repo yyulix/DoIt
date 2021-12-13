@@ -1,0 +1,109 @@
+/* 
+  Localizable.strings
+  DoIt
+
+  Created by Yulia on 26.10.2021.
+  
+*/
+
+"auth.username" = "Enter username";
+"auth.email" = "Enter e-mail";
+"auth.password" = "Enter password";
+"auth.retypePassword" = "Reenter password";
+"auth.signUp" = "Sign Up";
+"auth.signIn" = "Sign In";
+"auth.headerSignIn" = "Authorization";
+"auth.headerSignUp" = "Registration";
+"auth.alreadySignedUp" = "Already have an account? ";
+"auth.notSignedUp" = "Don't you have an account? ";
+
+"task.title" = "Title was't given";
+"task.description" = "Description was't given";
+"task.deadline" = "Task has no deadline";
+
+"findUsers.header" = "Find User";
+"findUsers.followButton" = "Add";
+"findUsers.unfollowButton" = "Remove";
+"findUsers.searchPlaceholder" = "Search for a user";
+
+"profile.header" = "Profile";
+"profile.followButton" = "Add";
+"profile.unfollowButton" = "Remove";
+"profile.summary" = "Summary";
+"profile.summaryPlaceholder" = "There's no description yet😢";
+"profile.statistics" = "Tasks statistics";
+"profile.statisticsInProgress" = "In progress";
+"profile.statisticsExpired" = "Expired";
+"profile.statisticsDone" = "Done";
+"profile.statisticsTotal" = "Total";
+"profile.tasks" = "Tasks";
+"profile.notasks" = "There's no tasks yet😢";
+"profile.followings" = "Following";
+"profile.nofollowings" = "There's no followings yet😢";
+
+"profileEdit.header" = "Edit";
+"profileEdit.newPhoto" = "New photo";
+"profileEdit.namePlaceholder" = "Your name";
+"profileEdit.loginPlaceholder" = "Your login";
+"profileEdit.summaryPlaceholder" = "Your summary";
+"profileEdit.nameHint" = "Enter your first and last name";
+"profileEdit.loginHint" = "Enter your login";
+"profileEdit.summaryHint" = "Write something about yourself\nFor example: 23 y.o. designer from California";
+
+"onboarding.backButton" = "Prev";
+"onboarding.nextButton" = "Next";
+"onboarding.exitButton" = "Exit";
+
+"taskScreen.taskName" = "Task name";
+"taskScreen.countdown" = "Countdown";
+"taskScreen.deadline" = "Deadline";
+"taskScreen.noDeadline" = "No deadline";
+"taskScreen.deadlineText" = "Select deadline";
+"taskScreen.chapter" = "Chapter";
+"taskScreen.chapterText" = "Select chapter";
+"taskScreen.color" = "Color";
+"taskScreen.colorText" = "Select color";
+"taskScreen.description" = "Description";
+"taskScreen.descriptionText" = "Description for your task";
+"taskScreen.deleteButton" = "Delete";
+"taskScreen.editButton" = "Edit";
+"taskScreen.returnButton" = "Return";
+"taskScreen.saveButton" = "Save";
+"taskScreen.changePhotoButton" = "Change photo";
+
+"taskScreen.blackColor" = "black";
+"taskScreen.whiteColor" = "white";
+"taskScreen.redColor" = "red";
+"taskScreen.greenColor" = "green";
+"taskScreen.blueColor" = "blue";
+"taskScreen.yellowColor" = "yellow";
+"taskScreen.grayColor" = "gray";
+"taskScreen.purpleColor" = "purple";
+"taskScreen.orangeColor" = "orange";
+"taskScreen.magentaColor" = "magenta";
+"taskScreen.cyanColor" = "cyan";
+"taskScreen.brownColor" = "brown";
+
+"tasksCategory.shopping" = "Shopping";
+"tasksCategory.home" = "Home";
+"tasksCategory.job" = "Job";
+"tasksCategory.family" = "Family";
+"tasksCategory.general" = "General";
+"tasksCategory.study" = "Study";
+"tasksCategory.sport" = "Sport";
+"tasksCategory.friends" = "Friends";
+"tasksCategory.events" = "Events";
+"tasksCategory.health" = "Health";
+"tasksCategory.travel" = "Travel";
+"tasksCategory.science" = "Science";
+"tasksCategory.finance" = "Finance";
+"tasksCategory.charity" = "Charity";
+"tasksCategory.moving" = "Moving";
+
+"tasks.header" = "My tasks";
+
+"feed.header" = "Following feed";
+"feed.allTasksHeader" = "Feed";
+
+"tabbar.tasks" = "Tasks";
+"tabbar.feed" = "Feed";
