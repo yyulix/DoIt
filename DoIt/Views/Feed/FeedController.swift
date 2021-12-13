@@ -43,27 +43,27 @@ class FeedController: UIViewController {
     
     var userModel: UserModel?
     
-    var following = [
-        UserModel(image: nil, name: "wfqjoa fda", login: "fqFJqow", summary: "My summery is", statistics: UserStatisticsModel(inProgress: "0", outdated: "1", done: "1", total: "2"), isMyScreen: false, isFollowed: true),
-        UserModel(image: nil, name: "gsgdsgger", login: "GIOWJEOG", summary: nil, statistics: UserStatisticsModel(inProgress: "0", outdated: "0", done: "0", total: "0"), isMyScreen: false, isFollowed: true),
-        UserModel(image: nil, name: "greaiojgeo", login: "fwaojfoq", summary: nil, statistics: UserStatisticsModel(inProgress: "0", outdated: "0", done: "0", total: "0"), isMyScreen: true, isFollowed: true),
-        UserModel(image: nil, name: "greaiojgeo", login: "gasgs", summary: nil, statistics: UserStatisticsModel(inProgress: "0", outdated: "0", done: "0", total: "0"), isMyScreen: false, isFollowed: true),
-        UserModel(image: nil, name: "greaiojgeo", login: "gasg", summary: nil, statistics: UserStatisticsModel(inProgress: "0", outdated: "0", done: "0", total: "0"), isMyScreen: false, isFollowed: true),
-        UserModel(image: nil, name: "greaiojgeo", login: "hdgh", summary: nil, statistics: UserStatisticsModel(inProgress: "0", outdated: "0", done: "0", total: "0"), isMyScreen: false, isFollowed: true),
-        UserModel(image: nil, name: "greaiojgeo", login: "hgdhr", summary: nil, statistics: UserStatisticsModel(inProgress: "0", outdated: "0", done: "0", total: "0"), isMyScreen: false, isFollowed: true),
-        UserModel(image: nil, name: "greaiojgeo", login: "gwaegfa", summary: nil, statistics: UserStatisticsModel(inProgress: "0", outdated: "0", done: "0", total: "0"), isMyScreen: false, isFollowed: true)
+    var following: [UserModel] = [
+//        UserModel(image: nil, name: "wfqjoa fda", login: "fqFJqow", summary: "My summery is", statistics: UserStatisticsModel(inProgress: "0", outdated: "1", done: "1", total: "2"), isMyScreen: false, isFollowed: true),
+//        UserModel(image: nil, name: "gsgdsgger", login: "GIOWJEOG", summary: nil, statistics: UserStatisticsModel(inProgress: "0", outdated: "0", done: "0", total: "0"), isMyScreen: false, isFollowed: true),
+//        UserModel(image: nil, name: "greaiojgeo", login: "fwaojfoq", summary: nil, statistics: UserStatisticsModel(inProgress: "0", outdated: "0", done: "0", total: "0"), isMyScreen: true, isFollowed: true),
+//        UserModel(image: nil, name: "greaiojgeo", login: "gasgs", summary: nil, statistics: UserStatisticsModel(inProgress: "0", outdated: "0", done: "0", total: "0"), isMyScreen: false, isFollowed: true),
+//        UserModel(image: nil, name: "greaiojgeo", login: "gasg", summary: nil, statistics: UserStatisticsModel(inProgress: "0", outdated: "0", done: "0", total: "0"), isMyScreen: false, isFollowed: true),
+//        UserModel(image: nil, name: "greaiojgeo", login: "hdgh", summary: nil, statistics: UserStatisticsModel(inProgress: "0", outdated: "0", done: "0", total: "0"), isMyScreen: false, isFollowed: true),
+//        UserModel(image: nil, name: "greaiojgeo", login: "hgdhr", summary: nil, statistics: UserStatisticsModel(inProgress: "0", outdated: "0", done: "0", total: "0"), isMyScreen: false, isFollowed: true),
+//        UserModel(image: nil, name: "greaiojgeo", login: "gwaegfa", summary: nil, statistics: UserStatisticsModel(inProgress: "0", outdated: "0", done: "0", total: "0"), isMyScreen: false, isFollowed: true)
     ]
     
-    var followingUsersTasks = [
-        Task(image: UIImage(named: "bob"), title: "Поменять резину", description: nil, deadline: nil, isDone: true, creatorId: "GIOWJEOG", color: .black, chapterId: 0, creationTime: Date(), isMyTask: false),
-        Task(image: UIImage(named: "duck"), title: "Купиить шапку", description: nil, deadline: nil, isDone: false, creatorId: "fqFJqow", color: .yellow, chapterId: 1, creationTime: Date(), isMyTask: false),
-        Task(image: UIImage(named: "bob"), title: "Отдохнуть", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: nil, isDone: false, creatorId: "fwaojfoq", color: .red, chapterId: 2, creationTime: Date(), isMyTask: false),
-        Task(image: UIImage(named: "duck"), title: "Почистить зубы", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: nil, isDone: true, creatorId: "fwaojfoq", color: .orange, chapterId: 3, creationTime: Date(), isMyTask: false),
-        Task(image: UIImage(named: "duck"), title: "Занятие по танцам", description: nil, deadline: nil, isDone: false, creatorId: "fwaojfoq", color: .black, chapterId: 4, creationTime: Date(), isMyTask: false),
-        Task(image: UIImage(named: "bob"), title: "Отдохнуть", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: nil, isDone: false, creatorId: "GIOWJEOG", color: .red, chapterId: 5, creationTime: Date(), isMyTask: false),
-        Task(image: UIImage(named: "duck"), title: "Почистить зубы", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: nil, isDone: true, creatorId: "GIOWJEOG", color: .orange, chapterId: 6, creationTime: Date(), isMyTask: false),
-        Task(image: UIImage(named: "duck"), title: "Оплатить счета", description: nil, deadline: nil, isDone: false, creatorId: "GIOWJEOG", color: .orange, chapterId: 7, creationTime: Date(), isMyTask: false),
-        Task(image: UIImage(named: "bob"), title: "Отдохнуть", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: nil, isDone: false, creatorId: "GIOWJEOG", color: .red, chapterId: 8, creationTime: Date(), isMyTask: false)
+    var followingUsersTasks: [Task] = [
+//        Task(image: UIImage(named: "bob"), title: "Поменять резину", description: nil, deadline: nil, isDone: true, creatorId: "GIOWJEOG", color: .black, chapterId: 0, creationTime: Date(), isMyTask: false),
+//        Task(image: UIImage(named: "duck"), title: "Купиить шапку", description: nil, deadline: nil, isDone: false, creatorId: "fqFJqow", color: .yellow, chapterId: 1, creationTime: Date(), isMyTask: false),
+//        Task(image: UIImage(named: "bob"), title: "Отдохнуть", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: nil, isDone: false, creatorId: "fwaojfoq", color: .red, chapterId: 2, creationTime: Date(), isMyTask: false),
+//        Task(image: UIImage(named: "duck"), title: "Почистить зубы", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: nil, isDone: true, creatorId: "fwaojfoq", color: .orange, chapterId: 3, creationTime: Date(), isMyTask: false),
+//        Task(image: UIImage(named: "duck"), title: "Занятие по танцам", description: nil, deadline: nil, isDone: false, creatorId: "fwaojfoq", color: .black, chapterId: 4, creationTime: Date(), isMyTask: false),
+//        Task(image: UIImage(named: "bob"), title: "Отдохнуть", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: nil, isDone: false, creatorId: "GIOWJEOG", color: .red, chapterId: 5, creationTime: Date(), isMyTask: false),
+//        Task(image: UIImage(named: "duck"), title: "Почистить зубы", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: nil, isDone: true, creatorId: "GIOWJEOG", color: .orange, chapterId: 6, creationTime: Date(), isMyTask: false),
+//        Task(image: UIImage(named: "duck"), title: "Оплатить счета", description: nil, deadline: nil, isDone: false, creatorId: "GIOWJEOG", color: .orange, chapterId: 7, creationTime: Date(), isMyTask: false),
+//        Task(image: UIImage(named: "bob"), title: "Отдохнуть", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: nil, isDone: false, creatorId: "GIOWJEOG", color: .red, chapterId: 8, creationTime: Date(), isMyTask: false)
     ]
     
     private var swipeToMyTasks: Bool = false
@@ -88,8 +88,8 @@ class FeedController: UIViewController {
     }
     
     private func configureNavigationController() {
-        navigationItem.title = (userModel?.isMyScreen ?? false) ? FeedStrings.header.rawValue.localized : "Feed"
-        navigationItem.rightBarButtonItem = (userModel?.isMyScreen ?? false) ? searchButton : nil
+        navigationItem.title = (userModel?.isCurrentUser ?? false) ? FeedStrings.header.rawValue.localized : "Feed"
+        navigationItem.rightBarButtonItem = (userModel?.isCurrentUser ?? false) ? searchButton : nil
     }
     
     private func layoutCollection() {
@@ -108,11 +108,11 @@ extension FeedController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedCollectionViewCell.self.description(), for: indexPath) as? FeedCollectionViewCell else { return .init(frame: .zero) }
-        guard let userInfo = following.first(where: { $0.login == followingUsersTasks[indexPath.row].creatorId }) else { return .init(frame: .zero) }
+        guard let userInfo = following.first(where: { $0.username == followingUsersTasks[indexPath.row].uid }) else { return .init(frame: .zero) }
         cell.tapOnUser = { [weak self] in
             let profileViewController = ProfileViewController()
             profileViewController.userModel = userInfo
-            profileViewController.userTasksModel = UserTasksModel(login: userInfo.login, tasks: self?.followingUsersTasks.filter({ $0.creatorId == userInfo.login }) ?? [])
+            profileViewController.userTasksModel = UserTasksModel(login: userInfo.username, tasks: self?.followingUsersTasks.filter({ $0.uid == userInfo.username }) ?? [])
             self?.navigationController?.pushViewController(profileViewController, animated: true)
         }
         cell.configureCell(taskInfo: followingUsersTasks[indexPath.row], userInfo: userInfo)

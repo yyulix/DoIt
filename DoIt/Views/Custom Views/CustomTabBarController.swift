@@ -36,7 +36,8 @@ class CustomTabBarController: SwipeableTabBarController {
     //MARK: - Helpers
     
     private func configureViewControllers() {
-        let userModel = UserModel(image: nil, name: nil, login: "", summary: nil, statistics: UserStatisticsModel(inProgress: "0", outdated: "0", done: "0", total: "0"), isMyScreen: true, isFollowed: false)
+        let temp: [String: String] = ["email" : "greagges@vk.com", "username": "myname", "password": "12345678"]
+        let userModel = UserModel(uid: "fafaf", dictionary: temp as [String: AnyObject])
         
         let tasks = TasksController()
         tasks.userModel = userModel

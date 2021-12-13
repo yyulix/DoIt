@@ -91,10 +91,10 @@ final class SearchUsersCell: UITableViewCell {
     // MARK: - Helpers
     
     func configureCell(with model: UserModel) {
-        loginLabel.text = model.login
+        loginLabel.text = model.username
         configureSummeryLabel(text: model.summary)
-        configureFollowButton(isFollowed: model.isFollowed)
-        configureImageView(image: model.image, name: model.name, login: model.login)
+//        configureFollowButton(isFollowed: model.isFollowed)
+        configureImageView(image: model.image, name: model.name, login: model.username)
     }
     
     private func configureImageView(image: UIImage?, name: String?, login: String) {

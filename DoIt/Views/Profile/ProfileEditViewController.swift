@@ -146,7 +146,7 @@ final class ProfileEditViewController: UIViewController {
         summaryTextView.text = userModel.summary
         guard let image = userModel.image else {
             profileImageView.layoutIfNeeded()
-            profileImageView.setImageForName(userModel.name ?? userModel.login, circular: false, textAttributes: nil)
+            profileImageView.setImageForName(userModel.name ?? userModel.username, circular: false, textAttributes: nil)
             return
         }
         profileImageView.image = image

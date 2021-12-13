@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class Task {
     let image: UIImage?
@@ -17,17 +18,21 @@ class Task {
     let color: UIColor
     let chapterId: Int
     let creationTime: Date
-    let isMyTask: Bool
     
-    init(image: UIImage?, title: String, description: String?, deadline: Date?, isDone: Bool, creatorId: Int, color: UIColor, uid: String = "") {
+    var isMyTask: Bool {
+        return Auth.auth().currentUser?.uid == uid
+    }
+    
+    init(image: UIImage?, title: String, description: String?, deadline: Date?, isDone: Bool, color: UIColor, uid: String = "") {
         self.image = image
         self.title = title
         self.description = description
         self.deadline = deadline
         self.isDone = isDone
-        self.creatorId = creatorId
         self.uid = ""
         self.color = color
+        self.creationTime = Date()
+        self.chapterId = 0
     }
 }
 

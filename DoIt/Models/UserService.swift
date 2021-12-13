@@ -13,30 +13,30 @@ class UserService {
     
     static let shared = UserService()
         
-    func fetchUser(uid: String, completion: @escaping(User)->Void) {
+    func fetchUser(uid: String, completion: @escaping(UserModel)->Void) {
         REF_USERS.child(uid).observeSingleEvent(of: .value) { snapshot in
             guard let dictionary = snapshot.value as? [String: AnyObject] else {return}
             
-            let user = User(uid: uid, dictionary: dictionary)
+            let user = UserModel(uid: uid, dictionary: dictionary)
             completion(user)
         }
     }
         
     // TODO: - Update profile picture
     
-    func updateUserData(user: User, completion: @escaping(DatabaseCompletion)){
+    func updateUserData(user: UserModel, completion: @escaping(DatabaseCompletion)){
         guard let uid = Auth.auth().currentUser?.uid else {return}
         let values = ["username": user.username, "summary": user.summary ?? ""]
         
         REF_USERS.child(uid).updateChildValues(values, withCompletionBlock: completion)
     }
     
-    func fetchUsers(completion: @escaping([User])->Void) {
-        var users = [User]()
+    func fetchUsers(completion: @escaping([UserModel])->Void) {
+        var users = [UserModel]()
         REF_USERS.observe(.childAdded) { (snapshot) in
             let uid = snapshot.key
             guard let dictionary = snapshot.value as? [String: AnyObject] else {return}
-            let user = User(uid: uid, dictionary: dictionary)
+            let user = UserModel(uid: uid, dictionary: dictionary)
             users.append(user)
             completion(users)
         }

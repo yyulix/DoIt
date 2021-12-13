@@ -53,11 +53,11 @@ class TasksController: UIViewController {
         return tableView
     }()
     
-    var tasks = [
-        Task(image: UIImage(named: "bob"), title: "Task 1: Get ready for an exam", description: nil, deadline: nil, isDone: true, creatorId: "1", color: .black, chapterId: 0, creationTime: Date(), isMyTask: true),
-        Task(image: UIImage(named: "bob"), title: "Task 2: Get ready for an exam", description: nil, deadline: nil, isDone: false, creatorId: "2", color: .yellow, chapterId: 1, creationTime: Date(), isMyTask: true),
-        Task(image: UIImage(named: "bob"), title: "Task 3: Get ready for an exam", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: nil, isDone: false, creatorId: "2", color: .red, chapterId: 2, creationTime: Date(), isMyTask: true),
-        Task(image: UIImage(named: "bob"), title: "Task 4: Get ready for an exam", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: Date(timeIntervalSinceNow: 50), isDone: true, creatorId: "1", color: .orange, chapterId: 3, creationTime: Date(), isMyTask: true)
+    var tasks: [Task] = [
+//        Task(image: UIImage(named: "bob"), title: "Task 1: Get ready for an exam", description: nil, deadline: nil, isDone: true, creatorId: "1", color: .black, chapterId: 0, creationTime: Date(), isMyTask: true),
+//        Task(image: UIImage(named: "bob"), title: "Task 2: Get ready for an exam", description: nil, deadline: nil, isDone: false, creatorId: "2", color: .yellow, chapterId: 1, creationTime: Date(), isMyTask: true),
+//        Task(image: UIImage(named: "bob"), title: "Task 3: Get ready for an exam", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: nil, isDone: false, creatorId: "2", color: .red, chapterId: 2, creationTime: Date(), isMyTask: true),
+//        Task(image: UIImage(named: "bob"), title: "Task 4: Get ready for an exam", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: Date(timeIntervalSinceNow: 50), isDone: true, creatorId: "1", color: .orange, chapterId: 3, creationTime: Date(), isMyTask: true)
     ]
     
     private var selectedTasks: [Task]? {
@@ -84,7 +84,7 @@ class TasksController: UIViewController {
     //MARK: - Private Methods
     private func configureNavigationController() {
         navigationItem.title = TasksStrings.header.rawValue.localized
-        navigationItem.rightBarButtonItem = (userModel?.isMyScreen ?? false) ? profileButton : nil
+        navigationItem.rightBarButtonItem = (userModel?.isCurrentUser ?? false) ? profileButton : nil
     }
     
     private func layoutCollection() {
@@ -162,7 +162,7 @@ extension TasksController {
             navigationController?.pushViewController(profileViewController, animated: true)
             return
         }
-        profileViewController.userTasksModel = UserTasksModel(login: userModel.login, tasks: tasks)
+        profileViewController.userTasksModel = UserTasksModel(login: userModel.username, tasks: tasks)
         navigationController?.pushViewController(profileViewController, animated: true)
     }
 }

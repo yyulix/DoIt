@@ -295,9 +295,9 @@ class ProfileViewController: UIViewController {
     
     private func configureCells() {
         guard let userModel = userModel else { return }
-        configureHeader(image: userModel.image, name: userModel.name, login: userModel.login, isFollowed: userModel.isFollowed, isMyScreen: userModel.isMyScreen)
+        configureHeader(image: userModel.image, name: userModel.name, login: userModel.username, isFollowed: false, isMyScreen: false)
         configureInformation(summary: userModel.summary)
-        configureStatistics(with: userModel.statistics)
+//        configureStatistics(with: userModel.statistics)
         
         configureTasks(with: userTasksModel?.tasks ?? [])
         
@@ -309,7 +309,7 @@ class ProfileViewController: UIViewController {
         
         layoutScrollView()
         layoutCellsStackView()
-        configureNavigationController(title: userModel?.login ?? "", isMyScreen: userModel?.isMyScreen ?? false)
+        configureNavigationController(title: userModel?.username ?? "", isMyScreen: userModel?.isCurrentUser ?? false)
         configureCells()
     }
     
@@ -695,7 +695,7 @@ extension ProfileViewController {
     @objc
     private func showAllTasks() {
         guard let userModel = userModel else { return }
-        guard !userModel.isMyScreen else {
+        guard !userModel.isCurrentUser else {
             NotificationCenter.default.post(name: .openTasksFromProfile, object: nil)
             navigationController?.popToRootViewController(animated: true)
             return
