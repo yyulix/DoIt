@@ -21,6 +21,8 @@ class UserModel {
         return Auth.auth().currentUser?.uid == uid
     }
     
+    var isFollowed: Bool?
+    
     init(uid: String, dictionary: [String: AnyObject]) {
         self.uid = uid
         self.email = dictionary["email"] as? String ?? ""
@@ -30,12 +32,12 @@ class UserModel {
         self.name = nil
     }
     
-    init(username: String) {
-        self.uid = ""
-        self.email = ""
+    init(uid: String, email: String, username: String, summary: String?, image: UIImage?, name: String?) {
+        self.uid = uid
+        self.email = email
         self.username = username
-        self.summary = nil
-        self.image = nil
-        self.name = nil
+        self.summary = summary
+        self.image = image
+        self.name = name
     }
 }

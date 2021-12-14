@@ -113,8 +113,7 @@ extension FeedController: UICollectionViewDataSource {
         guard let userInfo = following.first(where: { $0.username == followingUsersTasks[indexPath.row].uid }) else { return .init(frame: .zero) }
         cell.tapOnUser = { [weak self] in
             let profileViewController = ProfileViewController()
-            profileViewController.userModel = userInfo
-            profileViewController.userTasksModel = UserTasksModel(login: userInfo.username, tasks: self?.followingUsersTasks.filter({ $0.uid == userInfo.username }) ?? [])
+            profileViewController.viewModel.userModel.value = userInfo
             self?.navigationController?.pushViewController(profileViewController, animated: true)
         }
         cell.configureCell(taskInfo: followingUsersTasks[indexPath.row], userInfo: userInfo)
@@ -137,7 +136,6 @@ extension FeedController {
     @objc
     private func openSearch() {
         let searchUsersController = SearchUsersController()
-        searchUsersController.userModel = userModel
         navigationController?.pushViewController(searchUsersController, animated: true)
     }
     

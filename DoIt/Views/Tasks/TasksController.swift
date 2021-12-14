@@ -157,12 +157,12 @@ extension TasksController {
     @objc
     private func openProfile() {
         let profileViewController = ProfileViewController()
-        profileViewController.userModel = userModel
+        profileViewController.viewModel.userModel.value = userModel
         guard let userModel = userModel else {
             navigationController?.pushViewController(profileViewController, animated: true)
             return
         }
-        profileViewController.userTasksModel = UserTasksModel(login: userModel.username, tasks: tasks)
+        profileViewController.viewModel.userTasksModel.value = UserTasksModel(login: userModel.username, tasks: tasks)
         navigationController?.pushViewController(profileViewController, animated: true)
     }
 }

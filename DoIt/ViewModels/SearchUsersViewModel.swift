@@ -6,15 +6,94 @@
 //
 
 import Foundation
+import Firebase
 
-class SearchUsersViewModel {
-    var userModel: UserModel?
-    
-    var userModels: [UserModel] = []
-    
-    var filteredUsersModel: [UserModel]? {
+final class Observable<T> {
+    var value: T? {
         didSet {
-//            tableView.reloadSections(IndexSet(integer: 0), with: .fade)
+            listener?(value)
         }
     }
+    
+    init(_ value: T? = nil) {
+        self.value = value
+    }
+    
+    private var listener: ((T?) -> ())?
+    
+    func bind(_ listener: @escaping (T?) -> ()) {
+        listener(value)
+        self.listener = listener
+    }
 }
+
+final class SearchUsersViewModel {
+    private let userService = UserService.shared
+    
+    var userModel: Observable<UserModel> = Observable()
+    
+    var userModels: Observable<[UserModel]> = Observable([])
+    
+    var filteredUsersModel: Observable<[UserModel]> = Observable()
+    
+    func getCurrentUser() {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let uid = Auth.auth().currentUser?.uid else {
+                return
+            }
+            self?.userService.fetchUser(uid: uid) { [weak self] user in
+                self?.userModel.value = user
+            }
+        }
+    }
+    
+    func getAllUsers() {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            self?.userService.fetchUsers(completion: { [weak self] users in
+                users.forEach { user in
+                    self?.userService.isUserFollowed(uid: user.uid) { user.isFollowed = $0 }
+                }
+                self?.userModels.value = users
+            })
+        }
+    }
+    
+    func followUser(_ user: UserModel, completion: @escaping (Bool) -> ()) {
+        DispatchQueue.global().async { [weak self] in
+            self?.userService.followUser(uid: user.uid) { error, _ in
+                guard error == nil else {
+                    print(error!.localizedDescription)
+                    completion(false)
+                    return
+                }
+                user.isFollowed = true
+                completion(true)
+            }
+        }
+    }
+    
+    func unfollowUser(_ user: UserModel, completion: @escaping (Bool) -> ()) {
+        DispatchQueue.global().async { [weak self] in
+            self?.userService.unfollowUser(uid: user.uid) { error, _ in
+                guard error == nil else {
+                    print(error!.localizedDescription)
+                    completion(false)
+                    return
+                }
+                user.isFollowed = true
+                completion(true)
+            }
+        }
+    }
+    
+    func filtering(username: String) {
+        DispatchQueue.global().async { [weak self] in
+            self?.filteredUsersModel.value = self?.userModels.value?.filter { $0.username.lowercased().contains(username.lowercased()) }
+        }
+    }
+    
+    func stopFiltering() {
+        filteredUsersModel.value = nil
+    }
+}
+

@@ -67,6 +67,23 @@ final class SearchUsersController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        viewModel.userModel.bind { [weak self] _ in
+            self?.viewModel.getAllUsers()
+        }
+        
+        viewModel.userModels.bind { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.tableView.reloadSections(IndexSet(integer: 0), with: .fade)
+            }
+        }
+        
+        viewModel.filteredUsersModel.bind { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.tableView.reloadSections(IndexSet(integer: 0), with: .fade)
+            }
+        }
+        
         configureUI()
     }
 
@@ -125,21 +142,31 @@ extension SearchUsersController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let profileViewController = ProfileViewController()
-        profileViewController.userModel = viewModel.filteredUsersModel?[indexPath.row] ?? viewModel.userModels[indexPath.row]
+        profileViewController.viewModel.userModel.value = viewModel.filteredUsersModel.value?[indexPath.row] ?? viewModel.userModels.value?[indexPath.row]
         navigationController?.pushViewController(profileViewController, animated: true)
     }
 }
 
 extension SearchUsersController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.filteredUsersModel?.count ?? viewModel.userModels.count
+        if let filteredUsersModel = viewModel.filteredUsersModel.value {
+            return filteredUsersModel.count
+        }
+        return viewModel.userModels.value?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SearchUsersCell.self), for: indexPath) as? SearchUsersCell else {
             return .init()
         }
-        cell.configureCell(with: viewModel.filteredUsersModel?[indexPath.row] ?? viewModel.userModels[indexPath.row])
+        cell.indexPathRow = indexPath.row
+        guard viewModel.filteredUsersModel.value == nil else {
+            cell.configureCell(with: viewModel.filteredUsersModel.value![indexPath.row])
+            return cell
+        }
+        if let userModels = viewModel.userModels.value {
+            cell.configureCell(with: userModels[indexPath.row])
+        }
         return cell
     }
 }
@@ -148,8 +175,8 @@ extension SearchUsersController: UITableViewDataSource {
 
 extension SearchUsersController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        guard !searchText.isEmpty else { viewModel.filteredUsersModel = nil; return }
-        viewModel.filteredUsersModel = viewModel.userModels.filter { $0.username.lowercased().contains(searchText.lowercased()) }
+        guard !searchText.isEmpty else { viewModel.stopFiltering(); return }
+        viewModel.filtering(username: searchText)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -158,6 +185,42 @@ extension SearchUsersController: UISearchBarDelegate {
         searchBar.endEditing(true)
         
         removeSearchBarView()
+    }
+}
+
+extension SearchUsersController: SearchUsersCellDelegate {
+    func didTapFollowButton(_ indexPath: Int?, completion: @escaping () -> ()) {
+        guard let indexPath = indexPath else { return }
+        var userModel: UserModel?
+        if let user = viewModel.filteredUsersModel.value?[indexPath] { userModel = user }
+        if let user = viewModel.userModels.value?[indexPath] { userModel = user }
+        guard let userModel = userModel else { return }
+        guard let isFollowed = userModel.isFollowed else { return }
+        isFollowed ? unfollowUser(userModel, completion: completion) : followUser(userModel, completion: completion)
+    }
+    
+    private func followUser(_ user: UserModel, completion: @escaping () -> ()) {
+        viewModel.followUser(user) { done in
+            guard done else {
+                
+                return
+            }
+            DispatchQueue.main.async {
+                completion()
+            }
+        }
+    }
+    
+    private func unfollowUser(_ user: UserModel, completion: @escaping () -> ()) {
+        viewModel.unfollowUser(user) { done in
+            guard done else {
+                
+                return
+            }
+            DispatchQueue.main.async {
+                completion()
+            }
+        }
     }
 }
 

@@ -42,6 +42,9 @@
 		83AF41A827431F9600CA8AAA /* FeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AF41A727431F9600CA8AAA /* FeedCollectionViewCell.swift */; };
 		D893BC3F82A1BFD5850B5F99 /* Pods_DoIt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A133F16700AA4CCB04ED3F5D /* Pods_DoIt.framework */; };
 		E40B7953275FA1DA002DE826 /* KeyboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40B7952275FA1DA002DE826 /* KeyboardManager.swift */; };
+		E417CFD727689B2300C6E6B5 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E417CFD627689B2300C6E6B5 /* ProfileViewModel.swift */; };
+		E417CFD927689D8A00C6E6B5 /* TaskService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E417CFD827689D8A00C6E6B5 /* TaskService.swift */; };
+		E417CFDB2768BE1800C6E6B5 /* ProfileEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E417CFDA2768BE1800C6E6B5 /* ProfileEditViewModel.swift */; };
 		E455B5D727681AD20059130D /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E455B5D527681AD10059130D /* AuthService.swift */; };
 		E455B5D827681AD20059130D /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E455B5D627681AD10059130D /* ImageService.swift */; };
 		E455B5DA276820E60059130D /* SearchUsersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E455B5D9276820E60059130D /* SearchUsersViewModel.swift */; };
@@ -69,7 +72,6 @@
 		7C6C3BC9275C072E00B6101F /* FirebaseConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConstants.swift; sourceTree = "<group>"; };
 		7C6C3BCB275C176C00B6101F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7C6C3BCD275CFE4700B6101F /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
-		7C6C3BCF275CFEA900B6101F /* TaskService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskService.swift; sourceTree = "<group>"; };
 		7CAC5DCA27232C6000E2D70B /* DoIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DoIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CAC5DCD27232C6000E2D70B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7CAC5DCF27232C6000E2D70B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -98,6 +100,9 @@
 		83AF41A727431F9600CA8AAA /* FeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionViewCell.swift; sourceTree = "<group>"; };
 		A133F16700AA4CCB04ED3F5D /* Pods_DoIt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DoIt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E40B7952275FA1DA002DE826 /* KeyboardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardManager.swift; sourceTree = "<group>"; };
+		E417CFD627689B2300C6E6B5 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		E417CFD827689D8A00C6E6B5 /* TaskService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskService.swift; sourceTree = "<group>"; };
+		E417CFDA2768BE1800C6E6B5 /* ProfileEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewModel.swift; sourceTree = "<group>"; };
 		E455B5D527681AD10059130D /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		E455B5D627681AD10059130D /* ImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		E455B5D9276820E60059130D /* SearchUsersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUsersViewModel.swift; sourceTree = "<group>"; };
@@ -152,6 +157,8 @@
 			isa = PBXGroup;
 			children = (
 				E455B5D9276820E60059130D /* SearchUsersViewModel.swift */,
+				E417CFD627689B2300C6E6B5 /* ProfileViewModel.swift */,
+				E417CFDA2768BE1800C6E6B5 /* ProfileEditViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -195,7 +202,7 @@
 				7C6C3BC7275C06B400B6101F /* AuthResultsModel.swift */,
 				7C6C3BC9275C072E00B6101F /* FirebaseConstants.swift */,
 				7C6C3BCD275CFE4700B6101F /* UserModel.swift */,
-				7C6C3BCF275CFEA900B6101F /* TaskService.swift */,
+				E417CFD827689D8A00C6E6B5 /* TaskService.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -512,14 +519,17 @@
 				8383503B27583E58008847E1 /* OnboardingCell.swift in Sources */,
 				83AF41A827431F9600CA8AAA /* FeedCollectionViewCell.swift in Sources */,
 				83369A40273855BD0025F3D9 /* TasksController.swift in Sources */,
+				E417CFD727689B2300C6E6B5 /* ProfileViewModel.swift in Sources */,
 				7CAC5DCE27232C6000E2D70B /* AppDelegate.swift in Sources */,
 				E455B5D727681AD20059130D /* AuthService.swift in Sources */,
+				E417CFD927689D8A00C6E6B5 /* TaskService.swift in Sources */,
 				83369A4A273856950025F3D9 /* ChapterCollectionCell.swift in Sources */,
 				8383504027583E58008847E1 /* SearchUsersCell.swift in Sources */,
 				E49D6B20275BEF0C007C9A97 /* UserTasksModel.swift in Sources */,
 				E4A95D59275BEA8500EE3F59 /* ProfileEditViewController.swift in Sources */,
 				83AF41A227431EB500CA8AAA /* FeedController.swift in Sources */,
 				8383503927583E58008847E1 /* OnboardingViewController.swift in Sources */,
+				E417CFDB2768BE1800C6E6B5 /* ProfileEditViewModel.swift in Sources */,
 				E455B5D827681AD20059130D /* ImageService.swift in Sources */,
 				8383503D27583E58008847E1 /* TaskViewController.swift in Sources */,
 				7C6C3BC8275C06B400B6101F /* AuthResultsModel.swift in Sources */,
