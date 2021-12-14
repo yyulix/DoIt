@@ -46,7 +46,6 @@
 		E417CFD927689D8A00C6E6B5 /* TaskService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E417CFD827689D8A00C6E6B5 /* TaskService.swift */; };
 		E417CFDB2768BE1800C6E6B5 /* ProfileEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E417CFDA2768BE1800C6E6B5 /* ProfileEditViewModel.swift */; };
 		E455B5D727681AD20059130D /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E455B5D527681AD10059130D /* AuthService.swift */; };
-		E455B5D827681AD20059130D /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E455B5D627681AD10059130D /* ImageService.swift */; };
 		E455B5DA276820E60059130D /* SearchUsersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E455B5D9276820E60059130D /* SearchUsersViewModel.swift */; };
 		E49D6B20275BEF0C007C9A97 /* UserTasksModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49D6B1F275BEF0C007C9A97 /* UserTasksModel.swift */; };
 		E4A95D4B275BE99A00EE3F59 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A95D48275BE99900EE3F59 /* UserModel.swift */; };
@@ -104,7 +103,6 @@
 		E417CFD827689D8A00C6E6B5 /* TaskService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskService.swift; sourceTree = "<group>"; };
 		E417CFDA2768BE1800C6E6B5 /* ProfileEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewModel.swift; sourceTree = "<group>"; };
 		E455B5D527681AD10059130D /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
-		E455B5D627681AD10059130D /* ImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		E455B5D9276820E60059130D /* SearchUsersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUsersViewModel.swift; sourceTree = "<group>"; };
 		E49D6B1F275BEF0C007C9A97 /* UserTasksModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTasksModel.swift; sourceTree = "<group>"; };
 		E4A95D48275BE99900EE3F59 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
@@ -193,7 +191,6 @@
 			isa = PBXGroup;
 			children = (
 				E455B5D527681AD10059130D /* AuthService.swift */,
-				E455B5D627681AD10059130D /* ImageService.swift */,
 				E4A95D4A275BE99A00EE3F59 /* UserFollowingModel.swift */,
 				E4A95D48275BE99900EE3F59 /* UserModel.swift */,
 				E49D6B1F275BEF0C007C9A97 /* UserTasksModel.swift */,
@@ -530,7 +527,6 @@
 				83AF41A227431EB500CA8AAA /* FeedController.swift in Sources */,
 				8383503927583E58008847E1 /* OnboardingViewController.swift in Sources */,
 				E417CFDB2768BE1800C6E6B5 /* ProfileEditViewModel.swift in Sources */,
-				E455B5D827681AD20059130D /* ImageService.swift in Sources */,
 				8383503D27583E58008847E1 /* TaskViewController.swift in Sources */,
 				7C6C3BC8275C06B400B6101F /* AuthResultsModel.swift in Sources */,
 				8383504227583E58008847E1 /* SignUpController.swift in Sources */,
