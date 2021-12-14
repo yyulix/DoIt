@@ -53,6 +53,12 @@ class TasksController: UIViewController {
         return tableView
     }()
     
+    private var viewModel: TasksViewModel? {
+        didSet {
+            
+        }
+    }
+    
     var tasks: [Task] = [
 //        Task(image: UIImage(named: "bob"), title: "Task 1: Get ready for an exam", description: nil, deadline: nil, isDone: true, creatorId: "1", color: .black, chapterId: 0, creationTime: Date(), isMyTask: true),
 //        Task(image: UIImage(named: "bob"), title: "Task 2: Get ready for an exam", description: nil, deadline: nil, isDone: false, creatorId: "2", color: .yellow, chapterId: 1, creationTime: Date(), isMyTask: true),
