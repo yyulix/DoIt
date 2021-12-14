@@ -36,7 +36,7 @@ class FeedController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(FeedCollectionViewCell.self, forCellWithReuseIdentifier: FeedCollectionViewCell.self.description())
-        collectionView.backgroundColor = UIColor.AppColors.feedBackgroundColor
+        collectionView.backgroundColor = .systemBackground
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
@@ -89,8 +89,7 @@ class FeedController: UIViewController {
     
     private func configureNavigationController() {
         navigationItem.title = (userModel?.isCurrentUser ?? false) ? FeedStrings.header.rawValue.localized : FeedStrings.allTasksHeader.rawValue.localized
-        navigationItem.rightBarButtonItem = searchButton
-//        navigationItem.rightBarButtonItem = (userModel?.isCurrentUser ?? false) ? searchButton : nil
+        navigationItem.rightBarButtonItem = (userModel?.isCurrentUser ?? false) ? searchButton : nil
         
     }
     

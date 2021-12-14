@@ -200,7 +200,8 @@ extension ProfileEditViewController {
         viewModel.updateUserProfile(image: imageWasChanged ? profileImageView.image : nil,
                                     name: nameInputField.textField.text,
                                     username: loginInputField.textField.text ?? userModel.username,
-                                    summary: summaryTextView.textView.text.isEmpty ? nil : summaryTextView.textView.text)
+                                    summary: summaryTextView.textView.text.isEmpty ? nil : summaryTextView.textView.text,
+                                    complition: { [weak self] in self?.navigationController?.popViewController(animated: true) })
     }
 }
 

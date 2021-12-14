@@ -284,6 +284,8 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        configureUI()
+        
         viewModel.userModel.bind { [weak self] _ in
             self?.configureCells()
             self?.viewModel.getUserTasks()
@@ -298,8 +300,6 @@ class ProfileViewController: UIViewController {
         viewModel.userFollowingModel.bind { [weak self] _ in
             self?.configureFollowing()
         }
-        
-        configureUI()
     }
     
     // MARK: - Helpers

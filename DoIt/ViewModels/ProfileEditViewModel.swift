@@ -12,7 +12,7 @@ final class ProfileEditViewModel {
     private let userService = UserService.shared
     var userModel: Observable<UserModel> = Observable()
     
-    func updateUserProfile(image: UIImage?, name: String?, username: String, summary: String?) {
+    func updateUserProfile(image: UIImage?, name: String?, username: String, summary: String?, complition: @escaping () -> ()) {
         DispatchQueue.global().sync { [weak self] in
             guard let userModel = userModel.value else {
                 return
@@ -50,6 +50,7 @@ final class ProfileEditViewModel {
                 if error != nil {
                     
                 }
+                complition()
             })
         }
     }
