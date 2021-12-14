@@ -29,4 +29,13 @@ class UserModel {
         self.image = nil
         self.name = nil
     }
+    
+    init(username: String) {
+        self.uid = ""
+        self.email = ""
+        self.username = username
+        self.summary = nil
+        self.image = nil
+        self.name = nil
+    }
 }

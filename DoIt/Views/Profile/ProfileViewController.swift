@@ -297,7 +297,7 @@ class ProfileViewController: UIViewController {
         guard let userModel = userModel else { return }
         configureHeader(image: userModel.image, name: userModel.name, login: userModel.username, isFollowed: false, isMyScreen: false)
         configureInformation(summary: userModel.summary)
-//        configureStatistics(with: userModel.statistics)
+        configureStatistics(tasks: userTasksModel?.tasks ?? [])
         
         configureTasks(with: userTasksModel?.tasks ?? [])
         
@@ -607,11 +607,27 @@ extension ProfileViewController {
     
     // MARK: - Statistics View
     
-    private func configureStatistics(with: UserStatisticsModel) {
-        inProgressNumberLabel.text = with.inProgress
-        outdatedNumberLabel.text = with.outdated
-        doneNumberLabel.text = with.done
-        totalNumberLabel.text = with.total
+    private func configureStatistics(tasks: [Task]) {
+        DispatchQueue.global().async {
+            var done = 0
+            var outdated = 0
+            var inProgress = 0
+            let total = tasks.count
+            let currentDate = Date()
+            tasks.forEach { task in
+                guard !task.isDone else { done += 1; return }
+                guard let deadline = task.deadline else { inProgress += 1; return }
+                guard deadline < currentDate else { outdated += 1; return }
+                inProgress += 1
+            }
+            
+            DispatchQueue.main.async { [weak self] in
+                self?.inProgressNumberLabel.text = "\(inProgress)"
+                self?.outdatedNumberLabel.text = "\(outdated)"
+                self?.doneNumberLabel.text = "\(done)"
+                self?.totalNumberLabel.text = "\(total)"
+            }
+        }
     }
     
     // MARK: - Tasks View

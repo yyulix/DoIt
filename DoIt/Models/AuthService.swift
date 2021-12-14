@@ -27,7 +27,6 @@ class AuthService {
             
             UserDefaults.standard.set(uid, forKey: "current_user")
 
-            
             completion(.success)
         }
     }

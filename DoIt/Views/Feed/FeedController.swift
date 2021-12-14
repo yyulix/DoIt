@@ -88,8 +88,10 @@ class FeedController: UIViewController {
     }
     
     private func configureNavigationController() {
-        navigationItem.title = (userModel?.isCurrentUser ?? false) ? FeedStrings.header.rawValue.localized : "Feed"
-        navigationItem.rightBarButtonItem = (userModel?.isCurrentUser ?? false) ? searchButton : nil
+        navigationItem.title = (userModel?.isCurrentUser ?? false) ? FeedStrings.header.rawValue.localized : FeedStrings.allTasksHeader.rawValue.localized
+        navigationItem.rightBarButtonItem = searchButton
+//        navigationItem.rightBarButtonItem = (userModel?.isCurrentUser ?? false) ? searchButton : nil
+        
     }
     
     private func layoutCollection() {

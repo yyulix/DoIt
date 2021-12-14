@@ -61,9 +61,7 @@ final class SearchUsersController: UIViewController {
         return label
     }()
     
-    var userModel: UserModel?
-    
-    private var userModels: [UserModel] = []
+    var viewModel: SearchUsersViewModel = SearchUsersViewModel()
 
     // MARK: - Lifecycle
 
@@ -127,21 +125,21 @@ extension SearchUsersController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let profileViewController = ProfileViewController()
-        profileViewController.userModel = userModels[indexPath.row]
+        profileViewController.userModel = viewModel.filteredUsersModel?[indexPath.row] ?? viewModel.userModels[indexPath.row]
         navigationController?.pushViewController(profileViewController, animated: true)
     }
 }
 
 extension SearchUsersController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userModels.count
+        return viewModel.filteredUsersModel?.count ?? viewModel.userModels.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SearchUsersCell.self), for: indexPath) as? SearchUsersCell else {
             return .init()
         }
-        cell.configureCell(with: userModels[indexPath.row])
+        cell.configureCell(with: viewModel.filteredUsersModel?[indexPath.row] ?? viewModel.userModels[indexPath.row])
         return cell
     }
 }
@@ -149,6 +147,11 @@ extension SearchUsersController: UITableViewDataSource {
 // MARK: - Actions
 
 extension SearchUsersController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard !searchText.isEmpty else { viewModel.filteredUsersModel = nil; return }
+        viewModel.filteredUsersModel = viewModel.userModels.filter { $0.username.lowercased().contains(searchText.lowercased()) }
+    }
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         searchBar.text = nil
