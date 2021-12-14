@@ -21,9 +21,23 @@ class UserService {
             completion(user)
         }
     }
-        
-    // TODO: - Update profile picture
-    
+
+    func updateUserPhoto(image: UIImage, completion: @escaping(URL?)-> Void){
+        guard let imageData = image.jpegData(compressionQuality: 1.0) else {return}
+            guard let uid = Auth.auth().currentUser?.uid else {return}
+            let ref = STORAGE_PROFILE_IMAGES.child(NSUUID().uuidString)
+
+            ref.putData(imageData, metadata: nil) { (meta, err) in
+                ref.downloadURL { (url, err) in
+                    guard let userPhotoUrl = url?.absoluteString else {return}
+                    let values = ["userPhotoUrl": userPhotoUrl]
+                    REF_USERS.child(uid).updateChildValues(values) { (err, ref) in
+                        completion(url)
+                    }
+                }
+            }
+        }
+
     func updateUserData(user: UserModel, completion: @escaping(DatabaseCompletion)){
         guard let uid = Auth.auth().currentUser?.uid else {return}
         let values = ["username": user.username, "summary": user.summary ?? ""]
