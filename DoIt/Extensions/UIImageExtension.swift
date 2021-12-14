@@ -48,3 +48,18 @@ extension UIImage {
         static var feedIcon: UIImage { UIImage(systemName: "square.grid.2x2")! }
     }
 }
+
+extension UIImage {
+    func setImage(urlAddress: String?, completion: @escaping (UIImage?) -> Void) {
+        guard let urlAddress = urlAddress, let url = URL(string: urlAddress) else {
+            return completion(nil)
+        }
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil else { return }
+            DispatchQueue.main.async {
+                completion(UIImage(data: data))
+            }
+        }
+        task.resume()
+    }
+}
