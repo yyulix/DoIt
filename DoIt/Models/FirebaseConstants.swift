@@ -10,6 +10,7 @@ import Firebase
 let STORAGE_REF = Storage.storage().reference()
 
 let STORAGE_PROFILE_IMAGES = STORAGE_REF.child("profile_images")
+let STORAGE_TASK_IMAGES = STORAGE_REF.child("task_images")
 
 let DB_REF = Database.database().reference()
 
