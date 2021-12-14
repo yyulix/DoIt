@@ -14,7 +14,7 @@ class TaskService {
     
     func uploadTask(task: Task, completion: @escaping(Error?, DatabaseReference)->Void){
         guard let uid = Auth.auth().currentUser?.uid else {return}
-        var values = [
+        let values = [
                       "title": task.title,
                       "description": task.description ?? "",
                       "deadline": Int(task.deadline?.timeIntervalSince1970 ?? 0),
@@ -42,7 +42,6 @@ class TaskService {
             guard let description = dictionary["description"] as? String else { return }
             guard let deadline = dictionary["deadline"] as? Int else { return }
             guard let isDone = dictionary["is_done"] as? Bool else { return }
-            guard let creatorId = dictionary["uid"] as? String else { return }
             guard let color = dictionary["color"] as? [Int] else { return }
 
 
@@ -54,7 +53,6 @@ class TaskService {
                     description: description,
                     deadline: Date(timeIntervalSince1970: TimeInterval(deadline)),
                     isDone: isDone,
-                    creatorId: 0,
                     color: UIColor(red: CGFloat(color[0]) * 255.0, green: CGFloat(color[1]) * 255.0, blue: CGFloat(color[2]) * 255.0, alpha: 1.0)
                 )
                 completion(task)
@@ -62,7 +60,7 @@ class TaskService {
         }
     }
     
-    func fetchTasks(forUser user: User, completion: @escaping([Task]) -> Void) {
+    func fetchTasks(forUser user: UserModel, completion: @escaping([Task]) -> Void) {
         var tasks = [Task]()
         REF_USER_TASKS.child(user.uid).observe(.childAdded) { snapshot in
             let taskId = snapshot.key

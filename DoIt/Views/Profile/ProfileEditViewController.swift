@@ -124,7 +124,8 @@ final class ProfileEditViewController: UIViewController {
     }()
     
     private let keyboardManager = KeyboardManager.shared
-    var userModel: UserModel?
+    private var imageWasChanged: Bool = false
+    var viewModel: ProfileEditViewModel = ProfileEditViewModel()
     
     // MARK: - Lifecycle
     
@@ -136,13 +137,17 @@ final class ProfileEditViewController: UIViewController {
         
         view.snapshotView(afterScreenUpdates: true)
         
+        viewModel.userModel.bind { [weak self] user in
+            self?.configure()
+        }
+        
         configureUI()
     }
     
     // MARK: - Helpers
     
     private func configure() {
-        guard let userModel = userModel else { return }
+        guard let userModel = viewModel.userModel.value else { return }
         summaryTextView.text = userModel.summary
         guard let image = userModel.image else {
             profileImageView.layoutIfNeeded()
@@ -191,7 +196,12 @@ final class ProfileEditViewController: UIViewController {
 extension ProfileEditViewController {
     @objc
     private func doneEditing() {
-        
+        guard let userModel = viewModel.userModel.value else { return }
+        viewModel.updateUserProfile(image: imageWasChanged ? profileImageView.image : nil,
+                                    name: nameInputField.textField.text,
+                                    username: loginInputField.textField.text ?? userModel.username,
+                                    summary: summaryTextView.textView.text.isEmpty ? nil : summaryTextView.textView.text,
+                                    complition: { [weak self] in self?.navigationController?.popViewController(animated: true) })
     }
 }
 
@@ -208,6 +218,7 @@ extension ProfileEditViewController: UIImagePickerControllerDelegate, UINavigati
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let image = info[.editedImage] as? UIImage else { return }
         profileImageView.image = image
+        imageWasChanged = true
         dismiss(animated: true, completion: nil)
     }
 }

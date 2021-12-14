@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol SearchUsersCellDelegate: AnyObject {
+    func didTapFollowButton(_ indexPath: Int?, completion: @escaping () -> ())
+}
+
 final class SearchUsersCell: UITableViewCell {
     // MARK: - Private Properties
 
@@ -75,6 +79,10 @@ final class SearchUsersCell: UITableViewCell {
         button.addTarget(self, action: #selector(didTapFollowButton), for: .touchUpInside)
         return button
     }()
+    
+    var indexPathRow: Int?
+    
+    weak var delegate: SearchUsersCellDelegate?
 
     // MARK: - Lifecycle
 
@@ -93,7 +101,7 @@ final class SearchUsersCell: UITableViewCell {
     func configureCell(with model: UserModel) {
         loginLabel.text = model.username
         configureSummeryLabel(text: model.summary)
-//        configureFollowButton(isFollowed: model.isFollowed)
+        configureFollowButton(isFollowed: model.isFollowed ?? false)
         configureImageView(image: model.image, name: model.name, login: model.username)
     }
     
@@ -149,10 +157,7 @@ final class SearchUsersCell: UITableViewCell {
         followButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
     
-    // MARK: - Actions
-    
-    @objc
-    private func didTapFollowButton() {
+    private func switchFollowButtonAnimated() {
         UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
             self.configureFollowButton(isFollowed: !self.followButton.isSelected)
             self.followButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
@@ -161,5 +166,12 @@ final class SearchUsersCell: UITableViewCell {
                 self.followButton.transform = CGAffineTransform.identity
             }
         }
+    }
+    
+    // MARK: - Actions
+    
+    @objc
+    private func didTapFollowButton() {
+        delegate?.didTapFollowButton(indexPathRow, completion: switchFollowButtonAnimated)
     }
 }

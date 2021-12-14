@@ -36,7 +36,7 @@ class FeedController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(FeedCollectionViewCell.self, forCellWithReuseIdentifier: FeedCollectionViewCell.self.description())
-        collectionView.backgroundColor = UIColor.AppColors.feedBackgroundColor
+        collectionView.backgroundColor = .systemBackground
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
@@ -88,8 +88,9 @@ class FeedController: UIViewController {
     }
     
     private func configureNavigationController() {
-        navigationItem.title = (userModel?.isCurrentUser ?? false) ? FeedStrings.header.rawValue.localized : "Feed"
+        navigationItem.title = (userModel?.isCurrentUser ?? false) ? FeedStrings.header.rawValue.localized : FeedStrings.allTasksHeader.rawValue.localized
         navigationItem.rightBarButtonItem = (userModel?.isCurrentUser ?? false) ? searchButton : nil
+        
     }
     
     private func layoutCollection() {
@@ -111,8 +112,7 @@ extension FeedController: UICollectionViewDataSource {
         guard let userInfo = following.first(where: { $0.username == followingUsersTasks[indexPath.row].uid }) else { return .init(frame: .zero) }
         cell.tapOnUser = { [weak self] in
             let profileViewController = ProfileViewController()
-            profileViewController.userModel = userInfo
-            profileViewController.userTasksModel = UserTasksModel(login: userInfo.username, tasks: self?.followingUsersTasks.filter({ $0.uid == userInfo.username }) ?? [])
+            profileViewController.viewModel.userModel.value = userInfo
             self?.navigationController?.pushViewController(profileViewController, animated: true)
         }
         cell.configureCell(taskInfo: followingUsersTasks[indexPath.row], userInfo: userInfo)
@@ -135,7 +135,6 @@ extension FeedController {
     @objc
     private func openSearch() {
         let searchUsersController = SearchUsersController()
-        searchUsersController.userModel = userModel
         navigationController?.pushViewController(searchUsersController, animated: true)
     }
     

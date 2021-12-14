@@ -93,6 +93,7 @@ class FeedCollectionViewCell: UICollectionViewCell {
         layer.cornerRadius = UIConstants.cornerRadius
         backgroundColor = .systemBackground
         contentView.isUserInteractionEnabled = false
+        backgroundColor = .AppColors.feedBackgroundColor
         
         configureTaskImage()
         configureTaskLabel()
