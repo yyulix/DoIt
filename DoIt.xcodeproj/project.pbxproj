@@ -21,7 +21,7 @@
 		83369A40273855BD0025F3D9 /* TasksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83369A3F273855BD0025F3D9 /* TasksController.swift */; };
 		83369A44273856240025F3D9 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83369A43273856240025F3D9 /* TaskTableViewCell.swift */; };
 		83369A4A273856950025F3D9 /* ChapterCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83369A49273856950025F3D9 /* ChapterCollectionCell.swift */; };
-		83369A4E273857020025F3D9 /* Structures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83369A4D273857020025F3D9 /* Structures.swift */; };
+		83369A4E273857020025F3D9 /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83369A4D273857020025F3D9 /* TaskModel.swift */; };
 		8383503527583E58008847E1 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8383502227583E57008847E1 /* Auth.swift */; };
 		8383503627583E58008847E1 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8383502327583E57008847E1 /* CustomNavigationController.swift */; };
 		8383503727583E58008847E1 /* SignInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8383502527583E57008847E1 /* SignInController.swift */; };
@@ -78,7 +78,7 @@
 		83369A3F273855BD0025F3D9 /* TasksController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksController.swift; sourceTree = "<group>"; };
 		83369A43273856240025F3D9 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		83369A49273856950025F3D9 /* ChapterCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterCollectionCell.swift; sourceTree = "<group>"; };
-		83369A4D273857020025F3D9 /* Structures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structures.swift; sourceTree = "<group>"; };
+		83369A4D273857020025F3D9 /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
 		8383502227583E57008847E1 /* Auth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		8383502327583E57008847E1 /* CustomNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
 		8383502527583E57008847E1 /* SignInController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInController.swift; sourceTree = "<group>"; };
@@ -194,7 +194,7 @@
 				E4A95D4A275BE99A00EE3F59 /* UserFollowingModel.swift */,
 				E4A95D48275BE99900EE3F59 /* UserModel.swift */,
 				E49D6B1F275BEF0C007C9A97 /* UserTasksModel.swift */,
-				83369A4D273857020025F3D9 /* Structures.swift */,
+				83369A4D273857020025F3D9 /* TaskModel.swift */,
 				7C6C3BC3275C05E000B6101F /* UserService.swift */,
 				7C6C3BC7275C06B400B6101F /* AuthResultsModel.swift */,
 				7C6C3BC9275C072E00B6101F /* FirebaseConstants.swift */,
@@ -545,7 +545,7 @@
 				E4A95D5A275BEA8600EE3F59 /* ProfileViewController.swift in Sources */,
 				7C6382E8272883AC00FED2F4 /* Printer.swift in Sources */,
 				8383504A27583F93008847E1 /* Strings.swift in Sources */,
-				83369A4E273857020025F3D9 /* Structures.swift in Sources */,
+				83369A4E273857020025F3D9 /* TaskModel.swift in Sources */,
 				8383503A27583E58008847E1 /* OnboardingStruct.swift in Sources */,
 				E4BC75FE276537E40016B6E2 /* NotificationNameExtension.swift in Sources */,
 				83AF41A027429B5500CA8AAA /* CustomTabBarController.swift in Sources */,

@@ -38,8 +38,7 @@ class Task {
         // TODO: - FIX IT
         self.uid = ""
         
-        // TODO: - FIX IT
-        self.color = .systemBlue
+        self.color = UIColor().ColorFromHex(rgbValue: dictionary["color"] as! Int)
         
         if let creationTimestamp = dictionary["timestamp"] as? Double {
             self.creationTime = Date(timeIntervalSince1970: creationTimestamp)
