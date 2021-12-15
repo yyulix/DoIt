@@ -286,27 +286,34 @@ class ProfileViewController: UIViewController {
         
         configureUI()
         
-        viewModel.userModel.bind { [weak self] _ in
-            self?.configureCells()
-            self?.viewModel.getUserTasks()
-            self?.viewModel.getUserFollowings()
+        viewModel.userModel.bind { _ in
+            DispatchQueue.main.async { [weak self] in
+                self?.configureCells()
+            }
         }
         
-        viewModel.userTasksModel.bind { [weak self] _ in
-            self?.configureTasks()
-            self?.configureStatistics()
+        viewModel.userTasksModel.bind { _ in
+            DispatchQueue.main.async { [weak self] in
+                self?.configureTasks()
+                self?.configureStatistics()
+            }
         }
         
-        viewModel.userFollowingModel.bind { [weak self] _ in
-            self?.configureFollowing()
+        viewModel.userFollowingModel.bind { _ in
+            DispatchQueue.main.async { [weak self] in
+                self?.configureFollowing()
+            }
         }
+        
+        viewModel.getUserTasks()
+        viewModel.getUserFollowings()
     }
     
     // MARK: - Helpers
     
     private func configureCells() {
         guard let userModel = viewModel.userModel.value else { return }
-        configureHeader(image: userModel.image, name: userModel.name, login: userModel.username, isFollowed: userModel.isFollowed ?? false, isMyScreen: userModel.isCurrentUser)
+        configureHeader(imageURL: userModel.image, name: userModel.name, login: userModel.username, isFollowed: userModel.isFollowed ?? false, isMyScreen: userModel.isCurrentUser)
         configureInformation(summary: userModel.summary)
         configureStatistics()
     }
@@ -584,9 +591,9 @@ extension ProfileViewController {
 extension ProfileViewController {
     // MARK: - Header
     
-    private func configureHeader(image: UIImage?, name: String?, login: String, isFollowed: Bool, isMyScreen: Bool) {
+    private func configureHeader(imageURL: URL?, name: String?, login: String, isFollowed: Bool, isMyScreen: Bool) {
         configureHeaderHeight(withName: name != nil, isMyScreen: isMyScreen)
-        configureProfileImage(image: image, name: name, login: login)
+        configureProfileImage(imageURL: imageURL, name: name, login: login)
         
         nameLabel.text = name
         loginLabel.text = "@" + login
@@ -608,13 +615,20 @@ extension ProfileViewController {
         }
     }
     
-    private func configureProfileImage(image: UIImage?, name: String?, login: String) {
-        guard let image = image else {
+    private func configureProfileImage(imageURL: URL?, name: String?, login: String) {
+        guard let imageURL = imageURL else {
             profileImageView.layoutIfNeeded()
             profileImageView.setImageForName(name ?? login, circular: false, textAttributes: nil)
             return
         }
-        profileImageView.image = image
+        viewModel.downloadImage(imageURL) { image in
+            guard let image = image else {
+                return
+            }
+            DispatchQueue.main.async { [weak self] in
+                self?.profileImageView.image = image
+            }
+        }
     }
     
     // MARK: - Information View
@@ -636,7 +650,7 @@ extension ProfileViewController {
             tasks.forEach { task in
                 guard !task.isDone else { done += 1; return }
                 guard let deadline = task.deadline else { inProgress += 1; return }
-                guard deadline < currentDate else { outdated += 1; return }
+                guard deadline > currentDate else { outdated += 1; return }
                 inProgress += 1
             }
             
@@ -679,10 +693,21 @@ extension ProfileViewController {
     private func configureTaskView(index: Int, with: Task) {
         guard index < taskViews.count else { return }
         taskViews[index].chapterTaskIndicatorView.backgroundColor = with.color
-        taskViews[index].imageTaskLabel.image = with.image ?? .TaskIcons.defaultImage
+        taskViews[index].imageTaskLabel.image = .TaskIcons.defaultImage
         taskViews[index].titleTaskLabel.text = with.title
         taskViews[index].desciptionTaskLabel.text = with.description ?? TaskString.description.rawValue.localized
         taskViews[index].dividerTaskView.backgroundColor = with.color
+        
+        if let taskURL = with.image {
+            viewModel.downloadImage(taskURL) { image in
+                guard let image = image else {
+                    return
+                }
+                DispatchQueue.main.async { [weak self] in
+                    self?.taskViews[index].imageTaskLabel.image = image
+                }
+            }
+        }
         guard let date = with.deadline else {
             taskViews[index].deadlineTaskLabel.text = TaskString.deadline.rawValue.localized
             return
@@ -720,6 +745,14 @@ extension ProfileViewController: UICollectionViewDataSource {
         }
         guard let userFollowingModel = viewModel.userFollowingModel.value else { return .init() }
         cell.configureCell(with: userFollowingModel.followings[indexPath.row])
+        viewModel.downloadImage(userFollowingModel.followings[indexPath.row].image) { image in
+            guard let image = image else {
+                return
+            }
+            DispatchQueue.main.async {
+                cell.configureImage(image)
+            }
+        }
         return cell
     }
 }
@@ -785,7 +818,7 @@ extension ProfileViewController {
     @objc
     private func openSettings() {
         let profileEditViewController = ProfileEditViewController()
-        profileEditViewController.viewModel.userModel.value = viewModel.userModel.value
+        profileEditViewController.viewModel.userModel = viewModel.userModel
         profileEditViewController.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(profileEditViewController, animated: true)
     }

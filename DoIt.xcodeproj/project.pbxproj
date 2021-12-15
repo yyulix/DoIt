@@ -20,7 +20,6 @@
 		7CAC5DD027232C6000E2D70B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC5DCF27232C6000E2D70B /* SceneDelegate.swift */; };
 		83349BDB27681CC2008D4786 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83349BD927681CC2008D4786 /* ImageService.swift */; };
 		83349BDC27681CC2008D4786 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83349BDA27681CC2008D4786 /* AuthService.swift */; };
-		83349BE027682D58008D4786 /* Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83349BDF27682D58008D4786 /* Dynamic.swift */; };
 		83349BE227682D72008D4786 /* TasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83349BE127682D72008D4786 /* TasksViewModel.swift */; };
 		83349BE6276959F4008D4786 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83349BE5276959F4008D4786 /* AuthViewModel.swift */; };
 		83369A40273855BD0025F3D9 /* TasksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83369A3F273855BD0025F3D9 /* TasksController.swift */; };
@@ -82,7 +81,6 @@
 		7CAC5DDB27232C6300E2D70B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83349BD927681CC2008D4786 /* ImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		83349BDA27681CC2008D4786 /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
-		83349BDF27682D58008D4786 /* Dynamic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dynamic.swift; sourceTree = "<group>"; };
 		83349BE127682D72008D4786 /* TasksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewModel.swift; sourceTree = "<group>"; };
 		83349BE5276959F4008D4786 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		83369A3F273855BD0025F3D9 /* TasksController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksController.swift; sourceTree = "<group>"; };
@@ -164,7 +162,6 @@
 		7C6382CF2725C4F700FED2F4 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				83349BDF27682D58008D4786 /* Dynamic.swift */,
 				83349BE5276959F4008D4786 /* AuthViewModel.swift */,
 				83349BE127682D72008D4786 /* TasksViewModel.swift */,
 				E455B5D9276820E60059130D /* SearchUsersViewModel.swift */,
@@ -566,7 +563,6 @@
 				E455B5DA276820E60059130D /* SearchUsersViewModel.swift in Sources */,
 				7C6C3BCA275C072E00B6101F /* FirebaseConstants.swift in Sources */,
 				8383503727583E58008847E1 /* SignInController.swift in Sources */,
-				83349BE027682D58008D4786 /* Dynamic.swift in Sources */,
 				7C6382E62728807900FED2F4 /* UIColorsExtension.swift in Sources */,
 				E4A95D5D275BEAAA00EE3F59 /* Profile.swift in Sources */,
 				E4A95D5A275BEA8600EE3F59 /* ProfileViewController.swift in Sources */,

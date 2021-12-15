@@ -86,6 +86,20 @@ final class SearchUsersViewModel {
         }
     }
     
+    func downloadImage(_ url: URL?, completion: @escaping (UIImage?) -> ()) {
+        DispatchQueue.global().async {
+            var cellImage: UIImage? = nil
+            guard let url = url else {
+                completion(cellImage)
+                return
+            }
+            if let data = try? Data(contentsOf: url) {
+                cellImage = UIImage(data: data)
+            }
+            completion(cellImage)
+        }
+    }
+    
     func filtering(username: String) {
         DispatchQueue.global().async { [weak self] in
             self?.filteredUsersModel.value = self?.userModels.value?.filter { $0.username.lowercased().contains(username.lowercased()) }

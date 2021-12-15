@@ -3,34 +3,32 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>562011549386-m8uaj5enlra65cq7qlrg3jk91mv66fk5.apps.googleusercontent.com</string>
+	<string>602688246846-qrh1cc9j0t3jp82esmfohto1npg4fajn.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.562011549386-m8uaj5enlra65cq7qlrg3jk91mv66fk5</string>
+	<string>com.googleusercontent.apps.602688246846-qrh1cc9j0t3jp82esmfohto1npg4fajn</string>
 	<key>API_KEY</key>
-	<string>AIzaSyC6JYyF7IDY-kw3AH9Hl6v9E4b7L7Gj-Is</string>
+	<string>AIzaSyDSEhOuurCP73LiF9FHZPjBPP2-dl3c2Tc</string>
 	<key>GCM_SENDER_ID</key>
-	<string>562011549386</string>
+	<string>602688246846</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.vkproj.doIt</string>
+	<string>com.vkproj.doIt1</string>
 	<key>PROJECT_ID</key>
-	<string>doit-b9c45</string>
+	<string>doit-d4f58</string>
 	<key>STORAGE_BUCKET</key>
-	<string>doit-b9c45.appspot.com</string>
+	<string>doit-d4f58.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_GCM_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true/>
-	<key>DATABASE_URL</key>
-	<string>https://doit-b9c45-default-rtdb.firebaseio.com/</string>
+	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:562011549386:ios:6fcfaa37eaad2ceab88e33</string>
+	<string>1:602688246846:ios:ac3f4f04a7c992f0e22d6f</string>
 </dict>
 </plist>

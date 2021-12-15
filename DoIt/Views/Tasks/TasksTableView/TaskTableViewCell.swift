@@ -73,6 +73,7 @@ class TaskTableViewCell: UITableViewCell {
         }
         
         image.image = cellImage ?? .TaskIcons.defaultImage
+
         title.text = taskInfo.title
         taskDescription.text = taskInfo.description ?? TaskString.description.rawValue.localized
         divider.backgroundColor = taskInfo.color

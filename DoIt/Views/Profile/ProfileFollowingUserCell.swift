@@ -52,17 +52,12 @@ class ProfileFollowingUserCell: UICollectionViewCell {
     // MARK: - Helpers
     func configureCell(with: UserModel) {
         loginLabel.text = "@" + with.username
-        
-        var cellImage: UIImage? = nil
-        if let data = try? Data(contentsOf: with.image!) {
-            cellImage = UIImage(data: data)
-        }
-        
-        guard let image = cellImage else {
-            profileImageView.layoutIfNeeded()
-            profileImageView.setImageForName(with.name ?? with.username, circular: false, textAttributes: nil)
-            return
-        }
+        profileImageView.layoutIfNeeded()
+        profileImageView.setImageForName(with.name ?? with.username, circular: false, textAttributes: nil)
+    }
+    
+    func configureImage(_ image: UIImage?) {
+        guard let image = image else { return }
         profileImageView.image = image
     }
     
