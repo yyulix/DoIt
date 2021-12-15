@@ -70,17 +70,17 @@ class SignUpController: UIViewController {
 //                pop.addButton(button)
 //                return pop
 //            }()
-
         //self.present(popup, animated: true, completion: nil)
         
         
         
-        viewModel.authResultModel.bind { authResult in
+        viewModel.authResultModel.bind { [weak self] authResult in
             switch authResult {
             case .success:
-                print("auth successed")
+                print("SignUp successed")
+                self?.presentOnboarding()
             case .failure(let error):
-                print("Auth was failured: ", error.localizedDescription)
+                print("SignUp was failured: ", error.localizedDescription)
             case .none:
                 return
             }

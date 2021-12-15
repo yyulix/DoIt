@@ -57,9 +57,7 @@ class TasksController: UIViewController {
     
     //костыль
     private lazy var tasks: [Task] = {
-        return [Task(image: nil, title: "", description: nil, deadline: nil, isDone: false, color: .black),
-                Task(image: nil, title: "", description: nil, deadline: nil, isDone: false, color: .black),
-                Task(image: nil, title: "", description: nil, deadline: nil, isDone: false, color: .black)]
+        return [Task(id: "", dictionary: [:])]
     }()
     
     private var selectedTasks: [Task]? {

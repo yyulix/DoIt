@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 final class TasksViewModel {
     private let taskService = TaskService.shared
@@ -34,6 +35,20 @@ final class TasksViewModel {
                 //костыль
                 print("Task Upload Failed")
             }
+        }
+    }
+    
+    func downloadImage(_ url: URL?, completion: @escaping (UIImage?) -> ()) {
+        DispatchQueue.global().async {
+            var cellImage: UIImage? = nil
+            guard let url = url else {
+                completion(cellImage)
+                return
+            }
+            if let data = try? Data(contentsOf: url) {
+                cellImage = UIImage(data: data)
+            }
+            completion(cellImage)
         }
     }
 }

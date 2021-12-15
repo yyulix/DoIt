@@ -19,13 +19,8 @@ final class AuthViewModel {
     }
     
     func signIn(email: String?, password: String?) {
-        self.authService.signIn(email: email, password: password) { authResult in
-            switch authResult {
-            case .success:
-                print("Auth success")
-            case .failure(let error):
-                print("Auth was failured: ", error.localizedDescription)
-            }
+        self.authService.signIn(email: email, password: password) { [weak self] authResult in
+            self?.authResultModel.value = authResult
         }
     }
 }
