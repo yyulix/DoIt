@@ -41,6 +41,17 @@ class SignUpController: UIViewController {
 //        }
         
         super.viewDidLoad()
+        
+        viewModel.authResultModel.bind { authResult in
+            switch authResult {
+            case .success:
+                print("auth successed")
+            case .failure(let error):
+                print("Auth was failured: ", error.localizedDescription)
+            case .none:
+                return
+            }
+        }
         configureView()
     }
 
@@ -64,17 +75,16 @@ class SignUpController: UIViewController {
         stack.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
     }
     
+    private func presentOnboarding() {
+        let onboardingViewController = OnboardingViewController()
+        onboardingViewController.modalPresentationStyle = .fullScreen
+        present(onboardingViewController, animated: true)
+    }
+    
     @objc private func registerButtonPressed(_ sender: UIButton) {
         self.viewModel.signUp(email: envelopeInputView.textField.text,
                               username: usernameInputView.textField.text,
                               password: passwordInputView.textField.text)
-        
-    case viewModel.authResultModel
-        
-        let onboardingViewController = OnboardingViewController()
-        onboardingViewController.modalPresentationStyle = .fullScreen
-        present(onboardingViewController, animated: true)
-        
     }
     
     @objc private func signInButtonPressed(_ sender: UIButton) {

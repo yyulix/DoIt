@@ -551,9 +551,7 @@
 				83AF41A227431EB500CA8AAA /* FeedController.swift in Sources */,
 				8383503927583E58008847E1 /* OnboardingViewController.swift in Sources */,
 				E417CFDB2768BE1800C6E6B5 /* ProfileEditViewModel.swift in Sources */,
-				E455B5D827681AD20059130D /* ImageService.swift in Sources */,
 				83349BE6276959F4008D4786 /* AuthViewModel.swift in Sources */,
-
 				8383503D27583E58008847E1 /* TaskViewController.swift in Sources */,
 				7C6C3BC8275C06B400B6101F /* AuthResultsModel.swift in Sources */,
 				8383504227583E58008847E1 /* SignUpController.swift in Sources */,
@@ -748,7 +746,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.vkproj.doIt;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vkproj.doIt1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -777,7 +775,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.vkproj.doIt;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vkproj.doIt1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
