@@ -14,7 +14,7 @@ class UserModel {
     let email: String
     var username: String
     var summary: String?
-    let image: UIImage?
+    var image: URL?
     let name: String?
     
     var isCurrentUser: Bool {
@@ -28,16 +28,21 @@ class UserModel {
         self.email = dictionary["email"] as? String ?? ""
         self.username = dictionary["username"] as? String ?? ""
         self.summary = dictionary["summary"] as? String
-        self.image = nil
         self.name = nil
+        if let profileImageUrlString = dictionary["userPhotoUrl"] as? String {
+            guard let url = URL(string: profileImageUrlString) else {return}
+            self.image = url
+        }
     }
     
-    init(uid: String, email: String, username: String, summary: String?, image: UIImage?, name: String?) {
-        self.uid = uid
-        self.email = email
-        self.username = username
-        self.summary = summary
-        self.image = image
-        self.name = name
-    }
+    // TODO: - FIX IT
+    
+//    init(uid: String, email: String, username: String, summary: String?, image: UIImage?, name: String?) {
+//        self.uid = uid
+//        self.email = email
+//        self.username = username
+//        self.summary = summary
+//        self.image = image
+//        self.name = name
+//    }
 }

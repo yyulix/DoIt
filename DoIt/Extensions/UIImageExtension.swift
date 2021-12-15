@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 extension UIImage {
     struct AuthIcons {

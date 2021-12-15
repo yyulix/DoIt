@@ -102,7 +102,23 @@ final class SearchUsersCell: UITableViewCell {
         loginLabel.text = model.username
         configureSummeryLabel(text: model.summary)
         configureFollowButton(isFollowed: model.isFollowed ?? false)
-        configureImageView(image: model.image, name: model.name, login: model.username)
+        // MARK: - IMAGE FROM URL
+        //****************************************************************
+        //***
+        //***
+        var cellImage: UIImage? = nil
+        
+        if let data = try? Data(contentsOf: model.image!) {
+            // Create Image and Update Image View
+            cellImage = UIImage(data: data)
+        }
+        
+        configureImageView(image: cellImage, name: model.name, login: model.username)
+        //***
+        //***
+        //****************************************************************
+        // MARK: - OLD VERSION
+//        configureImageView(image: model.image, name: model.name, login: model.username)
     }
     
     private func configureImageView(image: UIImage?, name: String?, login: String) {

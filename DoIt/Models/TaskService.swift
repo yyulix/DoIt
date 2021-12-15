@@ -33,6 +33,22 @@ class TaskService {
         }
     }
     
+    func updateTaskImage(taskId: String, image: UIImage, completion: @escaping(URL?)-> Void){
+        guard let imageData = image.jpegData(compressionQuality: 1.0) else {return}
+            guard let uid = Auth.auth().currentUser?.uid else {return}
+            let ref = STORAGE_TASK_IMAGES.child(NSUUID().uuidString)
+
+            ref.putData(imageData, metadata: nil) { (meta, err) in
+                ref.downloadURL { (url, err) in
+                    guard let taskImageUrl = url?.absoluteString else {return}
+                    let values = ["taskImageUrl": taskImageUrl]
+                    REF_TASKS.child(taskId).updateChildValues(values) { (err, ref) in
+                        completion(url)
+                    }
+                }
+            }
+        }
+    
     func fetchTask(taskId: String, completion: @escaping(Task) -> Void){
         REF_TASKS.child(taskId).observeSingleEvent(of: .value) { snapshot in
             guard let dictionary = snapshot.value as? [String: Any] else {return}
