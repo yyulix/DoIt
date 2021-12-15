@@ -40,7 +40,7 @@ class UserService {
 
     func updateUserData(user: UserModel, completion: @escaping(DatabaseCompletion)){
         guard let uid = Auth.auth().currentUser?.uid else {return}
-        let values = ["username": user.username, "summary": user.summary ?? ""]
+        let values = ["username": user.username, "summary": user.summary ?? "", "name": user.name ?? ""]
         
         REF_USERS.child(uid).updateChildValues(values, withCompletionBlock: completion)
     }

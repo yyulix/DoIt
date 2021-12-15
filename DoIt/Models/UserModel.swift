@@ -28,7 +28,7 @@ class UserModel {
         self.email = dictionary["email"] as? String ?? ""
         self.username = dictionary["username"] as? String ?? ""
         self.summary = dictionary["summary"] as? String
-        self.name = nil
+        self.name = dictionary["name"] as? String
         if let profileImageUrlString = dictionary["userPhotoUrl"] as? String {
             self.image = URL(string: profileImageUrlString)
         }
