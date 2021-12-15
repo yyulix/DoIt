@@ -42,6 +42,39 @@ class SignUpController: UIViewController {
         
         super.viewDidLoad()
         
+        
+//из старой версии, с попапом на будущее
+    
+//        let title = AuthStrings.signInSuccessful.rawValue.localized
+//        let message = AuthStrings.welcome.rawValue.localized
+//
+//        lazy var popup : PopupDialog = {
+//                let pop = PopupDialog(title: title, message: message)
+//                let button = CancelButton(title: AuthStrings.invitation.rawValue.localized) {
+//                    let profileView = ProfileController(email: email)
+//                    self.present(profileView, animated: true, completion: nil)
+//                }
+//                pop.addButton(button)
+//                return pop
+//            }()
+//
+//            self.present(popup, animated: true, completion: nil)
+//        case .failure(let error):
+//
+//            let title = AuthStrings.signInUnsuccessful.rawValue.localized
+//            let message = error.localizedDescription
+//
+//            lazy var popup : PopupDialog = {
+//                let pop = PopupDialog(title: title, message: message)
+//                let button = CancelButton(title: AuthStrings.accept.rawValue.localized) {}
+//                pop.addButton(button)
+//                return pop
+//            }()
+
+        //self.present(popup, animated: true, completion: nil)
+        
+        
+        
         viewModel.authResultModel.bind { authResult in
             switch authResult {
             case .success:

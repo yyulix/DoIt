@@ -55,7 +55,6 @@ class SignInController: UIViewController {
     
     @objc private func signInButtonPressed(_ sender: UIButton) {
         self.viewModel.signIn(email: usernameInputView.textField.text, password: passwordInputView.textField.text)
-        
         let tabbarController = CustomTabBarController()
         tabbarController.modalPresentationStyle = .fullScreen
         //present(tabbarController, animated: true)
