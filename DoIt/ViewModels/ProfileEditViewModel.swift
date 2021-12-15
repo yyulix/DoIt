@@ -15,13 +15,20 @@ final class ProfileEditViewModel {
     func updateUserProfile(image: UIImage?, name: String?, username: String, summary: String?, complition: @escaping () -> ()) {
         DispatchQueue.global().sync { [weak self] in
             guard let userModel = userModel.value else {
+                complition()
                 return
             }
             var wasChanged = false
             
-            var newImage = userModel.image
-            if let image = image, image != newImage {
-                newImage = image
+            var newImageURL: URL? = nil
+            if let image = image {
+                userService.updateUserPhoto(image: image) { url in
+                    newImageURL = url
+                }
+                guard newImageURL != nil else {
+                    complition()
+                    return
+                }
                 wasChanged = true
             }
             
@@ -41,10 +48,11 @@ final class ProfileEditViewModel {
             }
             
             guard wasChanged else {
+                complition()
                 return
             }
             
-            let newUserModel = UserModel(uid: userModel.uid, email: userModel.email, username: username, summary: newSummary, image: newImage, name: newName)
+            let newUserModel = UserModel(uid: userModel.uid, email: userModel.email, username: username, summary: newSummary, imageURL: newImageURL, name: newName)
             
             self?.userService.updateUserData(user: newUserModel, completion: { error, _ in
                 if error != nil {
@@ -52,6 +60,20 @@ final class ProfileEditViewModel {
                 }
                 complition()
             })
+        }
+    }
+    
+    func downloadImage(_ url: URL?, completion: @escaping (UIImage?) -> ()) {
+        DispatchQueue.global().async {
+            var cellImage: UIImage? = nil
+            guard let url = url else {
+                completion(cellImage)
+                return
+            }
+            if let data = try? Data(contentsOf: url) {
+                cellImage = UIImage(data: data)
+            }
+            completion(cellImage)
         }
     }
 }

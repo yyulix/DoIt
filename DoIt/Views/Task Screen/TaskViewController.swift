@@ -107,7 +107,7 @@ class TaskViewController: UIViewController {
     
     private func configure() {
         guard let taskModel = taskModel else { return }
-        taskImage.image = taskModel.image ?? .TaskIcons.defaultImage
+//        taskImage.image = taskModel.image ?? .TaskIcons.defaultImage
         taskDescription.text = taskModel.description
         taskChapter.text = TaskCategory(index: taskModel.chapterId).chapter.title
         configureNavigationBar(title: taskModel.title, isDone: taskModel.isDone)

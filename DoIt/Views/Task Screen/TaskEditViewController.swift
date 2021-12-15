@@ -154,7 +154,7 @@ class TaskEditViewController: UIViewController {
         taskLabel.textField.text = taskModel.title
         taskChapter.text = TaskCategory(index: taskModel.chapterId).chapter.title
         taskDescription.text = taskModel.description
-        taskImage.image = taskModel.image
+//        taskImage.image = taskModel.image
         guard let deadline = taskModel.deadline else { return }
         timerLabel.text = dateFormatter.string(from: deadline)
     }

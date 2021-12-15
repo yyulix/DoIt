@@ -30,19 +30,18 @@ class UserModel {
         self.summary = dictionary["summary"] as? String
         self.name = nil
         if let profileImageUrlString = dictionary["userPhotoUrl"] as? String {
-            guard let url = URL(string: profileImageUrlString) else {return}
-            self.image = url
+            self.image = URL(string: profileImageUrlString)
         }
     }
     
     // TODO: - FIX IT
     
-//    init(uid: String, email: String, username: String, summary: String?, image: UIImage?, name: String?) {
-//        self.uid = uid
-//        self.email = email
-//        self.username = username
-//        self.summary = summary
-//        self.image = image
-//        self.name = name
-//    }
+    init(uid: String, email: String, username: String, summary: String?, imageURL: URL?, name: String?) {
+        self.uid = uid
+        self.email = email
+        self.username = username
+        self.summary = summary
+        self.image = imageURL
+        self.name = name
+    }
 }

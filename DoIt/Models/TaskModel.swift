@@ -8,13 +8,14 @@
 import UIKit
 import Firebase
 
-class Task {
+final class Task {
+    let taskId: String
     let image: URL?
     let title: String
     let description: String?
     let deadline: Date?
     let isDone: Bool
-    let uid: String?
+    let uid: String
     let color: UIColor
     let chapterId: Int
     let creationTime: Date
@@ -23,29 +24,33 @@ class Task {
         return Auth.auth().currentUser?.uid == uid
     }
     
-    init(uid: User, id: String, dictionary: [String: AnyObject]) {
+    init(id: String, dictionary: [String: AnyObject]) {
+        taskId = id
         if let profileImageUrlString = dictionary["userPhotoUrl"] as? String {
-            guard let url = URL(string: profileImageUrlString) else {return}
-            self.image = url
+            image = URL(string: profileImageUrlString)
+        } else {
+            image = nil
         }
-        self.title = dictionary["title"] as? String ?? ""
-        self.description = dictionary["description"] as? String ?? ""
+        title = dictionary["title"] as? String ?? ""
+        description = dictionary["description"] as? String
         if let deadlineTimestamp = dictionary["deadline"] as? Double {
-            self.deadline = Date(timeIntervalSince1970: deadlineTimestamp)
+            deadline = Date(timeIntervalSince1970: deadlineTimestamp)
+        } else {
+            deadline = nil
         }
-        self.isDone = dictionary["is_done"] as? Bool ?? false
-        
-        // TODO: - FIX IT
-        self.uid = ""
-        
-        self.color = UIColor().ColorFromHex(rgbValue: dictionary["color"] as! Int)
-        
+        isDone = dictionary["is_done"] as? Bool ?? false
+        uid = dictionary["uid"] as? String ?? ""
+        if let colorHex = dictionary["color"] as? Int {
+            color = UIColor().ColorFromHex(rgbValue: colorHex)
+        } else {
+            color = .clear
+        }
         if let creationTimestamp = dictionary["timestamp"] as? Double {
-            self.creationTime = Date(timeIntervalSince1970: creationTimestamp)
+            creationTime = Date(timeIntervalSince1970: creationTimestamp)
+        } else {
+            creationTime = Date(timeIntervalSince1970: 0)
         }
-        
-        // NOT DONE
-        self.chapterId = dictionary["chapter_id"] as? Int ?? 0
+        chapterId = dictionary["chapter_id"] as? Int ?? 0
     }
     
     // TODO: - FIX IT

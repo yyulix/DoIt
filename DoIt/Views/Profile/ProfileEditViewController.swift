@@ -137,11 +137,9 @@ final class ProfileEditViewController: UIViewController {
         
         view.snapshotView(afterScreenUpdates: true)
         
-        viewModel.userModel.bind { [weak self] user in
-            self?.configure()
-        }
-        
         configureUI()
+        
+        configure()
     }
     
     // MARK: - Helpers
@@ -149,12 +147,19 @@ final class ProfileEditViewController: UIViewController {
     private func configure() {
         guard let userModel = viewModel.userModel.value else { return }
         summaryTextView.text = userModel.summary
-        guard let image = userModel.image else {
-            profileImageView.layoutIfNeeded()
-            profileImageView.setImageForName(userModel.name ?? userModel.username, circular: false, textAttributes: nil)
+        profileImageView.layoutIfNeeded()
+        profileImageView.setImageForName(userModel.name ?? userModel.username, circular: false, textAttributes: nil)
+        guard let imageURL = userModel.image else {
             return
         }
-        profileImageView.image = image
+        viewModel.downloadImage(imageURL) { image in
+            guard let image = image else {
+                return
+            }
+            DispatchQueue.main.async { [weak self] in
+                self?.profileImageView.image = image
+            }
+        }
     }
     
     private func configureUI() {
@@ -163,7 +168,6 @@ final class ProfileEditViewController: UIViewController {
         layoutScrollView()
         layoutStackView()
         layoutWidthInputFields()
-        configure()
     }
     
     private func configureNavigationController() {
@@ -201,7 +205,11 @@ extension ProfileEditViewController {
                                     name: nameInputField.textField.text,
                                     username: loginInputField.textField.text ?? userModel.username,
                                     summary: summaryTextView.textView.text.isEmpty ? nil : summaryTextView.textView.text,
-                                    complition: { [weak self] in self?.navigationController?.popViewController(animated: true) })
+                                    complition: {
+            DispatchQueue.main.async { [weak self] in
+                self?.navigationController?.popViewController(animated: true)
+            }
+        })
     }
 }
 

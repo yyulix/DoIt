@@ -66,7 +66,7 @@ class TaskTableViewCell: UITableViewCell {
     func configureCell(taskInfo: Task) {
         chapterIndicator.backgroundColor = taskInfo.color
         taskInfo.isDone ? checkBox.setImage(.TaskIcons.done, for: .normal) : checkBox.setImage(.TaskIcons.notDone, for: .normal)
-        image.image = taskInfo.image ?? .TaskIcons.defaultImage
+//        image.image = taskInfo.image ?? .TaskIcons.defaultImage
         title.text = taskInfo.title
         taskDescription.text = taskInfo.description ?? TaskString.description.rawValue.localized
         divider.backgroundColor = taskInfo.color

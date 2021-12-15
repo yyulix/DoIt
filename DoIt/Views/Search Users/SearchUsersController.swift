@@ -162,10 +162,20 @@ extension SearchUsersController: UITableViewDataSource {
         cell.indexPathRow = indexPath.row
         guard viewModel.filteredUsersModel.value == nil else {
             cell.configureCell(with: viewModel.filteredUsersModel.value![indexPath.row])
+            viewModel.downloadImage(viewModel.filteredUsersModel.value![indexPath.row].image) { image in
+                DispatchQueue.main.async {
+                    cell.configureImage(image: image)
+                }
+            }
             return cell
         }
         if let userModels = viewModel.userModels.value {
             cell.configureCell(with: userModels[indexPath.row])
+            viewModel.downloadImage(userModels[indexPath.row].image) { image in
+                DispatchQueue.main.async {
+                    cell.configureImage(image: image)
+                }
+            }
         }
         return cell
     }

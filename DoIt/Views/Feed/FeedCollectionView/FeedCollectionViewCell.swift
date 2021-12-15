@@ -77,7 +77,8 @@ class FeedCollectionViewCell: UICollectionViewCell {
     
     //MARK: - Public Methods
     func configureCell(taskInfo: Task, userInfo: UserModel) {
-        taskImage.image = taskInfo.image ?? UIImage.TaskIcons.defaultImage
+        // MARK: - CHANGE
+//        taskImage.image = taskInfo.image ?? UIImage.TaskIcons.defaultImage
         taskLabel.text = taskInfo.title
         creatorLabel.text = "@" + userInfo.username
         guard let image = userInfo.image else {
@@ -85,7 +86,7 @@ class FeedCollectionViewCell: UICollectionViewCell {
             creatorImage.setImageForName(userInfo.name ?? userInfo.username, circular: false, textAttributes: nil)
             return
         }
-        creatorImage.image = image
+//        creatorImage.image = image
     }
     
     private func configureUI() {
