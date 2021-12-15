@@ -21,10 +21,7 @@ class TaskService {
                       "is_done": task.isDone,
                       "uid": uid,
                       "timestamp": Int(NSDate().timeIntervalSince1970),
-                      "color": [task.color.cgColor.components?[0],
-                                task.color.cgColor.components?[1],
-                                task.color.cgColor.components?[2]
-                                ]
+                      "color": UIColor().HexFromColor(color: task.color)
         ] as [String : Any]
         
         REF_TASKS.childByAutoId().updateChildValues(values) { (error, ref) in
@@ -71,8 +68,8 @@ class TaskService {
             
             self.fetchTask(taskId: taskId) { task in
                 tasks.append(task)
-                completion(tasks)
             }
         }
+        completion(tasks)
     }
 }

@@ -32,7 +32,7 @@ final class Task {
             image = nil
         }
         title = dictionary["title"] as? String ?? ""
-        description = dictionary["description"] as? String
+        description = dictionary["description"] as? String ?? ""
         if let deadlineTimestamp = dictionary["deadline"] as? Double {
             deadline = Date(timeIntervalSince1970: deadlineTimestamp)
         } else {
