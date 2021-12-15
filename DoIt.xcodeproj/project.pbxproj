@@ -18,8 +18,6 @@
 		7C6C3BCC275C176C00B6101F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7C6C3BCB275C176C00B6101F /* GoogleService-Info.plist */; };
 		7CAC5DCE27232C6000E2D70B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC5DCD27232C6000E2D70B /* AppDelegate.swift */; };
 		7CAC5DD027232C6000E2D70B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAC5DCF27232C6000E2D70B /* SceneDelegate.swift */; };
-		83349BDB27681CC2008D4786 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83349BD927681CC2008D4786 /* ImageService.swift */; };
-		83349BDC27681CC2008D4786 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83349BDA27681CC2008D4786 /* AuthService.swift */; };
 		83349BE227682D72008D4786 /* TasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83349BE127682D72008D4786 /* TasksViewModel.swift */; };
 		83349BE6276959F4008D4786 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83349BE5276959F4008D4786 /* AuthViewModel.swift */; };
 		83369A40273855BD0025F3D9 /* TasksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83369A3F273855BD0025F3D9 /* TasksController.swift */; };
@@ -58,6 +56,7 @@
 		E4A95D5A275BEA8600EE3F59 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A95D57275BEA8500EE3F59 /* ProfileViewController.swift */; };
 		E4A95D5B275BEA8600EE3F59 /* ProfileFollowingUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A95D58275BEA8500EE3F59 /* ProfileFollowingUserCell.swift */; };
 		E4A95D5D275BEAAA00EE3F59 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A95D5C275BEAAA00EE3F59 /* Profile.swift */; };
+		E4AB3EF7276A89490038D8AD /* ImageChacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AB3EF6276A89490038D8AD /* ImageChacher.swift */; };
 		E4BC75FE276537E40016B6E2 /* NotificationNameExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BC75FD276537E40016B6E2 /* NotificationNameExtension.swift */; };
 /* End PBXBuildFile section */
 
@@ -74,13 +73,10 @@
 		7C6C3BC7275C06B400B6101F /* AuthResultsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResultsModel.swift; sourceTree = "<group>"; };
 		7C6C3BC9275C072E00B6101F /* FirebaseConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConstants.swift; sourceTree = "<group>"; };
 		7C6C3BCB275C176C00B6101F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		7C6C3BCD275CFE4700B6101F /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		7CAC5DCA27232C6000E2D70B /* DoIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DoIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CAC5DCD27232C6000E2D70B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7CAC5DCF27232C6000E2D70B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		7CAC5DDB27232C6300E2D70B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		83349BD927681CC2008D4786 /* ImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
-		83349BDA27681CC2008D4786 /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		83349BE127682D72008D4786 /* TasksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewModel.swift; sourceTree = "<group>"; };
 		83349BE5276959F4008D4786 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		83369A3F273855BD0025F3D9 /* TasksController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksController.swift; sourceTree = "<group>"; };
@@ -119,6 +115,7 @@
 		E4A95D57275BEA8500EE3F59 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		E4A95D58275BEA8500EE3F59 /* ProfileFollowingUserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileFollowingUserCell.swift; sourceTree = "<group>"; };
 		E4A95D5C275BEAAA00EE3F59 /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		E4AB3EF6276A89490038D8AD /* ImageChacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageChacher.swift; sourceTree = "<group>"; };
 		E4BC75FD276537E40016B6E2 /* NotificationNameExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNameExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -200,18 +197,16 @@
 		7C6382D52725C5E800FED2F4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				83349BDA27681CC2008D4786 /* AuthService.swift */,
-				83349BD927681CC2008D4786 /* ImageService.swift */,
-				E455B5D527681AD10059130D /* AuthService.swift */,
-				E4A95D4A275BE99A00EE3F59 /* UserFollowingModel.swift */,
+				7C6C3BC7275C06B400B6101F /* AuthResultsModel.swift */,
 				E4A95D48275BE99900EE3F59 /* UserModel.swift */,
 				E49D6B1F275BEF0C007C9A97 /* UserTasksModel.swift */,
+				E4A95D4A275BE99A00EE3F59 /* UserFollowingModel.swift */,
 				83369A4D273857020025F3D9 /* TaskModel.swift */,
+				E455B5D527681AD10059130D /* AuthService.swift */,
 				7C6C3BC3275C05E000B6101F /* UserService.swift */,
-				7C6C3BC7275C06B400B6101F /* AuthResultsModel.swift */,
-				7C6C3BC9275C072E00B6101F /* FirebaseConstants.swift */,
-				7C6C3BCD275CFE4700B6101F /* UserModel.swift */,
 				E417CFD827689D8A00C6E6B5 /* TaskService.swift */,
+				7C6C3BC9275C072E00B6101F /* FirebaseConstants.swift */,
+				E4AB3EF6276A89490038D8AD /* ImageChacher.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -541,7 +536,6 @@
 				E455B5D727681AD20059130D /* AuthService.swift in Sources */,
 				E417CFD927689D8A00C6E6B5 /* TaskService.swift in Sources */,
 				83369A4A273856950025F3D9 /* ChapterCollectionCell.swift in Sources */,
-				83349BDC27681CC2008D4786 /* AuthService.swift in Sources */,
 				8383504027583E58008847E1 /* SearchUsersCell.swift in Sources */,
 				E49D6B20275BEF0C007C9A97 /* UserTasksModel.swift in Sources */,
 				E4A95D59275BEA8500EE3F59 /* ProfileEditViewController.swift in Sources */,
@@ -575,8 +569,8 @@
 				8383503627583E58008847E1 /* CustomNavigationController.swift in Sources */,
 				8383503527583E58008847E1 /* Auth.swift in Sources */,
 				7C6C3BC4275C05E000B6101F /* UserService.swift in Sources */,
+				E4AB3EF7276A89490038D8AD /* ImageChacher.swift in Sources */,
 				8383503C27583E58008847E1 /* TaskEditViewController.swift in Sources */,
-				83349BDB27681CC2008D4786 /* ImageService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
