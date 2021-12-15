@@ -26,6 +26,8 @@ class SignInController: UIViewController {
         return button
     }()
     
+    private let viewModel = AuthViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
@@ -52,9 +54,11 @@ class SignInController: UIViewController {
     }
     
     @objc private func signInButtonPressed(_ sender: UIButton) {
+        self.viewModel.signIn(email: usernameInputView.textField.text, password: passwordInputView.textField.text)
+        
         let tabbarController = CustomTabBarController()
         tabbarController.modalPresentationStyle = .fullScreen
-        present(tabbarController, animated: true)
+        //present(tabbarController, animated: true)
         
     }
     

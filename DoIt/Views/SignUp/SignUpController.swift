@@ -32,7 +32,14 @@ class SignUpController: UIViewController {
         return button
     }()
 
+    private let viewModel = AuthViewModel()
+    //private var authResult = AuthResult
+    
     override func viewDidLoad() {
+//        viewModel.authResultModel.bind { [weak self] _ in
+//            self?.authResult = viewModel.authResultModel.value
+//        }
+        
         super.viewDidLoad()
         configureView()
     }
@@ -58,6 +65,12 @@ class SignUpController: UIViewController {
     }
     
     @objc private func registerButtonPressed(_ sender: UIButton) {
+        self.viewModel.signUp(email: envelopeInputView.textField.text,
+                              username: usernameInputView.textField.text,
+                              password: passwordInputView.textField.text)
+        
+    case viewModel.authResultModel
+        
         let onboardingViewController = OnboardingViewController()
         onboardingViewController.modalPresentationStyle = .fullScreen
         present(onboardingViewController, animated: true)

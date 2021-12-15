@@ -7,12 +7,12 @@
 
 import Foundation
 
-class TasksScreenViewModel: NSObject, TasksViewModel {
-    var preparedTasks: Dynamic<[Task]>
-    var allTasks: [Task]
-    let taskService = TaskS
-    
-    override init() {
-        allTasks = taskService.
-    }
-}
+//class TasksScreenViewModel: NSObject, TasksViewModel {
+//    var preparedTasks: Dynamic<[Task]>
+//    var allTasks: [Task]
+//    let taskService = TaskS
+//    
+//    override init() {
+//        allTasks = taskService.
+//    }
+//}
