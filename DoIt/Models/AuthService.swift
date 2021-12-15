@@ -50,7 +50,8 @@ class AuthService {
             
             let values = ["email": email,
                           "username": username]
-            let usersReferense = Database.database().reference().child("users").child(uid)
+            
+            let usersReferense = Database.database().reference().child("users")
             usersReferense.child(uid).updateChildValues(values)
             completion(.success)
         }

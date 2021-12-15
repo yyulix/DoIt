@@ -52,8 +52,8 @@ class UserService {
             guard let dictionary = snapshot.value as? [String: AnyObject] else {return}
             let user = UserModel(uid: uid, dictionary: dictionary)
             users.append(user)
+            completion(users)
         }
-        completion(users)
     }
     
     func followUser(uid: String, completion: @escaping(DatabaseCompletion)){
@@ -85,8 +85,8 @@ class UserService {
 
             let follower_uid = snapshot.key
             users_uid.append(follower_uid)
+            completion(users_uid)
         }
-        completion(users_uid)
     }
     
     func fetchUserFollowing(uid: String, completion: @escaping([String])->Void) {
@@ -95,8 +95,8 @@ class UserService {
 
             let following_uid = snapshot.key
             users_uid.append(following_uid)
+            completion(users_uid)
         }
-        completion(users_uid)
     }
     
 }

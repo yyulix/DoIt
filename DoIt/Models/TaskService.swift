@@ -49,14 +49,6 @@ class TaskService {
     func fetchTask(taskId: String, completion: @escaping(Task) -> Void){
         REF_TASKS.child(taskId).observeSingleEvent(of: .value) { snapshot in
             guard let dictionary = snapshot.value as? [String: AnyObject] else {return}
-//            guard let uid = dictionary["uid"] as? String else {return}
-//            guard let image = dictionary["image"] as? String else { return }
-//            guard let title = dictionary["title"] as? String else { return }
-//            guard let description = dictionary["description"] as? String else { return }
-//            guard let deadline = dictionary["deadline"] as? Int else { return }
-//            guard let isDone = dictionary["is_done"] as? Bool else { return }
-//            guard let color = dictionary["color"] as? [Int] else { return }
-
             completion(Task(id: taskId, dictionary: dictionary))
         }
     }
