@@ -622,13 +622,11 @@ extension ProfileViewController {
             profileImageView.setImageForName(name ?? login, circular: false, textAttributes: nil)
             return
         }
-        viewModel.downloadImage(imageURL) { image in
+        viewModel.downloadImage(imageURL) { [weak self] image in
             guard let image = image else {
                 return
             }
-            DispatchQueue.main.async { [weak self] in
-                self?.profileImageView.image = image
-            }
+            self?.profileImageView.image = image
         }
     }
     
@@ -700,13 +698,11 @@ extension ProfileViewController {
         taskViews[index].dividerTaskView.backgroundColor = with.color
         
         if let taskURL = with.image {
-            viewModel.downloadImage(taskURL) { image in
+            viewModel.downloadImage(taskURL) { [weak self] image in
                 guard let image = image else {
                     return
                 }
-                DispatchQueue.main.async { [weak self] in
-                    self?.taskViews[index].imageTaskLabel.image = image
-                }
+                self?.taskViews[index].imageTaskLabel.image = image
             }
         }
         guard let date = with.deadline else {
@@ -750,9 +746,7 @@ extension ProfileViewController: UICollectionViewDataSource {
             guard let image = image else {
                 return
             }
-            DispatchQueue.main.async {
-                cell.configureImage(image)
-            }
+            cell.configureImage(image)
         }
         return cell
     }

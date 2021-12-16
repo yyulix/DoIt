@@ -53,9 +53,13 @@ final class SearchUsersViewModel {
                 guard let user = self?.userModel.value else { return }
                 let users = users.filter({ $0.uid != user.uid })
                 users.forEach { user in
-                    self?.userService.isUserFollowed(uid: user.uid) { user.isFollowed = $0 }
+                    self?.userService.isUserFollowed(uid: user.uid) { [weak self] in
+                        user.isFollowed = $0
+                        if let currentUser = users.last, currentUser.uid == user.uid {
+                            self?.userModels.value = users
+                        }
+                    }
                 }
-                self?.userModels.value = users
             })
         }
     }
@@ -89,17 +93,11 @@ final class SearchUsersViewModel {
     }
     
     func downloadImage(_ url: URL?, completion: @escaping (UIImage?) -> ()) {
-        DispatchQueue.global().async {
-            var cellImage: UIImage? = nil
-            guard let url = url else {
-                completion(cellImage)
-                return
+        ImageLoader.downloadImage(url: url, complition: { image in
+            DispatchQueue.main.async {
+                completion(image)
             }
-            if let data = try? Data(contentsOf: url) {
-                cellImage = UIImage(data: data)
-            }
-            completion(cellImage)
-        }
+        })
     }
     
     func filtering(username: String) {

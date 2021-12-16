@@ -32,7 +32,7 @@ class TaskService {
     
     func updateTaskImage(taskId: String, image: UIImage, completion: @escaping(URL?)-> Void){
         guard let imageData = image.jpegData(compressionQuality: 1.0) else {return}
-            guard let uid = Auth.auth().currentUser?.uid else {return}
+        guard (Auth.auth().currentUser?.uid) != nil else {return}
             let ref = STORAGE_TASK_IMAGES.child(NSUUID().uuidString)
 
             ref.putData(imageData, metadata: nil) { (meta, err) in

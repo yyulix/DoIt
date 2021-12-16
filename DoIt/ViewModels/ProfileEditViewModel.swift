@@ -69,17 +69,11 @@ final class ProfileEditViewModel {
     }
     
     func downloadImage(_ url: URL?, completion: @escaping (UIImage?) -> ()) {
-        DispatchQueue.global().async {
-            var cellImage: UIImage? = nil
-            guard let url = url else {
-                completion(cellImage)
-                return
+        ImageLoader.downloadImage(url: url, complition: { image in
+            DispatchQueue.main.async {
+                completion(image)
             }
-            if let data = try? Data(contentsOf: url) {
-                cellImage = UIImage(data: data)
-            }
-            completion(cellImage)
-        }
+        })
     }
     
     func updateUser(complition: @escaping () -> ()) {

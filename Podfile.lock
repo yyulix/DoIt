@@ -101,6 +101,7 @@ PODS:
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.7.0)
   - InitialsImageView (0.7.0)
+  - Kingfisher (7.1.2)
   - leveldb-library (1.22.1)
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
@@ -116,6 +117,7 @@ DEPENDENCIES:
   - Firebase/Database
   - Firebase/Storage
   - InitialsImageView
+  - Kingfisher
   - SwipeableTabBarController
 
 SPEC REPOS:
@@ -133,6 +135,7 @@ SPEC REPOS:
     - GoogleUtilities
     - GTMSessionFetcher
     - InitialsImageView
+    - Kingfisher
     - leveldb-library
     - nanopb
     - PromisesObjC
@@ -152,11 +155,12 @@ SPEC CHECKSUMS:
   GoogleUtilities: 684ee790a24f73ebb2d1d966e9711c203f2a4237
   GTMSessionFetcher: 43748f93435c2aa068b1cbe39655aaf600652e91
   InitialsImageView: 7a416d36fc6df5434198664db28a3ffb0228426d
+  Kingfisher: 44ed6a8504763f27bab46163adfac83f5deb240c
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   SwipeableTabBarController: 9a218bdee9426d1bfe36d7962f852024bb08d61b
 
-PODFILE CHECKSUM: fb210c43b30722ec9ba1eaf713b5c1e4fda3d02d
+PODFILE CHECKSUM: 9c8e76a49910b42cc8d6ef5d91d79529d3be66ea
 
 COCOAPODS: 1.11.2

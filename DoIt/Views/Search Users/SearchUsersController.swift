@@ -74,7 +74,7 @@ final class SearchUsersController: UIViewController {
         
         viewModel.userModels.bind { [weak self] _ in
             DispatchQueue.main.async {
-                self?.tableView.reloadSections(IndexSet(integer: 0), with: .fade)
+                self?.tableView.reloadData()
             }
         }
         
@@ -135,6 +135,8 @@ final class SearchUsersController: UIViewController {
             self.navigationController?.navigationBar.tintColor = .AppColors.navigationTextColor
         }, completion: completion)
     }
+    
+    private let imageLoader = ImageLoader()
 }
 
 extension SearchUsersController: UITableViewDelegate {
@@ -165,18 +167,18 @@ extension SearchUsersController: UITableViewDataSource {
         cell.indexPathRow = indexPath.row
         guard viewModel.filteredUsersModel.value == nil else {
             cell.configureCell(with: viewModel.filteredUsersModel.value![indexPath.row])
-            viewModel.downloadImage(viewModel.filteredUsersModel.value![indexPath.row].image) { image in
-                DispatchQueue.main.async {
-                    cell.configureImage(image: image)
+            viewModel.downloadImage(viewModel.filteredUsersModel.value![indexPath.row].image) { [weak self] image in
+                if let oldCell = self?.tableView.cellForRow(at: indexPath) as? SearchUsersCell {
+                    oldCell.configureImage(image: image)
                 }
             }
             return cell
         }
         if let userModels = viewModel.userModels.value {
             cell.configureCell(with: userModels[indexPath.row])
-            viewModel.downloadImage(userModels[indexPath.row].image) { image in
-                DispatchQueue.main.async {
-                    cell.configureImage(image: image)
+            viewModel.downloadImage(userModels[indexPath.row].image) { [weak self] image in
+                if let oldCell = self?.tableView.cellForRow(at: indexPath) as? SearchUsersCell {
+                    oldCell.configureImage(image: image)
                 }
             }
         }

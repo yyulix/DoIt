@@ -154,13 +154,11 @@ final class ProfileEditViewController: UIViewController {
         guard let imageURL = userModel.image else {
             return
         }
-        viewModel.downloadImage(imageURL) { image in
+        viewModel.downloadImage(imageURL) { [weak self] image in
             guard let image = image else {
                 return
             }
-            DispatchQueue.main.async { [weak self] in
-                self?.profileImageView.image = image
-            }
+            self?.profileImageView.image = image
         }
     }
     
