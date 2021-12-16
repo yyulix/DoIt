@@ -32,8 +32,59 @@ class SignUpController: UIViewController {
         return button
     }()
 
+    private let viewModel = AuthViewModel()
+    //private var authResult = AuthResult
+    
     override func viewDidLoad() {
+//        viewModel.authResultModel.bind { [weak self] _ in
+//            self?.authResult = viewModel.authResultModel.value
+//        }
+        
         super.viewDidLoad()
+        
+        
+//из старой версии, с попапом на будущее
+    
+//        let title = AuthStrings.signInSuccessful.rawValue.localized
+//        let message = AuthStrings.welcome.rawValue.localized
+//
+//        lazy var popup : PopupDialog = {
+//                let pop = PopupDialog(title: title, message: message)
+//                let button = CancelButton(title: AuthStrings.invitation.rawValue.localized) {
+//                    let profileView = ProfileController(email: email)
+//                    self.present(profileView, animated: true, completion: nil)
+//                }
+//                pop.addButton(button)
+//                return pop
+//            }()
+//
+//            self.present(popup, animated: true, completion: nil)
+//        case .failure(let error):
+//
+//            let title = AuthStrings.signInUnsuccessful.rawValue.localized
+//            let message = error.localizedDescription
+//
+//            lazy var popup : PopupDialog = {
+//                let pop = PopupDialog(title: title, message: message)
+//                let button = CancelButton(title: AuthStrings.accept.rawValue.localized) {}
+//                pop.addButton(button)
+//                return pop
+//            }()
+        //self.present(popup, animated: true, completion: nil)
+        
+        
+        
+        viewModel.authResultModel.bind { [weak self] authResult in
+            switch authResult {
+            case .success:
+                print("SignUp successed")
+                self?.presentOnboarding()
+            case .failure(let error):
+                print("SignUp was failured: ", error.localizedDescription)
+            case .none:
+                return
+            }
+        }
         configureView()
     }
 
@@ -57,11 +108,16 @@ class SignUpController: UIViewController {
         stack.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
     }
     
-    @objc private func registerButtonPressed(_ sender: UIButton) {
+    private func presentOnboarding() {
         let onboardingViewController = OnboardingViewController()
         onboardingViewController.modalPresentationStyle = .fullScreen
         present(onboardingViewController, animated: true)
-        
+    }
+    
+    @objc private func registerButtonPressed(_ sender: UIButton) {
+        self.viewModel.signUp(email: envelopeInputView.textField.text,
+                              username: usernameInputView.textField.text,
+                              password: passwordInputView.textField.text)
     }
     
     @objc private func signInButtonPressed(_ sender: UIButton) {

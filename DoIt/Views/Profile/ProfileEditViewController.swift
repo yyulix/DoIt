@@ -124,7 +124,8 @@ final class ProfileEditViewController: UIViewController {
     }()
     
     private let keyboardManager = KeyboardManager.shared
-    var userModel: UserModel?
+    private var imageWasChanged: Bool = false
+    var viewModel: ProfileEditViewModel = ProfileEditViewModel()
     
     // MARK: - Lifecycle
     
@@ -137,19 +138,30 @@ final class ProfileEditViewController: UIViewController {
         view.snapshotView(afterScreenUpdates: true)
         
         configureUI()
+        
+        configure()
     }
     
     // MARK: - Helpers
     
     private func configure() {
-        guard let userModel = userModel else { return }
+        guard let userModel = viewModel.userModel.value else { return }
         summaryTextView.text = userModel.summary
-        guard let image = userModel.image else {
-            profileImageView.layoutIfNeeded()
-            profileImageView.setImageForName(userModel.name ?? userModel.login, circular: false, textAttributes: nil)
+        profileImageView.layoutIfNeeded()
+        profileImageView.setImageForName(userModel.name ?? userModel.username, circular: false, textAttributes: nil)
+        loginInputField.textField.text = userModel.username
+        nameInputField.textField.text = userModel.name
+        guard let imageURL = userModel.image else {
             return
         }
-        profileImageView.image = image
+        viewModel.downloadImage(imageURL) { image in
+            guard let image = image else {
+                return
+            }
+            DispatchQueue.main.async { [weak self] in
+                self?.profileImageView.image = image
+            }
+        }
     }
     
     private func configureUI() {
@@ -158,7 +170,6 @@ final class ProfileEditViewController: UIViewController {
         layoutScrollView()
         layoutStackView()
         layoutWidthInputFields()
-        configure()
     }
     
     private func configureNavigationController() {
@@ -191,7 +202,17 @@ final class ProfileEditViewController: UIViewController {
 extension ProfileEditViewController {
     @objc
     private func doneEditing() {
-        
+        guard viewModel.userModel.value != nil else { return }
+        let summary = summaryTextView.textView.text == ProfileEditString.summeryPlaceholder.rawValue.localized ? nil : summaryTextView.textView.text
+        viewModel.updateUserProfile(image: imageWasChanged ? profileImageView.image : nil,
+                                    name: nameInputField.textField.text,
+                                    username: loginInputField.textField.text,
+                                    summary: summary,
+                                    complition: {
+            DispatchQueue.main.async { [weak self] in
+                self?.navigationController?.popViewController(animated: true)
+            }
+        })
     }
 }
 
@@ -208,6 +229,7 @@ extension ProfileEditViewController: UIImagePickerControllerDelegate, UINavigati
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let image = info[.editedImage] as? UIImage else { return }
         profileImageView.image = image
+        imageWasChanged = true
         dismiss(animated: true, completion: nil)
     }
 }

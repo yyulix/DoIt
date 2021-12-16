@@ -26,8 +26,22 @@ class SignInController: UIViewController {
         return button
     }()
     
+    private let viewModel = AuthViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        viewModel.authResultModel.bind { [weak self] authResult in
+            switch authResult {
+            case .success:
+                print("SignIn successed")
+                self?.presentTabBar()
+            case .failure(let error):
+                print("SignIn was failured: ", error.localizedDescription)
+            case .none:
+                return
+            }
+        }
         configureView()
     }
 
@@ -51,11 +65,14 @@ class SignInController: UIViewController {
         stack.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
     }
     
-    @objc private func signInButtonPressed(_ sender: UIButton) {
+    private func presentTabBar() {
         let tabbarController = CustomTabBarController()
         tabbarController.modalPresentationStyle = .fullScreen
         present(tabbarController, animated: true)
-        
+    }
+    
+    @objc private func signInButtonPressed(_ sender: UIButton) {
+        self.viewModel.signIn(email: usernameInputView.textField.text, password: passwordInputView.textField.text)
     }
     
     @objc private func signUpButtonPressed(_ sender: UIButton) {

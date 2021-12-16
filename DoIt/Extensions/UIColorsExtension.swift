@@ -61,4 +61,23 @@ extension UIColor {
         static let brown: UIColor = .brown
     }
 }
-
+extension UIColor {
+    
+    func ColorFromHex(rgbValue: Int) -> UIColor {
+        let red =   CGFloat((rgbValue & 0xFF0000) >> 16) / 0xFF
+        let green = CGFloat((rgbValue & 0x00FF00) >> 8) / 0xFF
+        let blue =  CGFloat(rgbValue & 0x0000FF) / 0xFF
+        let alpha = CGFloat(1.0)
+        return UIColor(red: red, green: green, blue: blue, alpha: alpha)
+    }
+    
+    func HexFromColor(color: UIColor) -> Int {
+        var r: CGFloat = 0
+        var g: CGFloat = 0
+        var b: CGFloat = 0
+        var a: CGFloat = 0
+        color.getRed(&r, green: &g, blue: &b, alpha: &a)
+        let hex = (Int(r * 255) << 16) | (Int(g * 255) << 8) | (Int(g * 255))
+        return hex
+    }
+}

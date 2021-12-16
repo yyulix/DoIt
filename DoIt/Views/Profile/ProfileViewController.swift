@@ -277,11 +277,7 @@ class ProfileViewController: UIViewController {
     
     // MARK: - Configuration
     
-    var userModel: UserModel?
-    
-    var userFollowingModel: UserFollowingModel?
-    
-    var userTasksModel: UserTasksModel?
+    var viewModel: ProfileViewModel = ProfileViewModel()
     
     // MARK: - Lifecycle
     
@@ -289,19 +285,38 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         
         configureUI()
+        
+        viewModel.userModel.bind { _ in
+            DispatchQueue.main.async { [weak self] in
+                self?.configureCells()
+            }
+        }
+        
+        viewModel.userTasksModel.bind { _ in
+            DispatchQueue.main.async { [weak self] in
+                self?.configureTasks()
+                self?.configureStatistics()
+            }
+        }
+        
+        viewModel.userFollowingModel.bind { _ in
+            DispatchQueue.main.async { [weak self] in
+                self?.configureFollowing()
+            }
+        }
+        
+        viewModel.getUserTasks()
+        viewModel.getUserFollowings()
     }
     
     // MARK: - Helpers
     
     private func configureCells() {
-        guard let userModel = userModel else { return }
-        configureHeader(image: userModel.image, name: userModel.name, login: userModel.login, isFollowed: userModel.isFollowed, isMyScreen: userModel.isMyScreen)
+        guard let userModel = viewModel.userModel.value else { return }
+        configureNavigationController(title: viewModel.userModel.value?.username ?? "", isMyScreen: viewModel.userModel.value?.isCurrentUser ?? false)
+        configureHeader(imageURL: userModel.image, name: userModel.name, login: userModel.username, isFollowed: userModel.isFollowed ?? false, isMyScreen: userModel.isCurrentUser)
         configureInformation(summary: userModel.summary)
-        configureStatistics(with: userModel.statistics)
-        
-        configureTasks(with: userTasksModel?.tasks ?? [])
-        
-        configureFollowing(isFollowingEmpty: (userFollowingModel?.followings ?? []).count == 0 ? true : false)
+        configureStatistics()
     }
     
     private func configureUI() {
@@ -309,7 +324,7 @@ class ProfileViewController: UIViewController {
         
         layoutScrollView()
         layoutCellsStackView()
-        configureNavigationController(title: userModel?.login ?? "", isMyScreen: userModel?.isMyScreen ?? false)
+        configureNavigationController(title: viewModel.userModel.value?.username ?? "", isMyScreen: viewModel.userModel.value?.isCurrentUser ?? false)
         configureCells()
     }
     
@@ -559,6 +574,17 @@ extension ProfileViewController {
         innerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         return view
     }
+    
+    private func switchFollowButtonAnimated() {
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
+            self.configureFollowButton(isFollowed: !self.followButton.isSelected)
+            self.followButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+        } completion: { _ in
+            UIView.animate(withDuration: 0.2) {
+                self.followButton.transform = CGAffineTransform.identity
+            }
+        }
+    }
 }
 
 // MARK: - Configuration
@@ -566,9 +592,9 @@ extension ProfileViewController {
 extension ProfileViewController {
     // MARK: - Header
     
-    private func configureHeader(image: UIImage?, name: String?, login: String, isFollowed: Bool, isMyScreen: Bool) {
+    private func configureHeader(imageURL: URL?, name: String?, login: String, isFollowed: Bool, isMyScreen: Bool) {
         configureHeaderHeight(withName: name != nil, isMyScreen: isMyScreen)
-        configureProfileImage(image: image, name: name, login: login)
+        configureProfileImage(imageURL: imageURL, name: name, login: login)
         
         nameLabel.text = name
         loginLabel.text = "@" + login
@@ -590,13 +616,20 @@ extension ProfileViewController {
         }
     }
     
-    private func configureProfileImage(image: UIImage?, name: String?, login: String) {
-        guard let image = image else {
+    private func configureProfileImage(imageURL: URL?, name: String?, login: String) {
+        guard let imageURL = imageURL else {
             profileImageView.layoutIfNeeded()
             profileImageView.setImageForName(name ?? login, circular: false, textAttributes: nil)
             return
         }
-        profileImageView.image = image
+        viewModel.downloadImage(imageURL) { image in
+            guard let image = image else {
+                return
+            }
+            DispatchQueue.main.async { [weak self] in
+                self?.profileImageView.image = image
+            }
+        }
     }
     
     // MARK: - Information View
@@ -607,16 +640,34 @@ extension ProfileViewController {
     
     // MARK: - Statistics View
     
-    private func configureStatistics(with: UserStatisticsModel) {
-        inProgressNumberLabel.text = with.inProgress
-        outdatedNumberLabel.text = with.outdated
-        doneNumberLabel.text = with.done
-        totalNumberLabel.text = with.total
+    private func configureStatistics() {
+        let tasks = viewModel.userTasksModel.value?.tasks ?? []
+        DispatchQueue.global().async {
+            var done = 0
+            var outdated = 0
+            var inProgress = 0
+            let total = tasks.count
+            let currentDate = Date()
+            tasks.forEach { task in
+                guard !task.isDone else { done += 1; return }
+                guard let deadline = task.deadline else { inProgress += 1; return }
+                guard deadline > currentDate else { outdated += 1; return }
+                inProgress += 1
+            }
+            
+            DispatchQueue.main.async { [weak self] in
+                self?.inProgressNumberLabel.text = "\(inProgress)"
+                self?.outdatedNumberLabel.text = "\(outdated)"
+                self?.doneNumberLabel.text = "\(done)"
+                self?.totalNumberLabel.text = "\(total)"
+            }
+        }
     }
     
     // MARK: - Tasks View
     
-    private func configureTasks(with: [Task]) {
+    private func configureTasks() {
+        let with = viewModel.userTasksModel.value?.tasks ?? []
         let taskToConfigure = min(with.count, taskViews.count)
         for i in 0..<taskToConfigure {
             configureTaskView(index: i, with: with[i])
@@ -643,10 +694,21 @@ extension ProfileViewController {
     private func configureTaskView(index: Int, with: Task) {
         guard index < taskViews.count else { return }
         taskViews[index].chapterTaskIndicatorView.backgroundColor = with.color
-        taskViews[index].imageTaskLabel.image = with.image ?? .TaskIcons.defaultImage
+        taskViews[index].imageTaskLabel.image = .TaskIcons.defaultImage
         taskViews[index].titleTaskLabel.text = with.title
         taskViews[index].desciptionTaskLabel.text = with.description ?? TaskString.description.rawValue.localized
         taskViews[index].dividerTaskView.backgroundColor = with.color
+        
+        if let taskURL = with.image {
+            viewModel.downloadImage(taskURL) { image in
+                guard let image = image else {
+                    return
+                }
+                DispatchQueue.main.async { [weak self] in
+                    self?.taskViews[index].imageTaskLabel.image = image
+                }
+            }
+        }
         guard let date = with.deadline else {
             taskViews[index].deadlineTaskLabel.text = TaskString.deadline.rawValue.localized
             return
@@ -656,7 +718,8 @@ extension ProfileViewController {
     
     // MARK: - Following View
     
-    private func configureFollowing(isFollowingEmpty: Bool) {
+    private func configureFollowing() {
+        let isFollowingEmpty = (viewModel.userFollowingModel.value?.followings ?? []).count == 0 ? true : false
         noFollowingLabel.isHidden = !isFollowingEmpty
         followingCollectionView.isHidden = isFollowingEmpty
     }
@@ -667,22 +730,30 @@ extension ProfileViewController {
 extension ProfileViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let profileViewController = ProfileViewController()
-        profileViewController.userModel = userFollowingModel?.followings[indexPath.row]
+        profileViewController.viewModel.userModel.value = viewModel.userFollowingModel.value?.followings[indexPath.row]
         navigationController?.pushViewController(profileViewController, animated: true)
     }
 }
 
 extension ProfileViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return userFollowingModel?.followings.count ?? 0
+        return viewModel.userFollowingModel.value?.followings.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ProfileFollowingUserCell.self), for: indexPath) as? ProfileFollowingUserCell else {
             return .init(frame: .zero)
         }
-        guard let userFollowingModel = userFollowingModel else { return .init() }
+        guard let userFollowingModel = viewModel.userFollowingModel.value else { return .init() }
         cell.configureCell(with: userFollowingModel.followings[indexPath.row])
+        viewModel.downloadImage(userFollowingModel.followings[indexPath.row].image) { image in
+            guard let image = image else {
+                return
+            }
+            DispatchQueue.main.async {
+                cell.configureImage(image)
+            }
+        }
         return cell
     }
 }
@@ -694,8 +765,8 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {   }
 extension ProfileViewController {
     @objc
     private func showAllTasks() {
-        guard let userModel = userModel else { return }
-        guard !userModel.isMyScreen else {
+        guard let userModel = viewModel.userModel.value else { return }
+        guard !userModel.isCurrentUser else {
             NotificationCenter.default.post(name: .openTasksFromProfile, object: nil)
             navigationController?.popToRootViewController(animated: true)
             return
@@ -703,7 +774,7 @@ extension ProfileViewController {
         let viewController = FeedController()
         viewController.userModel = userModel
         viewController.following = [userModel]
-        viewController.followingUsersTasks = userTasksModel?.tasks ?? []
+        viewController.followingUsersTasks = viewModel.userTasksModel.value?.tasks ?? []
         navigationController?.pushViewController(viewController, animated: true)
     }
     
@@ -713,19 +784,34 @@ extension ProfileViewController {
         guard let i = taskViews.firstIndex(where: { $0.taskView == view } ) else { return }
         
         let taskViewController = TaskViewController()
-        taskViewController.taskModel = userTasksModel?.tasks[i]
+        taskViewController.taskModel = viewModel.userTasksModel.value?.tasks[i]
         taskViewController.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(taskViewController, animated: true)
     }
     
     @objc
     private func didTapFollowButton() {
-        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
-            self.configureFollowButton(isFollowed: !self.followButton.isSelected)
-            self.followButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
-        } completion: { _ in
-            UIView.animate(withDuration: 0.2) {
-                self.followButton.transform = CGAffineTransform.identity
+        guard let userModel = viewModel.userModel.value else { return }
+        guard let isFollowed = userModel.isFollowed else { return }
+        if isFollowed {
+            viewModel.unfollowUser(userModel) { [weak self] done in
+                guard done else {
+                    
+                    return
+                }
+                DispatchQueue.main.async {
+                    self?.switchFollowButtonAnimated()
+                }
+            }
+        } else {
+            viewModel.followUser(userModel) { [weak self] done in
+                guard done else {
+                    
+                    return
+                }
+                DispatchQueue.main.async {
+                    self?.switchFollowButtonAnimated()
+                }
             }
         }
     }
@@ -733,7 +819,7 @@ extension ProfileViewController {
     @objc
     private func openSettings() {
         let profileEditViewController = ProfileEditViewController()
-        profileEditViewController.userModel = userModel
+        profileEditViewController.viewModel.userModel = viewModel.userModel
         profileEditViewController.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(profileEditViewController, animated: true)
     }

@@ -53,12 +53,12 @@ class TasksController: UIViewController {
         return tableView
     }()
     
-    var tasks = [
-        Task(image: UIImage(named: "bob"), title: "Task 1: Get ready for an exam", description: nil, deadline: nil, isDone: true, creatorId: "1", color: .black, chapterId: 0, creationTime: Date(), isMyTask: true),
-        Task(image: UIImage(named: "bob"), title: "Task 2: Get ready for an exam", description: nil, deadline: nil, isDone: false, creatorId: "2", color: .yellow, chapterId: 1, creationTime: Date(), isMyTask: true),
-        Task(image: UIImage(named: "bob"), title: "Task 3: Get ready for an exam", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: nil, isDone: false, creatorId: "2", color: .red, chapterId: 2, creationTime: Date(), isMyTask: true),
-        Task(image: UIImage(named: "bob"), title: "Task 4: Get ready for an exam", description: "Math exam. jad;lfajslf;jasl;dfjlskfja;sldf", deadline: Date(timeIntervalSinceNow: 50), isDone: true, creatorId: "1", color: .orange, chapterId: 3, creationTime: Date(), isMyTask: true)
-    ]
+    private let viewModel: TasksViewModel = TasksViewModel()
+    
+    //костыль
+    private lazy var tasks: [Task] = {
+        return [Task(id: "", dictionary: [:])]
+    }()
     
     private var selectedTasks: [Task]? {
         didSet {
@@ -73,7 +73,16 @@ class TasksController: UIViewController {
     
     //MARK: - Override Methods
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        viewModel.taskModels.bind { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.reload()
+            }
+        }
+
+        //let currentUser = UserModel(uid: UserDefaults.standard.string(forKey: "current_user")!, email: "", username: "", summary: nil, image: nil, name: nil)
+        //viewModel.getTasks(forUser: currentUser)
         view.backgroundColor = .systemBackground
         configureNavigationController()
         view.addSubview(table)
@@ -82,9 +91,15 @@ class TasksController: UIViewController {
     }
     
     //MARK: - Private Methods
+    private func reload() {
+        table.reloadData()
+        //guard let userTasks = viewModel.taskModels.value else { return }
+        //tasks = userTasks
+    }
+    
     private func configureNavigationController() {
         navigationItem.title = TasksStrings.header.rawValue.localized
-        navigationItem.rightBarButtonItem = (userModel?.isMyScreen ?? false) ? profileButton : nil
+        navigationItem.rightBarButtonItem = (userModel?.isCurrentUser ?? false) ? profileButton : nil
     }
     
     private func layoutCollection() {
@@ -111,6 +126,7 @@ extension TasksController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TaskTableViewCell.self), for: indexPath) as? TaskTableViewCell else { return .init(frame: .zero) }
+        //тут отрисовываем ячейки с данными из modelView.sortedtasks
         cell.configureCell(taskInfo: selectedTasks?[indexPath.row] ?? tasks[indexPath.row])
         return cell
     }
@@ -157,12 +173,12 @@ extension TasksController {
     @objc
     private func openProfile() {
         let profileViewController = ProfileViewController()
-        profileViewController.userModel = userModel
+        profileViewController.viewModel.userModel.value = userModel
         guard let userModel = userModel else {
             navigationController?.pushViewController(profileViewController, animated: true)
             return
         }
-        profileViewController.userTasksModel = UserTasksModel(login: userModel.login, tasks: tasks)
+        profileViewController.viewModel.userTasksModel.value = UserTasksModel(login: userModel.username, tasks: tasks)
         navigationController?.pushViewController(profileViewController, animated: true)
     }
 }
