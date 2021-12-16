@@ -50,6 +50,8 @@ final class SearchUsersViewModel {
     func getAllUsers() {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             self?.userService.fetchUsers(completion: { [weak self] users in
+                guard let user = self?.userModel.value else { return }
+                let users = users.filter({ $0.uid != user.uid })
                 users.forEach { user in
                     self?.userService.isUserFollowed(uid: user.uid) { user.isFollowed = $0 }
                 }
@@ -61,8 +63,8 @@ final class SearchUsersViewModel {
     func followUser(_ user: UserModel, completion: @escaping (Bool) -> ()) {
         DispatchQueue.global().async { [weak self] in
             self?.userService.followUser(uid: user.uid) { error, _ in
-                guard error == nil else {
-                    print(error!.localizedDescription)
+                if let error = error {
+                    print(error.localizedDescription)
                     completion(false)
                     return
                 }
@@ -75,12 +77,12 @@ final class SearchUsersViewModel {
     func unfollowUser(_ user: UserModel, completion: @escaping (Bool) -> ()) {
         DispatchQueue.global().async { [weak self] in
             self?.userService.unfollowUser(uid: user.uid) { error, _ in
-                guard error == nil else {
-                    print(error!.localizedDescription)
+                if let error = error {
+                    print(error.localizedDescription)
                     completion(false)
                     return
                 }
-                user.isFollowed = true
+                user.isFollowed = false
                 completion(true)
             }
         }

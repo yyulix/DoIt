@@ -13,9 +13,9 @@ class UserModel {
     let uid: String
     let email: String
     var username: String
-    var summary: String?
+    var summary: String? = nil
     var image: URL?
-    let name: String?
+    var name: String? = nil
     
     var isCurrentUser: Bool {
         return Auth.auth().currentUser?.uid == uid
@@ -27,21 +27,20 @@ class UserModel {
         self.uid = uid
         self.email = dictionary["email"] as? String ?? ""
         self.username = dictionary["username"] as? String ?? ""
-        self.summary = dictionary["summary"] as? String
-        self.name = dictionary["name"] as? String
-        if let profileImageUrlString = dictionary["userPhotoUrl"] as? String {
-            self.image = URL(string: profileImageUrlString)
+        if let summary = dictionary["summary"] as? String {
+            if !summary.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                self.summary = summary
+            }
         }
-    }
-    
-    // TODO: - FIX IT
-    
-    init(uid: String, email: String, username: String, summary: String?, imageURL: URL?, name: String?) {
-        self.uid = uid
-        self.email = email
-        self.username = username
-        self.summary = summary
-        self.image = imageURL
-        self.name = name
+        if let name = dictionary["name"] as? String {
+            if !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                self.name = name
+            }
+        }
+        if let profileImageUrlString = dictionary["userPhotoUrl"] as? String {
+            if !profileImageUrlString.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                self.image = URL(string: profileImageUrlString)
+            }
+        }
     }
 }

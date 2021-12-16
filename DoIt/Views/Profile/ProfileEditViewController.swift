@@ -149,6 +149,8 @@ final class ProfileEditViewController: UIViewController {
         summaryTextView.text = userModel.summary
         profileImageView.layoutIfNeeded()
         profileImageView.setImageForName(userModel.name ?? userModel.username, circular: false, textAttributes: nil)
+        loginInputField.textField.text = userModel.username
+        nameInputField.textField.text = userModel.name
         guard let imageURL = userModel.image else {
             return
         }
@@ -200,11 +202,12 @@ final class ProfileEditViewController: UIViewController {
 extension ProfileEditViewController {
     @objc
     private func doneEditing() {
-        guard let userModel = viewModel.userModel.value else { return }
+        guard viewModel.userModel.value != nil else { return }
+        let summary = summaryTextView.textView.text == ProfileEditString.summeryPlaceholder.rawValue.localized ? nil : summaryTextView.textView.text
         viewModel.updateUserProfile(image: imageWasChanged ? profileImageView.image : nil,
                                     name: nameInputField.textField.text,
-                                    username: loginInputField.textField.text ?? userModel.username,
-                                    summary: summaryTextView.textView.text.isEmpty ? nil : summaryTextView.textView.text,
+                                    username: loginInputField.textField.text,
+                                    summary: summary,
                                     complition: {
             DispatchQueue.main.async { [weak self] in
                 self?.navigationController?.popViewController(animated: true)

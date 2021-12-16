@@ -40,7 +40,7 @@ class UserService {
 
     func updateUserData(user: UserModel, completion: @escaping(DatabaseCompletion)){
         guard let uid = Auth.auth().currentUser?.uid else {return}
-        let values = ["username": user.username, "summary": user.summary ?? "", "name": user.name ?? ""]
+        let values: [String: Any] = ["username": user.username, "summary": user.summary ?? "", "name": user.name ?? "", "userPhotoUrl": user.image?.absoluteString ?? ""]
         
         REF_USERS.child(uid).updateChildValues(values, withCompletionBlock: completion)
     }
@@ -75,7 +75,8 @@ class UserService {
     func isUserFollowed(uid: String, completion: @escaping(Bool)->Void){
         guard let currentUid = Auth.auth().currentUser?.uid else {return}
 
-        REF_USER_FOLLOWING.child(currentUid).child(uid).observeSingleEvent(of: .value) { snapshot in            completion(snapshot.exists())
+        REF_USER_FOLLOWING.child(currentUid).child(uid).observeSingleEvent(of: .value) { snapshot in
+            completion(snapshot.exists())
         }
     }
     

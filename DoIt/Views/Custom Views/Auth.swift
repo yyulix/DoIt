@@ -36,7 +36,7 @@ final class InputField: UIView {
     
     // MARK: - Initializers
     
-    init(labelImage: UIImage? = nil, keyboardType: UIKeyboardType = .default, placeholderText: String) {
+    init(labelImage: UIImage? = nil, keyboardType: UIKeyboardType = .default, placeholderText: String?) {
         super.init(frame: .zero)
         
         heightAnchor.constraint(equalToConstant: UIConstants.height).isActive = true
@@ -71,7 +71,7 @@ final class InputField: UIView {
         icon.bottomAnchor.constraint(equalTo: bottomAnchor, constant: UIConstants.paddingBottom).isActive = true
     }
     
-    private func addTextfield(placeholderText: String) {
+    private func addTextfield(placeholderText: String?) {
         addSubview(textField)
         textField.autocorrectionType = .no
         textField.placeholder = placeholderText

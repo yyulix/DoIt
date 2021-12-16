@@ -36,15 +36,10 @@ class CustomTabBarController: SwipeableTabBarController {
     //MARK: - Helpers
     
     private func configureViewControllers() {
-        let temp: [String: String] = ["email" : "greagges@vk.com", "username": "myname", "password": "12345678"]
-        let userModel = UserModel(uid: "fafaf", dictionary: temp as [String: AnyObject])
-        
         let tasks = TasksController()
-        tasks.userModel = userModel
         tasks.tabBarItem = UITabBarItem(title: TabBarStrings.tasks.rawValue.localized, image: .TabBarIcons.tasksIcon, selectedImage: nil)
         
         let feed = FeedController()
-        feed.userModel = userModel
         feed.tabBarItem = UITabBarItem(title: TabBarStrings.feed.rawValue.localized, image: .TabBarIcons.feedIcon, selectedImage: nil)
         
         let controllers = [ CustomNavigationController(rootViewController: tasks), CustomNavigationController(rootViewController: feed) ]

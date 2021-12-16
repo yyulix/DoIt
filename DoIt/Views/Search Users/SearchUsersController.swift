@@ -84,6 +84,8 @@ final class SearchUsersController: UIViewController {
             }
         }
         
+        viewModel.getCurrentUser()
+        
         configureUI()
     }
 
@@ -159,6 +161,7 @@ extension SearchUsersController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SearchUsersCell.self), for: indexPath) as? SearchUsersCell else {
             return .init()
         }
+        cell.delegate = self
         cell.indexPathRow = indexPath.row
         guard viewModel.filteredUsersModel.value == nil else {
             cell.configureCell(with: viewModel.filteredUsersModel.value![indexPath.row])

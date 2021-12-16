@@ -7,7 +7,7 @@
 
 import Firebase
 
-class AuthService {
+final class AuthService {
 
     static let shared = AuthService()
 
@@ -31,7 +31,7 @@ class AuthService {
         }
     }
 
-    public func signUp(email: String?, username: String?, password: String?, completion: @escaping (AuthResult) -> Void) {
+    func signUp(email: String?, username: String?, password: String?, completion: @escaping (AuthResult) -> Void) {
 
         guard let email = email, let username = username, let password = password else {
             completion(.failure(AuthError.unknownError))

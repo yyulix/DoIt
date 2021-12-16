@@ -313,6 +313,7 @@ class ProfileViewController: UIViewController {
     
     private func configureCells() {
         guard let userModel = viewModel.userModel.value else { return }
+        configureNavigationController(title: viewModel.userModel.value?.username ?? "", isMyScreen: viewModel.userModel.value?.isCurrentUser ?? false)
         configureHeader(imageURL: userModel.image, name: userModel.name, login: userModel.username, isFollowed: userModel.isFollowed ?? false, isMyScreen: userModel.isCurrentUser)
         configureInformation(summary: userModel.summary)
         configureStatistics()

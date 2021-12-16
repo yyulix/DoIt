@@ -12,54 +12,59 @@ final class ProfileEditViewModel {
     private let userService = UserService.shared
     var userModel: Observable<UserModel> = Observable()
     
-    func updateUserProfile(image: UIImage?, name: String?, username: String, summary: String?, complition: @escaping () -> ()) {
+    func updateUserProfile(image: UIImage?, name: String?, username: String?, summary: String?, complition: @escaping () -> ()) {
         DispatchQueue.global().sync { [weak self] in
             guard let userModel = userModel.value else {
+                Logger.log("Пользователь не найден")
                 complition()
                 return
             }
+            
             var wasChanged = false
             
-            var newImageURL: URL? = nil
-            if let image = image {
-                userService.updateUserPhoto(image: image) { url in
-                    newImageURL = url
-                }
-                guard newImageURL != nil else {
-                    complition()
-                    return
-                }
-                wasChanged = true
-            }
+            wasChanged = image != nil
             
             var newName = userModel.name
-            if let name = name, name != newName {
+            if let name = name?.trimmingCharacters(in: .whitespacesAndNewlines), name != newName {
                 newName = name
                 wasChanged = true
             }
             
             var newSummary = userModel.summary
-            if let summary = summary, summary != newSummary {
+            if let summary = summary?.trimmingCharacters(in: .whitespacesAndNewlines), summary != newSummary {
                 newSummary = summary
+                wasChanged = true
             }
             
-            if username != userModel.username {
+            var newUsername = userModel.username
+            if let username = username?.trimmingCharacters(in: .whitespacesAndNewlines), username != newUsername, !username.isEmpty {
+                newUsername = username
                 wasChanged = true
             }
             
             guard wasChanged else {
+                Logger.log("Ничего не поменялось")
                 complition()
                 return
             }
             
-            let newUserModel = UserModel(uid: userModel.uid, email: userModel.email, username: username, summary: newSummary, imageURL: newImageURL, name: newName)
+            var values: [String: String] = ["email": userModel.email, "username": newUsername, "summary": newSummary ?? "", "name": newName ?? ""]
             
-            self?.userService.updateUserData(user: newUserModel, completion: { error, _ in
-                if error != nil {
-                    
+            if let image = image {
+                self?.userService.updateUserPhoto(image: image) { [weak self] url in
+                    guard url != nil else {
+                        Logger.log("Ошибка обновления изображения")
+                        complition()
+                        return
+                    }
+                    values["userPhotoUrl"] = url?.absoluteString ?? ""
+                    self?.userModel.value = UserModel(uid: userModel.uid, dictionary: values as [String: AnyObject])
+                    self?.updateUser(complition: complition)
                 }
-                complition()
-            })
+            } else {
+                self?.userModel.value = UserModel(uid: userModel.uid, dictionary: values as [String: AnyObject])
+                self?.updateUser(complition: complition)
+            }
         }
     }
     
@@ -75,5 +80,16 @@ final class ProfileEditViewModel {
             }
             completion(cellImage)
         }
+    }
+    
+    func updateUser(complition: @escaping () -> ()) {
+        guard let userModel = userModel.value else { return }
+        userService.updateUserData(user: userModel, completion: { error, _ in
+            if let error = error {
+                Logger.log("Ошибка обращения к бд \(error)")
+            }
+            Logger.log("Профиль обновлен")
+            complition()
+        })
     }
 }

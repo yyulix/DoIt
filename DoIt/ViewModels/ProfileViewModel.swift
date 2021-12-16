@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 import UIKit
 
 final class ProfileViewModel {
@@ -17,6 +18,17 @@ final class ProfileViewModel {
     var userFollowingModel: Observable<UserFollowingModel> = Observable()
     
     var userTasksModel: Observable<UserTasksModel> = Observable()
+    
+    func getCurrentUser() {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let uid = Auth.auth().currentUser?.uid else {
+                return
+            }
+            self?.userService.fetchUser(uid: uid) { [weak self] user in
+                self?.userModel.value = user
+            }
+        }
+    }
     
     func getUserTasks() {
         DispatchQueue.global().async { [weak self] in
@@ -49,12 +61,12 @@ final class ProfileViewModel {
     func followUser(_ user: UserModel, completion: @escaping (Bool) -> ()) {
         DispatchQueue.global().async { [weak self] in
             self?.userService.followUser(uid: user.uid) { error, _ in
-                guard error == nil else {
-                    print(error!.localizedDescription)
+                if let error = error {
+                    print(error.localizedDescription)
                     completion(false)
                     return
                 }
-                self?.userModel.value?.isFollowed = true
+                user.isFollowed = true
                 completion(true)
             }
         }
@@ -63,12 +75,12 @@ final class ProfileViewModel {
     func unfollowUser(_ user: UserModel, completion: @escaping (Bool) -> ()) {
         DispatchQueue.global().async { [weak self] in
             self?.userService.unfollowUser(uid: user.uid) { error, _ in
-                guard error == nil else {
-                    print(error!.localizedDescription)
+                if let error = error {
+                    print(error.localizedDescription)
                     completion(false)
                     return
                 }
-                self?.userModel.value?.isFollowed = true
+                user.isFollowed = false
                 completion(true)
             }
         }
