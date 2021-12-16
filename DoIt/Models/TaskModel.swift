@@ -37,7 +37,6 @@ final class Task {
         }
         title = dictionary["title"] as? String ?? ""
         description = dictionary["description"] as? String ?? ""
-        let currentDate = Date()
         if let deadlineTimestamp = dictionary["deadline"] as? Double {
             deadline = Date(timeIntervalSince1970: deadlineTimestamp)
         } else {
