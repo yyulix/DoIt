@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class TaskEditViewController: UIViewController {
     
@@ -138,7 +139,9 @@ class TaskEditViewController: UIViewController {
         (.TaskColors.brown, TaskScreen.brownColor.rawValue.localized)
     ]
     
-    var taskModel: Task?
+    private var imageWasSet: Bool = false
+    
+    var viewModel: TaskViewModel = TaskViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -146,15 +149,26 @@ class TaskEditViewController: UIViewController {
         let tap = UITapGestureRecognizer(target: keyboardManager, action: #selector(keyboardManager.dismissKeyboard(_:)))
         view.addGestureRecognizer(tap)
         configureView()
+        
+        viewModel.taskModel.bind { _ in
+            DispatchQueue.main.async { [weak self] in
+                self?.configureTask()
+            }
+        }
     }
     
     private func configureTask() {
-        guard let taskModel = taskModel else { return }
+        guard let taskModel = viewModel.taskModel.value else { return }
         taskImageViewContainter.isHidden = taskModel.image == nil
         taskLabel.textField.text = taskModel.title
         taskChapter.text = TaskCategory(index: taskModel.chapterId).chapter.title
         taskDescription.text = taskModel.description
-//        taskImage.image = taskModel.image
+        viewModel.downloadImage(taskModel.image) { [weak self] image in
+            guard let image = image else {
+                return
+            }
+            self?.taskImage.image = image
+        }
         guard let deadline = taskModel.deadline else { return }
         timerLabel.text = dateFormatter.string(from: deadline)
     }
@@ -263,6 +277,7 @@ extension TaskEditViewController: UIImagePickerControllerDelegate {
             imagePicker.dismiss(animated: true, completion: nil);
             return
         }
+        imageWasSet = true
         taskImage.image = image
         taskImageViewContainter.isHidden = false
         imagePicker.dismiss(animated: true, completion: nil)
@@ -341,7 +356,27 @@ extension TaskEditViewController {
     }
 
     @objc private func saveButtonPressed() {
-        
+        guard viewModel.taskModel.value != nil else {
+            guard let uid = Auth.auth().currentUser?.uid else {
+                Logger.log("Пользователь не авторизован")
+                return
+            }
+            let image = imageWasSet ? taskImage.image : nil
+            guard let color = colors.first(where: { $0.stringColor == taskColor.text })?.color else {
+                Logger.log("Цвет не выбран")
+                return
+            }
+            viewModel.createTask(image: image,
+                                 title: taskLabel.textField.text ?? "",
+                                 description: taskDescription.textView.text,
+                                 deadline: datePicker.date,
+                                 uid: uid,
+                                 color: color,
+                                 complition: { [weak self] in self?.dismiss(animated: true) })
+            return
+        }
+        // UPDATE
+        dismiss(animated: true)
     }
     
     @objc private func imageSetButtonPressed() {

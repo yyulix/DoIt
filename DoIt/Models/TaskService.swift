@@ -12,7 +12,7 @@ class TaskService {
     
     static let shared = TaskService()
     
-    func uploadTask(task: Task, completion: @escaping(Error?, DatabaseReference)->Void){
+    func uploadTask(task: Task, completion: @escaping(Error?, String)->Void){
         guard let uid = Auth.auth().currentUser?.uid else {return}
         let values = [
                       "title": task.title,
@@ -26,7 +26,9 @@ class TaskService {
         
         REF_TASKS.childByAutoId().updateChildValues(values) { (error, ref) in
             guard let taskID = ref.key else { return }
-            REF_USER_TASKS.child(uid).updateChildValues([taskID : 1], withCompletionBlock: completion)
+            REF_USER_TASKS.child(uid).updateChildValues([taskID : 1], withCompletionBlock: { error, _ in
+                completion(error, taskID)
+            })
         }
     }
     
@@ -60,8 +62,8 @@ class TaskService {
             
             self.fetchTask(taskId: taskId) { task in
                 tasks.append(task)
+                completion(tasks)
             }
         }
-        completion(tasks)
     }
 }

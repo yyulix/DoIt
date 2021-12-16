@@ -126,7 +126,7 @@ extension FeedController: UICollectionViewDataSource {
 extension FeedController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let taskViewController = TaskViewController()
-        taskViewController.taskModel = followingUsersTasks[indexPath.row]
+        taskViewController.viewModel.taskModel.value = followingUsersTasks[indexPath.row]
         taskViewController.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(taskViewController, animated: true)
     }

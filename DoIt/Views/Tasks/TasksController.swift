@@ -163,7 +163,7 @@ extension TasksController: UICollectionViewDelegate {
 extension TasksController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let taskViewController = TaskViewController()
-        taskViewController.taskModel = selectedTasks?[indexPath.row] ?? tasks[indexPath.row]
+        taskViewController.viewModel.taskModel.value = selectedTasks?[indexPath.row] ?? tasks[indexPath.row]
         taskViewController.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(taskViewController, animated: true)
     }

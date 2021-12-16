@@ -8,25 +8,6 @@
 import Foundation
 import Firebase
 
-final class Observable<T> {
-    var value: T? {
-        didSet {
-            listener?(value)
-        }
-    }
-    
-    init(_ value: T? = nil) {
-        self.value = value
-    }
-    
-    private var listener: ((T?) -> ())?
-    
-    func bind(_ listener: @escaping (T?) -> ()) {
-        listener(value)
-        self.listener = listener
-    }
-}
-
 final class SearchUsersViewModel {
     private let userService = UserService.shared
     

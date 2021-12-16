@@ -715,9 +715,10 @@ extension ProfileViewController {
     // MARK: - Following View
     
     private func configureFollowing() {
-        let isFollowingEmpty = (viewModel.userFollowingModel.value?.followings ?? []).count == 0 ? true : false
+        let isFollowingEmpty = (viewModel.userFollowingModel.value?.followings ?? []).count == 0
         noFollowingLabel.isHidden = !isFollowingEmpty
         followingCollectionView.isHidden = isFollowingEmpty
+        followingCollectionView.reloadData()
     }
 }
 
@@ -778,7 +779,7 @@ extension ProfileViewController {
         guard let i = taskViews.firstIndex(where: { $0.taskView == view } ) else { return }
         
         let taskViewController = TaskViewController()
-        taskViewController.taskModel = viewModel.userTasksModel.value?.tasks[i]
+        taskViewController.viewModel.taskModel.value = viewModel.userTasksModel.value?.tasks[i]
         taskViewController.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(taskViewController, animated: true)
     }

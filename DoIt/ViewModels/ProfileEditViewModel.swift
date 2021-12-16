@@ -16,7 +16,6 @@ final class ProfileEditViewModel {
         DispatchQueue.global().sync { [weak self] in
             guard let userModel = userModel.value else {
                 Logger.log("Пользователь не найден")
-                complition()
                 return
             }
             
@@ -44,7 +43,6 @@ final class ProfileEditViewModel {
             
             guard wasChanged else {
                 Logger.log("Ничего не поменялось")
-                complition()
                 return
             }
             
@@ -54,7 +52,6 @@ final class ProfileEditViewModel {
                 self?.userService.updateUserPhoto(image: image) { [weak self] url in
                     guard url != nil else {
                         Logger.log("Ошибка обновления изображения")
-                        complition()
                         return
                     }
                     values["userPhotoUrl"] = url?.absoluteString ?? ""
@@ -81,6 +78,7 @@ final class ProfileEditViewModel {
         userService.updateUserData(user: userModel, completion: { error, _ in
             if let error = error {
                 Logger.log("Ошибка обращения к бд \(error)")
+                return
             }
             Logger.log("Профиль обновлен")
             complition()

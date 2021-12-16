@@ -10,11 +10,11 @@ import Firebase
 
 final class Task {
     let taskId: String
-    let image: URL?
+    var image: URL?
     let title: String
     let description: String?
     let deadline: Date?
-    let isDone: Bool
+    var isDone: Bool
     let uid: String
     let color: UIColor
     let chapterId: Int
@@ -27,12 +27,17 @@ final class Task {
     init(id: String, dictionary: [String: AnyObject]) {
         taskId = id
         if let profileImageUrlString = dictionary["userPhotoUrl"] as? String {
-            image = URL(string: profileImageUrlString)
+            if !profileImageUrlString.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                image = URL(string: profileImageUrlString)
+            } else {
+                image = nil
+            }
         } else {
             image = nil
         }
         title = dictionary["title"] as? String ?? ""
         description = dictionary["description"] as? String ?? ""
+        let currentDate = Date()
         if let deadlineTimestamp = dictionary["deadline"] as? Double {
             deadline = Date(timeIntervalSince1970: deadlineTimestamp)
         } else {
@@ -48,24 +53,10 @@ final class Task {
         if let creationTimestamp = dictionary["timestamp"] as? Double {
             creationTime = Date(timeIntervalSince1970: creationTimestamp)
         } else {
-            creationTime = Date(timeIntervalSince1970: 0)
+            creationTime = Date()
         }
         chapterId = dictionary["chapter_id"] as? Int ?? 0
     }
-    
-    // TODO: - FIX IT
-    
-//    init(image: UIImage?, title: String, description: String?, deadline: Date?, isDone: Bool, color: UIColor, uid: String = "") {
-//        self.image = image
-//        self.title = title
-//        self.description = description
-//        self.deadline = deadline
-//        self.isDone = isDone
-//        self.uid = ""
-//        self.color = color
-//        self.creationTime = Date()
-//        self.chapterId = 0
-//    }
 }
 
 struct Chapter {

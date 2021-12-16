@@ -51,9 +51,11 @@ final class ProfileViewModel {
             self?.userService.fetchUserFollowing(uid: user.uid, completion: { uids in
                 var followings: [UserModel] = []
                 uids.forEach { uid in
-                    self?.userService.fetchUser(uid: uid, completion: { followings.append($0) })
+                    self?.userService.fetchUser(uid: uid, completion: { [weak self] in
+                        followings.append($0)
+                        self?.userFollowingModel.value = UserFollowingModel(login: user.username, followings: followings)
+                    })
                 }
-                self?.userFollowingModel.value = UserFollowingModel(login: user.username, followings: followings)
             })
         }
     }
