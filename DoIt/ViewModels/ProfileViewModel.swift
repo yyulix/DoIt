@@ -44,7 +44,7 @@ final class ProfileViewModel {
     
     func isUserFollowed(completion: @escaping (Bool) -> ()) {
         DispatchQueue.global().async { [weak self] in
-            guard let uid = Auth.auth().currentUser?.uid else {
+            guard (Auth.auth().currentUser?.uid) != nil else {
                 
                 return
             }

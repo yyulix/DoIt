@@ -768,9 +768,9 @@ extension ProfileViewController {
             return
         }
         let viewController = FeedController()
-        viewController.userModel = userModel
-        viewController.following = [userModel]
-        viewController.followingUsersTasks = viewModel.userTasksModel.value?.tasks ?? []
+        viewController.viewModel.userModel.value = userModel
+        viewController.viewModel.userFollowing.value = [userModel]
+        viewController.viewModel.userFollowingTasks.value = viewModel.userTasksModel.value?.tasks ?? []
         navigationController?.pushViewController(viewController, animated: true)
     }
     

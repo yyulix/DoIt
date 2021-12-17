@@ -100,6 +100,10 @@ final class TaskViewModel {
         }
     }
     
+    func updateTask() {
+        
+    }
+    
     func downloadImage(_ url: URL?, completion: @escaping (UIImage?) -> ()) {
         ImageLoader.downloadImage(url: url, complition: { image in
             DispatchQueue.main.async {
