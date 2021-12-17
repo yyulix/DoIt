@@ -12,7 +12,7 @@ final class ProfileEditViewModel {
     private let userService = UserService.shared
     var userModel: Observable<UserModel> = Observable()
     
-    func updateUserProfile(image: UIImage?, name: String?, username: String?, summary: String?, complition: @escaping () -> ()) {
+    func updateUserProfile(image: UIImage?, name: String?, username: String?, summary: String?, complition: @escaping () -> (), complitionError: @escaping (String) -> ()) {
         DispatchQueue.global().sync { [weak self] in
             guard let userModel = userModel.value else {
                 Logger.log("Пользователь не найден")
@@ -52,15 +52,16 @@ final class ProfileEditViewModel {
                 self?.userService.updateUserPhoto(image: image) { [weak self] url in
                     guard url != nil else {
                         Logger.log("Ошибка обновления изображения")
+                        complitionError(ErrorStrings.image.rawValue.localized)
                         return
                     }
                     values["userPhotoUrl"] = url?.absoluteString ?? ""
                     self?.userModel.value = UserModel(uid: userModel.uid, dictionary: values as [String: AnyObject])
-                    self?.updateUser(complition: complition)
+                    self?.updateUser(complition: complition, complitionError: complitionError)
                 }
             } else {
                 self?.userModel.value = UserModel(uid: userModel.uid, dictionary: values as [String: AnyObject])
-                self?.updateUser(complition: complition)
+                self?.updateUser(complition: complition, complitionError: complitionError)
             }
         }
     }
@@ -73,11 +74,12 @@ final class ProfileEditViewModel {
         })
     }
     
-    func updateUser(complition: @escaping () -> ()) {
+    func updateUser(complition: @escaping () -> (), complitionError: @escaping (String) -> ()) {
         guard let userModel = userModel.value else { return }
         userService.updateUserData(user: userModel, completion: { error, _ in
             if let error = error {
                 Logger.log("Ошибка обращения к бд \(error)")
+                complitionError(ErrorStrings.database.rawValue.localized)
                 return
             }
             Logger.log("Профиль обновлен")

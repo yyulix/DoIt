@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import PopupDialog
 
 final class ProfileEditViewController: UIViewController {
     // MARK: - Properties
@@ -209,8 +210,15 @@ extension ProfileEditViewController {
                                     complition: {
             DispatchQueue.main.async { [weak self] in
                 self?.navigationController?.popViewController(animated: true)
-            }
-        })
+            }}, complitionError: { [weak self] error in
+                lazy var popup : PopupDialog = {
+                    let pop = PopupDialog(title: nil, message: error)
+                    let button = CancelButton(title: ErrorStrings.close.rawValue.localized, action: nil)
+                    pop.addButton(button)
+                    return pop
+                }()
+                self?.present(popup, animated: true, completion: nil)
+            })
     }
 }
 

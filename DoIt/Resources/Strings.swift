@@ -137,4 +137,9 @@ enum ErrorStrings: String {
     case emtyLogin = "error.emptyLogin"
     case email = "error.email"
     case password = "error.password"
+    case image = "error.image"
+    case database = "error.database"
+    case color = "error.color"
+    case taskName = "error.taskName"
+    case chapter = "error.chapter"
 }

@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import PopupDialog
 
 class TaskEditViewController: UIViewController {
     
@@ -151,12 +152,6 @@ class TaskEditViewController: UIViewController {
         view.addGestureRecognizer(tap)
         configureView()
         configureTask()
-        
-//        viewModel.taskModel.bind { _ in
-//            DispatchQueue.main.async { [weak self] in
-//                self?.configureTask()
-//            }
-//        }
     }
     
     private func configureTask() {
@@ -353,6 +348,12 @@ extension TaskEditViewController: UITextViewDelegate {
 // MARK: - Actions
 
 extension TaskEditViewController {
+    private func showPopUp(error: String) {
+        let pop = PopupDialog(title: nil, message: error)
+        let button = CancelButton(title: ErrorStrings.close.rawValue.localized, action: nil)
+        pop.addButton(button)
+        present(pop, animated: true, completion: nil)
+    }
     @objc private func returnButtonPressed() {
         dismiss(animated: true)
     }
@@ -365,10 +366,12 @@ extension TaskEditViewController {
         let image = imageWasSet ? taskImage.image : nil
         guard let color = colors.first(where: { $0.stringColor == taskColor.text })?.color else {
             Logger.log("Цвет не выбран")
+            showPopUp(error: ErrorStrings.color.rawValue.localized)
             return
         }
         guard let chapterIndex = chapters.firstIndex(where: { $0.chapter.title == taskChapter.text }) else {
             Logger.log("Раздел не выбран")
+            showPopUp(error: ErrorStrings.chapter.rawValue.localized)
             return
         }
         guard viewModel.taskModel.value != nil else {
@@ -379,7 +382,8 @@ extension TaskEditViewController {
                                  deadline: selectedDeadline,
                                  uid: uid,
                                  color: color,
-                                 complition: { [weak self] in self?.dismiss(animated: true) })
+                                 complition: { [weak self] in self?.dismiss(animated: true) },
+                                 complitionError: { [weak self] in self?.showPopUp(error: $0) })
             return
         }
         viewModel.updateTask(newTask: false,
@@ -391,7 +395,8 @@ extension TaskEditViewController {
                              deadline: selectedDeadline,
                              uid: uid,
                              color: color,
-                             complition: { [weak self] in self?.dismiss(animated: true) })
+                             complition: { [weak self] in self?.dismiss(animated: true) },
+                             complitionError: { [weak self] in self?.showPopUp(error: $0) })
     }
     
     @objc private func imageSetButtonPressed() {

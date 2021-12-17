@@ -22,10 +22,11 @@ final class TaskViewModel {
         }
     }
     
-    func updateTask(newTask: Bool = true, id: String = "", chapter: Int, image: UIImage?, title: String, description: String?, deadline: Date?, uid: String, color: UIColor, complition: @escaping () -> ()) {
+    func updateTask(newTask: Bool = true, id: String = "", chapter: Int, image: UIImage?, title: String, description: String?, deadline: Date?, uid: String, color: UIColor, complition: @escaping () -> (), complitionError: @escaping (String) -> ()) {
         DispatchQueue.global().sync {
             if title.isEmpty {
                 Logger.log("Пустое название")
+                complitionError(ErrorStrings.taskName.rawValue.localized)
                 return
             }
             let values = [
@@ -56,6 +57,7 @@ final class TaskViewModel {
                     self?.taskService.updateTaskImage(taskId: taskId, image: image, completion: { [weak self] url in
                         guard url != nil else {
                             Logger.log("Ошибка загрузки изображения задачи")
+                            complitionError(ErrorStrings.image.rawValue.localized)
                             return
                         }
                         self?.taskService.fetchTask(taskId: taskId, completion: { [weak self] task in
@@ -83,6 +85,7 @@ final class TaskViewModel {
                     self?.taskService.updateTaskImage(taskId: id, image: image, completion: { [weak self] url in
                         guard url != nil else {
                             Logger.log("Ошибка загрузки изображения задачи")
+                            complitionError(ErrorStrings.image.rawValue.localized)
                             return
                         }
                         self?.taskService.fetchTask(taskId: id, completion: { [weak self] task in
