@@ -797,6 +797,7 @@ extension ProfileViewController {
                 }
                 DispatchQueue.main.async {
                     self?.switchFollowButtonAnimated(isFollowed: false)
+                    NotificationCenter.default.post(name: .personWasFollowedInProfile, object: nil)
                 }
             }
         } else {
@@ -807,6 +808,7 @@ extension ProfileViewController {
                 }
                 DispatchQueue.main.async {
                     self?.switchFollowButtonAnimated(isFollowed: true)
+                    NotificationCenter.default.post(name: .personWasFollowedInProfile, object: nil)
                 }
             }
         }

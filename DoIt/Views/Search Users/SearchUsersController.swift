@@ -67,6 +67,7 @@ final class SearchUsersController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: .personWasFollowedInProfile, object: nil)
         
         viewModel.userModel.bind { [weak self] _ in
             self?.viewModel.getAllUsers()
@@ -88,7 +89,7 @@ final class SearchUsersController: UIViewController {
         
         configureUI()
     }
-
+    
     // MARK: - Helpers
     
     private func configureUI() {
@@ -136,7 +137,10 @@ final class SearchUsersController: UIViewController {
         }, completion: completion)
     }
     
-    private let imageLoader = ImageLoader()
+    @objc private func reload() {
+        viewModel.updateFollowing()
+        tableView.reloadData()
+    }
 }
 
 extension SearchUsersController: UITableViewDelegate {
@@ -222,6 +226,7 @@ extension SearchUsersController: SearchUsersCellDelegate {
             }
             DispatchQueue.main.async {
                 completion()
+                NotificationCenter.default.post(name: .personWasFollowed, object: nil)
             }
         }
     }
@@ -234,6 +239,7 @@ extension SearchUsersController: SearchUsersCellDelegate {
             }
             DispatchQueue.main.async {
                 completion()
+                NotificationCenter.default.post(name: .personWasFollowed, object: nil)
             }
         }
     }

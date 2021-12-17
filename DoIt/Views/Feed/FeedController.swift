@@ -48,6 +48,8 @@ class FeedController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: .personWasFollowed, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: .personWasFollowedInProfile, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(openToTasksVC), name: .openTasksFromProfile, object: nil)
         
         viewModel.userModel.bind { _ in
@@ -76,12 +78,6 @@ class FeedController: UIViewController {
         configureNavigationController()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        viewModel.getFollowing()
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -102,6 +98,10 @@ class FeedController: UIViewController {
         collection.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         collection.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         collection.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    }
+    
+    @objc private func reload() {
+        viewModel.getFollowing()
     }
 }
 

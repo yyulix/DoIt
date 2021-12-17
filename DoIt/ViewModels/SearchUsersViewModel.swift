@@ -45,6 +45,17 @@ final class SearchUsersViewModel {
         }
     }
     
+    func updateFollowing() {
+        guard let users = userModels.value else { return }
+        DispatchQueue.global().async { [weak self] in
+            users.forEach { user in
+                self?.userService.isUserFollowed(uid: user.uid) {
+                    user.isFollowed = $0
+                }
+            }
+        }
+    }
+    
     func followUser(_ user: UserModel, completion: @escaping (Bool) -> ()) {
         DispatchQueue.global().async { [weak self] in
             self?.userService.followUser(uid: user.uid) { error, _ in
