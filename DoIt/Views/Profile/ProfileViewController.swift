@@ -288,6 +288,7 @@ class ProfileViewController: UIViewController {
         
         viewModel.userModel.bind { _ in
             DispatchQueue.main.async { [weak self] in
+                self?.viewModel.isUserFollowed(completion: {[weak self] isFollowed in self?.switchFollowButtonAnimated(isFollowed: isFollowed)})
                 self?.configureCells()
             }
         }
@@ -575,9 +576,9 @@ extension ProfileViewController {
         return view
     }
     
-    private func switchFollowButtonAnimated() {
+    private func switchFollowButtonAnimated(isFollowed: Bool) {
         UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
-            self.configureFollowButton(isFollowed: !self.followButton.isSelected)
+            self.configureFollowButton(isFollowed: isFollowed)
             self.followButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
         } completion: { _ in
             UIView.animate(withDuration: 0.2) {
@@ -795,7 +796,7 @@ extension ProfileViewController {
                     return
                 }
                 DispatchQueue.main.async {
-                    self?.switchFollowButtonAnimated()
+                    self?.switchFollowButtonAnimated(isFollowed: false)
                 }
             }
         } else {
@@ -805,7 +806,7 @@ extension ProfileViewController {
                     return
                 }
                 DispatchQueue.main.async {
-                    self?.switchFollowButtonAnimated()
+                    self?.switchFollowButtonAnimated(isFollowed: true)
                 }
             }
         }

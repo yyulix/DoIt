@@ -106,6 +106,9 @@ class TaskViewController: UIViewController {
         configureNavigationBar(title: taskModel.title, isDone: taskModel.isDone)
         horizontalStack.isHidden = !taskModel.isMyTask
         timerLabel.text = taskModel.deadline == nil ? TaskScreen.noDeadline.rawValue.localized : nil
+        if taskModel.isDone {
+            timer?.invalidate()
+        }
         viewModel.downloadImage(taskModel.image) { [weak self] image in
             guard let image = image else {
                 return
@@ -214,7 +217,9 @@ class TaskViewController: UIViewController {
 
 extension TaskViewController {
     @objc private func deleteButtonPressed(){
-        
+        viewModel.removeTask(completion: { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
+        })
     }
     
     @objc private func doneButtonPressed(){
@@ -222,6 +227,7 @@ extension TaskViewController {
         configureNavigationBar(title: nil, isDone: true)
         timerLabel.text = "00:00:00:00"
         timerLabel.textColor = .AppColors.doneColor
+        viewModel.setTaskDone()
     }
 
     @objc private func editButtonPressed(){

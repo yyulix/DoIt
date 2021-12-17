@@ -36,7 +36,15 @@ final class Task {
             image = nil
         }
         title = dictionary["title"] as? String ?? ""
-        description = dictionary["description"] as? String ?? ""
+        if let desciption = dictionary["description"] as? String {
+            if !desciption.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                self.description = desciption
+            } else {
+                self.description = nil
+            }
+        } else {
+            description = nil
+        }
         if let deadlineTimestamp = dictionary["deadline"] as? Double {
             deadline = Date(timeIntervalSince1970: deadlineTimestamp)
         } else {
@@ -53,6 +61,11 @@ final class Task {
             creationTime = Date(timeIntervalSince1970: creationTimestamp)
         } else {
             creationTime = Date()
+        }
+        if let imageUrlString = dictionary["taskImageUrl"] as? String {
+            if !imageUrlString.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                self.image = URL(string: imageUrlString)
+            }
         }
         chapterId = dictionary["chapter_id"] as? Int ?? 0
     }

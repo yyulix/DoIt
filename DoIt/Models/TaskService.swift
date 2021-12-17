@@ -32,6 +32,22 @@ class TaskService {
         }
     }
     
+    func removeTask(task: Task, completion: @escaping(DatabaseCompletion)){
+        guard (Auth.auth().currentUser?.uid) != nil else {return}
+        REF_TASKS.child(task.taskId).removeValue(completionBlock: { error, ref in
+            if let error = error {
+                completion(error, ref)
+            }
+            REF_USER_TASKS.child(task.uid).child(task.taskId).removeValue(completionBlock: completion)
+        })
+    }
+    
+    func updateTaskDone(task: Task, completion: @escaping(DatabaseCompletion)){
+        guard (Auth.auth().currentUser?.uid) != nil else {return}
+        let values: [String: Any] = ["is_done": task.isDone]
+        REF_TASKS.child(task.taskId).updateChildValues(values, withCompletionBlock: completion)
+    }
+    
     func updateTaskImage(taskId: String, image: UIImage, completion: @escaping(URL?)-> Void){
         guard let imageData = image.jpegData(compressionQuality: 1.0) else {return}
         guard (Auth.auth().currentUser?.uid) != nil else {return}

@@ -61,6 +61,45 @@ final class TaskViewModel {
         }
     }
     
+    func setTaskDone() {
+        guard let taskModel = taskModel.value else {
+            Logger.log("Задача не найдена")
+            return
+        }
+        guard !taskModel.isDone else {
+            Logger.log("Задача уже выполнена")
+            return
+        }
+        DispatchQueue.global().sync { [weak self] in
+            taskModel.isDone = true
+            self?.taskService.updateTaskDone(task: taskModel, completion: { error, _  in
+                if let error = error {
+                    Logger.log("Сеть не доступна \(error.localizedDescription)")
+                    taskModel.isDone = false
+                    return
+                }
+                self?.taskModel.value = taskModel
+            })
+        }
+    }
+    
+    func removeTask(completion: @escaping () -> ()) {
+        guard let taskModel = taskModel.value else {
+            Logger.log("Задача не найдена")
+            return
+        }
+        DispatchQueue.global().sync { [weak self] in
+            self?.taskService.removeTask(task: taskModel, completion: { error, _ in
+                if let error = error {
+                    Logger.log("Сеть не доступна \(error.localizedDescription)")
+                    return
+                }
+                self?.taskModel.value = nil
+                completion()
+            })
+        }
+    }
+    
     func downloadImage(_ url: URL?, completion: @escaping (UIImage?) -> ()) {
         ImageLoader.downloadImage(url: url, complition: { image in
             DispatchQueue.main.async {
