@@ -22,7 +22,7 @@ final class TaskViewModel {
         }
     }
     
-    func createTask(image: UIImage?, title: String, description: String?, deadline: Date?, uid: String, color: UIColor, complition: @escaping () -> ()) {
+    func createTask(chapter: Int, image: UIImage?, title: String, description: String?, deadline: Date?, uid: String, color: UIColor, complition: @escaping () -> ()) {
         DispatchQueue.global().sync {
             if title.isEmpty {
                 Logger.log("Пустое название")
@@ -34,7 +34,8 @@ final class TaskViewModel {
                           "deadline": Int(deadline?.timeIntervalSince1970 ?? 0),
                           "is_done": false,
                           "uid": uid,
-                          "color": UIColor().HexFromColor(color: color)
+                          "color": UIColor().HexFromColor(color: color),
+                          "chapter_id": chapter
             ] as [String : Any]
             
             taskService.uploadTask(task: Task(id: "", dictionary: values as [String: AnyObject])) { [weak self] error, taskId in

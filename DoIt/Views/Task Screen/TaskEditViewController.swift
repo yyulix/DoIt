@@ -366,7 +366,12 @@ extension TaskEditViewController {
                 Logger.log("Цвет не выбран")
                 return
             }
-            viewModel.createTask(image: image,
+            guard let chapterIndex = chapters.firstIndex(where: { $0.chapter.title == taskChapter.text }) else {
+                Logger.log("Раздел не выбран")
+                return
+            }
+            viewModel.createTask(chapter: chapterIndex,
+                                 image: image,
                                  title: taskLabel.textField.text ?? "",
                                  description: taskDescription.textView.text,
                                  deadline: datePicker.date,

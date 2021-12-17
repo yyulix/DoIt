@@ -55,51 +55,41 @@ class TasksController: UIViewController {
     
     private let viewModel: TasksViewModel = TasksViewModel()
     
-    //костыль
-    private lazy var tasks: [Task] = {
-        return [Task(id: "", dictionary: [:])]
-    }()
-    
-    private var selectedTasks: [Task]? {
-        didSet {
-            table.reloadSections(IndexSet(integer: 0), with: .fade)
-        }
-    }
-    private var previousSelectedChapterId = -1
-    
-    private let chapters = (0...(TaskCategory.chaptersCount - 1)).map({ TaskCategory(index: $0) })
-    
-    var userModel: UserModel?
-    
     //MARK: - Override Methods
     override func viewDidLoad() {
-        
         super.viewDidLoad()
-        viewModel.taskModels.bind { [weak self] _ in
-            DispatchQueue.main.async {
-                self?.reload()
+        
+        viewModel.userModel.bind { _ in
+            DispatchQueue.main.async { [weak self] in
+                self?.configureNavigationController()
+                self?.viewModel.getTasks()
             }
         }
-
-        //let currentUser = UserModel(uid: UserDefaults.standard.string(forKey: "current_user")!, email: "", username: "", summary: nil, image: nil, name: nil)
-        //viewModel.getTasks(forUser: currentUser)
+        
+        viewModel.taskModels.bind { _ in
+            DispatchQueue.main.async { [weak self] in
+                self?.table.reloadData()
+            }
+        }
+        viewModel.selectedTaskModels.bind { _ in
+            DispatchQueue.main.async { [weak self] in
+                self?.table.reloadSections(IndexSet(integer: 0), with: .fade)
+            }
+        }
+        viewModel.getCurrentUser()
+        
         view.backgroundColor = .systemBackground
-        configureNavigationController()
         view.addSubview(table)
+        configureNavigationController()
         layoutCollection()
         layoutTable()
     }
     
     //MARK: - Private Methods
-    private func reload() {
-        table.reloadData()
-        //guard let userTasks = viewModel.taskModels.value else { return }
-        //tasks = userTasks
-    }
     
     private func configureNavigationController() {
         navigationItem.title = TasksStrings.header.rawValue.localized
-        navigationItem.rightBarButtonItem = (userModel?.isCurrentUser ?? false) ? profileButton : nil
+        navigationItem.rightBarButtonItem = (viewModel.userModel.value?.isCurrentUser ?? false) ? profileButton : nil
     }
     
     private func layoutCollection() {
@@ -121,13 +111,30 @@ class TasksController: UIViewController {
 extension TasksController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return selectedTasks?.count ?? tasks.count
+        if let selectedTasks = viewModel.selectedTaskModels.value {
+            return selectedTasks.count
+        }
+        return viewModel.taskModels.value?.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TaskTableViewCell.self), for: indexPath) as? TaskTableViewCell else { return .init(frame: .zero) }
-        //тут отрисовываем ячейки с данными из modelView.sortedtasks
-        cell.configureCell(taskInfo: selectedTasks?[indexPath.row] ?? tasks[indexPath.row])
+        if let selectedTask = viewModel.selectedTaskModels.value?[indexPath.row] {
+            cell.configureCell(taskInfo: selectedTask)
+            viewModel.downloadImage(selectedTask.image) { [weak self] image in
+                if let oldCell = self?.table.cellForRow(at: indexPath) as? TaskTableViewCell {
+                    oldCell.configure(taskImage: image)
+                }
+            }
+            return cell
+        }
+        guard let task = viewModel.taskModels.value?[indexPath.row] else { return cell }
+        cell.configureCell(taskInfo: task)
+        viewModel.downloadImage(task.image) { [weak self] image in
+            if let oldCell = self?.table.cellForRow(at: indexPath) as? TaskTableViewCell {
+                oldCell.configure(taskImage: image)
+            }
+        }
         return cell
     }
 }
@@ -135,12 +142,12 @@ extension TasksController: UITableViewDataSource {
 extension TasksController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return chapters.count
+        return viewModel.chapters.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ChapterCollectionViewCell.self), for: indexPath) as? ChapterCollectionViewCell else { return .init(frame: .zero) }
-        cell.configureCell(with: chapters[indexPath.row].chapter)
+        cell.configureCell(with: viewModel.chapters[indexPath.row].chapter)
         return cell
     }
 }
@@ -149,21 +156,14 @@ extension TasksController: UICollectionViewDataSource {
 
 extension TasksController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let newSelectedTasks = tasks.filter({ $0.chapterId == indexPath.row })
-        guard previousSelectedChapterId != indexPath.row else {
-            previousSelectedChapterId = -1
-            selectedTasks = nil
-            return
-        }
-        selectedTasks = newSelectedTasks
-        previousSelectedChapterId = indexPath.row
+        viewModel.filterTasks(row: indexPath.row)
     }
 }
 
 extension TasksController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let taskViewController = TaskViewController()
-        taskViewController.viewModel.taskModel.value = selectedTasks?[indexPath.row] ?? tasks[indexPath.row]
+        taskViewController.viewModel.taskModel.value = viewModel.selectedTaskModels.value?[indexPath.row] ?? viewModel.taskModels.value?[indexPath.row]
         taskViewController.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(taskViewController, animated: true)
     }
@@ -172,13 +172,16 @@ extension TasksController: UITableViewDelegate {
 extension TasksController {
     @objc
     private func openProfile() {
+        guard let userModel = viewModel.userModel.value else {
+            return
+        }
         let profileViewController = ProfileViewController()
         profileViewController.viewModel.userModel.value = userModel
-        guard let userModel = userModel else {
+        guard let taskModels = viewModel.taskModels.value else {
             navigationController?.pushViewController(profileViewController, animated: true)
             return
         }
-        profileViewController.viewModel.userTasksModel.value = UserTasksModel(login: userModel.username, tasks: tasks)
+        profileViewController.viewModel.userTasksModel.value = UserTasksModel(login: userModel.username, tasks: taskModels)
         navigationController?.pushViewController(profileViewController, animated: true)
     }
 }

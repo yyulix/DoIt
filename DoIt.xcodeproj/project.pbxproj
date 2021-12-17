@@ -167,11 +167,11 @@
 			children = (
 				E47108C3276BA4EC00F71886 /* Observable.swift */,
 				83349BE5276959F4008D4786 /* AuthViewModel.swift */,
-				83349BE127682D72008D4786 /* TasksViewModel.swift */,
 				E455B5D9276820E60059130D /* SearchUsersViewModel.swift */,
 				E417CFD627689B2300C6E6B5 /* ProfileViewModel.swift */,
 				E417CFDA2768BE1800C6E6B5 /* ProfileEditViewModel.swift */,
 				E47108C1276BA49800F71886 /* TaskViewModel.swift */,
+				83349BE127682D72008D4786 /* TasksViewModel.swift */,
 				E4E80D2C276C8B4E003E2E4E /* FeedViewModel.swift */,
 			);
 			path = ViewModels;

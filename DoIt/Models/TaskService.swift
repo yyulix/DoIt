@@ -21,7 +21,8 @@ class TaskService {
                       "is_done": task.isDone,
                       "uid": uid,
                       "timestamp": Int(NSDate().timeIntervalSince1970),
-                      "color": UIColor().HexFromColor(color: task.color)
+                      "color": UIColor().HexFromColor(color: task.color),
+                      "chapter_id": task.chapterId
         ] as [String : Any]
         
         REF_TASKS.childByAutoId().updateChildValues(values) { (error, ref) in

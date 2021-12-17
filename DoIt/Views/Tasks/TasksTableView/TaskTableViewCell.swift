@@ -67,13 +67,8 @@ class TaskTableViewCell: UITableViewCell {
         chapterIndicator.backgroundColor = taskInfo.color
         taskInfo.isDone ? checkBox.setImage(.TaskIcons.done, for: .normal) : checkBox.setImage(.TaskIcons.notDone, for: .normal)
         
-        var cellImage: UIImage? = nil
-//        if let data = try? Data(contentsOf: taskInfo.image!) {
-//            cellImage = UIImage(data: data)
-//        }
+        image.image = .TaskIcons.defaultImage
         
-        image.image = cellImage ?? .TaskIcons.defaultImage
-
         title.text = taskInfo.title
         taskDescription.text = taskInfo.description ?? TaskString.description.rawValue.localized
         divider.backgroundColor = taskInfo.color
@@ -83,6 +78,11 @@ class TaskTableViewCell: UITableViewCell {
             return
         }
         deadline.text = date.formatted(date: .numeric, time: .shortened)
+    }
+    
+    func configure(taskImage: UIImage?) {
+        guard let taskImage = taskImage else { return }
+        image.image = taskImage
     }
     
     //MARK: - Private Methods
