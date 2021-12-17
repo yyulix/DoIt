@@ -46,7 +46,11 @@ final class TaskViewModel {
                     }
                     guard let image = image else {
                         Logger.log("Задача без фото загружена")
-                        complition()
+                        self?.taskService.fetchTask(taskId: taskId, completion: { [weak self] task in
+                            self?.taskModel.value = task
+                            NotificationCenter.default.post(name: .taskWasChanged, object: nil)
+                            complition()
+                        })
                         return
                     }
                     self?.taskService.updateTaskImage(taskId: taskId, image: image, completion: { [weak self] url in
@@ -56,6 +60,7 @@ final class TaskViewModel {
                         }
                         self?.taskService.fetchTask(taskId: taskId, completion: { [weak self] task in
                             self?.taskModel.value = task
+                            NotificationCenter.default.post(name: .taskWasChanged, object: nil)
                             complition()
                         })
                     })
@@ -68,7 +73,11 @@ final class TaskViewModel {
                     }
                     guard let image = image else {
                         Logger.log("Задача без фото загружена")
-                        complition()
+                        self?.taskService.fetchTask(taskId: id, completion: { [weak self] task in
+                            self?.taskModel.value = task
+                            NotificationCenter.default.post(name: .taskWasChanged, object: nil)
+                            complition()
+                        })
                         return
                     }
                     self?.taskService.updateTaskImage(taskId: id, image: image, completion: { [weak self] url in
@@ -78,6 +87,7 @@ final class TaskViewModel {
                         }
                         self?.taskService.fetchTask(taskId: id, completion: { [weak self] task in
                             self?.taskModel.value = task
+                            NotificationCenter.default.post(name: .taskWasChanged, object: nil)
                             complition()
                         })
                     })
@@ -123,10 +133,6 @@ final class TaskViewModel {
                 completion()
             })
         }
-    }
-    
-    func updateTask() {
-        
     }
     
     func downloadImage(_ url: URL?, completion: @escaping (UIImage?) -> ()) {

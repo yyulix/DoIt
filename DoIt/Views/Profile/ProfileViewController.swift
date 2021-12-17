@@ -284,6 +284,10 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadFollowing), name: .personWasFollowedInProfile, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadFollowing), name: .personWasFollowed, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadTasks), name: .taskWasChanged, object: nil)
+        
         configureUI()
         
         viewModel.userModel.bind { _ in
@@ -333,6 +337,16 @@ class ProfileViewController: UIViewController {
         navigationItem.title = "@" + title
         navigationItem.rightBarButtonItem = isMyScreen ? settingButton : nil
         navigationItem.largeTitleDisplayMode = .always
+    }
+    
+    @objc
+    private func reloadFollowing() {
+        viewModel.getUserFollowings()
+    }
+    
+    @objc
+    private func reloadTasks() {
+        viewModel.getUserTasks()
     }
 }
 

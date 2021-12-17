@@ -150,12 +150,13 @@ class TaskEditViewController: UIViewController {
         let tap = UITapGestureRecognizer(target: keyboardManager, action: #selector(keyboardManager.dismissKeyboard(_:)))
         view.addGestureRecognizer(tap)
         configureView()
+        configureTask()
         
-        viewModel.taskModel.bind { _ in
-            DispatchQueue.main.async { [weak self] in
-                self?.configureTask()
-            }
-        }
+//        viewModel.taskModel.bind { _ in
+//            DispatchQueue.main.async { [weak self] in
+//                self?.configureTask()
+//            }
+//        }
     }
     
     private func configureTask() {

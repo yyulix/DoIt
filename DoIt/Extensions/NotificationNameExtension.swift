@@ -12,4 +12,5 @@ extension Notification.Name {
     static let openTasksFromFeed = Notification.Name("openTasks.Feed")
     static let personWasFollowedInProfile = Notification.Name("personWasFollowedInProfile")
     static let personWasFollowed = Notification.Name("personWasFollowed")
+    static let taskWasChanged = Notification.Name("taskWasChanged")
 }

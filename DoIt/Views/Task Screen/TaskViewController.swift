@@ -88,6 +88,7 @@ class TaskViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         configureView()
         runCountdown()
         
@@ -232,7 +233,7 @@ extension TaskViewController {
 
     @objc private func editButtonPressed(){
         let taskEditController = TaskEditViewController()
-        taskEditController.viewModel.taskModel.value = viewModel.taskModel.value
+        taskEditController.viewModel.taskModel = viewModel.taskModel
         present(taskEditController, animated: true, completion: nil)
     }
     
