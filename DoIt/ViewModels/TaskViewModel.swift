@@ -22,7 +22,7 @@ final class TaskViewModel {
         }
     }
     
-    func createTask(chapter: Int, image: UIImage?, title: String, description: String?, deadline: Date?, uid: String, color: UIColor, complition: @escaping () -> ()) {
+    func updateTask(newTask: Bool = true, id: String = "", chapter: Int, image: UIImage?, title: String, description: String?, deadline: Date?, uid: String, color: UIColor, complition: @escaping () -> ()) {
         DispatchQueue.global().sync {
             if title.isEmpty {
                 Logger.log("Пустое название")
@@ -38,26 +38,50 @@ final class TaskViewModel {
                           "chapter_id": chapter
             ] as [String : Any]
             
-            taskService.uploadTask(task: Task(id: "", dictionary: values as [String: AnyObject])) { [weak self] error, taskId in
-                if let error = error {
-                    Logger.log("Ошибка загрузки задачи \(error)")
-                    return
-                }
-                guard let image = image else {
-                    Logger.log("Задача без фото загружена")
-                    complition()
-                    return
-                }
-                self?.taskService.updateTaskImage(taskId: taskId, image: image, completion: { [weak self] url in
-                    guard url != nil else {
-                        Logger.log("Ошибка загрузки изображения задачи")
+            if newTask {
+                taskService.uploadTask(task: Task(id: "", dictionary: values as [String: AnyObject])) { [weak self] error, taskId in
+                    if let error = error {
+                        Logger.log("Ошибка загрузки задачи \(error)")
                         return
                     }
-                    self?.taskService.fetchTask(taskId: taskId, completion: { [weak self] task in
-                        self?.taskModel.value = task
+                    guard let image = image else {
+                        Logger.log("Задача без фото загружена")
                         complition()
+                        return
+                    }
+                    self?.taskService.updateTaskImage(taskId: taskId, image: image, completion: { [weak self] url in
+                        guard url != nil else {
+                            Logger.log("Ошибка загрузки изображения задачи")
+                            return
+                        }
+                        self?.taskService.fetchTask(taskId: taskId, completion: { [weak self] task in
+                            self?.taskModel.value = task
+                            complition()
+                        })
                     })
-                })
+                }
+            } else {
+                taskService.updateTask(task: Task(id: id, dictionary: values as [String: AnyObject])) { [weak self] error in
+                    if let error = error {
+                        Logger.log("Ошибка загрузки задачи \(error)")
+                        return
+                    }
+                    guard let image = image else {
+                        Logger.log("Задача без фото загружена")
+                        complition()
+                        return
+                    }
+                    self?.taskService.updateTaskImage(taskId: id, image: image, completion: { [weak self] url in
+                        guard url != nil else {
+                            Logger.log("Ошибка загрузки изображения задачи")
+                            return
+                        }
+                        self?.taskService.fetchTask(taskId: id, completion: { [weak self] task in
+                            self?.taskModel.value = task
+                            complition()
+                        })
+                    })
+                }
             }
         }
     }

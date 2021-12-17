@@ -45,7 +45,7 @@ final class Task {
         } else {
             description = nil
         }
-        if let deadlineTimestamp = dictionary["deadline"] as? Double {
+        if let deadlineTimestamp = dictionary["deadline"] as? Double, deadlineTimestamp != 0 {
             deadline = Date(timeIntervalSince1970: deadlineTimestamp)
         } else {
             deadline = nil

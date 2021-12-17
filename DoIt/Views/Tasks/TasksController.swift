@@ -85,6 +85,14 @@ class TasksController: UIViewController {
         layoutTable()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        viewModel.taskModels.value = nil
+        viewModel.selectedTaskModels.value = nil
+        viewModel.getCurrentUser()
+    }
+    
     //MARK: - Private Methods
     
     private func configureNavigationController() {

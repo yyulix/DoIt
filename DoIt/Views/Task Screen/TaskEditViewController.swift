@@ -140,6 +140,7 @@ class TaskEditViewController: UIViewController {
     ]
     
     private var imageWasSet: Bool = false
+    private var selectedDeadline: Date?
     
     var viewModel: TaskViewModel = TaskViewModel()
     
@@ -356,32 +357,40 @@ extension TaskEditViewController {
     }
 
     @objc private func saveButtonPressed() {
+        guard let uid = Auth.auth().currentUser?.uid else {
+            Logger.log("Пользователь не авторизован")
+            return
+        }
+        let image = imageWasSet ? taskImage.image : nil
+        guard let color = colors.first(where: { $0.stringColor == taskColor.text })?.color else {
+            Logger.log("Цвет не выбран")
+            return
+        }
+        guard let chapterIndex = chapters.firstIndex(where: { $0.chapter.title == taskChapter.text }) else {
+            Logger.log("Раздел не выбран")
+            return
+        }
         guard viewModel.taskModel.value != nil else {
-            guard let uid = Auth.auth().currentUser?.uid else {
-                Logger.log("Пользователь не авторизован")
-                return
-            }
-            let image = imageWasSet ? taskImage.image : nil
-            guard let color = colors.first(where: { $0.stringColor == taskColor.text })?.color else {
-                Logger.log("Цвет не выбран")
-                return
-            }
-            guard let chapterIndex = chapters.firstIndex(where: { $0.chapter.title == taskChapter.text }) else {
-                Logger.log("Раздел не выбран")
-                return
-            }
-            viewModel.createTask(chapter: chapterIndex,
+            viewModel.updateTask(chapter: chapterIndex,
                                  image: image,
                                  title: taskLabel.textField.text ?? "",
                                  description: taskDescription.textView.text,
-                                 deadline: datePicker.date,
+                                 deadline: selectedDeadline,
                                  uid: uid,
                                  color: color,
                                  complition: { [weak self] in self?.dismiss(animated: true) })
             return
         }
-        // UPDATE
-        dismiss(animated: true)
+        viewModel.updateTask(newTask: false,
+                             id: viewModel.taskModel.value!.taskId,
+                             chapter: chapterIndex,
+                             image: image,
+                             title: taskLabel.textField.text ?? "",
+                             description: taskDescription.textView.text,
+                             deadline: selectedDeadline,
+                             uid: uid,
+                             color: color,
+                             complition: { [weak self] in self?.dismiss(animated: true) })
     }
     
     @objc private func imageSetButtonPressed() {
@@ -395,6 +404,7 @@ extension TaskEditViewController {
     
     @objc private func datePickerDoneButtonPressed() {
         timerLabel.text = dateFormatter.string(from: datePicker.date)
+        selectedDeadline = datePicker.date
         view.endEditing(true)
     }
     

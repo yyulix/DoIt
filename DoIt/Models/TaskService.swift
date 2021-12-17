@@ -33,6 +33,24 @@ class TaskService {
         }
     }
     
+    func updateTask(task: Task, completion: @escaping(Error?)->Void) {
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        let values = [
+                      "title": task.title,
+                      "description": task.description ?? "",
+                      "deadline": Int(task.deadline?.timeIntervalSince1970 ?? 0),
+                      "is_done": task.isDone,
+                      "uid": uid,
+                      "timestamp": Int(NSDate().timeIntervalSince1970),
+                      "color": UIColor().HexFromColor(color: task.color),
+                      "chapter_id": task.chapterId
+        ] as [String : Any]
+        
+        REF_TASKS.child(task.taskId).updateChildValues(values) { (error, ref) in
+            completion(error)
+        }
+    }
+    
     func removeTask(task: Task, completion: @escaping(DatabaseCompletion)){
         guard (Auth.auth().currentUser?.uid) != nil else {return}
         REF_TASKS.child(task.taskId).removeValue(completionBlock: { error, ref in
