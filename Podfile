@@ -13,4 +13,5 @@ target 'DoIt' do
 	pod 'Firebase/Storage'
 	pod 'Firebase/Auth'
 	pod 'Kingfisher'
+	pod 'PopupDialog'
 end

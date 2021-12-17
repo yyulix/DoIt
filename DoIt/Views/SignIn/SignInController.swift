@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PopupDialog
 
 class SignInController: UIViewController {
     
@@ -72,7 +73,16 @@ class SignInController: UIViewController {
     }
     
     @objc private func signInButtonPressed(_ sender: UIButton) {
-        self.viewModel.signIn(email: usernameInputView.textField.text, password: passwordInputView.textField.text)
+        self.viewModel.signIn(email: usernameInputView.textField.text, password: passwordInputView.textField.text) { error in
+            lazy var popup : PopupDialog = {
+                let pop = PopupDialog(title: nil, message: error)
+                let button = CancelButton(title: ErrorStrings.close.rawValue.localized, action: nil)
+                pop.addButton(button)
+                return pop
+            }()
+
+            self.present(popup, animated: true, completion: nil)
+        }
     }
     
     @objc private func signUpButtonPressed(_ sender: UIButton) {

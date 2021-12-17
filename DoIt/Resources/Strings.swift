@@ -131,3 +131,10 @@ enum TabBarStrings: String {
     case tasks = "tabbar.tasks"
     case feed = "tabbar.feed"
 }
+
+enum ErrorStrings: String {
+    case close = "error.close"
+    case emtyLogin = "error.emptyLogin"
+    case email = "error.email"
+    case password = "error.password"
+}

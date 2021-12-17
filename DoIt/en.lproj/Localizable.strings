@@ -107,3 +107,8 @@
 
 "tabbar.tasks" = "Tasks";
 "tabbar.feed" = "Feed";
+
+"error.close" = "Close";
+"error.emptyLogin" = "Login can't be empty";
+"error.email" = "Incorrect email";
+"error.password" = "Password can't be lower than 6 chars";

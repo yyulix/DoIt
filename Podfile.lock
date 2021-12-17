@@ -1,4 +1,5 @@
 PODS:
+  - DynamicBlurView (4.1.0)
   - Firebase/Auth (8.10.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 8.10.0)
@@ -108,6 +109,8 @@ PODS:
     - nanopb/encode (= 2.30908.0)
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
+  - PopupDialog (1.1.1):
+    - DynamicBlurView (~> 4.0)
   - PromisesObjC (2.0.0)
   - SwipeableTabBarController (3.4.2)
 
@@ -118,10 +121,12 @@ DEPENDENCIES:
   - Firebase/Storage
   - InitialsImageView
   - Kingfisher
+  - PopupDialog
   - SwipeableTabBarController
 
 SPEC REPOS:
   trunk:
+    - DynamicBlurView
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuth
@@ -138,10 +143,12 @@ SPEC REPOS:
     - Kingfisher
     - leveldb-library
     - nanopb
+    - PopupDialog
     - PromisesObjC
     - SwipeableTabBarController
 
 SPEC CHECKSUMS:
+  DynamicBlurView: 58e18fae80bb614e34681a4486870e7d257b62e8
   Firebase: 44213362f1dcc52555b935dc925ed35ac55f1b20
   FirebaseAnalytics: 319c9b3b1bdd400d60e2f415dff0c5f6959e6760
   FirebaseAuth: 59a2d2b933b5b79e18fb1e6ad230c6abdaa73d26
@@ -158,9 +165,10 @@ SPEC CHECKSUMS:
   Kingfisher: 44ed6a8504763f27bab46163adfac83f5deb240c
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
+  PopupDialog: 720c92befd8bc23c13442254945213db5612f149
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   SwipeableTabBarController: 9a218bdee9426d1bfe36d7962f852024bb08d61b
 
-PODFILE CHECKSUM: 9c8e76a49910b42cc8d6ef5d91d79529d3be66ea
+PODFILE CHECKSUM: 50de09f7c6be96b3a2ff2e1dd8ee15f330eb9e2f
 
 COCOAPODS: 1.11.2

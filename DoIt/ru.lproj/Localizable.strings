@@ -107,3 +107,8 @@
 
 "tabbar.tasks" = "Задачи";
 "tabbar.feed" = "Лента";
+
+"error.close" = "Закрыть";
+"error.emptyLogin" = "Логин не может быть пустым";
+"error.email" = "Неверный email";
+"error.password" = "Пароль не может быть меньше 6 символов";
