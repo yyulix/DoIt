@@ -107,3 +107,15 @@
 
 "tabbar.tasks" = "Задачи";
 "tabbar.feed" = "Лента";
+
+"error.close" = "Закрыть";
+"error.emptyLogin" = "Логин не может быть пустым";
+"error.email" = "Неверный email";
+"error.password" = "Пароль не может быть меньше 6 символов";
+
+"error.image" = "Изображение не было загружено";
+"error.database" = "Ошибка обращения к базе данных";
+
+"error.color" = "Цвет не выбран";
+"error.taskName" = "Название не задано";
+"error.chapter" = "Раздел не выбран";

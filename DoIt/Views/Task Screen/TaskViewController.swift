@@ -78,42 +78,44 @@ class TaskViewController: UIViewController {
     }()
     
     private var timer: Timer?
-    private let currentDate = Date()
-    
-    private var deadlineDate: Date? = {
-        var future = DateComponents(
-            year: 2021,
-            month: 12,
-            day: 8,
-            hour: 10,
-            minute: 20,
-            second: 30
-        )
-        guard let deadlineDate = Calendar.current.date(from: future) else { return nil }
-        return deadlineDate
-    }()
     
     private var countdown: DateComponents? {
-        guard let deadlineDate = deadlineDate else { return nil }
+        guard let deadlineDate = viewModel.taskModel.value?.deadline else { return nil }
         return Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date(), to: deadlineDate)
     }
-    var taskModel: Task?
+    
+    var viewModel: TaskViewModel = TaskViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         configureView()
         runCountdown()
+        
+        viewModel.taskModel.bind { _ in
+            DispatchQueue.main.async { [weak self] in
+                self?.configure()
+            }
+        }
     }
     
     private func configure() {
-        guard let taskModel = taskModel else { return }
-        taskImage.image = taskModel.image ?? .TaskIcons.defaultImage
+        guard let taskModel = viewModel.taskModel.value else { return }
+        taskImage.image = .TaskIcons.defaultImage
         taskDescription.text = taskModel.description
         taskChapter.text = TaskCategory(index: taskModel.chapterId).chapter.title
         configureNavigationBar(title: taskModel.title, isDone: taskModel.isDone)
         horizontalStack.isHidden = !taskModel.isMyTask
-        deadlineDate = taskModel.deadline
         timerLabel.text = taskModel.deadline == nil ? TaskScreen.noDeadline.rawValue.localized : nil
+        if taskModel.isDone {
+            timer?.invalidate()
+        }
+        viewModel.downloadImage(taskModel.image) { [weak self] image in
+            guard let image = image else {
+                return
+            }
+            self?.taskImage.image = image
+        }
     }
     
     private func configureView() {
@@ -123,7 +125,7 @@ class TaskViewController: UIViewController {
         layoutImageView()
         layoutStackViews()
         
-        configure()
+        configureNavigationBar(title: nil, isDone: nil)
     }
     
     private func layoutScrollView() {
@@ -216,7 +218,9 @@ class TaskViewController: UIViewController {
 
 extension TaskViewController {
     @objc private func deleteButtonPressed(){
-        
+        viewModel.removeTask(completion: { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
+        })
     }
     
     @objc private func doneButtonPressed(){
@@ -224,17 +228,18 @@ extension TaskViewController {
         configureNavigationBar(title: nil, isDone: true)
         timerLabel.text = "00:00:00:00"
         timerLabel.textColor = .AppColors.doneColor
+        viewModel.setTaskDone()
     }
 
     @objc private func editButtonPressed(){
         let taskEditController = TaskEditViewController()
-        taskEditController.taskModel = taskModel
+        taskEditController.viewModel.taskModel = viewModel.taskModel
         present(taskEditController, animated: true, completion: nil)
     }
     
     @objc private func updateTime() {
         guard let days = countdown?.day, let hours = countdown?.hour, let minutes = countdown?.minute, let seconds = countdown?.second else { return }
-        guard let deadlineDate = deadlineDate, deadlineDate >= currentDate, days >= 0 && hours >= 0 && minutes >= 0 && seconds >= 0 else {
+        guard let deadlineDate = viewModel.taskModel.value?.deadline, deadlineDate >= Date(), days >= 0 && hours >= 0 && minutes >= 0 && seconds >= 0 else {
             timer?.invalidate()
             timerLabel.text = "00:00:00:00"
             timerLabel.textColor = .red

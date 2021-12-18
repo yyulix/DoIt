@@ -61,18 +61,35 @@ final class SearchUsersController: UIViewController {
         return label
     }()
     
-    var userModel: UserModel?
-    
-    private var userModels: [UserModel] = []
+    var viewModel: SearchUsersViewModel = SearchUsersViewModel()
 
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: .personWasFollowedInProfile, object: nil)
+        
+        viewModel.userModel.bind { [weak self] _ in
+            self?.viewModel.getAllUsers()
+        }
+        
+        viewModel.userModels.bind { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        }
+        
+        viewModel.filteredUsersModel.bind { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.tableView.reloadSections(IndexSet(integer: 0), with: .fade)
+            }
+        }
+        
+        viewModel.getCurrentUser()
+        
         configureUI()
     }
-
+    
     // MARK: - Helpers
     
     private func configureUI() {
@@ -119,6 +136,11 @@ final class SearchUsersController: UIViewController {
             self.navigationController?.navigationBar.tintColor = .AppColors.navigationTextColor
         }, completion: completion)
     }
+    
+    @objc private func reload() {
+        viewModel.updateFollowing()
+        tableView.reloadData()
+    }
 }
 
 extension SearchUsersController: UITableViewDelegate {
@@ -128,21 +150,42 @@ extension SearchUsersController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let profileViewController = ProfileViewController()
-        profileViewController.userModel = userModels[indexPath.row]
+        profileViewController.viewModel.userModel.value = viewModel.filteredUsersModel.value?[indexPath.row] ?? viewModel.userModels.value?[indexPath.row]
         navigationController?.pushViewController(profileViewController, animated: true)
     }
 }
 
 extension SearchUsersController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userModels.count
+        if let filteredUsersModel = viewModel.filteredUsersModel.value {
+            return filteredUsersModel.count
+        }
+        return viewModel.userModels.value?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SearchUsersCell.self), for: indexPath) as? SearchUsersCell else {
             return .init()
         }
-        cell.configureCell(with: userModels[indexPath.row])
+        cell.delegate = self
+        cell.indexPathRow = indexPath.row
+        guard viewModel.filteredUsersModel.value == nil else {
+            cell.configureCell(with: viewModel.filteredUsersModel.value![indexPath.row])
+            viewModel.downloadImage(viewModel.filteredUsersModel.value![indexPath.row].image) { [weak self] image in
+                if let oldCell = self?.tableView.cellForRow(at: indexPath) as? SearchUsersCell {
+                    oldCell.configureImage(image: image)
+                }
+            }
+            return cell
+        }
+        if let userModels = viewModel.userModels.value {
+            cell.configureCell(with: userModels[indexPath.row])
+            viewModel.downloadImage(userModels[indexPath.row].image) { [weak self] image in
+                if let oldCell = self?.tableView.cellForRow(at: indexPath) as? SearchUsersCell {
+                    oldCell.configureImage(image: image)
+                }
+            }
+        }
         return cell
     }
 }
@@ -150,12 +193,55 @@ extension SearchUsersController: UITableViewDataSource {
 // MARK: - Actions
 
 extension SearchUsersController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard !searchText.isEmpty else { viewModel.stopFiltering(); return }
+        viewModel.filtering(username: searchText)
+    }
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         searchBar.text = nil
         searchBar.endEditing(true)
         
         removeSearchBarView()
+    }
+}
+
+extension SearchUsersController: SearchUsersCellDelegate {
+    func didTapFollowButton(_ indexPath: Int?, completion: @escaping () -> ()) {
+        guard let indexPath = indexPath else { return }
+        var userModel: UserModel?
+        if let user = viewModel.filteredUsersModel.value?[indexPath] { userModel = user }
+        if let user = viewModel.userModels.value?[indexPath] { userModel = user }
+        guard let userModel = userModel else { return }
+        guard let isFollowed = userModel.isFollowed else { return }
+        isFollowed ? unfollowUser(userModel, completion: completion) : followUser(userModel, completion: completion)
+    }
+    
+    private func followUser(_ user: UserModel, completion: @escaping () -> ()) {
+        viewModel.followUser(user) { done in
+            guard done else {
+                
+                return
+            }
+            DispatchQueue.main.async {
+                completion()
+                NotificationCenter.default.post(name: .personWasFollowed, object: nil)
+            }
+        }
+    }
+    
+    private func unfollowUser(_ user: UserModel, completion: @escaping () -> ()) {
+        viewModel.unfollowUser(user) { done in
+            guard done else {
+                
+                return
+            }
+            DispatchQueue.main.async {
+                completion()
+                NotificationCenter.default.post(name: .personWasFollowed, object: nil)
+            }
+        }
     }
 }
 

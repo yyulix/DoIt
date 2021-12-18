@@ -77,15 +77,27 @@ class FeedCollectionViewCell: UICollectionViewCell {
     
     //MARK: - Public Methods
     func configureCell(taskInfo: Task, userInfo: UserModel) {
-        taskImage.image = taskInfo.image ?? UIImage.TaskIcons.defaultImage
+        taskImage.image = .TaskIcons.defaultImage
+        
         taskLabel.text = taskInfo.title
-        creatorLabel.text = "@" + userInfo.login
-        guard let image = userInfo.image else {
-            creatorImage.layoutIfNeeded()
-            creatorImage.setImageForName(userInfo.name ?? userInfo.login, circular: false, textAttributes: nil)
+        creatorLabel.text = "@" + userInfo.username
+        
+        creatorImage.layoutIfNeeded()
+        creatorImage.setImageForName(userInfo.name ?? userInfo.username, circular: false, textAttributes: nil)
+    }
+    
+    func configureImage(taskImage: UIImage?) {
+        guard let taskImage = taskImage else {
             return
         }
-        creatorImage.image = image
+        self.taskImage.image = taskImage
+    }
+    
+    func configureImage(userImage: UIImage?) {
+        guard let userImage = userImage else {
+            return
+        }
+        creatorImage.image = userImage
     }
     
     private func configureUI() {
@@ -93,6 +105,7 @@ class FeedCollectionViewCell: UICollectionViewCell {
         layer.cornerRadius = UIConstants.cornerRadius
         backgroundColor = .systemBackground
         contentView.isUserInteractionEnabled = false
+        backgroundColor = .AppColors.feedBackgroundColor
         
         configureTaskImage()
         configureTaskLabel()

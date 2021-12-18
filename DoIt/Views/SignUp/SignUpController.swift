@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PopupDialog
 
 class SignUpController: UIViewController {
 
@@ -32,8 +33,28 @@ class SignUpController: UIViewController {
         return button
     }()
 
+    private let viewModel = AuthViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.authResultModel.bind { [weak self] authResult in
+            switch authResult {
+            case .success:
+                Logger.log("SignUp successed")
+                self?.presentOnboarding()
+            case .failure(let error):
+                Logger.log("SignUp was failured: ", error.localizedDescription)
+                lazy var popup : PopupDialog = {
+                    let pop = PopupDialog(title: nil, message: error.localizedDescription)
+                    let button = CancelButton(title: ErrorStrings.close.rawValue.localized, action: nil)
+                    pop.addButton(button)
+                    return pop
+                }()
+                self?.present(popup, animated: true, completion: nil)
+            case .none:
+                return
+            }
+        }
         configureView()
     }
 
@@ -57,11 +78,24 @@ class SignUpController: UIViewController {
         stack.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
     }
     
-    @objc private func registerButtonPressed(_ sender: UIButton) {
+    private func presentOnboarding() {
         let onboardingViewController = OnboardingViewController()
         onboardingViewController.modalPresentationStyle = .fullScreen
         present(onboardingViewController, animated: true)
-        
+    }
+    
+    @objc private func registerButtonPressed(_ sender: UIButton) {
+        self.viewModel.signUp(email: envelopeInputView.textField.text,
+                              username: usernameInputView.textField.text,
+                              password: passwordInputView.textField.text) { error in
+            lazy var popup : PopupDialog = {
+                let pop = PopupDialog(title: nil, message: error)
+                let button = CancelButton(title: ErrorStrings.close.rawValue.localized, action: nil)
+                pop.addButton(button)
+                return pop
+            }()
+            present(popup, animated: true, completion: nil)
+        }
     }
     
     @objc private func signInButtonPressed(_ sender: UIButton) {

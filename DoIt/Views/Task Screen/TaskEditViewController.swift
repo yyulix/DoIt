@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import PopupDialog
 
 class TaskEditViewController: UIViewController {
     
@@ -138,7 +140,10 @@ class TaskEditViewController: UIViewController {
         (.TaskColors.brown, TaskScreen.brownColor.rawValue.localized)
     ]
     
-    var taskModel: Task?
+    private var imageWasSet: Bool = false
+    private var selectedDeadline: Date?
+    
+    var viewModel: TaskViewModel = TaskViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -146,15 +151,21 @@ class TaskEditViewController: UIViewController {
         let tap = UITapGestureRecognizer(target: keyboardManager, action: #selector(keyboardManager.dismissKeyboard(_:)))
         view.addGestureRecognizer(tap)
         configureView()
+        configureTask()
     }
     
     private func configureTask() {
-        guard let taskModel = taskModel else { return }
+        guard let taskModel = viewModel.taskModel.value else { return }
         taskImageViewContainter.isHidden = taskModel.image == nil
         taskLabel.textField.text = taskModel.title
         taskChapter.text = TaskCategory(index: taskModel.chapterId).chapter.title
         taskDescription.text = taskModel.description
-        taskImage.image = taskModel.image
+        viewModel.downloadImage(taskModel.image) { [weak self] image in
+            guard let image = image else {
+                return
+            }
+            self?.taskImage.image = image
+        }
         guard let deadline = taskModel.deadline else { return }
         timerLabel.text = dateFormatter.string(from: deadline)
     }
@@ -263,6 +274,7 @@ extension TaskEditViewController: UIImagePickerControllerDelegate {
             imagePicker.dismiss(animated: true, completion: nil);
             return
         }
+        imageWasSet = true
         taskImage.image = image
         taskImageViewContainter.isHidden = false
         imagePicker.dismiss(animated: true, completion: nil)
@@ -336,12 +348,55 @@ extension TaskEditViewController: UITextViewDelegate {
 // MARK: - Actions
 
 extension TaskEditViewController {
+    private func showPopUp(error: String) {
+        let pop = PopupDialog(title: nil, message: error)
+        let button = CancelButton(title: ErrorStrings.close.rawValue.localized, action: nil)
+        pop.addButton(button)
+        present(pop, animated: true, completion: nil)
+    }
     @objc private func returnButtonPressed() {
         dismiss(animated: true)
     }
 
     @objc private func saveButtonPressed() {
-        
+        guard let uid = Auth.auth().currentUser?.uid else {
+            Logger.log("Пользователь не авторизован")
+            return
+        }
+        let image = imageWasSet ? taskImage.image : nil
+        guard let color = colors.first(where: { $0.stringColor == taskColor.text })?.color else {
+            Logger.log("Цвет не выбран")
+            showPopUp(error: ErrorStrings.color.rawValue.localized)
+            return
+        }
+        guard let chapterIndex = chapters.firstIndex(where: { $0.chapter.title == taskChapter.text }) else {
+            Logger.log("Раздел не выбран")
+            showPopUp(error: ErrorStrings.chapter.rawValue.localized)
+            return
+        }
+        guard viewModel.taskModel.value != nil else {
+            viewModel.updateTask(chapter: chapterIndex,
+                                 image: image,
+                                 title: taskLabel.textField.text ?? "",
+                                 description: taskDescription.textView.text,
+                                 deadline: selectedDeadline,
+                                 uid: uid,
+                                 color: color,
+                                 complition: { [weak self] in self?.dismiss(animated: true) },
+                                 complitionError: { [weak self] in self?.showPopUp(error: $0) })
+            return
+        }
+        viewModel.updateTask(newTask: false,
+                             id: viewModel.taskModel.value!.taskId,
+                             chapter: chapterIndex,
+                             image: image,
+                             title: taskLabel.textField.text ?? "",
+                             description: taskDescription.textView.text,
+                             deadline: selectedDeadline,
+                             uid: uid,
+                             color: color,
+                             complition: { [weak self] in self?.dismiss(animated: true) },
+                             complitionError: { [weak self] in self?.showPopUp(error: $0) })
     }
     
     @objc private func imageSetButtonPressed() {
@@ -355,6 +410,7 @@ extension TaskEditViewController {
     
     @objc private func datePickerDoneButtonPressed() {
         timerLabel.text = dateFormatter.string(from: datePicker.date)
+        selectedDeadline = datePicker.date
         view.endEditing(true)
     }
     
